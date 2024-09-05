@@ -8,7 +8,7 @@ const capacityChart = new Chart(ctx, {
             label: 'Septic Tank Capacity',
             data: [0, 100],  // Initial data
             backgroundColor: ['#ff6384', '#36a2eb'],
-            borderWidth: 1
+            borderWidth: 1 // testing
         }]
     },
     options: {
