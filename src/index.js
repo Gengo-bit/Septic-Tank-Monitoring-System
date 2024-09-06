@@ -129,7 +129,7 @@ onChildAdded(septicDataRef, (snapshot) => {
 let capacityHistory = [];
 
 // Function to estimate when the tank will be full
-function predictFullTank() {
+function predictFullTank(capacityHistory) {
   if (capacityHistory.length < 2) {
     return "Not enough data for prediction.";
   }
