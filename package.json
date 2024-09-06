@@ -4,16 +4,19 @@
   "description": "",
   "main": "chart.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve",     
+    "build": "webpack"       
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chart.js": "^4.4.4",
     "firebase": "^10.13.1"
   },
   "devDependencies": {
     "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   }
 }

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, push, onChildAdded } from "firebase/database";
+import { getDatabase, ref, onChildAdded } from "firebase/database";
 import Chart from "chart.js/auto";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// Chart.js setup for the capacity chart
+// Initialize Chart.js for the capacity chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
 const capacityChart = new Chart(ctx, {
   type: 'doughnut',
@@ -43,7 +43,15 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Chart.js setup for the historical chart
+// Function to update the capacity in the chart and webpage text
+function updateCapacity(capacity) {
+  const available = 100 - capacity;
+  capacityChart.data.datasets[0].data = [capacity, available];
+  capacityChart.update();
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+}
+
+// Initialize Chart.js for the historical chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
@@ -62,14 +70,6 @@ const historicalChart = new Chart(historicalCtx, {
   }
 });
 
-// Function to update the capacity chart and webpage text
-function updateCapacity(capacity) {
-  const available = 100 - capacity;
-  capacityChart.data.datasets[0].data = [capacity, available];
-  capacityChart.update();
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
-}
-
 // Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
   historicalChart.data.labels.push(timestamp);
@@ -77,13 +77,16 @@ function updateHistoricalChart(capacity, timestamp) {
   historicalChart.update();
 }
 
-// Real-time listener for updates from Firebase
-onChildAdded(ref(database, 'septicTankData'), (snapshot) => {
-  const data = snapshot.val();
-  const capacity = data.capacity;
-  const timestamp = new Date(data.timestamp).toLocaleTimeString();
+// Set up real-time listener from Firebase Realtime Database
+const septicDataRef = ref(database, 'septicTankData');
 
-  // Update both charts and display the capacity
+// Listening for real-time data updates
+onChildAdded(septicDataRef, (snapshot) => {
+  const data = snapshot.val();
+  const capacity = data.capacity;  // Get capacity percentage from Firebase
+  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+
+  // Update both the capacity chart and historical chart
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
 });

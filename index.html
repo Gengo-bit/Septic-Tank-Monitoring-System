@@ -7,18 +7,16 @@
     <link rel="stylesheet" href="style.css">
     <!-- Include Chart.js via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="dist/bundle.js"></script>
-    <script src="src/index.js"></script>
 </head>
 <body>
     <header>
         <h1>Septic Tank Monitoring System</h1>
-        <p>By: Dopazo</p>
+        <p>By: Gengo-bit</p>
     </header>
 
     <section>
         <h2>Status of the Septic Tank</h2>
-        <p>Current capacity: <span id="capacity">25%</span></p>
+        <p>Current capacity: <span id="capacity">0%</span></p>
         <canvas id="capacityChart" width="400" height="200"></canvas>
     </section>
 
@@ -30,5 +28,8 @@
     <footer>
         <p>Septic Tank Monitoring System - A Thesis Project</p>
     </footer>
+
+    <!-- Include the bundled JavaScript -->
+    <script src="dist/bundle.js"></script>
 </body>
 </html>
