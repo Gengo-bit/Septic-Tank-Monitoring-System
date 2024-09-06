@@ -32,7 +32,7 @@ const capacityChart = new Chart(ctx, {
     labels: ['Used', 'Available'],
     datasets: [{
       label: 'Septic Tank Capacity',
-      data: [0, 100],  // Initial values
+      data: [0, 100],  // Initial values: 0% used, 100% available
       backgroundColor: ['#ff6384', '#36a2eb'],
       borderWidth: 1
     }]
@@ -40,7 +40,7 @@ const capacityChart = new Chart(ctx, {
   options: {
     responsive: true,  // Make the chart responsive
     maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
-    aspectRatio: 2, // Set a custom aspect ratio (wider)
+    aspectRatio: 3,  // Set a custom aspect ratio (wider and less tall)
     plugins: {
       legend: {
         position: 'bottom'
@@ -73,7 +73,7 @@ const historicalChart = new Chart(historicalCtx, {
   options: {
     responsive: true,  // Make the chart responsive
     maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
-    aspectRatio: 2, // Set a custom aspect ratio (wider)
+    aspectRatio: 3,  // Set a custom aspect ratio (wider and less tall)
     plugins: {
       legend: {
         position: 'bottom'
