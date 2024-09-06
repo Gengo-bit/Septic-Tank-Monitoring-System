@@ -3,11 +3,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, onChildAdded } from "firebase/database";
 import Chart from "chart.js/auto";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
   authDomain: "septic-tank-capacity.firebaseapp.com",
@@ -24,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// Initialize Chart.js for the capacity chart
+// Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
 const capacityChart = new Chart(ctx, {
   type: 'doughnut',
@@ -38,9 +34,9 @@ const capacityChart = new Chart(ctx, {
     }]
   },
   options: {
-    responsive: true,  // Make the chart responsive
-    maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
-    aspectRatio: 3,  // Make the chart wider and less tall
+    responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 2.5,  // Adjust aspect ratio for better fit
     plugins: {
       legend: {
         position: 'bottom'
@@ -49,23 +45,23 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Function to update the capacity and apply thresholds
+// Update the capacity based on Firebase data
 function updateCapacity(capacity) {
   let status;
   let color;
-  
+
   if (capacity < 75) {
     status = 'Normal';
-    color = '#36a2eb';
+    color = '#36a2eb';  // Blue for "Normal"
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    color = '#ffce56';
+    color = '#ffce56';  // Yellow for "Above Normal"
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    color = '#ffa500';
+    color = '#ffa500';  // Orange for "Critical"
   } else {
     status = 'Full';
-    color = '#ff6384';
+    color = '#ff6384';  // Red for "Full"
   }
 
   document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
@@ -74,7 +70,7 @@ function updateCapacity(capacity) {
   capacityChart.update();
 }
 
-// Initialize Chart.js for the historical chart
+// Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
@@ -88,8 +84,8 @@ const historicalChart = new Chart(historicalCtx, {
     }]
   },
   options: {
-    responsive: true,  // Make the chart responsive
-    maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
+    responsive: true,
+    maintainAspectRatio: true,
     aspectRatio: 3,  // Make the chart wider and less tall
     plugins: {
       legend: {
@@ -99,54 +95,46 @@ const historicalChart = new Chart(historicalCtx, {
   }
 });
 
-// Function to update the historical chart
+// Update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
   historicalChart.data.labels.push(new Date(timestamp * 1000).toLocaleTimeString());
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
 
-// Function to estimate when the tank will be full
+// Predict when the tank will be full
 function predictFullTank(capacityHistory) {
   if (capacityHistory.length < 2) {
-     console.error("Not enough data points for prediction");
-     return "Not enough data for prediction.";
+    console.error("Not enough data points for prediction");
+    return "Not enough data for prediction.";
   }
 
   const [capacity1, time1] = capacityHistory[capacityHistory.length - 2];
   const [capacity2, time2] = capacityHistory[capacityHistory.length - 1];
 
-  console.log("First Data Point:", capacity1, time1);
-  console.log("Second Data Point:", capacity2, time2);
-
   const fillRate = (capacity2 - capacity1) / (time2 - time1);
-  console.log("Fill rate:", fillRate);
 
   if (fillRate <= 0) return "Tank is not filling up.";
 
   const remainingCapacity = 100 - capacity2;
-  const timeUntilFull = remainingCapacity / fillRate; // Time in seconds
+  const timeUntilFull = remainingCapacity / fillRate;  // Time in seconds
   const predictedDate = new Date(Date.now() + timeUntilFull * 1000);
 
-  console.log("Predicted full tank time:", predictedDate);
   return `Estimated full tank time: ${predictedDate.toLocaleString()}`;
 }
 
-
-// Fetch data from Firebase and update capacity and prediction
+// Fetch and update data from Firebase
 const septicDataRef = ref(database, 'septicTankData');
 const capacityHistory = [];
 
-// Listening for real-time data updates
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;
-  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();  // Example timestamp format
+  const timestamp = data.timestamp;
 
-   // Add the new data to the capacity history
-   capacityHistory.push([capacity, data.timestamp]);
+  capacityHistory.push([capacity, timestamp]);
 
- // Update the charts and prediction
+  // Update the charts and prediction
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
   document.getElementById("prediction").textContent = predictFullTank(capacityHistory);
