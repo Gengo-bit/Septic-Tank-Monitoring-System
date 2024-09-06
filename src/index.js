@@ -78,7 +78,6 @@ function updateCapacity(capacity) {
   document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
 }
 
-
 // Initialize Chart.js for the historical chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
@@ -147,10 +146,10 @@ onChildAdded(septicDataRef, (snapshot) => {
   const capacity = data.capacity;
   const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();  // Example timestamp format
 
-  // Add the new data to the capacity history
-  capacityHistory.push([capacity, data.timestamp]);
+   // Add the new data to the capacity history
+   capacityHistory.push([capacity, data.timestamp]);
 
-  // Update the charts and prediction
+ // Update the charts and prediction
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
   document.getElementById("prediction").textContent = predictFullTank(capacityHistory);
