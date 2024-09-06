@@ -49,12 +49,32 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Function to update the capacity in the chart and webpage text
+// Function to update the capacity and apply thresholds
 function updateCapacity(capacity) {
-  const available = 100 - capacity;
-  capacityChart.data.datasets[0].data = [capacity, available];
+  let color;
+  let status;
+
+  if (capacity < 75) {
+    color = '#36a2eb';  // Blue for Normal
+    status = 'Normal';
+  } else if (capacity >= 75 && capacity <= 85) {
+    color = '#ffce56';  // Yellow for AboveNormal
+    status = 'Above Normal';
+  } else if (capacity >= 86 && capacity <= 95) {
+    color = '#ffa500';  // Orange for Critical
+    status = 'Critical';
+  } else {
+    color = '#ff6384';  // Red for Full
+    status = 'Full';
+  }
+
+  // Update the doughnut chart color based on the current capacity
+  capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
+  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+
+  // Update the webpage with the current capacity and status
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
 }
 
 // Initialize Chart.js for the historical chart
@@ -102,3 +122,35 @@ onChildAdded(septicDataRef, (snapshot) => {
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
 });
+// Function to estimate when the tank will be full
+function predictFullTank(capacityHistory) {
+  if (capacityHistory.length < 2) {
+    return "Not enough data for prediction.";
+  }
+
+  const recentData = capacityHistory.slice(-2); // Use the last two data points
+  const [capacity1, time1] = recentData[0];
+  const [capacity2, time2] = recentData[1];
+
+  // Calculate the fill rate (percent per second)
+  const fillRate = (capacity2 - capacity1) / (time2 - time1);
+  
+  if (fillRate <= 0) {
+    return "Tank is not filling up.";
+  }
+
+  // Estimate the time until the tank reaches 100%
+  const remainingCapacity = 100 - capacity2;
+  const timeUntilFull = remainingCapacity / fillRate;  // Time in seconds
+
+  // Convert to a human-readable date/time format
+  const predictedDate = new Date(Date.now() + timeUntilFull * 1000);
+  return `Estimated full tank time: ${predictedDate.toLocaleString()}`;
+}
+
+// Assuming you fetch historical data from Firebase like this:
+const capacityHistory = [];  // This should be populated with (capacity, timestamp) from Firebase
+
+// Call the prediction function with real data
+document.getElementById("prediction").textContent = predictFullTank(capacityHistory);
+
