@@ -33,14 +33,14 @@ const capacityChart = new Chart(ctx, {
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#ff6384', '#36a2eb'],
+      backgroundColor: ['#36a2eb', '#d3d3d3'],  // Initial color for "Normal"
       borderWidth: 1
     }]
   },
   options: {
     responsive: true,  // Make the chart responsive
     maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
-    aspectRatio: 3,  // Set a custom aspect ratio (wider and less tall)
+    aspectRatio: 2,  // Set a custom aspect ratio (wider and less tall)
     plugins: {
       legend: {
         position: 'bottom'
@@ -78,7 +78,6 @@ function updateCapacity(capacity) {
   document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
 }
 
-
 // Initialize Chart.js for the historical chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
@@ -111,23 +110,6 @@ function updateHistoricalChart(capacity, timestamp) {
   historicalChart.update();
 }
 
-// Set up real-time listener from Firebase Realtime Database
-const septicDataRef = ref(database, 'septicTankData');
-
-// Listening for real-time data updates
-onChildAdded(septicDataRef, (snapshot) => {
-  const data = snapshot.val();
-  const capacity = data.capacity;  // Get capacity percentage from Firebase
-  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
-
-  // Update both the capacity chart and historical chart
-  updateCapacity(capacity);
-  updateHistoricalChart(capacity, timestamp);
-});
-
-// Array to store capacity history (this should be populated with data from Firebase)
-let capacityHistory = [];
-
 // Function to estimate when the tank will be full
 function predictFullTank(capacityHistory) {
   if (capacityHistory.length < 2) {
@@ -154,21 +136,21 @@ function predictFullTank(capacityHistory) {
   return `Estimated full tank time: ${predictedDate.toLocaleString()}`;
 }
 
-// Update prediction on the page
-document.getElementById("prediction").textContent = predictFullTank();
+// Fetch data from Firebase and update capacity and prediction
+const septicDataRef = ref(database, 'septicTankData');
+const capacityHistory = [];
 
-// Fetch data from Firebase and update capacity history
+// Listening for real-time data updates
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;
-  const timestamp = data.timestamp;  // Ensure you're storing timestamp data in Firebase
+  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();  // Example timestamp format
 
-  // Add the data to the capacity history array
-  capacityHistory.push([capacity, timestamp]);
+  // Add the new data to the capacity history
+  capacityHistory.push([capacity, data.timestamp]);
 
-  // Update the chart and status
+  // Update the charts and prediction
   updateCapacity(capacity);
-
-  // Calculate and display prediction based on the updated history
-  document.getElementById("prediction").textContent = predictFullTank();
+  updateHistoricalChart(capacity, timestamp);
+  document.getElementById("prediction").textContent = predictFullTank(capacityHistory);
 });

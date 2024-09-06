@@ -1,52 +1,87 @@
-/* style.css */
-
-body {
-  font-family: Arial, sans-serif;
+/* General Reset */
+* {
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  box-sizing: border-box;
 }
 
+/* Body Styling */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header Styling */
 header {
-  background-color: #333;
+  background-color: #3498db;
   color: white;
   text-align: center;
-  padding: 1em;
+  padding: 20px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+header h1 {
   margin: 0;
 }
 
+/* Section Styling */
 section {
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px;
-  max-width: 600px;
+  max-width: 800px;
   background-color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  text-align: center; /* Center content */
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 #status-section {
-  background-color: #e7f4f7; /* Light blue for the status section */
+  border-left: 5px solid #3498db;
 }
 
 #prediction-section {
-  background-color: #fff8e1; /* Light yellow for the prediction section */
+  border-left: 5px solid #e67e22;
 }
 
 #historical-section {
-  background-color: #f9f9f9; /* Light grey for historical data section */
+  border-left: 5px solid #2ecc71;
 }
 
+/* Capacity Text Styling */
+.capacity-text {
+  font-size: 48px;
+  color: #3498db;
+  font-weight: bold;
+}
+
+/* Canvas Styling */
 canvas {
-  max-width: 100%;  /* Make canvas responsive */
-  height: auto;     /* Maintain aspect ratio */
-  max-height: 250px;  /* Set a max height for the charts */
+  max-width: 100%;
+  height: auto;
 }
 
+/* Footer Styling */
 footer {
+  background-color: #3498db;
+  color: white;
   text-align: center;
-  margin: 20px 0;
-  color: #777;
+  padding: 10px;
+  font-size: 14px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Custom Styling for Prediction */
+#prediction {
+  font-size: 18px;
+  color: #e67e22;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff8e1;
 }
