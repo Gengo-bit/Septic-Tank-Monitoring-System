@@ -66,10 +66,10 @@ section {
 
 /* Canvas Styling */
 canvas {
-  max-width: 100%;
-  height: auto;
-  max-height: 180px;  /* Reduce the max-height to make the charts smaller */
+  max-height: 300px; /* Limit the height */
+  margin: 0 auto; /* Center the charts */
 }
+
 
 /* Footer Styling */
 footer {

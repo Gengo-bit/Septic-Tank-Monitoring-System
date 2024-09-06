@@ -109,21 +109,29 @@ function updateHistoricalChart(capacity, timestamp) {
 // Function to estimate when the tank will be full
 function predictFullTank(capacityHistory) {
   if (capacityHistory.length < 2) {
-    return "Not enough data for prediction.";
+     console.error("Not enough data points for prediction");
+     return "Not enough data for prediction.";
   }
 
   const [capacity1, time1] = capacityHistory[capacityHistory.length - 2];
   const [capacity2, time2] = capacityHistory[capacityHistory.length - 1];
 
+  console.log("First Data Point:", capacity1, time1);
+  console.log("Second Data Point:", capacity2, time2);
+
   const fillRate = (capacity2 - capacity1) / (time2 - time1);
+  console.log("Fill rate:", fillRate);
+
   if (fillRate <= 0) return "Tank is not filling up.";
 
   const remainingCapacity = 100 - capacity2;
   const timeUntilFull = remainingCapacity / fillRate; // Time in seconds
   const predictedDate = new Date(Date.now() + timeUntilFull * 1000);
 
+  console.log("Predicted full tank time:", predictedDate);
   return `Estimated full tank time: ${predictedDate.toLocaleString()}`;
 }
+
 
 // Fetch data from Firebase and update capacity and prediction
 const septicDataRef = ref(database, 'septicTankData');
