@@ -40,7 +40,7 @@ const capacityChart = new Chart(ctx, {
   options: {
     responsive: true,  // Make the chart responsive
     maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
-    aspectRatio: 2,  // Set a custom aspect ratio (wider and less tall)
+    aspectRatio: 3,  // Make the chart wider and less tall
     plugins: {
       legend: {
         position: 'bottom'
@@ -78,15 +78,16 @@ function updateCapacity(capacity) {
   document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
 }
 
+
 // Initialize Chart.js for the historical chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],
+    labels: [],  // Timestamps
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [],
+      data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
       fill: false
     }]
@@ -94,7 +95,7 @@ const historicalChart = new Chart(historicalCtx, {
   options: {
     responsive: true,  // Make the chart responsive
     maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
-    aspectRatio: 3,  // Set a custom aspect ratio (wider and less tall)
+    aspectRatio: 3,  // Make the chart wider and less tall
     plugins: {
       legend: {
         position: 'bottom'
