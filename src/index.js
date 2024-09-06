@@ -32,14 +32,20 @@ const capacityChart = new Chart(ctx, {
     labels: ['Used', 'Available'],
     datasets: [{
       label: 'Septic Tank Capacity',
-      data: [0, 100],  // Initial values: 0% used, 100% available
+      data: [0, 100],  // Initial values
       backgroundColor: ['#ff6384', '#36a2eb'],
       borderWidth: 1
     }]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false
+    responsive: true,  // Make the chart responsive
+    maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
+    aspectRatio: 2, // Set a custom aspect ratio (wider)
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
   }
 });
 
@@ -56,17 +62,23 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps
+    labels: [],
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity percentages over time
+      data: [],
       borderColor: '#42a5f5',
       fill: false
     }]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false
+    responsive: true,  // Make the chart responsive
+    maintainAspectRatio: true,  // Ensure the aspect ratio is maintained
+    aspectRatio: 2, // Set a custom aspect ratio (wider)
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
   }
 });
 

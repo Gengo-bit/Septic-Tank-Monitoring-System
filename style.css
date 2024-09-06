@@ -1,3 +1,5 @@
+/* style.css */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -19,9 +21,15 @@ h1 {
 section {
   margin: 20px auto;
   padding: 20px;
-  max-width: 800px;
+  max-width: 600px; /* Set a smaller max-width for the sections */
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center content */
+}
+
+canvas {
+  max-width: 100%;  /* Make canvas responsive */
+  height: auto;     /* Maintain aspect ratio */
 }
 
 footer {
