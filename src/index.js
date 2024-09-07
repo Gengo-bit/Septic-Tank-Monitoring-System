@@ -1,3 +1,4 @@
+// Import necessary Firebase functions and Chart.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, onChildAdded } from "firebase/database";
@@ -64,6 +65,7 @@ function updateCapacity(capacity) {
     color = '#ff6384';  // Red for "Full"
   }
 
+  // Update capacity display and chart
   document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
@@ -95,52 +97,58 @@ const historicalChart = new Chart(historicalCtx, {
   }
 });
 
-// Update the historical chart
+// Update the historical chart with new data
 function updateHistoricalChart(capacity, timestamp) {
   historicalChart.data.labels.push(new Date(timestamp * 1000).toLocaleTimeString());
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
 
-// Predict when the tank will be full
+// Function to predict when the tank will be full
 function predictFullTank(capacityHistory) {
   if (capacityHistory.length < 2) {
-    console.error("Not enough data points for prediction");
-    return "Not enough data for prediction.";
+    return "Not enough data for prediction";
   }
 
-  const [capacity1, time1] = capacityHistory[capacityHistory.length - 2];
-  const [capacity2, time2] = capacityHistory[capacityHistory.length - 1];
+  const lastEntry = capacityHistory[capacityHistory.length - 1];
+  const secondLastEntry = capacityHistory[capacityHistory.length - 2];
 
-  const fillRate = (capacity2 - capacity1) / (time2 - time1);
+  const timeDiff = (lastEntry[1] - secondLastEntry[1]) / 3600; // Time difference in hours
+  const capacityDiff = lastEntry[0] - secondLastEntry[0]; // Capacity difference
 
-  if (fillRate <= 0) return "Tank is not filling up.";
+  if (capacityDiff <= 0) {
+    return "Capacity not increasing";
+  }
 
-  const remainingCapacity = 100 - capacity2;
-  const timeUntilFull = remainingCapacity / fillRate;  // Time in seconds
-  const predictedDate = new Date(Date.now() + timeUntilFull * 1000);
+  const remainingCapacity = 100 - lastEntry[0]; // Remaining capacity
+  const estimatedTime = (remainingCapacity / capacityDiff) * timeDiff; // Time until full in hours
 
-  return `Estimated full tank time: ${predictedDate.toLocaleString()}`;
+  if (estimatedTime > 0) {
+    const days = Math.floor(estimatedTime / 24);
+    const hours = Math.floor(estimatedTime % 24);
+    return `Estimated Time Until Full: ${days} days, ${hours} hours`;
+  }
+
+  return "Not enough data for prediction";
 }
+
+// Track capacity history for prediction
+const capacityHistory = [];
 
 // Fetch and update data from Firebase
 const septicDataRef = ref(database, 'septicTankData');
-const capacityHistory = [];
 
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
+  console.log("Snapshot: ", snapshot.val());
   const capacity = data.capacity;
-  const timestamp = data.timestamp;  // No conversion needed, as it's a Unix timestamp
+  const timestamp = data.timestamp / 1000;  // Convert timestamp to seconds if necessary
 
-  console.log("New Data Received: ", data);
   console.log("Capacity: ", capacity);
   console.log("Timestamp: ", timestamp);
 
-  // Add the new data to the capacity history
-  capacityHistory.push([capacity, data.timestamp]);
-
-  // Debugging capacity history
-  console.log("Capacity History: ", capacityHistory);
+  // Add the new data to the capacity history for prediction
+  capacityHistory.push([capacity, timestamp]);
 
   // Update the charts and prediction
   updateCapacity(capacity);
@@ -151,3 +159,7 @@ onChildAdded(septicDataRef, (snapshot) => {
   console.log("Prediction: ", predictionText);
 });
 
+// Test the prediction UI update (this can be removed after testing)
+window.onload = function() {
+  document.getElementById("prediction").textContent = "Loading prediction...";
+};
