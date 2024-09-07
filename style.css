@@ -8,8 +8,8 @@
 /* Body Styling */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: color(0,0,0);
-  color: #3498db;
+  background-color: #f4f4f4;  /* Changed background color to light grey for better contrast */
+  color: #2c3e50;  /* Darkened the font color for better readability */
   line-height: 1.6;
 }
 
@@ -51,12 +51,6 @@ section {
   padding-left: 15px; /* Optional: Add some padding to avoid text touching the border */
 }
 
-/* Current Capacity Section */
-#capacity-section {
-  border-left: 4px solid #3498db; /* Add border for the capacity section */
-  padding-left: 15px; /* Optional: Add padding */
-}
-
 /* Prediction Section */
 #prediction-section {
   border-left: 4px solid #e67e22; /* Orange border for prediction section */
@@ -69,10 +63,20 @@ section {
   padding-left: 15px; /* Optional: Add padding */
 }
 
+/* Section Title Styling */
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
 
 /* Capacity Text Styling */
 .capacity-text {
-  font-size: 36px;  /* Make this smaller for better readability */
+  font-size: 36px;
   color: #3498db;
   font-weight: bold;
 }
@@ -82,7 +86,6 @@ canvas {
   max-height: 300px; /* Limit the height */
   margin: 0 auto; /* Center the charts */
 }
-
 
 /* Footer Styling */
 footer {
@@ -107,7 +110,7 @@ footer {
   margin-bottom: 10px;
 }
 
-/* Status*/
+/* Status Text Styling */
 .status-text {
   font-size: 1.5em;
   font-weight: bold;
