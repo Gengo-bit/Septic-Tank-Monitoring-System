@@ -11,20 +11,18 @@ body {
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.6;
+  padding-bottom: 80px; /* Ensure there's space for the footer */
 }
 
 /* Header Styling */
 header {
   background-color: #3498db;
   color: white;
-  padding: 20px 0;
+  padding: 15px 0;  /* Smaller header */
   font-family: 'Montserrat', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
+  position: relative;
 }
 
 .header-container {
@@ -35,12 +33,6 @@ header {
 
 header h1 {
   margin: 0;
-}
-
-/* Main content padding to prevent overlapping with the header */
-main {
-  padding-top: 100px; /* Adjust this to fit the header size */
-  padding-bottom: 60px; /* Padding to prevent overlap with the footer */
 }
 
 /* Section Styling */
@@ -66,11 +58,12 @@ h2 {
   padding-left: 15px;
 }
 
+/* Status Text */
 .status-text {
   font-size: 1.5em;
   font-weight: bold;
   color: #333;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 
 /* Prediction Section */
@@ -95,7 +88,7 @@ h2 {
 /* Canvas Styling */
 canvas {
   max-height: 300px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 /* Footer Styling */
@@ -106,10 +99,9 @@ footer {
   justify-content: space-between;
   padding: 10px 20px;
   font-size: 14px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .footer-left a {

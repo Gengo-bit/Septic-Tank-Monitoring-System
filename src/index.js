@@ -70,14 +70,13 @@ function updateCapacity(capacity) {
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
     color = '#ffa500';  // Orange for "Critical"
-  } else {
+  } else if (capacity > 95) {
     status = 'Full';
     color = '#ff6384';  // Red for "Full"
   }
 
-  // Update capacity display and chart
+  document.getElementById("status").textContent = `Status: ${status}`;
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
-  document.getElementById("status").textContent = `Status: ${status}`;  // Update status separately
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
