@@ -130,12 +130,24 @@ const capacityHistory = [];
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;
-  const timestamp = data.timestamp;
+  const timestamp = data.timestamp;  // No conversion needed, as it's a Unix timestamp
 
-  capacityHistory.push([capacity, timestamp]);
+  console.log("New Data Received: ", data);
+  console.log("Capacity: ", capacity);
+  console.log("Timestamp: ", timestamp);
+
+  // Add the new data to the capacity history
+  capacityHistory.push([capacity, data.timestamp]);
+
+  // Debugging capacity history
+  console.log("Capacity History: ", capacityHistory);
 
   // Update the charts and prediction
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
-  document.getElementById("prediction").textContent = predictFullTank(capacityHistory);
+  const predictionText = predictFullTank(capacityHistory);
+  document.getElementById("prediction").textContent = predictionText;
+
+  console.log("Prediction: ", predictionText);
 });
+
