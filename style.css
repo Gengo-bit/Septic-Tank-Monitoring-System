@@ -9,7 +9,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   background-color: color(0,0,0);
-  color: #dda2de;
+  color: #76bdda;
   line-height: 1.6;
 }
 
@@ -21,7 +21,7 @@ header {
   padding: 20px 0;
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(165, 146, 146, 0.1);
 }
 
 header h1 {
@@ -46,7 +46,7 @@ section {
 }
 
 #status-section {
-  border-left: 4px solid #0a1f2c;
+  border-left: 4px solid #dfcf76;
 }
 
 #prediction-section {
