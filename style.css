@@ -8,9 +8,10 @@
 /* Body Styling */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f4f4;  /* Changed background color to light grey for better contrast */
-  color: #2c3e50;  /* Darkened the font color for better readability */
+  background-color: #f4f4f4;
+  color: #333;
   line-height: 1.6;
+  padding: 20px;
 }
 
 /* Header Styling */
@@ -21,17 +22,36 @@ header {
   padding: 20px 0;
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
-  box-shadow: 0 4px 8px rgba(165, 146, 146, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
   margin: 0;
 }
 
+/* Navigation */
+nav {
+  background-color: #2980b9;
+  padding: 10px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
 /* Section Styling */
 section {
   margin: 20px auto;
-  padding: 15px;
+  padding: 20px;
   max-width: 800px;
   background-color: white;
   border-radius: 12px;
@@ -39,39 +59,35 @@ section {
   text-align: center;
 }
 
-/* Make sections more compact */
-#status-section, #prediction-section, #historical-section {
-  margin-bottom: 20px;
-  padding: 15px;
-}
-
 /* Status Section */
 #status-section {
-  border-left: 4px solid #3498db; /* This is the border for the status section */
-  padding-left: 15px; /* Optional: Add some padding to avoid text touching the border */
+  border-left: 6px solid #3498db;
+  padding-left: 15px;
+}
+
+/* Current Capacity Section */
+#capacity-section {
+  display: none; /* Hide the duplicate */
 }
 
 /* Prediction Section */
 #prediction-section {
-  border-left: 4px solid #e67e22; /* Orange border for prediction section */
-  padding-left: 15px; /* Optional: Add padding */
+  border-left: 6px solid #e67e22;
+  padding-left: 15px;
 }
 
 /* Historical Data Section */
 #historical-section {
-  border-left: 4px solid #2ecc71; /* Green border for historical data */
-  padding-left: 15px; /* Optional: Add padding */
+  border-left: 6px solid #2ecc71;
+  padding-left: 15px;
 }
 
-/* Section Title Styling */
-.section-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2c3e50;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+/* Titles */
+section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 /* Capacity Text Styling */
@@ -81,10 +97,14 @@ section {
   font-weight: bold;
 }
 
-/* Canvas Styling */
-canvas {
-  max-height: 300px; /* Limit the height */
-  margin: 0 auto; /* Center the charts */
+/* Prediction Text Styling */
+#prediction {
+  font-size: 18px;
+  color: #e67e22;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff8e1;
 }
 
 /* Footer Styling */
@@ -94,27 +114,12 @@ footer {
   text-align: center;
   padding: 10px;
   font-size: 14px;
-  position: relative;
-  bottom: 0;
   width: 100%;
 }
 
-/* Custom Styling for Prediction */
-#prediction {
-  font-size: 18px;
-  color: #e67e22;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff8e1;
-  margin-bottom: 10px;
-}
-
-/* Status Text Styling */
-.status-text {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333; /* or whatever color works with your theme */
-  text-align: center;
-  margin-bottom: 15px;
+/* Canvas Styling */
+canvas {
+  max-height: 300px;
+  margin: 20px auto;
+  display: block;
 }
