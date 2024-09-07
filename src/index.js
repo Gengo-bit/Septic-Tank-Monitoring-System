@@ -56,7 +56,7 @@ function displayStatus(status) {
   statusElement.style.marginBottom = '10px';
 }
 
-// Update the capacity and status based on Firebase data
+// Update the capacity based on Firebase data
 function updateCapacity(capacity) {
   let status;
   let color;
@@ -75,11 +75,9 @@ function updateCapacity(capacity) {
     color = '#ff6384';  // Red for "Full"
   }
 
-  // Display status separately
-  displayStatus(status);
-
   // Update capacity display and chart
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+  document.getElementById("status").textContent = `Status: ${status}`;  // Update status separately
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
