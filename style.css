@@ -45,17 +45,30 @@ section {
   padding: 15px;
 }
 
+/* Status Section */
 #status-section {
-  border-left: 4px solid #3498db;
+  border-left: 4px solid #3498db; /* This is the border for the status section */
+  padding-left: 15px; /* Optional: Add some padding to avoid text touching the border */
 }
 
+/* Current Capacity Section */
+#capacity-section {
+  border-left: 4px solid #3498db; /* Add border for the capacity section */
+  padding-left: 15px; /* Optional: Add padding */
+}
+
+/* Prediction Section */
 #prediction-section {
-  border-left: 4px solid #e67e22;
+  border-left: 4px solid #e67e22; /* Orange border for prediction section */
+  padding-left: 15px; /* Optional: Add padding */
 }
 
+/* Historical Data Section */
 #historical-section {
-  border-left: 4px solid #2ecc71;
+  border-left: 4px solid #2ecc71; /* Green border for historical data */
+  padding-left: 15px; /* Optional: Add padding */
 }
+
 
 /* Capacity Text Styling */
 .capacity-text {
