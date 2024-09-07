@@ -11,7 +11,6 @@ body {
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.6;
-  padding-bottom: 80px; /* Ensure there's space for the footer */
 }
 
 /* Header Styling */
@@ -21,23 +20,18 @@ header {
   padding: 15px 0;  /* Smaller header */
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
+  text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0;
 }
 
 /* Section Styling */
 section {
-  margin: 20px auto;
+  margin: 40px auto 20px;
   padding: 15px;
   max-width: 800px;
   background-color: white;
@@ -83,12 +77,14 @@ h2 {
   font-size: 36px;
   color: #3498db;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 /* Canvas Styling */
 canvas {
   max-height: 300px;
-  margin: 20px auto;
+  margin: 0 auto;
+  display: block;
 }
 
 /* Footer Styling */
@@ -99,8 +95,7 @@ footer {
   justify-content: space-between;
   padding: 10px 20px;
   font-size: 14px;
-  position: absolute;
-  bottom: 0;
+  position: relative;
   width: 100%;
 }
 

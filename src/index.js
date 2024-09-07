@@ -75,12 +75,16 @@ function updateCapacity(capacity) {
     color = '#ff6384';  // Red for "Full"
   }
 
-  document.getElementById("status").textContent = `Status: ${status}`;
+  // Update capacity and status display
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+  document.getElementById("status").textContent = `Status: ${status}`;
+  
+  // Update the chart with the new data
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
 }
+
 
 // Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
