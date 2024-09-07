@@ -46,7 +46,17 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Update the capacity based on Firebase data or static data for testing
+// Function to display the status separately
+function displayStatus(status) {
+  const statusElement = document.getElementById("status");
+  statusElement.textContent = `Status: ${status}`;
+  // Additional styling for visibility
+  statusElement.style.fontSize = '1.5em';
+  statusElement.style.fontWeight = 'bold';
+  statusElement.style.marginBottom = '10px';
+}
+
+// Update the capacity and status based on Firebase data
 function updateCapacity(capacity) {
   let status;
   let color;
@@ -65,8 +75,11 @@ function updateCapacity(capacity) {
     color = '#ff6384';  // Red for "Full"
   }
 
+  // Display status separately
+  displayStatus(status);
+
   // Update capacity display and chart
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}% (${status})`;
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
@@ -132,7 +145,18 @@ function predictFullTank(capacityHistory) {
   return "Not enough data for prediction";
 }
 
-// Example: Add static data for testing prediction
+// Firebase listener to get live data from the database
+onChildAdded(ref(database, 'sensor_data'), (snapshot) => {
+  const data = snapshot.val();
+  const capacity = data.capacity;
+  const timestamp = data.timestamp;
+
+  // Update the chart and the historical data
+  updateCapacity(capacity);
+  updateHistoricalChart(capacity, timestamp);
+});
+
+// Example capacity history for predictions
 const capacityHistory = [
   [65, 1725500000],  // Example: 65% capacity at timestamp X
   [70, 1725550000],  // Example: 70% capacity at timestamp Y
@@ -140,28 +164,7 @@ const capacityHistory = [
   [85, 1725650000]   // Example: 85% capacity at timestamp W
 ];
 
-// Simulate testing the charts and prediction
-function simulateTesting() {
-  capacityHistory.forEach(([capacity, timestamp]) => {
-    updateCapacity(capacity);
-    updateHistoricalChart(capacity, timestamp);
-  });
-
-  // Generate and show the prediction
-  const predictionText = predictFullTank(capacityHistory);
-  document.getElementById("prediction").textContent = predictionText;
-  console.log("Prediction:", predictionText);
-}
-
-// Disable Firebase updates for now
-// Comment this out when Firebase updates need to be re-enabled
-// onChildAdded(ref(database, 'sensor_data'), (snapshot) => {
-//   const data = snapshot.val();
-//   const capacity = data.capacity;
-//   const timestamp = data.timestamp;
-//   updateCapacity(capacity);
-//   updateHistoricalChart(capacity, timestamp);
-// });
-
-// Run the simulation on page load to test the charts and prediction
-window.onload = simulateTesting;
+// Generate and display prediction
+const predictionText = predictFullTank(capacityHistory);
+document.getElementById("prediction").textContent = predictionText;
+console.log("Prediction:", predictionText);
