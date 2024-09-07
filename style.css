@@ -8,7 +8,7 @@
 /* Body Styling */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f6f9;
+  background-color: #0a0c0f;
   color: #333;
   line-height: 1.6;
 }
@@ -46,7 +46,7 @@ section {
 }
 
 #status-section {
-  border-left: 4px solid #78aacc;
+  border-left: 4px solid #0a1f2c;
 }
 
 #prediction-section {
