@@ -46,7 +46,7 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Update the capacity based on Firebase data
+// Update the capacity based on Firebase data or static data for testing
 function updateCapacity(capacity) {
   let status;
   let color;
@@ -152,6 +152,16 @@ function simulateTesting() {
   document.getElementById("prediction").textContent = predictionText;
   console.log("Prediction:", predictionText);
 }
+
+// Disable Firebase updates for now
+// Comment this out when Firebase updates need to be re-enabled
+// onChildAdded(ref(database, 'sensor_data'), (snapshot) => {
+//   const data = snapshot.val();
+//   const capacity = data.capacity;
+//   const timestamp = data.timestamp;
+//   updateCapacity(capacity);
+//   updateHistoricalChart(capacity, timestamp);
+// });
 
 // Run the simulation on page load to test the charts and prediction
 window.onload = simulateTesting;
