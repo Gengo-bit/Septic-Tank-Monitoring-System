@@ -11,47 +11,36 @@ body {
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.6;
-  padding: 20px;
 }
 
 /* Header Styling */
 header {
   background-color: #3498db;
   color: white;
-  text-align: center;
   padding: 20px 0;
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 header h1 {
   margin: 0;
 }
 
-/* Navigation */
-nav {
-  background-color: #2980b9;
-  padding: 10px;
-  text-align: center;
-}
-
-nav a {
-  color: white;
-  font-size: 18px;
-  font-family: 'Montserrat', sans-serif;
-  text-decoration: none;
-  margin: 0 15px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
 /* Section Styling */
 section {
-  margin: 20px auto;
-  padding: 20px;
+  margin: 80px auto 20px;
+  padding: 15px;
   max-width: 800px;
   background-color: white;
   border-radius: 12px;
@@ -59,35 +48,35 @@ section {
   text-align: center;
 }
 
+h2 {
+  font-size: 1.75em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
 /* Status Section */
 #status-section {
-  border-left: 6px solid #3498db;
+  border-left: 4px solid #3498db;
   padding-left: 15px;
 }
 
-/* Current Capacity Section */
-#capacity-section {
-  display: none; /* Hide the duplicate */
+.status-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
 }
 
 /* Prediction Section */
 #prediction-section {
-  border-left: 6px solid #e67e22;
+  border-left: 4px solid #e67e22;
   padding-left: 15px;
 }
 
 /* Historical Data Section */
 #historical-section {
-  border-left: 6px solid #2ecc71;
+  border-left: 4px solid #2ecc71;
   padding-left: 15px;
-}
-
-/* Titles */
-section h2 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
 }
 
 /* Capacity Text Styling */
@@ -97,29 +86,36 @@ section h2 {
   font-weight: bold;
 }
 
-/* Prediction Text Styling */
-#prediction {
-  font-size: 18px;
-  color: #e67e22;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff8e1;
+/* Canvas Styling */
+canvas {
+  max-height: 300px;
+  margin: 0 auto;
 }
 
 /* Footer Styling */
 footer {
   background-color: #3498db;
   color: white;
-  text-align: center;
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
   font-size: 14px;
+  position: fixed;
+  bottom: 0;
   width: 100%;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Canvas Styling */
-canvas {
-  max-height: 300px;
-  margin: 20px auto;
-  display: block;
+.footer-left a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-left a:hover {
+  text-decoration: underline;
+}
+
+.footer-right {
+  text-align: right;
 }
