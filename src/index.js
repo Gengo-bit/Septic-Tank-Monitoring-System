@@ -132,34 +132,26 @@ function predictFullTank(capacityHistory) {
   return "Not enough data for prediction";
 }
 
-// Track capacity history for prediction
-const capacityHistory = [];
+// Example: Add static data for testing prediction
+const capacityHistory = [
+  [65, 1725500000],  // Example: 65% capacity at timestamp X
+  [70, 1725550000],  // Example: 70% capacity at timestamp Y
+  [75, 1725600000],  // Example: 75% capacity at timestamp Z
+  [85, 1725650000]   // Example: 85% capacity at timestamp W
+];
 
-// Fetch and update data from Firebase
-const septicDataRef = ref(database, 'septicTankData');
+// Simulate testing the charts and prediction
+function simulateTesting() {
+  capacityHistory.forEach(([capacity, timestamp]) => {
+    updateCapacity(capacity);
+    updateHistoricalChart(capacity, timestamp);
+  });
 
-onChildAdded(septicDataRef, (snapshot) => {
-  const data = snapshot.val();
-  console.log("Snapshot: ", snapshot.val());
-  const capacity = data.capacity;
-  const timestamp = data.timestamp / 1000;  // Convert timestamp to seconds if necessary
-
-  console.log("Capacity: ", capacity);
-  console.log("Timestamp: ", timestamp);
-
-  // Add the new data to the capacity history for prediction
-  capacityHistory.push([capacity, timestamp]);
-
-  // Update the charts and prediction
-  updateCapacity(capacity);
-  updateHistoricalChart(capacity, timestamp);
+  // Generate and show the prediction
   const predictionText = predictFullTank(capacityHistory);
   document.getElementById("prediction").textContent = predictionText;
+  console.log("Prediction:", predictionText);
+}
 
-  console.log("Prediction: ", predictionText);
-});
-
-// Test the prediction UI update (this can be removed after testing)
-window.onload = function() {
-  document.getElementById("prediction").textContent = "Loading prediction...";
-};
+// Run the simulation on page load to test the charts and prediction
+window.onload = simulateTesting;
