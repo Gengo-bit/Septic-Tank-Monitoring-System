@@ -12,47 +12,54 @@
     <header>
         <div class="header-container">
             <h1>Septic Tank Monitoring</h1>
-            <!-- Mode Toggle Button -->
-            <button id="theme-switch">
-                <!-- Sun Icon -->
-                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-                <!-- Moon Icon -->
-                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1021 12.79z"></path>
-                </svg>
-            </button>
         </div>
     </header>
 
     <section id="status-section">
-        <h2>Current Septic Tank Status</h2>
-        <p class="capacity-text">Current Capacity: <span id="capacity">0%</span></p>
+        <h2>Current Capacity</h2>
+        <p class="capacity-text"><span id="capacity">0%</span></p>
         <canvas id="capacityChart"></canvas>
         <p id="status" class="status-text">Status: Normal</p>
     </section>
 
     <section id="prediction-section">
-        <h2>Predicted Time Until Full</h2>
+        <h2>Estimated Time Until Full</h2>
         <p id="prediction">Calculating...</p>
     </section>
 
     <section id="historical-section">
-        <h2>Historical Data of Septic Tank Levels</h2>
+        <h2>Historical Data</h2>
         <canvas id="historicalChart"></canvas>
     </section>
 
     <footer>
-        <p>&copy; 2024 Septic Tank Monitoring System. All rights reserved.</p>
+        <div class="footer-left">
+            <a href="https://septic-tank-monitoring-system-profile.netlify.app/" target="_blank">About Us</a>
+        </div>
+        <div class="footer-right">
+            <p>Septic Tank Monitoring System | © 2024</p>
+        </div>
     </footer>
+
+    <button id="theme-switch">
+        <!-- Sun Icon -->
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- Moon Icon -->
+        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path>
+        </svg>
+    </button>
+    
+    <script src="dist/bundle.js"></script>
 </body>
 </html>
