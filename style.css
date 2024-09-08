@@ -97,7 +97,7 @@ section:hover {
 h2 {
   color: var(--primary-color);
   margin-bottom: 15px;
-  font-size: 1.2em; /* Smaller section heading font size */
+  font-size: 1.1em; /* Smaller section heading font size */
   font-family: 'Roboto', sans-serif;
 }
 
@@ -117,7 +117,7 @@ canvas {
 footer {
   background-color: var(--footer-bg);
   color: white;
-  padding: 10px 30px; /* Smaller padding for footer */
+  padding: 5px 30px; /* Reduced padding for smaller footer */
   font-size: 12px; /* Smaller font size for the footer */
   display: flex;
   justify-content: space-between;
@@ -135,6 +135,7 @@ footer {
 
 .footer-right {
   text-align: right; /* Align footer text to the right */
+  margin-left: auto; /* Ensure right alignment */
 }
 
 #theme-switch {
