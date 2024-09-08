@@ -63,7 +63,10 @@ header {
 
 .branding .logo {
   width: 50px; /* Adjust the size of the logo as needed */
-  margin-right: 15px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 5px;
 }
 
 .branding h1 {
