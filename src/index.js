@@ -30,7 +30,7 @@ const capacityChart = new Chart(ctx, {
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#36a2eb', '#d3d3d3'],  // Initial color for "Normal"
+      backgroundColor: ['#52fa52', '#003d00'],  // Initial color for "Normal"
       borderWidth: 1
     }]
   },
@@ -95,7 +95,7 @@ const historicalChart = new Chart(historicalCtx, {
     datasets: [{
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
-      borderColor: '#42a5f5',
+      borderColor: '#003d00',
       fill: false
     }]
   },
