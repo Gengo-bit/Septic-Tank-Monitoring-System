@@ -91,6 +91,12 @@ section {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
@@ -115,11 +121,11 @@ canvas {
 footer {
   background-color: var(--footer-bg);
   color: white;
-  padding: 20px;
+  padding: 10px 30px; /* Reduced padding for a smaller footer */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
   position: relative;
   bottom: 0;
   width: 100%;
@@ -138,6 +144,7 @@ footer {
 .footer-right p {
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  text-align: right; /* Aligns text to the right */
 }
 
 #theme-switch {
