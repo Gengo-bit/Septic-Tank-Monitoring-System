@@ -1,5 +1,7 @@
 let darkmode = localStorage.getItem('darkmode');
 const themeSwitch = document.getElementById('theme-switch');
+const sunIcon = document.getElementById('sun-icon');
+const moonIcon = document.getElementById('moon-icon');
 
 const enableDarkmode = () => {
     document.body.classList.add('darkmode');
