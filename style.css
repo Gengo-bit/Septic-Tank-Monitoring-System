@@ -64,15 +64,15 @@ header {
   transition: fill var(--transition-duration) ease;
 }
 
-#theme-switch svg:last-child {
+#theme-switch #moon-icon {
   display: none;
 }
 
-.darkmode #theme-switch svg:first-child {
+.darkmode #theme-switch #sun-icon {
   display: none;
 }
 
-.darkmode #theme-switch svg:last-child {
+.darkmode #theme-switch #moon-icon {
   display: block;
 }
 
@@ -85,6 +85,14 @@ section {
 p {
   margin: 10px 0 20px 0;
   color: var(--secondary-text);
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 300px;
+  display: block;
+  margin: 0 auto;
+  transition: height 0.6s ease;
 }
 
 button {
