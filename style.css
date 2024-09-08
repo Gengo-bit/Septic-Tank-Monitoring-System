@@ -170,9 +170,14 @@ footer {
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
-  align-items: center;  /* This ensures all items in the footer are vertically centered */
+  align-items: center;  /* Vertically align all items in the footer */
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;  /* Vertically align the "About Us" link */
 }
 
 .footer-left a {
@@ -190,21 +195,21 @@ footer {
 
 .footer-right {
   display: flex;
-  align-items: center;  /* Ensures all items in the footer-right are vertically aligned */
-  justify-content: flex-end;
+  align-items: center;  /* Vertically align both the text and logo */
 }
 
 .footer-right p {
   margin-left: 10px;
   font-size: 1em;
   font-weight: 500;
+  display: flex;
+  align-items: center;  /* Vertically align the text */
 }
 
 .footer-logo {
   width: 30px;
   height: auto;
-  margin-left: 10px;
-  vertical-align: middle;  /* Ensures the logo is vertically aligned */
+  vertical-align: middle;
 }
 
 .footer-left, .footer-right {
