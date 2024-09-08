@@ -201,6 +201,7 @@ footer {
 
 .footer-right p {
   margin: 0;  /* Reset margins to prevent misalignment */
+  margin-left: 5px;
   font-size: 1em;
   font-weight: 500;
 }
