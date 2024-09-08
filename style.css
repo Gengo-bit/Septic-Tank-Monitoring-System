@@ -1,12 +1,12 @@
 :root {
-  --base-color: #f4f7fc;
-  --base-variant: #e2e7ef;
+  --base-color: #a4a4a4; /* Lighter color for secondary text in dark mode */
+  --base-variant: #e4e4e4; /* Light color for text in dark mode */
   --text-color: #2d3a4b; /* Updated text color for light mode */
   --secondary-text: #5c6f81; /* Lighter secondary text color */
-  --primary-color: #003d00; /* Dark Green */
+  --primary-color: #1f1f1f; /* Dark mode variant color */
   --accent-color: #f4c542; /* Yellow */
-  --header-bg: #003d00; /* Dark Green */
-  --footer-bg: #003d00; /* Dark Green */
+  --header-bg: #1f1f1f; /* Dark mode variant color */
+  --footer-bg: #1f1f1f; /* Dark mode variant color */
   --transition-duration: 0.4s;
 }
 
