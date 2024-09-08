@@ -3,13 +3,10 @@
   --base-variant: #e2e7ef;
   --text-color: #2d3a4b;
   --secondary-text: #5c6f81;
-  --primary-color: #003d00; /* Dark Green */
-  --accent-color: #f4c542; /* Yellow (for light mode) */
-  --header-bg: #003d00; /* Dark Green */
-  --footer-bg: #003d00; /* Dark Green */
-  --footer-text-color: #ffffff; /* White */
-  --chart-line-color: #003d00; /* Dark Green */
-  --chart-background-color: #e2e7ef; /* Light Gray */
+  --primary-color: #004d00;  /* Dark Green */
+  --accent-color: #e1d9c6;  /* Cream for contrast */
+  --header-bg: #003300;  /* Darker Green for Header */
+  --footer-bg: #002200;  /* Even Darker Green for Footer */
   --transition-duration: 0.4s;
 }
 
@@ -18,13 +15,10 @@
   --base-variant: #1f1f1f;
   --text-color: #e4e4e4;
   --secondary-text: #a4a4a4;
-  --primary-color: #006400; /* Darker Green */
-  --accent-color: #f4c542; /* Yellow */
-  --header-bg: #006400; /* Darker Green */
-  --footer-bg: #006400; /* Darker Green */
-  --footer-text-color: #ffffff; /* White */
-  --chart-line-color: #006400; /* Darker Green */
-  --chart-background-color: #1f1f1f; /* Dark Gray */
+  --primary-color: #00d1ff;  /* Bright Cyan for Dark Mode */
+  --accent-color: #ff4081;
+  --header-bg: #001a00;  /* Darker Shade of Green */
+  --footer-bg: #000a00;  /* Almost Black */
 }
 
 * {
@@ -47,36 +41,38 @@ body {
 header {
   background-color: var(--header-bg);
   color: white;
-  padding: 10px 30px; /* Reduced padding for a smaller header */
+  padding: 10px 20px;  /* Reduced padding for smaller header */
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 
 .header-container {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  align-items: center;
 }
 
-.header-container h1 {
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
   font-size: 1.5em;
-  margin-right: auto;
 }
 
 .header-nav {
   display: flex;
-  gap: 20px;
+  align-items: center;
 }
 
 .nav-button {
   background: none;
   border: none;
   color: white;
+  font-family: 'Roboto', sans-serif;
   font-size: 1em;
-  font-weight: 500;
+  margin-left: 20px;
   cursor: pointer;
   transition: color var(--transition-duration);
 }
@@ -86,7 +82,7 @@ header {
 }
 
 .separator {
-  color: white;
+  color: var(--accent-color);
   margin: 0 10px;
 }
 
@@ -97,18 +93,23 @@ section {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
+  transition: transform var(--transition-duration);
+}
+
+section.hover-animate:hover {
+  transform: scale(1.02);
 }
 
 h2 {
   color: var(--primary-color);
   margin-bottom: 15px;
   font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }
 
 p {
   margin-bottom: 20px;
   color: var(--secondary-text);
-  font-family: 'Roboto', sans-serif;
 }
 
 canvas {
@@ -120,75 +121,24 @@ canvas {
 
 footer {
   background-color: var(--footer-bg);
-  color: var(--footer-text-color);
-  padding: 10px 30px; /* Reduced padding for a smaller footer */
+  color: white;
+  padding: 10px 20px;  /* Reduced padding for smaller footer */
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
 }
 
 .footer-left a {
-  color: var(--footer-text-color);
+  color: white;
   text-decoration: none;
-  font-family: 'Roboto', sans-serif;
 }
 
 .footer-left a:hover {
   text-decoration: underline;
 }
 
-.footer-right p {
-  margin: 0;
+.footer-right {
   font-family: 'Roboto', sans-serif;
-}
-
-#theme-switch {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--base-variant);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  transition: background-color var(--transition-duration);
-}
-
-#theme-switch svg {
-  fill: var(--primary-color);
-  transition: fill var(--transition-duration);
-}
-
-#theme-switch #moon-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #sun-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #moon-icon {
-  display: block;
-}
-
-/* Chart Styles */
-.chart-container {
-  position: relative;
-  width: 100%;
-  height: 300px;
-}
-
-.chart-container canvas {
-  background-color: var(--chart-background-color);
-}
-
-.chart-line {
-  border-color: var(--chart-line-color);
+  font-weight: 400;
 }
