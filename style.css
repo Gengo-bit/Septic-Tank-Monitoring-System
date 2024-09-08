@@ -43,42 +43,36 @@ header {
   color: white;
   padding: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-#theme-switch {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--base-variant);
+.header-container h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.header-nav {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 10px;
+}
+
+.nav-button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   cursor: pointer;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  transition: background-color var(--transition-duration);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
-#theme-switch svg {
-  fill: var(--primary-color);
-  transition: fill var(--transition-duration);
-}
-
-#theme-switch #moon-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #sun-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #moon-icon {
-  display: block;
+.nav-button:hover {
+  background-color: white;
+  color: var(--header-bg);
 }
 
 section {
@@ -90,15 +84,11 @@ section {
   max-width: 1200px;
 }
 
-h1 {
-  margin: 0;
-  font-weight: 600;
-  font-size: 2rem;
-}
-
 h2 {
   color: var(--primary-color);
   margin-bottom: 15px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }
 
 p {
@@ -122,6 +112,7 @@ footer {
   align-items: center;
   font-size: 14px;
   position: relative;
+  bottom: 0;
   width: 100%;
 }
 
@@ -132,4 +123,36 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+#theme-switch {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--base-variant);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  transition: background-color var(--transition-duration);
+}
+
+#theme-switch svg {
+  fill: var(--primary-color);
+  transition: fill var(--transition-duration);
+}
+
+#theme-switch #moon-icon {
+  display: none;
+}
+
+.darkmode #theme-switch #sun-icon {
+  display: none;
+}
+
+.darkmode #theme-switch #moon-icon {
+  display: block;
 }
