@@ -52,27 +52,30 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Branding Section */
 .branding {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px 0;
-  background-color: var(--header-bg); /* Ensure consistent background */
+  justify-content: flex-start; /* Align items to the left */
+  padding: 20px 30px;
+  background-color: var(--header-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+
 .branding .logo {
-  width: 50px; /* Adjust the size of the logo as needed */
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 5px;
+  width: 50px;
+  height: auto; /* Keep the logo's proportions */
+  margin-right: 15px;
 }
 
 .branding h1 {
-  font-size: 1.5em; /* Adjust the size for better visibility */
-  color: var(--header-text-color); /* Match the header text color */
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--header-text-color);
+  font-family: 'Poppins', sans-serif;
 }
+
 /* Logo styling */
 .logo {
   width: 40px; /* Adjust the logo size */
@@ -82,31 +85,46 @@ header {
   vertical-align: middle; /* Align with the title text */
 }
 
-.header-nav {
+/* Header Navigation */
+header {
+  background-color: var(--header-bg);
+  padding: 10px 30px;
   display: flex;
-  justify-content: flex-end; /* Align navigation to the right */
-  gap: 20px;
-  padding-right: 30px;
+  justify-content: flex-end;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.header-container h1 {
-  font-size: 1.3em; /* Smaller header font size */
-  margin-right: auto;
-  color: var(--header-text-color); /* Text color for light mode */
+.header-nav {
+  display: flex;
+  gap: 30px;
 }
 
 .nav-button {
   background: none;
   border: none;
-  color: var(--header-text-color); /* Text color for navigation buttons */
-  font-size: 0.9em; /* Adjusted font size for smaller buttons */
-  font-weight: 500;
+  color: var(--header-text-color);
+  font-size: 1em;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
-  transition: color var(--transition-duration);
+  transition: transform 0.4s ease, margin 0.4s ease, color 0.4s ease;
+  padding: 10px 15px;
+  text-transform: uppercase;
 }
 
 .nav-button:hover {
   color: var(--accent-color);
+  transform: scale(1.2); /* Scale the hovered button */
+}
+
+/* When hovering, make other buttons shift */
+.nav-button:hover ~ .nav-button {
+  margin-left: 20px; /* Shift non-hovered buttons to the right */
+}
+
+.nav-button:hover {
+  font-size: 1.1em;
 }
 
 section {
