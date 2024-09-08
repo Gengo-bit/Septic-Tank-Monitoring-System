@@ -64,6 +64,7 @@ h1 {
 .header-nav {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .nav-button {
@@ -129,16 +130,39 @@ footer {
   font-size: 14px;
 }
 
-.footer-left a {
-  color: white;
-  text-decoration: none;
+.footer-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.footer-left a:hover {
-  text-decoration: underline;
+.footer-left {
+  flex: 1;
 }
 
 .footer-right {
+  flex: 1;
+  text-align: right;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
+}
+
+#theme-switch {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color var(--transition-duration);
+}
+
+#theme-switch:hover {
+  background-color: var(--accent-color);
+}
+
+#sun-icon, #moon-icon {
+  width: 24px;
+  height: 24px;
 }
