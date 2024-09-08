@@ -49,7 +49,7 @@ const capacityChart = new Chart(ctx, {
 // Function to display the status separately
 function displayStatus(status) {
   const statusElement = document.getElementById("status");
-  statusElement.textContent = Status: ${status};
+  statusElement.textContent = `Status: ${status}`;
   // Additional styling for visibility
   statusElement.style.fontSize = '1.5em';
   statusElement.style.fontWeight = 'bold';
@@ -76,8 +76,8 @@ function updateCapacity(capacity) {
   }
 
   // Update capacity and status display
-  document.getElementById("capacity").textContent = Capacity: ${capacity}%;
-  document.getElementById("status").textContent = Status: ${status};
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+  document.getElementById("status").textContent = `Status: ${status}`;
   
   // Update the chart with the new data
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
@@ -140,7 +140,7 @@ function predictFullTank(capacityHistory) {
   if (estimatedTime > 0) {
     const days = Math.floor(estimatedTime / 24);
     const hours = Math.floor(estimatedTime % 24);
-    return Estimated Time Until Full: ${days} days, ${hours} hours;
+    return `Estimated Time Until Full: ${days} days, ${hours} hours`;
   }
 
   return "Not enough data for prediction";
