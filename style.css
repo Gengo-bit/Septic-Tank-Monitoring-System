@@ -52,12 +52,22 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+/* Logo styling */
+.logo {
+  width: 40px; /* Adjust the logo size */
+  height: auto;
+  margin-right: 15px; /* Space between the logo and the title */
+  display: inline-block;
+  vertical-align: middle; /* Align with the title text */
 }
+
+.header-container h1 {
+  font-size: 1.3em; /* Keep the smaller header font size */
+  margin-right: auto;
+  display: inline-block;
+  vertical-align: middle; /* Align title text with the logo */
+}
+
 
 .header-container h1 {
   font-size: 1.3em; /* Smaller header font size */

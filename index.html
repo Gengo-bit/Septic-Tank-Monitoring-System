@@ -6,11 +6,14 @@
     <title>Septic Tank Monitoring System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Add the logo as a favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <script type="text/javascript" src="toggle-mode.js" defer></script>
 </head>
 <body class="light-mode">
     <header>
         <div class="header-container">
+            <img src="assets/logo.png" alt="Logo" class="logo"> <!-- Logo added here -->
             <h1>Septic Tank Monitoring</h1>
             <nav class="header-nav">
                 <button class="nav-button" onclick="scrollToSection('status-section')">Current Capacity</button>
@@ -18,7 +21,7 @@
                 <button class="nav-button" onclick="scrollToSection('historical-section')">Historical Data</button>
             </nav>
         </div>
-    </header>
+    </header>    
 
     <!-- Status Section -->
     <section id="status-section">
@@ -61,7 +64,7 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="moon-icon" xmlns="https://ourprofile.netlify.app" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path>
         </svg>
     </button>
