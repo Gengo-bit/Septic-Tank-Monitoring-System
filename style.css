@@ -1,8 +1,8 @@
 :root {
-  --base-color: #f4f7fc; /* Light background color */
-  --base-variant: #e2e7ef; /* Slightly darker background */
-  --text-color: #2d3a4b; /* Dark text color */
-  --secondary-text: #5c6f81; /* Lighter text color */
+  --base-color: #f4f7fc;
+  --base-variant: #e2e7ef;
+  --text-color: #2d3a4b; /* Updated text color for light mode */
+  --secondary-text: #5c6f81; /* Lighter secondary text color */
   --primary-color: #003d00; /* Dark Green */
   --accent-color: #f4c542; /* Yellow */
   --header-bg: #003d00; /* Dark Green */
@@ -40,13 +40,12 @@ body {
 
 header {
   background-color: var(--header-bg);
-  color: var(--text-color); /* Changed to match text color */
-  padding: 10px 20px; /* Adjusted padding for smaller header */
+  color: white;
+  padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 
 .header-container {
@@ -56,20 +55,20 @@ header {
 }
 
 .header-container h1 {
-  font-size: 1.2em; /* Smaller font size */
+  font-size: 1.3em; /* Smaller header font size */
   margin-right: auto;
 }
 
 .header-nav {
   display: flex;
-  gap: 15px; /* Adjusted spacing */
+  gap: 20px;
 }
 
 .nav-button {
   background: none;
   border: none;
-  color: var(--text-color); /* Changed to match header and footer text color */
-  font-size: 0.9em; /* Smaller font size */
+  color: white;
+  font-size: 1em;
   font-weight: 500;
   cursor: pointer;
   transition: color var(--transition-duration);
@@ -82,15 +81,17 @@ header {
 section {
   padding: 60px min(50px, 7%);
   background-color: var(--base-variant);
-  margin: 20px auto; /* Reduced margin */
+  margin: 30px auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
-  transition: transform var(--transition-duration);
+  color: var(--text-color); /* Text color for sections */
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
 }
 
 section:hover {
-  transform: scale(1.03); /* Slightly enlarge on hover */
+  transform: scale(1.02); /* Slightly enlarge section */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More prominent shadow */
 }
 
 h2 {
@@ -101,7 +102,7 @@ h2 {
 
 p {
   margin-bottom: 20px;
-  color: var(--text-color); /* Changed to match header and footer text color */
+  color: var(--text-color); /* Updated color for text in sections */
   font-family: 'Roboto', sans-serif;
 }
 
@@ -114,27 +115,16 @@ canvas {
 
 footer {
   background-color: var(--footer-bg);
-  color: var(--text-color); /* Changed to match text color */
-  padding: 10px 20px; /* Adjusted padding for smaller footer */
+  color: white;
+  padding: 10px 30px; /* Smaller padding for footer */
+  font-size: 12px; /* Smaller font size for the footer */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px; /* Smaller font size */
-  position: relative;
-  width: 100%;
 }
 
-.footer-left {
-  margin-right: auto; /* Center About Us */
-}
-
-.footer-right {
-  text-align: right; /* Align text to the right */
-}
-
-.footer-left a {
-  color: var(--text-color); /* Changed to match footer text color */
-  text-decoration: none;
+.footer-left a, .footer-right p {
+  color: white; /* Ensure text is visible */
   font-family: 'Roboto', sans-serif;
 }
 
@@ -142,9 +132,8 @@ footer {
   text-decoration: underline;
 }
 
-.footer-right p {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
+.footer-right {
+  text-align: right; /* Align footer text to the right */
 }
 
 #theme-switch {
