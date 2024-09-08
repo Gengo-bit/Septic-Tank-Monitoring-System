@@ -56,18 +56,10 @@ header {
 .logo {
   width: 40px; /* Adjust the logo size */
   height: auto;
-  margin-right: 15px; /* Space between the logo and the title */
+  margin-right: 5px; /* Space between the logo and the title */
   display: inline-block;
   vertical-align: middle; /* Align with the title text */
 }
-
-.header-container h1 {
-  font-size: 1.3em; /* Keep the smaller header font size */
-  margin-right: auto;
-  display: inline-block;
-  vertical-align: middle; /* Align title text with the logo */
-}
-
 
 .header-container h1 {
   font-size: 1.3em; /* Smaller header font size */
