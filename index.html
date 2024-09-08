@@ -11,10 +11,14 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="light-mode"> <!-- Default to light mode -->
     <header>
         <div class="header-container">
             <h1>Septic Tank Monitoring</h1>
+            <!-- Mode Toggle Button -->
+            <button id="modeToggle" class="toggle-mode" aria-label="Toggle Mode">
+                <img id="modeIcon" src="sun-icon.png" alt="Switch to Dark Mode" />
+            </button>
         </div>
     </header>
 
@@ -23,7 +27,7 @@
         <h2>Current Capacity</h2>
         <p class="capacity-text"><span id="capacity">0%</span></p>
         <canvas id="capacityChart"></canvas>
-        <p id="status" class="status-text">Status: Normal</p> <!-- Status below the chart -->
+        <p id="status" class="status-text">Status: Normal</p>
     </section>
 
     <!-- Prediction Section -->
@@ -49,5 +53,6 @@
 
     <!-- JS Bundle -->
     <script src="dist/bundle.js"></script>
+    <script src="toggle-mode.js"></script>
 </body>
 </html>
