@@ -3,11 +3,10 @@
   --base-variant: #e2e7ef;
   --text-color: #2d3a4b;
   --secondary-text: #5c6f81;
-  --primary-color: #004d00;  /* Dark Green */
-  --accent-color: #f7d700;  /* Yellow */
-  --header-bg-light: #004d00; /* Dark Green for light mode */
-  --header-bg-dark: #002800; /* Darker Green for dark mode */
-  --footer-bg: #002800; /* Darker Green */
+  --primary-color: #003d00; /* Dark Green */
+  --accent-color: #f4c542; /* Yellow (for light mode) */
+  --header-bg: #003d00; /* Dark Green */
+  --footer-bg: #003d00; /* Dark Green */
   --transition-duration: 0.4s;
 }
 
@@ -16,11 +15,10 @@
   --base-variant: #1f1f1f;
   --text-color: #e4e4e4;
   --secondary-text: #a4a4a4;
-  --primary-color: #004d00;
-  --accent-color: #f7d700;
-  --header-bg-light: #002800; /* Darker Green for dark mode */
-  --header-bg-dark: #004d00;
-  --footer-bg: #002800;
+  --primary-color: #006400; /* Darker Green */
+  --accent-color: #f4c542; /* Yellow */
+  --header-bg: #006400; /* Darker Green */
+  --footer-bg: #006400; /* Darker Green */
 }
 
 * {
@@ -41,50 +39,105 @@ body {
 }
 
 header {
-  background-color: var(--header-bg-light);
+  background-color: var(--header-bg);
   color: white;
-  padding: 15px 30px;
+  padding: 10px 30px; /* Reduced padding for a smaller header */
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-bottom: 3px solid var(--accent-color);
+  position: relative;
 }
 
-header .header-container {
+.header-container {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
-header h1 {
+.header-container h1 {
   font-size: 1.5em;
-  margin-right: 30px;
+  margin-right: auto;
 }
 
 .header-nav {
   display: flex;
-  align-items: center;
+  gap: 20px;
 }
 
 .nav-button {
-  background-color: var(--primary-color);
-  color: white;
+  background: none;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 0 5px;
+  color: white;
+  font-size: 1em;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color var(--transition-duration), color var(--transition-duration);
+  transition: color var(--transition-duration);
 }
 
 .nav-button:hover {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .separator {
+  color: white;
+  margin: 0 10px;
+}
+
+section {
+  padding: 60px min(50px, 7%);
+  background-color: var(--base-variant);
+  margin: 30px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+}
+
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-family: 'Roboto', sans-serif;
+}
+
+p {
+  margin-bottom: 20px;
   color: var(--secondary-text);
-  font-size: 1.2em;
+  font-family: 'Roboto', sans-serif;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 300px;
+  display: block;
+  margin: 20px auto;
+}
+
+footer {
+  background-color: var(--footer-bg);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-left a {
+  color: white;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+.footer-left a:hover {
+  text-decoration: underline;
+}
+
+.footer-right p {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 #theme-switch {
@@ -117,54 +170,4 @@ header h1 {
 
 .darkmode #theme-switch #moon-icon {
   display: block;
-}
-
-section {
-  padding: 60px min(50px, 7%);
-  background-color: var(--base-variant);
-  margin: 30px auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-}
-
-h2 {
-  color: var(--primary-color);
-  margin-bottom: 15px;
-}
-
-p {
-  margin-bottom: 20px;
-  color: var(--secondary-text);
-}
-
-canvas {
-  max-width: 100%;
-  max-height: 300px;
-  display: block;
-  margin: 20px auto;
-}
-
-footer {
-  background-color: var(--footer-bg);
-  color: white;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-left a {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.footer-right {
-  font-size: 0.9em;
 }
