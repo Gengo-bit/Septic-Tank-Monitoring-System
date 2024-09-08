@@ -170,7 +170,7 @@ footer {
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  /* This ensures all items in the footer are vertically centered */
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
 }
@@ -190,7 +190,7 @@ footer {
 
 .footer-right {
   display: flex;
-  align-items: center;
+  align-items: center;  /* Ensures all items in the footer-right are vertically aligned */
   justify-content: flex-end;
 }
 
@@ -204,6 +204,12 @@ footer {
   width: 30px;
   height: auto;
   margin-left: 10px;
+  vertical-align: middle;  /* Ensures the logo is vertically aligned */
+}
+
+.footer-left, .footer-right {
+  display: flex;
+  align-items: center;  /* Ensure vertical alignment of both sides */
 }
 
 /* Additional Styling Similar to Header */
