@@ -163,28 +163,53 @@ canvas {
   margin: 20px auto;
 }
 
+/* Footer Styles */
 footer {
   background-color: var(--footer-bg);
-  color: var(--footer-text-color); /* Use footer text color variable */
-  padding: 5px 30px; /* Reduced padding for smaller footer */
-  font-size: 12px; /* Smaller font size for the footer */
+  color: var(--footer-text-color);
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
 }
 
-.footer-left a, .footer-right p {
-  color: var(--footer-text-color); /* Updated footer link and text color */
-  font-family: 'Roboto', sans-serif;
+.footer-left a {
+  color: var(--footer-text-color);
+  font-size: 1em;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .footer-left a:hover {
+  color: var(--accent-color);
   text-decoration: underline;
 }
 
 .footer-right {
-  text-align: right;
-  margin-left: auto; /* Ensure proper right alignment */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.footer-right p {
+  margin-left: 10px;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.footer-logo {
+  width: 30px;
+  height: auto;
+  margin-left: 10px;
+}
+
+/* Additional Styling Similar to Header */
+footer p, footer a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
 #theme-switch {
