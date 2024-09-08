@@ -7,7 +7,7 @@
 
 /* Body Styling */
 body.light-mode {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.6;
@@ -24,14 +24,15 @@ body.dark-mode {
 header {
   background-color: #3498db;
   color: white;
-  padding: 15px 0;
-  font-family: 'Montserrat', sans-serif;
+  padding: 15px 0;  /* Smaller header */
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
 }
 
 .header-container {
@@ -44,12 +45,16 @@ header {
 
 header h1 {
   margin: 0;
+  flex-grow: 1;
+  text-align: left;
 }
 
 header button.toggle-mode {
   background: none;
   border: none;
   cursor: pointer;
+  position: absolute;
+  right: 20px;
 }
 
 header button img {
@@ -59,13 +64,13 @@ header button img {
 }
 
 body.light-mode button img {
-  content: url('moon-icon.png'); /* Moon icon for switching to dark mode */
+  content: url('moon-icon.png'); /* Moon icon for dark mode */
   transform: rotate(0deg);
 }
 
 body.dark-mode button img {
-  content: url('sun-icon.png'); /* Sun icon for switching to light mode */
-  transform: rotate(360deg); /* Adds rotation animation on toggle */
+  content: url('sun-icon.png'); /* Sun icon for light mode */
+  transform: rotate(360deg); /* Adds rotation animation */
 }
 
 /* Section Styling */
@@ -103,6 +108,20 @@ body.dark-mode h2 {
 
 body.dark-mode .status-text {
   color: #f4f4f4;
+}
+
+/* Capacity Text Styling */
+.capacity-text {
+  font-size: 28px;
+  color: #3498db;
+  font-weight: bold;
+}
+
+/* Canvas Styling */
+canvas {
+  max-height: 250px;
+  margin: 0 auto;
+  display: block;
 }
 
 /* Footer Styling */
