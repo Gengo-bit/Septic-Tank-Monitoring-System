@@ -6,124 +6,69 @@
 }
 
 /* Body Styling */
-body.light-mode {
+body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f9fafb;
+  background-color: #f4f4f4;
   color: #333;
-  transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-body.dark-mode {
-  background-color: #1c1f26;
-  color: #e0e0e0;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  line-height: 1.6;
+  padding-bottom: 80px; /* Ensure there's space for the footer */
 }
 
 /* Header Styling */
 header {
   background-color: #3498db;
   color: white;
-  padding: 20px;
-  text-align: center;
+  padding: 20px 0;
   font-family: 'Poppins', sans-serif;
-  font-size: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
+  font-size: 24px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
   margin: 0;
-  font-weight: 600;
-}
-
-/* Light/Dark Mode Toggle */
-input[type="checkbox"] {
-  display: none;
-}
-
-.toggle-label {
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-label svg {
-  width: 24px;
-  height: 24px;
-  transition: opacity 0.5s ease;
-}
-
-.sun {
-  fill: #FFD700;
-  opacity: 1;
-}
-
-.moon {
-  fill: #7e7e7e;
-  opacity: 0;
-}
-
-input:checked + .toggle-label .sun {
-  opacity: 0;
-}
-
-input:checked + .toggle-label .moon {
-  opacity: 1;
 }
 
 /* Section Styling */
 section {
-  margin: 40px auto;
-  padding: 30px;
+  margin: 20px auto;
+  padding: 15px;
   max-width: 800px;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   text-align: center;
 }
 
-body.dark-mode section {
-  background-color: #2a2e39;
+/* Status Section */
+#status-section {
+  border-left: 4px solid #3498db; /* This is the border for the status section */
+  padding-left: 15px; /* Optional: Add some padding to avoid text touching the border */
 }
 
-/* Text Styling */
-h2 {
-  font-size: 1.75em;
-  margin-bottom: 10px;
+/* Prediction Section */
+#prediction-section {
+  border-left: 4px solid #e67e22; /* Orange border for prediction section */
+  padding-left: 15px; /* Optional: Add padding */
 }
 
+/* Historical Data Section */
+#historical-section {
+  border-left: 4px solid #2ecc71; /* Green border for historical data */
+  padding-left: 15px; /* Optional: Add padding */
+}
+
+/* Capacity Text Styling */
 .capacity-text {
-  font-size: 32px;
+  font-size: 36px;  /* Make this smaller for better readability */
   color: #3498db;
   font-weight: bold;
 }
 
-body.dark-mode .capacity-text {
-  color: #f39c12;
-}
-
-.status-text {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 15px 0;
-}
-
-body.dark-mode .status-text {
-  color: #e0e0e0;
-}
-
 /* Canvas Styling */
 canvas {
-  max-height: 250px;
-  margin: 20px auto;
+  max-height: 300px; /* Limit the height */
+  margin: 0 auto; /* Center the charts */
 }
 
 /* Footer Styling */
@@ -132,10 +77,9 @@ footer {
   color: white;
   display: flex;
   justify-content: space-between;
-  padding: 15px 20px;
+  padding: 10px;
   font-size: 14px;
-}
-
-body.dark-mode footer {
-  background-color: #1a2b3e;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
