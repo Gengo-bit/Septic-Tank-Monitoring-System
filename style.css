@@ -1,24 +1,24 @@
 :root {
-  --base-color: #f4f7fc;
-  --base-variant: #e2e7ef;
-  --text-color: #2d3a4b;
-  --secondary-text: #5c6f81;
-  --primary-color: #003d00; /* Dark Green */
-  --accent-color: #f4c542; /* Yellow (for light mode) */
-  --header-bg: #003d00; /* Dark Green */
-  --footer-bg: #003d00; /* Dark Green */
+  --base-color: #f4f7fc; /* Light mode background color */
+  --base-variant: #e2e7ef; /* Light mode variant color */
+  --text-color: #003d00; /* Dark Green for text in light mode */
+  --secondary-text: #005700; /* Darker Green for secondary text in light mode */
+  --primary-color: #003d00; /* Dark Green for headings */
+  --accent-color: #f4c542; /* Yellow accent color */
+  --header-bg: #003d00; /* Dark Green background for header */
+  --footer-bg: #003d00; /* Dark Green background for footer */
   --transition-duration: 0.4s;
 }
 
 .darkmode {
-  --base-color: #121212;
-  --base-variant: #1f1f1f;
-  --text-color: #e4e4e4;
-  --secondary-text: #a4a4a4;
-  --primary-color: #006400; /* Darker Green */
-  --accent-color: #f4c542; /* Yellow */
-  --header-bg: #006400; /* Darker Green */
-  --footer-bg: #006400; /* Darker Green */
+  --base-color: #121212; /* Dark mode background color */
+  --base-variant: #1f1f1f; /* Dark mode variant color */
+  --text-color: #e4e4e4; /* Light color for text in dark mode */
+  --secondary-text: #a4a4a4; /* Lighter color for secondary text in dark mode */
+  --primary-color: #e4e4e4; /* Light color for headings in dark mode */
+  --accent-color: #f4c542; /* Yellow accent color */
+  --header-bg: #1f1f1f; /* Dark Gray background for header in dark mode */
+  --footer-bg: #1f1f1f; /* Dark Gray background for footer in dark mode */
 }
 
 * {
@@ -29,7 +29,7 @@
 
 html {
   font-family: 'Poppins', sans-serif;
-  font-size: 14px; /* Adjusted for smaller header font size */
+  font-size: 14px; /* Smaller base font size */
 }
 
 body {
@@ -40,13 +40,12 @@ body {
 
 header {
   background-color: var(--header-bg);
-  color: var(--text-color); /* Matching header text color to footer */
-  padding: 10px 30px; /* Reduced padding for a smaller header */
+  color: var(--text-color);
+  padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 
 .header-container {
@@ -56,8 +55,9 @@ header {
 }
 
 .header-container h1 {
-  font-size: 1.2em; /* Smaller header font size */
+  font-size: 1.2em; /* Smaller font size for header text */
   margin-right: auto;
+  color: var(--text-color);
 }
 
 .header-nav {
@@ -68,8 +68,8 @@ header {
 .nav-button {
   background: none;
   border: none;
-  color: var(--text-color); /* Matching header text color to footer */
-  font-size: 1em;
+  color: var(--text-color);
+  font-size: 0.9em; /* Slightly smaller font size */
   font-weight: 500;
   cursor: pointer;
   transition: color var(--transition-duration);
@@ -79,11 +79,6 @@ header {
   color: var(--accent-color);
 }
 
-.separator {
-  color: var(--text-color); /* Matching header text color to footer */
-  margin: 0 10px;
-}
-
 section {
   padding: 60px min(50px, 7%);
   background-color: var(--base-variant);
@@ -91,11 +86,12 @@ section {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
-  transition: transform var(--transition-duration);
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
 }
 
 section:hover {
-  transform: scale(1.02); /* Popping effect on hover */
+  transform: scale(1.03); /* Slightly larger hover effect */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
@@ -106,7 +102,7 @@ h2 {
 
 p {
   margin-bottom: 20px;
-  color: var(--secondary-text);
+  color: var(--text-color);
   font-family: 'Roboto', sans-serif;
 }
 
@@ -119,19 +115,16 @@ canvas {
 
 footer {
   background-color: var(--footer-bg);
-  color: var(--text-color); /* Matching footer text color to header */
-  padding: 10px 30px; /* Reduced padding for a smaller footer */
+  color: var(--text-color);
+  padding: 10px 30px; /* Smaller padding for a smaller footer */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px; /* Smaller footer font size */
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  font-size: 12px; /* Smaller font size */
 }
 
 .footer-left a {
-  color: var(--text-color); /* Matching text color */
+  color: var(--text-color);
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
 }
@@ -143,7 +136,7 @@ footer {
 .footer-right p {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  text-align: right; /* Align text to the rightmost side */
+  text-align: right; /* Align text to the right */
 }
 
 #theme-switch {
