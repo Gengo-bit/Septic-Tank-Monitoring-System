@@ -52,6 +52,24 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.branding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: var(--header-bg); /* Ensure consistent background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.branding .logo {
+  width: 50px; /* Adjust the size of the logo as needed */
+  margin-right: 15px;
+}
+
+.branding h1 {
+  font-size: 1.5em; /* Adjust the size for better visibility */
+  color: var(--header-text-color); /* Match the header text color */
+}
 /* Logo styling */
 .logo {
   width: 40px; /* Adjust the logo size */
@@ -61,15 +79,17 @@ header {
   vertical-align: middle; /* Align with the title text */
 }
 
+.header-nav {
+  display: flex;
+  justify-content: flex-end; /* Align navigation to the right */
+  gap: 20px;
+  padding-right: 30px;
+}
+
 .header-container h1 {
   font-size: 1.3em; /* Smaller header font size */
   margin-right: auto;
   color: var(--header-text-color); /* Text color for light mode */
-}
-
-.header-nav {
-  display: flex;
-  gap: 20px;
 }
 
 .nav-button {

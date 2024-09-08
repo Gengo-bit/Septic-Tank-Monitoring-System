@@ -11,16 +11,18 @@
     <script type="text/javascript" src="toggle-mode.js" defer></script>
 </head>
 <body class="light-mode">
+
+<div class="header-container">
+    <img src="assets/logo.png" alt="Logo" class="logo"> <!-- Logo added here -->
+    <h1>Septic Tank Monitoring</h1>
+</div>
+
     <header>
-        <div class="header-container">
-            <img src="assets/logo.png" alt="Logo" class="logo"> <!-- Logo added here -->
-            <h1>Septic Tank Monitoring</h1>
             <nav class="header-nav">
                 <button class="nav-button" onclick="scrollToSection('status-section')">Current Capacity</button>
                 <button class="nav-button" onclick="scrollToSection('prediction-section')">Estimation</button>
                 <button class="nav-button" onclick="scrollToSection('historical-section')">Historical Data</button>
             </nav>
-        </div>
     </header>    
 
     <!-- Status Section -->
