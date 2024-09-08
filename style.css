@@ -8,25 +8,25 @@
 /* Body Styling */
 body.light-mode {
   font-family: 'Poppins', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f9fafb;
   color: #333;
   line-height: 1.6;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 body.dark-mode {
-  background-color: #2c3e50;
-  color: #f4f4f4;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  background-color: #1c1f26;
+  color: #e0e0e0;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 /* Header Styling */
 header {
   background-color: #3498db;
   color: white;
-  padding: 15px 0;  /* Smaller header */
+  padding: 15px 0;
   font-family: 'Poppins', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -47,6 +47,7 @@ header h1 {
   margin: 0;
   flex-grow: 1;
   text-align: left;
+  font-weight: 600;
 }
 
 header button.toggle-mode {
@@ -58,9 +59,9 @@ header button.toggle-mode {
 }
 
 header button img {
-  width: 32px;
-  height: 32px;
-  transition: transform 0.5s ease;
+  width: 36px;
+  height: 36px;
+  transition: transform 0.6s ease;
 }
 
 body.light-mode button img {
@@ -70,22 +71,24 @@ body.light-mode button img {
 
 body.dark-mode button img {
   content: url('sun-icon.png'); /* Sun icon for light mode */
-  transform: rotate(360deg); /* Adds rotation animation */
+  transform: rotate(360deg);
 }
 
 /* Section Styling */
 section {
   margin: 40px auto 20px;
-  padding: 15px;
+  padding: 30px;
   max-width: 800px;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
 }
 
 body.dark-mode section {
-  background-color: #34495e;
+  background-color: #2a2e39;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
 h2 {
@@ -95,7 +98,7 @@ h2 {
 }
 
 body.dark-mode h2 {
-  color: #ecf0f1;
+  color: #f0f0f0;
 }
 
 /* Status Section */
@@ -107,21 +110,27 @@ body.dark-mode h2 {
 }
 
 body.dark-mode .status-text {
-  color: #f4f4f4;
+  color: #e0e0e0;
 }
 
 /* Capacity Text Styling */
 .capacity-text {
-  font-size: 28px;
+  font-size: 32px;
   color: #3498db;
   font-weight: bold;
+  margin-bottom: 20px;
+}
+
+body.dark-mode .capacity-text {
+  color: #f39c12;
 }
 
 /* Canvas Styling */
 canvas {
   max-height: 250px;
-  margin: 0 auto;
+  margin: 20px auto;
   display: block;
+  transition: height 0.6s ease;
 }
 
 /* Footer Styling */
@@ -130,8 +139,12 @@ footer {
   color: white;
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 15px 20px;
   font-size: 14px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 footer a {
