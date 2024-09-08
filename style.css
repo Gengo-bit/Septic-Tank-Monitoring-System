@@ -97,6 +97,7 @@ section:hover {
 h2 {
   color: var(--primary-color);
   margin-bottom: 15px;
+  font-size: 1.2em; /* Smaller section heading font size */
   font-family: 'Roboto', sans-serif;
 }
 
