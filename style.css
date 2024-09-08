@@ -28,55 +28,60 @@ header {
   font-family: 'Poppins', sans-serif;
   font-size: 22px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 header h1 {
-  margin: 0;
-  flex-grow: 1;
-  text-align: left;
   font-weight: 600;
 }
 
-header button.toggle-mode {
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Dark Mode Toggle */
+input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+label {
+  width: 80px;
+  height: 40px;
   position: absolute;
   right: 20px;
+  top: 20px;
+  cursor: pointer;
 }
 
-header button img {
+.sun, .moon {
   width: 36px;
   height: 36px;
-  transition: transform 0.6s ease;
+  transition: all 0.6s ease;
 }
 
-body.light-mode button img {
-  content: url('moon-icon.png'); /* Moon icon for dark mode */
-  transform: rotate(0deg);
+.sun {
+  position: absolute;
+  left: 5px;
 }
 
-body.dark-mode button img {
-  content: url('sun-icon.png'); /* Sun icon for light mode */
+.moon {
+  position: absolute;
+  right: 5px;
+}
+
+/* Toggle Animation */
+input:checked + label .sun {
   transform: rotate(360deg);
+  fill: #fff;
+}
+
+input:checked + label .moon {
+  fill: #f39c12;
 }
 
 /* Section Styling */
 section {
-  margin: 40px auto 20px;
+  margin: 40px auto;
   padding: 30px;
   max-width: 800px;
   background-color: #ffffff;
@@ -88,49 +93,38 @@ section {
 
 body.dark-mode section {
   background-color: #2a2e39;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
+/* Text Styling */
 h2 {
   font-size: 1.75em;
-  color: #2c3e50;
   margin-bottom: 10px;
 }
 
-body.dark-mode h2 {
-  color: #f0f0f0;
-}
-
-/* Status Section */
-.status-text {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-  margin: 15px 0;
-}
-
-body.dark-mode .status-text {
-  color: #e0e0e0;
-}
-
-/* Capacity Text Styling */
 .capacity-text {
   font-size: 32px;
   color: #3498db;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 body.dark-mode .capacity-text {
   color: #f39c12;
 }
 
+.status-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+body.dark-mode .status-text { 
+  color: #e0e0e0;
+}
+
 /* Canvas Styling */
 canvas {
   max-height: 250px;
   margin: 20px auto;
-  display: block;
-  transition: height 0.6s ease;
 }
 
 /* Footer Styling */
@@ -142,18 +136,6 @@ footer {
   padding: 15px 20px;
   font-size: 14px;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
 }
 
 body.dark-mode footer {
