@@ -40,7 +40,7 @@ body {
 
 header {
   background-color: var(--header-bg);
-  color: #2d3a4b; 
+  color: #e4e4e4;; 
   padding: 10px 30px;
   display: flex;
   justify-content: space-between;
@@ -67,7 +67,7 @@ header {
 .nav-button {
   background: none;
   border: none;
-  color: #2d3a4b;
+  color: #e4e4e4;;
   font-size: 1em;
   font-weight: 500;
   cursor: pointer;
@@ -116,7 +116,7 @@ canvas {
 
 footer {
   background-color: var(--footer-bg);
-  color: #2d3a4b;;
+  color: #e4e4e4;
   padding: 5px 30px; /* Reduced padding for smaller footer */
   font-size: 12px; /* Smaller font size for the footer */
   display: flex;
@@ -125,7 +125,7 @@ footer {
 }
 
 .footer-left a, .footer-right p {
-  color: #2d3a4b; /* Ensure text is visible */
+  color: #e4e4e4;; /* Ensure text is visible */
   font-family: 'Roboto', sans-serif;
 }
 
