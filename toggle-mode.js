@@ -11,8 +11,12 @@ const disableDarkmode = () => {
     localStorage.setItem('darkmode', null);
 };
 
-if (darkmode === "active") enableDarkmode();
+// Check saved mode on page load
+if (darkmode === "active") {
+    enableDarkmode();
+}
 
+// Toggle the mode when the button is clicked
 themeSwitch.addEventListener("click", () => {
     darkmode = localStorage.getItem('darkmode');
     darkmode !== "active" ? enableDarkmode() : disableDarkmode();
