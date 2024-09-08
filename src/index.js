@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// Capacity Chart
+// Capacity Chart with animations
 const ctx = document.getElementById('capacityChart').getContext('2d');
 const capacityChart = new Chart(ctx, {
   type: 'doughnut',
@@ -30,14 +30,17 @@ const capacityChart = new Chart(ctx, {
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#36a2eb', '#d3d3d3'],  // Initial color for "Normal"
+      backgroundColor: ['#36a2eb', '#d3d3d3'],
       borderWidth: 1
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2.5,  // Adjust aspect ratio for better fit
+    animation: {
+      animateScale: true,
+      animateRotate: true,
+      duration: 1500
+    },
     plugins: {
       legend: {
         position: 'bottom'
@@ -50,7 +53,6 @@ const capacityChart = new Chart(ctx, {
 function displayStatus(status) {
   const statusElement = document.getElementById("status");
   statusElement.textContent = `Status: ${status}`;
-  // Additional styling for visibility
   statusElement.style.fontSize = '1.5em';
   statusElement.style.fontWeight = 'bold';
   statusElement.style.marginBottom = '10px';
@@ -63,30 +65,32 @@ function updateCapacity(capacity) {
 
   if (capacity < 75) {
     status = 'Normal';
-    color = '#36a2eb';  // Blue for "Normal"
+    color = '#36a2eb';
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    color = '#ffce56';  // Yellow for "Above Normal"
+    color = '#ffce56';
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    color = '#ffa500';  // Orange for "Critical"
+    color = '#ffa500';
   } else if (capacity > 95) {
     status = 'Full';
-    color = '#ff6384';  // Red for "Full"
+    color = '#ff6384';
   }
 
   // Update capacity and status display
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
   
+  // Add transition effects for color change
+  document.getElementById("status").className = status.toLowerCase();
+
   // Update the chart with the new data
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
 }
 
-
-// Historical Chart
+// Historical Chart with wider aspect ratio
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
@@ -102,7 +106,7 @@ const historicalChart = new Chart(historicalCtx, {
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 3,  // Make the chart wider and less tall
+    aspectRatio: 3,
     plugins: {
       legend: {
         position: 'bottom'
@@ -127,15 +131,15 @@ function predictFullTank(capacityHistory) {
   const lastEntry = capacityHistory[capacityHistory.length - 1];
   const secondLastEntry = capacityHistory[capacityHistory.length - 2];
 
-  const timeDiff = (lastEntry[1] - secondLastEntry[1]) / 3600; // Time difference in hours
-  const capacityDiff = lastEntry[0] - secondLastEntry[0]; // Capacity difference
+  const timeDiff = (lastEntry[1] - secondLastEntry[1]) / 3600;
+  const capacityDiff = lastEntry[0] - secondLastEntry[0];
 
   if (capacityDiff <= 0) {
     return "Capacity not increasing";
   }
 
-  const remainingCapacity = 100 - lastEntry[0]; // Remaining capacity
-  const estimatedTime = (remainingCapacity / capacityDiff) * timeDiff; // Time until full in hours
+  const remainingCapacity = 100 - lastEntry[0];
+  const estimatedTime = (remainingCapacity / capacityDiff) * timeDiff;
 
   if (estimatedTime > 0) {
     const days = Math.floor(estimatedTime / 24);
@@ -159,13 +163,12 @@ onChildAdded(ref(database, 'sensor_data'), (snapshot) => {
 
 // Example capacity history for predictions
 const capacityHistory = [
-  [65, 1725500000],  // Example: 65% capacity at timestamp X
-  [70, 1725550000],  // Example: 70% capacity at timestamp Y
-  [75, 1725600000],  // Example: 75% capacity at timestamp Z
-  [85, 1725650000]   // Example: 85% capacity at timestamp W
+  [65, 1725500000],
+  [70, 1725550000],
+  [75, 1725600000],
+  [85, 1725650000]
 ];
 
 // Generate and display prediction
 const predictionText = predictFullTank(capacityHistory);
 document.getElementById("prediction").textContent = predictionText;
-console.log("Prediction:", predictionText);
