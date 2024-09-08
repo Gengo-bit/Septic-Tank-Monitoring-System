@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Septic Tank Monitoring System</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="light-mode">
-    <header>
-        <div class="header-container">
-            <h1>Septic Tank Monitoring</h1>
-            <!-- Mode Toggle Button -->
-            <input type="checkbox" id="darkmode-toggle" />
-            <label for="darkmode-toggle" class="mode-toggle-label">
-                <svg id="modeIcon" class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                    <!-- Sun SVG Icon -->
-                    <circle cx="32" cy="32" r="14" fill="yellow"></circle>
-                </svg>
-                <svg id="modeIcon" class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                    <!-- Moon SVG Icon -->
-                    <path d="M 32 48 A 16 16 0 1 1 48 32 A 16 16 0 1 0 32 48" fill="#f39c12"></path>
-                </svg>
-            </label>
-        </div>
-    </header>
+    <!-- Light/Dark Mode Toggle -->
+    <input type="checkbox" id="darkmode-toggle" />
+    <label for="darkmode-toggle">
+        <svg version="1.1" class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496">
+            <!-- Sun Icon SVG -->
+            <circle cx="248" cy="248" r="120" fill="#FFD700"/>
+        </svg>
+        <svg version="1.1" class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49.739 49.739">
+            <!-- Moon Icon SVG -->
+            <path d="M25.068,48.889c-9.173,0-18.017-5.06-22.396-13.804C-3.373,23.008,1.164,8.467,13.003,1.979l2.061-1.129l-0.615,2.268
+            c-1.479,5.459-0.899,11.25,1.633,16.306c2.75,5.493,7.476,9.587,13.305,11.526c5.831,1.939,12.065,1.492,17.559-1.258v0
+            c0.25-0.125,0.492-0.258,0.734-0.391l2.061-1.13l-0.585,2.252c-1.863,6.873-6.577,12.639-12.933,15.822
+            C32.639,48.039,28.825,48.888,25.068,48.889z" fill="#f39c12"/>
+        </svg>
+    </label>
 
     <!-- Status Section -->
     <section id="status-section">
@@ -49,14 +47,14 @@
 
     <footer>
         <div class="footer-left">
-            <a href="https://septic-tank-monitoring-system-profile.netlify.app/" target="_blank">About Us</a>
+            <a href="https://example.com" target="_blank">About Us</a>
         </div>
         <div class="footer-right">
             <p>Septic Tank Monitoring System | © 2024</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JS Bundle -->
     <script src="dist/bundle.js"></script>
     <script src="toggle-mode.js"></script>
 </body>
