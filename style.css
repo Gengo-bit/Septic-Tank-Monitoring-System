@@ -1,111 +1,56 @@
 :root {
-  --base-color: #f4f7fc;
-  --base-variant: #e2e7ef;
-  --text-color: #333;
-  --primary-color: #36a2eb;
-  --accent-color: #ff6384;
-  --header-bg: #283593;
-  --footer-bg: #1a237e;
+  --light-bg: #f4f7fc;
+  --light-text: #333;
+  --dark-bg: #121212;
+  --dark-text: #ffffff;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--base-color);
-  color: var(--text-color);
   margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: Arial, sans-serif;
+  background-color: var(--light-bg);
+  color: var(--light-text);
+  transition: background-color 0.5s, color 0.5s;
 }
 
 header {
-  background-color: var(--header-bg);
+  background-color: #283593;
   color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: background-color 0.4s ease-in-out;
-}
-
-header h1 {
-  font-size: 2.2rem;
-  transition: transform 0.3s ease;
-}
-
-header:hover h1 {
-  transform: scale(1.05);
-}
-
-#theme-switch {
-  background-color: #fff;
-  border-radius: 50%;
-  border: none;
   padding: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  text-align: center;
 }
 
-#theme-switch:hover {
-  transform: scale(1.1);
+button#theme-switch {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 section {
-  padding: 20px;
+  margin: 20px;
+  text-align: center;
 }
 
-#status-section, #prediction-section, #historical-section {
-  margin-bottom: 40px;
+#capacityChart, #historicalChart {
+  max-width: 90%;
+  height: 300px;
 }
 
-#status {
-  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-#status.normal {
-  background-color: #e0f7fa;
-  color: #00796b;
-}
-
-#status.full {
-  background-color: #ffebee;
-  color: #d32f2f;
-}
-
-#prediction {
-  border-right: 2px solid #333;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0;
-  animation: typing 3s steps(30, end) forwards;
+canvas {
+  width: 100% !important;
+  height: auto !important;
 }
 
 footer {
-  background-color: var(--footer-bg);
+  background-color: #283593;
   color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  animation: fadeInUp 1s ease-in-out;
+  padding: 10px;
+  text-align: center;
 }
 
-@keyframes fadeInUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+/* Dark mode */
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
 }
