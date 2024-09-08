@@ -10,73 +10,57 @@ body.light-mode {
   font-family: 'Poppins', sans-serif;
   background-color: #f9fafb;
   color: #333;
-  line-height: 1.6;
-  transition: background-color 0.6s ease, color 0.6s ease;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body.dark-mode {
   background-color: #1c1f26;
   color: #e0e0e0;
-  transition: background-color 0.6s ease, color 0.6s ease;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* Header Styling */
 header {
   background-color: #3498db;
   color: white;
-  padding: 15px 0;
+  padding: 20px;
+  text-align: center;
   font-family: 'Poppins', sans-serif;
   font-size: 22px;
-  text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
 header h1 {
+  margin: 0;
   font-weight: 600;
 }
 
-/* Dark Mode Toggle */
-input[type="checkbox"] {
-  width: 0;
-  height: 0;
-  visibility: hidden;
-}
-
-label {
-  width: 80px;
-  height: 40px;
-  position: absolute;
-  right: 20px;
-  top: 20px;
+header .mode-toggle-label {
+  position: relative;
   cursor: pointer;
 }
 
-.sun, .moon {
+header .sun,
+header .moon {
   width: 36px;
   height: 36px;
-  transition: all 0.6s ease;
+  transition: opacity 0.5s ease;
 }
 
-.sun {
+header .moon {
   position: absolute;
-  left: 5px;
+  right: 0;
+  opacity: 0;
 }
 
-.moon {
-  position: absolute;
-  right: 5px;
+body.dark-mode .sun {
+  opacity: 0;
 }
 
-/* Toggle Animation */
-input:checked + label .sun {
-  transform: rotate(360deg);
-  fill: #fff;
-}
-
-input:checked + label .moon {
-  fill: #f39c12;
+body.dark-mode .moon {
+  opacity: 1;
 }
 
 /* Section Styling */
@@ -88,7 +72,7 @@ section {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+  transition: background-color 0.5s ease;
 }
 
 body.dark-mode section {
@@ -117,7 +101,7 @@ body.dark-mode .capacity-text {
   margin: 15px 0;
 }
 
-body.dark-mode .status-text { 
+body.dark-mode .status-text {
   color: #e0e0e0;
 }
 
@@ -135,7 +119,6 @@ footer {
   justify-content: space-between;
   padding: 15px 20px;
   font-size: 14px;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 body.dark-mode footer {

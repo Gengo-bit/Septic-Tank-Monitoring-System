@@ -4,7 +4,7 @@ const body = document.body;
 // Check for saved mode in localStorage
 const savedMode = localStorage.getItem('mode');
 if (savedMode) {
-  body.className = savedMode;
+  body.classList.add(savedMode);
 }
 
 // Toggle between light and dark mode
