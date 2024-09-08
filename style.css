@@ -11,14 +11,14 @@
 }
 
 .darkmode {
-  --base-color: #121212;
-  --base-variant: #1f1f1f;
-  --text-color: #e4e4e4;
-  --secondary-text: #a4a4a4;
-  --primary-color: #006400; /* Darker Green */
-  --accent-color: #f4c542; /* Yellow */
-  --header-bg: #006400; /* Darker Green */
-  --footer-bg: #006400; /* Darker Green */
+  --base-color: #121212; /* Dark mode background color */
+  --base-variant: #1f1f1f; /* Dark mode variant color */
+  --text-color: #e4e4e4; /* Light color for text in dark mode */
+  --secondary-text: #a4a4a4; /* Lighter color for secondary text in dark mode */
+  --primary-color: #e4e4e4; /* Light color for headings in dark mode */
+  --accent-color: #f4c542; /* Yellow accent color */
+  --header-bg: #1f1f1f; /* Dark Gray background for header in dark mode */
+  --footer-bg: #1f1f1f; /* Dark Gray background for footer in dark mode */
 }
 
 * {
