@@ -19,69 +19,64 @@ body.dark-mode {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Light/Dark Mode Toggle */
-input {
-  width: 0;
-  height: 0;
-  visibility: hidden;
-}
-
-label {
-  width: 500px;
-  height: 200px;
-  display: block;
+/* Header Styling */
+header {
+  background-color: #3498db;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
-  background: #ebebeb;
-  border-radius: 200px;
-  cursor: pointer;
-  transition: 0.3s;
 }
 
-label:after {
-  content: "";
-  width: 180px;
-  height: 180px;
+header h1 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Light/Dark Mode Toggle */
+input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-label {
   position: absolute;
+  right: 20px;
   top: 10px;
-  left: 10px;
-  background: linear-gradient(180deg, #ffcc89, #d8860b);
-  border-radius: 180px;
-  transition: 0.3s;
-}
-
-input:checked + label {
-  background: #242424;
-}
-
-input:checked + label:after {
-  left: 490px;
-  transform: translateX(-100%);
-  background: linear-gradient(180deg, #777, #3a3a3a);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 label svg {
-  position: absolute;
-  width: 120px;
-  top: 40px;
-  z-index: 100;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.5s ease;
 }
 
-label svg.sun {
-  left: 40px;
-  fill: #fff;
+.sun {
+  fill: #FFD700;
+  opacity: 1;
 }
 
-label svg.moon {
-  left: 340px;
+.moon {
   fill: #7e7e7e;
+  opacity: 0;
 }
 
-input:checked + label svg.sun {
-  fill: #7e7e7e;
+input:checked + .toggle-label .sun {
+  opacity: 0;
 }
 
-input:checked + label svg.moon {
-  fill: #fff;
+input:checked + .toggle-label .moon {
+  opacity: 1;
 }
 
 /* Section Styling */
