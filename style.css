@@ -1,41 +1,59 @@
 :root {
-  --base-color: #f4f7fc;
-  --base-variant: #e2e7ef;
+  --primary-bg: #f4f7fc;
+  --secondary-bg: #e9eef6;
   --text-color: #2d3a4b;
-  --secondary-text: #5c6f81;
-  --primary-color: #0071ff;
-  --accent-color: #ff4081;
-  --header-bg: #0071ff;
+  --secondary-text-color: #5c6f81;
+  --accent-color: #007bff;
+  --accent-color-dark: #0056b3;
+  --warning-color: #ffce56;
+  --danger-color: #ff6384;
+  --header-bg: #007bff;
   --footer-bg: #1a2332;
   --transition-duration: 0.4s;
+  --font-family: 'Poppins', sans-serif;
+  --font-size-base: 16px;
 }
 
 .darkmode {
-  --base-color: #121212;
-  --base-variant: #1f1f1f;
+  --primary-bg: #121212;
+  --secondary-bg: #1f1f1f;
   --text-color: #e4e4e4;
-  --secondary-text: #a4a4a4;
-  --primary-color: #00d1ff;
-  --accent-color: #ff4081;
+  --secondary-text-color: #a4a4a4;
+  --accent-color: #00d1ff;
+  --warning-color: #ffce56;
+  --danger-color: #ff4081;
   --header-bg: #00d1ff;
   --footer-bg: #1a1a1a;
 }
 
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-}
-
 body {
-  background-color: var(--base-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background-color: var(--primary-bg);
   color: var(--text-color);
   transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+h1, h2, h3 {
+  color: var(--accent-color);
+  margin-bottom: 15px;
+}
+
+p, span {
+  color: var(--secondary-text-color);
+  line-height: 1.6;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 header {
@@ -48,82 +66,100 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-#theme-switch {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--base-variant);
+header h1 {
+  font-size: 1.8em;
+}
+
+button#theme-switch {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--secondary-bg);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
-  position: fixed;
-  top: 20px;
-  right: 20px;
   transition: background-color var(--transition-duration);
 }
 
-#theme-switch svg {
-  fill: var(--primary-color);
+button#theme-switch svg {
+  fill: var(--accent-color);
   transition: fill var(--transition-duration);
 }
 
-#theme-switch #moon-icon {
-  display: none;
+.darkmode button#theme-switch svg {
+  fill: var(--accent-color-dark);
 }
 
-.darkmode #theme-switch #sun-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #moon-icon {
-  display: block;
-}
-
+/* Section Styling */
 section {
-  padding: 60px min(50px, 7%);
-  background-color: var(--base-variant);
-  margin: 30px auto;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: var(--secondary-bg);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
 }
 
-h2 {
-  color: var(--primary-color);
-  margin-bottom: 15px;
-}
-
-p {
+section h2 {
   margin-bottom: 20px;
-  color: var(--secondary-text);
-}
-
-canvas {
-  max-width: 100%;
-  max-height: 300px;
-  display: block;
-  margin: 20px auto;
+  font-size: 1.5em;
 }
 
 footer {
   background-color: var(--footer-bg);
   color: white;
   padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  text-align: center;
+}
+
+.footer-left, .footer-right {
+  display: inline-block;
 }
 
 a {
-  color: white;
+  color: var(--accent-color);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  section {
+    padding: 30px 10px;
+    margin: 20px auto;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  canvas {
+    height: auto;
+  }
+
+  header h1 {
+    font-size: 1.4em;
+  }
+}
+
+/* Animation for charts */
+#capacityChart, #historicalChart {
+  transition: transform 0.5s ease-in-out;
+}
+
+#capacityChart:hover, #historicalChart:hover {
+  transform: scale(1.05);
+}
+
+/* Button Hover Effect */
+button#theme-switch:hover {
+  background-color: var(--accent-color);
+}
+
+button#theme-switch:hover svg {
+  fill: white;
 }

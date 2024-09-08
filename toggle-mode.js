@@ -1,25 +1,22 @@
-let darkmode = localStorage.getItem('darkmode');
-const themeSwitch = document.getElementById('theme-switch');
-const sunIcon = document.getElementById('sun-icon');
-const moonIcon = document.getElementById('moon-icon');
+const themeSwitch = document.getElementById("theme-switch");
+const body = document.body;
 
-const enableDarkmode = () => {
-    document.body.classList.add('darkmode');
-    localStorage.setItem('darkmode', 'active');
-};
+themeSwitch.addEventListener("click", () => {
+  body.classList.toggle("darkmode");
+  updateIcons();
+});
 
-const disableDarkmode = () => {
-    document.body.classList.remove('darkmode');
-    localStorage.setItem('darkmode', null);
-};
-
-// Check saved mode on page load
-if (darkmode === "active") {
-    enableDarkmode();
+function updateIcons() {
+  const sunIcon = document.getElementById("sun-icon");
+  const moonIcon = document.getElementById("moon-icon");
+  
+  if (body.classList.contains("darkmode")) {
+    sunIcon.style.display = "none";
+    moonIcon.style.display = "block";
+  } else {
+    sunIcon.style.display = "block";
+    moonIcon.style.display = "none";
+  }
 }
 
-// Toggle the mode when the button is clicked
-themeSwitch.addEventListener("click", () => {
-    darkmode = localStorage.getItem('darkmode');
-    darkmode !== "active" ? enableDarkmode() : disableDarkmode();
-});
+updateIcons();  // Initialize the correct icon on page load
