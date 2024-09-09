@@ -67,7 +67,7 @@ const capacityChart = new Chart(ctx, {
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#52fa52', '#003d00'],  // Initial color for "Normal"
+      backgroundColor: lightModeColors.background,  // Use light mode by default
       borderWidth: 1
     }]
   },
