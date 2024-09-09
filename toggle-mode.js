@@ -19,13 +19,4 @@ function updateIcons() {
   }
 }
 
-document.getElementById('theme-switch').addEventListener('click', function() {
-  document.body.classList.toggle('darkmode');
-  const currentMode = document.body.classList.contains('darkmode') ? 'darkmode' : 'light-mode';
-
-  // Ensure chart colors update when the theme is toggled
-  updateChartColors(currentMode);
-});
-
-
 updateIcons();  // Initialize the correct icon on page load
