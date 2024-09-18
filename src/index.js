@@ -110,7 +110,7 @@ function updateCapacity(capacity) {
   }
 
   // Update capacity and status display
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%xxxx`;
   document.getElementById("status").textContent = `Status: ${status}`;
 
   // Update the chart with the new data
