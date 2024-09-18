@@ -1,7 +1,7 @@
 // Import necessary Firebase functions and Chart.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, onChildAdded } from "firebase/database";
+import { getDatabase, ref, query, limitToLast, onValue } from "firebase/database";
 import Chart from "chart.js/auto";
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
@@ -33,18 +33,18 @@ const capacityChart = new Chart(capacityCtx, {
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
       backgroundColor: ['#52fa52', '#003d00'],
-      borderWidth: 10 // Adjusted border width
+      borderWidth: 10
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2.5,  // Adjust aspect ratio for better fit
+    aspectRatio: 2.5,
     plugins: {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#333'  // Static color
+          color: '#333'
         }
       }
     },
@@ -60,10 +60,10 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [], // This will be updated dynamically
+    labels: [],
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [], // This will be updated dynamically
+      data: [],
       borderColor: 'rgba(75, 192, 192, 1)',
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       fill: true,
@@ -110,6 +110,7 @@ function updateCapacity(capacity) {
   }
 
   // Update capacity and status display
+  console.log(`Capacity: ${capacity}, Status: ${status}`); // Debug output to check values
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
 
@@ -122,19 +123,21 @@ function updateCapacity(capacity) {
 // Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
   const dateTimeISO = new Date(timestamp * 1000).toISOString();
-  historicalChart.data.labels.push(dateTimeISO);  // Use ISO string for Chart.js
+  historicalChart.data.labels.push(dateTimeISO);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
 
-// Reference to the capacity data in Firebase
+// Retrieve the latest capacity entry from Firebase
 const capacityRef = ref(database, 'septicTankData');
+const latestEntryQuery = query(capacityRef, limitToLast(1));
 
-// Firebase listener for live data
-onChildAdded(capacityRef, (snapshot) => {
-  const data = snapshot.val();
-  const { capacity, timestamp } = data;
+onValue(latestEntryQuery, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const data = childSnapshot.val();
+    const { capacity, timestamp } = data;
 
-  updateCapacity(capacity);  // Update capacity and chart
-  updateHistoricalChart(capacity, timestamp);  // Update historical chart
+    updateCapacity(capacity);  // Update capacity and status
+    updateHistoricalChart(capacity, timestamp);  // Update historical chart
+  });
 });
