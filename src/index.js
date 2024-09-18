@@ -96,21 +96,21 @@ function updateCapacity(capacity) {
   let status, color;
 
   if (capacity < 75) {
-    status = 'Normal';
-    color = '#36a2eb';  // Blue
+    status = "Normal";
+    //color = '#36a2eb';  // Blue
   } else if (capacity >= 75 && capacity <= 85) {
-    status = 'Above Normal';
-    color = '#ffce56';  // Yellow
+    status = "Above Normal";
+    //color = '#ffce56';  // Yellow
   } else if (capacity >= 86 && capacity <= 95) {
-    status = 'Critical';
-    color = '#ffa500';  // Orange
+    status = "Critical";
+    //color = '#ffa500';  // Orange
   } else {
-    status = 'Full';
-    color = '#ff6384';  // Red
+    status = "Full";
+    //color = '#ff6384';  // Red
   }
 
   // Update capacity and status display
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%xxxx`;
+  document.getElementById("capacity").textContent = `sadasdCapacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
 
   // Update the chart with the new data
