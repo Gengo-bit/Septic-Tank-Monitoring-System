@@ -73,18 +73,17 @@ function updateCapacity(capacity) {
 
   if (capacity < 75) {
     status = 'Normal';
-    status.fontcolor("green");  // Green for "Normal"
+    document.getElementById("status").textContent = `Status: ${status.fontcolor("green")}`;
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    status.fontcolor("yellow");  // Yellow for "Above Normal"
+    document.getElementById("status").textContent = `Status: ${status.fontcolor("yellow")}`
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    status.fontcolor("orange");  // Orange for "Critical"
+    document.getElementById("status").textContent = `Status: ${status.fontcolor("orange")}`
   } else if (capacity > 95) {
     status = 'Full';
-    status.fontcolor("red");  // Red for "Full"
+    document.getElementById("status").textContent = `Status: ${status.fontcolor("red")}`
   }
-  document.getElementById("status").textContent = `Status: ${status}`;
 }
 
 // Function to update the historical chart
