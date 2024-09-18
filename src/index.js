@@ -95,7 +95,7 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps
+    labels: [],  // Timestamps (with date)
     datasets: [{
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
@@ -109,15 +109,31 @@ const historicalChart = new Chart(historicalCtx, {
     aspectRatio: 3,  // Make the chart wider and less tall
     plugins: {
       legend: {
-        position: 'bottom',
-        labels: {
-          color: lightModeColors.borderColor  // Start with light mode colors
-        }
+        position: 'bottom'
       }
     },
     scales: {
-      x: { grid: { color: lightModeColors.gridColor }, ticks: { color: lightModeColors.tickColor } },
-      y: { grid: { color: lightModeColors.gridColor }, ticks: { color: lightModeColors.tickColor } }
+      x: {
+        type: 'time',
+        time: {
+          unit: 'day',  // Group by day
+          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Format in tooltip
+          displayFormats: {
+            day: 'MMM D'  // Display day format in the x-axis
+          }
+        },
+        title: {
+          display: true,
+          text: 'Date and Time',
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Capacity (%)',
+        },
+        beginAtZero: true
+      }
     }
   }
 });
@@ -152,8 +168,10 @@ function updateCapacity(capacity) {
 }
 
 // Function to update the historical chart
-function updateHistoricalChart(capacity, timestamp) {
-  historicalChart.data.labels.push(new Date(timestamp * 1000).toLocaleTimeString());
+function updateHistoricalChart(capacity, timestamp, date) {
+  const dateTime = `${date} ${new Date(timestamp * 1000).toLocaleTimeString()}`;
+  
+  historicalChart.data.labels.push(dateTime);  // Use both date and time
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
@@ -187,23 +205,16 @@ function predictFullTank(capacityHistory) {
 }
 
 // Firebase listener to get live data from the database
-onChildAdded(ref(database, 'sensor_data'), (snapshot) => {
+onChildAdded(ref(database, 'septicTankData'), (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;
   const timestamp = data.timestamp;
+  const date = data.date;  // Get the date from Firebase
 
   // Update the chart and the historical data
   updateCapacity(capacity);
-  updateHistoricalChart(capacity, timestamp);
+  updateHistoricalChart(capacity, timestamp, date);
 });
-
-// Example capacity history for predictions
-const capacityHistory = [
-  [65, 1725500000],  // Example: 65% capacity at timestamp X
-  [70, 1725550000],  // Example: 70% capacity at timestamp Y
-  [75, 1725600000],  // Example: 75% capacity at timestamp Z
-  [85, 1725650000]   // Example: 85% capacity at timestamp W
-];
 
 // Generate and display prediction
 const predictionText = predictFullTank(capacityHistory);
