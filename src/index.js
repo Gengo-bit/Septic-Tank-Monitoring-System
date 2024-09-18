@@ -1,7 +1,7 @@
 // Import necessary Firebase functions and Chart.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, query, limitToLast, onValue } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 import Chart from "chart.js/auto";
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
@@ -33,18 +33,18 @@ const capacityChart = new Chart(capacityCtx, {
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
       backgroundColor: ['#52fa52', '#003d00'],
-      borderWidth: 10
+      borderWidth: 10 // Adjusted border width
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2.5,
+    aspectRatio: 2.5,  // Adjust aspect ratio for better fit
     plugins: {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#333'
+          color: '#333'  // Static color
         }
       }
     },
@@ -60,10 +60,10 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],
+    labels: [], // This will be updated dynamically
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [],
+      data: [], // This will be updated dynamically
       borderColor: 'rgba(75, 192, 192, 1)',
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       fill: true,
@@ -92,61 +92,55 @@ const historicalChart = new Chart(historicalCtx, {
 });
 
 // Function to update capacity and status
-function updateCapacity(capacity) {
-  // Ensure the capacity is a number
-  const capacityValue = Number(capacity);
-  console.log(`Capacity Value: ${capacityValue}`); // Debugging capacity
-
+function updateCapacity(capacityValue) {
   let status, color;
 
-  // Only proceed if capacityValue is a valid number
-  if (!isNaN(capacityValue)) {
-    if (capacityValue < 75) {
-      status = 'Normal';
-      color = '#36a2eb';  // Blue
-    } else if (capacityValue >= 75 && capacityValue <= 85) {
-      status = 'Above Normal';
-      color = '#ffce56';  // Yellow
-    } else if (capacityValue >= 86 && capacityValue <= 95) {
-      status = 'Critical';
-      color = '#ffa500';  // Orange
-    } else {
-      status = 'Full';
-      color = '#ff6384';  // Red
-    }
-
-    console.log(`Status: ${status}`); // Debugging status
-    // Update capacity and status display
-    document.getElementById("capacity").textContent = `Capacity: ${capacityValue}%`;
-    document.getElementById("status").textContent = `Status: ${status}`;
-
-    // Update the chart with the new data
-    capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
-    capacityChart.data.datasets[0].data = [capacityValue, 100 - capacityValue];
-    capacityChart.update();
+  if (capacityValue < 75) {
+    status = 'Normal';
+    color = '#36a2eb';  // Blue
+  } else if (capacityValue >= 75 && capacityValue <= 85) {
+    status = 'Above Normal';
+    color = '#ffce56';  // Yellow
+  } else if (capacityValue >= 86 && capacityValue <= 95) {
+    status = 'Critical';
+    color = '#ffa500';  // Orange
   } else {
-    console.error('Invalid capacity value:', capacity);
+    status = 'Full';
+    color = '#ff6384';  // Red
   }
+
+  // Log for debugging
+  console.log(`Capacity: ${capacityValue}, Status: ${status}`);
+
+  // Update capacity and status display
+  document.getElementById("capacity").textContent = `Capacity: ${capacityValue}%`;
+  document.getElementById("status").textContent = `Status: ${status}`;
+
+  // Update the chart with the new data
+  capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
+  capacityChart.data.datasets[0].data = [capacityValue, 100 - capacityValue];
+  capacityChart.update();
 }
 
 // Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
   const dateTimeISO = new Date(timestamp * 1000).toISOString();
-  historicalChart.data.labels.push(dateTimeISO);
+  historicalChart.data.labels.push(dateTimeISO);  // Use ISO string for Chart.js
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
 
-// Retrieve the latest capacity entry from Firebase
+// Firebase listener for the latest capacity data
 const capacityRef = ref(database, 'septicTankData');
-const latestEntryQuery = query(capacityRef, limitToLast(1));
+onValue(capacityRef, (snapshot) => {
+  const data = snapshot.val();
 
-onValue(latestEntryQuery, (snapshot) => {
-  snapshot.forEach((childSnapshot) => {
-    const data = childSnapshot.val();
-    const { capacity, timestamp } = data;
+  // Extract the last entry
+  const keys = Object.keys(data);
+  const latestKey = keys[keys.length - 1];
+  const latestData = data[latestKey];
+  const { capacity, timestamp } = latestData;
 
-    updateCapacity(capacity);  // Update capacity and status
-    updateHistoricalChart(capacity, timestamp);  // Update historical chart
-  });
+  updateCapacity(capacity);  // Update capacity and chart
+  updateHistoricalChart(capacity, timestamp);  // Update historical chart
 });
