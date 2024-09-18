@@ -110,7 +110,7 @@ function updateCapacity(capacity) {
   }
 
   // Update capacity and status display
-  document.getElementById("capacity").textContent = `sadasdCapacity: ${capacity}%`;
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
 
   // Update the chart with the new data
@@ -127,17 +127,4 @@ function updateHistoricalChart(capacity, timestamp) {
   historicalChart.update();
 }
 
-// Firebase listener for the latest capacity data
-const capacityRef = ref(database, 'septicTankData');
-onValue(capacityRef, (snapshot) => {
-  const data = snapshot.val();
 
-  // Extract the last entry
-  const keys = Object.keys(data);
-  const latestKey = keys[keys.length - 1];
-  const latestData = data[latestKey];
-  const { capacity, date, timestamp} = latestData;
-
-  updateCapacity(capacity);  // Update capacity and chart
-  updateHistoricalChart(capacity, timestamp);  // Update historical chart
-});
