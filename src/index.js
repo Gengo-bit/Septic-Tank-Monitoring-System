@@ -23,38 +23,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// Capacity Chart
-const capacityCtx = document.getElementById('capacityChart').getContext('2d');
-const capacityChart = new Chart(capacityCtx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Used', 'Available'],
-    datasets: [{
-      label: 'Septic Tank Capacity',
-      data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#52fa52', '#003d00'],
-      borderWidth: 10 // Adjusted border width
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2.5,  // Adjust aspect ratio for better fit
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          color: '#333'  // Static color
-        }
-      }
-    },
-    scales: {
-      x: { grid: { color: '#cccccc' }, ticks: { color: '#000' } },
-      y: { grid: { color: '#cccccc' }, ticks: { color: '#000' } }
-    }
-  }
-});
-
 // Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
