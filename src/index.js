@@ -94,36 +94,32 @@ const capacityChart = new Chart(ctx, {
 
 // Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
+
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Add your time labels here
+    labels: [],  // Dates will go here
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [],  // Your capacity data goes here
+      data: [],  // Capacity values will go here
       borderColor: '#003d00',
       fill: false
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 3,  // Adjust the aspect ratio for better visibility
+    maintainAspectRatio: false,  // Allow it to adapt better to the container
     plugins: {
-      legend: {
-        position: 'bottom'
-      },
-      // Enable zoom and pan
       zoom: {
         pan: {
-          enabled: true,      // Enable panning
-          mode: 'x',          // Only allow panning on the x-axis
-          speed: 20           // Adjust the panning speed
+          enabled: true,
+          mode: 'x',
+          speed: 20
         },
         zoom: {
-          enabled: true,      // Enable zooming
-          mode: 'x',          // Only allow zooming on the x-axis
-          speed: 0.1          // Set the zoom speed
+          enabled: true,
+          mode: 'x',
+          speed: 0.1
         }
       }
     },
@@ -131,13 +127,13 @@ const historicalChart = new Chart(historicalCtx, {
       x: {
         type: 'time',
         time: {
-          unit: 'second',       // Group data by seconds
-          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Display full date & time in tooltips
+          unit: 'second',  // Display unit in seconds
+          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',
           displayFormats: {
-            second: 'YYYY-MM-DD HH:mm:ss',  // Show date and time for every second
-            minute: 'YYYY-MM-DD HH:mm',     // Group by minutes when zoomed out
-            hour: 'YYYY-MM-DD HH',          // Group by hours when zoomed further out
-            day: 'YYYY-MM-DD'               // Show days when zoomed way out
+            second: 'YYYY-MM-DD HH:mm:ss',
+            minute: 'YYYY-MM-DD HH:mm',
+            hour: 'YYYY-MM-DD HH',
+            day: 'YYYY-MM-DD'
           }
         },
         title: {
@@ -155,6 +151,15 @@ const historicalChart = new Chart(historicalCtx, {
     }
   }
 });
+
+// Firebase integration
+firebase.database().ref('septicTankData').on('child_added', function(snapshot) {
+  let data = snapshot.val();
+  historicalChart.data.labels.push(moment(data.timestamp * 1000));  // Convert timestamp to date
+  historicalChart.data.datasets[0].data.push(data.capacity);
+  historicalChart.update();
+});
+
 
 // Function to update the capacity and status
 function updateCapacity(capacity) {
