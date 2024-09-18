@@ -68,7 +68,7 @@ function updateCapacity(capacity) {
 
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
 
-  let status;
+  /*let status;
   let color;
 
   if (capacity < 75) {
@@ -84,7 +84,7 @@ function updateCapacity(capacity) {
     status = 'Full';
     color = '#ff6384';  // Red for "Full"
   }
-  document.getElementById("status").textContent = `Status: ${status}`;
+  document.getElementById("status").textContent = `Status: ${status}`;*/
 }
 
 // Function to update the historical chart
