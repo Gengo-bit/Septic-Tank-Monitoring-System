@@ -116,12 +116,13 @@ const historicalChart = new Chart(historicalCtx, {
       x: {
         type: 'time',
         time: {
-          unit: 'day',  // You can change this to 'hour', 'minute', etc., depending on your data
-          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Format in tooltip
+          unit: 'second',  // You can also try 'minute', 'hour', or 'day'
+          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Show full date and time in the tooltip
           displayFormats: {
-            day: 'MMM D',  // Display only the day on the x-axis (you can adjust this format as needed)
-            hour: 'HH:mm',  // Optional: If you want to display time at the hour level
-            second: 'HH:mm:ss'  // Optional: Display at the second level
+            second: 'YYYY-MM-DD HH:mm:ss',  // Ensure both date and time are shown on the x-axis
+            minute: 'YYYY-MM-DD HH:mm',     // In case of a wider range of data, show up to minute
+            hour: 'YYYY-MM-DD HH',          // For hourly display, adjust as needed
+            day: 'YYYY-MM-DD'               // If you're plotting across days, include the full date
           }
         },
         title: {
