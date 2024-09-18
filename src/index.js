@@ -116,10 +116,12 @@ const historicalChart = new Chart(historicalCtx, {
       x: {
         type: 'time',
         time: {
-          unit: 'day',  // Group by day
+          unit: 'day',  // You can change this to 'hour', 'minute', etc., depending on your data
           tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Format in tooltip
           displayFormats: {
-            day: 'MMM D'  // Display day format in the x-axis
+            day: 'MMM D',  // Display only the day on the x-axis (you can adjust this format as needed)
+            hour: 'HH:mm',  // Optional: If you want to display time at the hour level
+            second: 'HH:mm:ss'  // Optional: Display at the second level
           }
         },
         title: {
@@ -134,7 +136,7 @@ const historicalChart = new Chart(historicalCtx, {
         },
         beginAtZero: true
       }
-    }
+    }    
   }
 });
 
@@ -168,10 +170,10 @@ function updateCapacity(capacity) {
 }
 
 // Function to update the historical chart
-function updateHistoricalChart(capacity, timestamp, date) {
-  const dateTime = `${date} ${new Date(timestamp * 1000).toLocaleTimeString()}`;
+function updateHistoricalChart(capacity, timestamp) {
+  const dateTimeISO = new Date(timestamp * 1000).toISOString();  // Convert timestamp to ISO format
   
-  historicalChart.data.labels.push(dateTime);  // Use both date and time
+  historicalChart.data.labels.push(dateTimeISO);  // Use ISO string for Chart.js
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
