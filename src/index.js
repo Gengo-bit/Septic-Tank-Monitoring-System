@@ -127,8 +127,11 @@ function updateHistoricalChart(capacity, timestamp) {
   historicalChart.update();
 }
 
+// Reference to the capacity data in Firebase
+const capacityRef = ref(database, 'septicTankData');
+
 // Firebase listener for live data
-onChildAdded(ref(database, 'septicTankData'), (snapshot) => {
+onChildAdded(capacityRef, (snapshot) => {
   const data = snapshot.val();
   const { capacity, timestamp } = data;
 
