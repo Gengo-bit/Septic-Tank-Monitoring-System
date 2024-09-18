@@ -119,17 +119,16 @@ function updateHistoricalChart(capacity, timestamp) {
   historicalChart.update();
 }
 
-// Firebase listener for the latest capacity data
-const capacityRef = ref(database, 'septicTankData');
-onValue(capacityRef, (snapshot) => {
+// Set up real-time listener from Firebase Realtime Database
+const septicDataRef = ref(database, 'septicTankData');
+
+// Listening for real-time data updates
+onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
+  const capacity = data.capacity;  // Get capacity percentage from Firebase
+  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
 
-  // Extract the last entry
-  const keys = Object.keys(data);
-  const latestKey = keys[keys.length - 1];
-  const latestData = data[latestKey];
-  const { capacity, timestamp } = latestData;
-
-  updateCapacity(capacity);  // Update capacity and chart
-  updateHistoricalChart(capacity, timestamp);  // Update historical chart
+  // Update both the capacity chart and historical chart
+  updateCapacity(capacity);
+  updateHistoricalChart(capacity, timestamp);
 });
