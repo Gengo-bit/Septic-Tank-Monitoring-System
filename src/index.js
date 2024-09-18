@@ -93,31 +93,40 @@ const historicalChart = new Chart(historicalCtx, {
 
 // Function to update capacity and status
 function updateCapacity(capacity) {
+  // Ensure the capacity is a number
+  const capacityValue = Number(capacity);
+  console.log(`Capacity Value: ${capacityValue}`); // Debugging capacity
+
   let status, color;
 
-  if (capacity < 75) {
-    status = 'Normal';
-    color = '#36a2eb';  // Blue
-  } else if (capacity >= 75 && capacity <= 85) {
-    status = 'Above Normal';
-    color = '#ffce56';  // Yellow
-  } else if (capacity >= 86 && capacity <= 95) {
-    status = 'Critical';
-    color = '#ffa500';  // Orange
+  // Only proceed if capacityValue is a valid number
+  if (!isNaN(capacityValue)) {
+    if (capacityValue < 75) {
+      status = 'Normal';
+      color = '#36a2eb';  // Blue
+    } else if (capacityValue >= 75 && capacityValue <= 85) {
+      status = 'Above Normal';
+      color = '#ffce56';  // Yellow
+    } else if (capacityValue >= 86 && capacityValue <= 95) {
+      status = 'Critical';
+      color = '#ffa500';  // Orange
+    } else {
+      status = 'Full';
+      color = '#ff6384';  // Red
+    }
+
+    console.log(`Status: ${status}`); // Debugging status
+    // Update capacity and status display
+    document.getElementById("capacity").textContent = `Capacity: ${capacityValue}%`;
+    document.getElementById("status").textContent = `Status: ${status}`;
+
+    // Update the chart with the new data
+    capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
+    capacityChart.data.datasets[0].data = [capacityValue, 100 - capacityValue];
+    capacityChart.update();
   } else {
-    status = 'Full';
-    color = '#ff6384';  // Red
+    console.error('Invalid capacity value:', capacity);
   }
-
-  // Update capacity and status display
-  console.log(`Capacity: ${capacity}, Status: ${status}`); // Debug output to check values
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
-  document.getElementById("status").textContent = `Status: ${status}`;
-
-  // Update the chart with the new data
-  capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
-  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
-  capacityChart.update();
 }
 
 // Function to update the historical chart
