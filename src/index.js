@@ -93,64 +93,84 @@ const capacityChart = new Chart(ctx, {
 });
 
 // Historical Chart
-const historicalCtx = document.getElementById('historicalChart').getContext('2d');
+// Wait for the DOM to be fully loaded
+window.onload = function() {
+  const ctx = document.getElementById('historicalChart').getContext('2d');
 
-const historicalChart = new Chart(historicalCtx, {
-  type: 'line',
-  data: {
-    labels: [],  // Dates will go here
-    datasets: [{
-      label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity values will go here
-      borderColor: '#003d00',
-      fill: false
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,  // Allow it to adapt better to the container
-    plugins: {
-      zoom: {
-        pan: {
-          enabled: true,
-          mode: 'x',
-          speed: 20
-        },
-        zoom: {
-          enabled: true,
-          mode: 'x',
-          speed: 0.1
-        }
-      }
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [], // This will be updated dynamically
+      datasets: [{
+        label: 'Septic Tank Levels Over Time',
+        data: [], // This will be updated dynamically
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true,
+        tension: 0.1,
+      }]
     },
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          unit: 'second',  // Display unit in seconds
-          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',
-          displayFormats: {
-            second: 'YYYY-MM-DD HH:mm:ss',
-            minute: 'YYYY-MM-DD HH:mm',
-            hour: 'YYYY-MM-DD HH',
-            day: 'YYYY-MM-DD'
+    options: {
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'day', // You can adjust this
+            tooltipFormat: 'll HH:mm', // Show date and time
+          },
+          title: {
+            display: true,
+            text: 'Date & Time'
           }
         },
-        title: {
-          display: true,
-          text: 'Date and Time'
+        y: {
+          title: {
+            display: true,
+            text: 'Tank Capacity (%)'
+          },
+          min: 0,
+          max: 100
         }
       },
-      y: {
-        title: {
-          display: true,
-          text: 'Capacity (%)'
-        },
-        beginAtZero: true
+      plugins: {
+        zoom: {
+          pan: {
+            enabled: true,
+            mode: 'x',
+          },
+          zoom: {
+            enabled: true,
+            mode: 'x',
+            drag: true,
+            speed: 0.1
+          }
+        }
       }
     }
+  });
+
+  // Function to update chart dynamically
+  function updateChart(data) {
+    // Assuming data comes as an array of objects with date and capacity
+    const labels = data.map(item => item.date); // Get the date labels
+    const capacityData = data.map(item => item.capacity); // Get the capacity values
+
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = capacityData;
+    chart.update(); // Update the chart
   }
-});
+
+  // Simulate incoming data
+  setInterval(() => {
+    const newData = {
+      date: new Date().toLocaleTimeString(), // Replace with your Firebase timestamp data
+      capacity: Math.floor(Math.random() * 50) + 50 // Random capacity
+    };
+
+    // Push the new data (you can pull from Firebase here)
+    updateChart([newData]);
+  }, 5000); // Simulate every 5 seconds
+};
 
 // Firebase integration
 firebase.database().ref('septicTankData').on('child_added', function(snapshot) {
