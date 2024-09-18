@@ -1,7 +1,7 @@
 // Import necessary Firebase functions and Chart.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onChildAdded } from "firebase/database";
 import Chart from "chart.js/auto";
 
 // Firebase configuration
@@ -68,7 +68,7 @@ function updateCapacity(capacity) {
 
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
 
-  /*let status;
+  let status;
   let color;
 
   if (capacity < 75) {
@@ -84,7 +84,7 @@ function updateCapacity(capacity) {
     status = 'Full';
     color = '#ff6384';  // Red for "Full"
   }
-  document.getElementById("status").textContent = `Status: ${status}`;*/
+  document.getElementById("status").textContent = `Status: ${status}`;
 }
 
 // Function to update the historical chart
