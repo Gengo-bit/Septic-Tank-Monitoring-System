@@ -92,16 +92,16 @@ const historicalChart = new Chart(historicalCtx, {
 });
 
 // Function to update capacity and status
-function updateCapacity(capacityValue) {
+function updateCapacity(capacity) {
   let status, color;
 
-  if (capacityValue < 75) {
+  if (capacity < 75) {
     status = 'Normal';
     color = '#36a2eb';  // Blue
-  } else if (capacityValue >= 75 && capacityValue <= 85) {
+  } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
     color = '#ffce56';  // Yellow
-  } else if (capacityValue >= 86 && capacityValue <= 95) {
+  } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
     color = '#ffa500';  // Orange
   } else {
@@ -109,16 +109,13 @@ function updateCapacity(capacityValue) {
     color = '#ff6384';  // Red
   }
 
-  // Log for debugging
-  console.log(`Capacity: ${capacityValue}, Status: ${status}`);
-
   // Update capacity and status display
-  document.getElementById("capacity").textContent = `Capacity: ${capacityValue}%`;
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
 
   // Update the chart with the new data
   capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
-  capacityChart.data.datasets[0].data = [capacityValue, 100 - capacityValue];
+  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
   capacityChart.update();
 }
 
@@ -139,7 +136,7 @@ onValue(capacityRef, (snapshot) => {
   const keys = Object.keys(data);
   const latestKey = keys[keys.length - 1];
   const latestData = data[latestKey];
-  const { capacity, timestamp } = latestData;
+  const { capacity, date, timestamp} = latestData;
 
   updateCapacity(capacity);  // Update capacity and chart
   updateHistoricalChart(capacity, timestamp);  // Update historical chart
