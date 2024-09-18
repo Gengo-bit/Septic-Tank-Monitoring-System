@@ -73,16 +73,16 @@ function updateCapacity(capacity) {
 
   if (capacity < 75) {
     status = 'Normal';
-    color = '#36a2eb';  // Blue for "Normal"
+    status.color = '#36a2eb';  // Blue for "Normal"
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    color = '#ffce56';  // Yellow for "Above Normal"
+    status.color = '#ffce56';  // Yellow for "Above Normal"
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    color = '#ffa500';  // Orange for "Critical"
+    status.color = '#ffa500';  // Orange for "Critical"
   } else if (capacity > 95) {
     status = 'Full';
-    color = '#ff6384';  // Red for "Full"
+    status.color = '#ff6384';  // Red for "Full"
   }
   document.getElementById("status").textContent = `Status: ${status}`;
 }
