@@ -24,27 +24,21 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
 // Capacity Chart
-const capacityCtx = document.getElementById('capacityChart').getContext('2d');
-const capacityChart = new Chart(capacityCtx, {
+const ctx = document.getElementById('capacityChart').getContext('2d');
+const capacityChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
     labels: ['Used', 'Available'],
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#36a2eb', '#d3d3d3'],  // Initial color for "Normal"
-      borderWidth: 2
+      backgroundColor: ['#ff6384', '#36a2eb'],
+      borderWidth: 1
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2.5,
-    plugins: {
-      legend: {
-        position: 'bottom',
-      }
-    }
+    maintainAspectRatio: false
   }
 });
 
@@ -53,32 +47,17 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Placeholder for timestamps
+    labels: [],  // Timestamps
     datasets: [{
-      label: 'Septic Tank Capacity Over Time',
-      data: [],  // Placeholder for data
-      borderColor: '#36a2eb',
-      fill: false,
-      tension: 0.1,
+      label: 'Septic Tank Levels Over Time',
+      data: [],  // Capacity percentages over time
+      borderColor: '#42a5f5',
+      fill: false
     }]
   },
   options: {
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          unit: 'day',
-          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',
-          displayFormats: {
-            day: 'MMM D'
-          }
-        }
-      },
-      y: {
-        beginAtZero: true,
-        max: 100,
-      }
-    }
+    responsive: true,
+    maintainAspectRatio: false
   }
 });
 
@@ -101,20 +80,18 @@ function updateCapacity(capacity) {
     color = '#ff6384';  // Red for "Full"
   }
 
+  const available = 100 - capacity;
+  capacityChart.data.datasets[0].data = [capacity, available];
+  capacityChart.update();
+
   // Update capacity and status display
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
-
-  // Update the chart with the new data
-  capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
-  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
-  capacityChart.update();
 }
 
 // Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
-  const dateTimeISO = new Date(timestamp * 1000).toISOString();
-  historicalChart.data.labels.push(dateTimeISO);  // Use ISO string for Chart.js
+  historicalChart.data.labels.push(timestamp);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
