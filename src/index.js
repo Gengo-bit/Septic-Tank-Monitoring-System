@@ -91,34 +91,6 @@ const historicalChart = new Chart(historicalCtx, {
   }
 });
 
-// Function to update capacity and status
-function updateCapacity(capacity) {
-  let status, color;
-
-  if (capacity < 75) {
-    status = "Normal";
-    //color = '#36a2eb';  // Blue
-  } else if (capacity >= 75 && capacity <= 85) {
-    status = "Above Normal";
-    //color = '#ffce56';  // Yellow
-  } else if (capacity >= 86 && capacity <= 95) {
-    status = "Critical";
-    //color = '#ffa500';  // Orange
-  } else {
-    status = "Full";
-    //color = '#ff6384';  // Red
-  }
-
-  // Update capacity and status display
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
-  document.getElementById("status").textContent = `Status: ${status}`;
-
-  // Update the chart with the new data
-  capacityChart.data.datasets[0].backgroundColor = [color, '#d3d3d3'];
-  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
-  capacityChart.update();
-}
-
 // Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
   const dateTimeISO = new Date(timestamp * 1000).toISOString();
@@ -126,5 +98,3 @@ function updateHistoricalChart(capacity, timestamp) {
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
-
-
