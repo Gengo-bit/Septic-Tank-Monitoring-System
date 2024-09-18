@@ -23,43 +23,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// Define colors for light and dark modes
-const lightModeColors = {
-  background: ['#52fa52', '#e0e0e0'],  // Light green for used, light gray for available
-  borderColor: '#333',                 // Darker text for light mode
-  gridColor: '#cccccc',                // Light grid lines
-  tickColor: '#000'                    // Black ticks in light mode
-};
-
-const darkModeColors = {
-  background: ['#ffa500', '#333'],     // Orange for used, dark background for available
-  borderColor: '#f5f5f5',              // Lighter text for dark mode
-  gridColor: '#555555',                // Dark grid lines
-  tickColor: '#fff'                    // White ticks in dark mode
-};
-
-// Update chart colors based on light or dark mode
-function updateChartColors(mode) {
-  const colors = mode === 'darkmode' ? darkModeColors : lightModeColors;
-
-  // Update Capacity Chart Colors
-  capacityChart.data.datasets[0].backgroundColor = colors.background;
-  capacityChart.options.plugins.legend.labels.color = colors.borderColor;
-  capacityChart.options.scales.x.grid.color = colors.gridColor;
-  capacityChart.options.scales.y.grid.color = colors.gridColor;
-  capacityChart.options.scales.x.ticks.color = colors.tickColor;
-  capacityChart.options.scales.y.ticks.color = colors.tickColor;
-  capacityChart.update();
-
-  // Update Historical Chart Colors
-  historicalChart.data.datasets[0].borderColor = colors.borderColor;
-  historicalChart.options.scales.x.grid.color = colors.gridColor;
-  historicalChart.options.scales.y.grid.color = colors.gridColor;
-  historicalChart.options.scales.x.ticks.color = colors.tickColor;
-  historicalChart.options.scales.y.ticks.color = colors.tickColor;
-  historicalChart.update();
-}
-
 // Capacity Chart
 const capacityCtx = document.getElementById('capacityChart').getContext('2d');
 const capacityChart = new Chart(capacityCtx, {
@@ -81,13 +44,13 @@ const capacityChart = new Chart(capacityCtx, {
       legend: {
         position: 'bottom',
         labels: {
-          color: lightModeColors.borderColor  // Start with light mode colors
+          color: '#333'  // Static color
         }
       }
     },
     scales: {
-      x: { grid: { color: lightModeColors.gridColor }, ticks: { color: lightModeColors.tickColor } },
-      y: { grid: { color: lightModeColors.gridColor }, ticks: { color: lightModeColors.tickColor } }
+      x: { grid: { color: '#cccccc' }, ticks: { color: '#000' } },
+      y: { grid: { color: '#cccccc' }, ticks: { color: '#000' } }
     }
   }
 });
@@ -171,14 +134,4 @@ onChildAdded(ref(database, 'septicTankData'), (snapshot) => {
 
   updateCapacity(capacity);  // Update capacity and chart
   updateHistoricalChart(capacity, timestamp);  // Update historical chart
-});
-
-// Initial load: set chart colors based on current mode
-const currentMode = document.body.classList.contains('darkmode') ? 'darkmode' : 'light-mode';
-updateChartColors(currentMode);
-
-// Toggle theme and update chart colors
-document.getElementById('theme-switch').addEventListener('click', () => {
-  const newMode = document.body.classList.contains('darkmode') ? 'darkmode' : 'light-mode';
-  updateChartColors(newMode);
 });
