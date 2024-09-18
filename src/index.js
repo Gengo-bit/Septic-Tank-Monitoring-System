@@ -93,24 +93,25 @@ const historicalChart = new Chart(historicalCtx, {
 
 // Function to update capacity and status
 function updateCapacity(capacity) {
-  let status, color;
+  let status;
+  let color;
 
   if (capacity < 75) {
-    status = "Normal";
-    //color = '#36a2eb';  // Blue
+    status = 'Normal';
+    color = '#36a2eb';  // Blue for "Normal"
   } else if (capacity >= 75 && capacity <= 85) {
-    status = "Above Normal";
-    //color = '#ffce56';  // Yellow
+    status = 'Above Normal';
+    color = '#ffce56';  // Yellow for "Above Normal"
   } else if (capacity >= 86 && capacity <= 95) {
-    status = "Critical";
-    //color = '#ffa500';  // Orange
-  } else {
-    status = "Full";
-    //color = '#ff6384';  // Red
+    status = 'Critical';
+    color = '#ffa500';  // Orange for "Critical"
+  } else if (capacity > 95) {
+    status = 'Full';
+    color = '#ff6384';  // Red for "Full"
   }
 
   // Update capacity and status display
-  document.getElementById("capacity").textContent = `sadasdCapacity: ${capacity}%`;
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
 
   // Update the chart with the new data
