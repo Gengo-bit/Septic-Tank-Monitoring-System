@@ -3,6 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, onChildAdded } from "firebase/database";
 import Chart from "chart.js/auto";
+import zoomPlugin from 'chartjs-plugin-zoom';
+Chart.register(zoomPlugin);
 
 // Firebase configuration
 const firebaseConfig = {
@@ -95,7 +97,7 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps (with date)
+    labels: [],  // Timestamps (with date and time)
     datasets: [{
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
@@ -106,23 +108,35 @@ const historicalChart = new Chart(historicalCtx, {
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 3,  // Make the chart wider and less tall
+    aspectRatio: 3,  // Adjusted for a better fit
     plugins: {
       legend: {
         position: 'bottom'
+      },
+      zoom: {
+        pan: {
+          enabled: true,      // Enable panning
+          mode: 'x',          // Allow panning on the x-axis only
+          speed: 10           // Speed of panning
+        },
+        zoom: {
+          enabled: true,      // Enable zooming
+          mode: 'x',          // Zoom only on the x-axis
+          speed: 0.1          // Adjust zoom speed
+        }
       }
     },
     scales: {
       x: {
         type: 'time',
         time: {
-          unit: 'second',  // You can also try 'minute', 'hour', or 'day'
+          unit: 'second',   // Group data by seconds initially
           tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Show full date and time in the tooltip
           displayFormats: {
             second: 'YYYY-MM-DD HH:mm:ss',  // Ensure both date and time are shown on the x-axis
-            minute: 'YYYY-MM-DD HH:mm',     // In case of a wider range of data, show up to minute
-            hour: 'YYYY-MM-DD HH',          // For hourly display, adjust as needed
-            day: 'YYYY-MM-DD'               // If you're plotting across days, include the full date
+            minute: 'YYYY-MM-DD HH:mm',     // For minute-level display
+            hour: 'YYYY-MM-DD HH',          // For hour-level display
+            day: 'YYYY-MM-DD'               // For day-level display
           }
         },
         title: {
@@ -137,7 +151,7 @@ const historicalChart = new Chart(historicalCtx, {
         },
         beginAtZero: true
       }
-    }    
+    }
   }
 });
 
