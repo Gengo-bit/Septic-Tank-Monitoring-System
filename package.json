@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "chart.js": "^3.9.1",
     "chartjs-plugin-zoom": "^2.0.1",
-    "firebase": "^9.23.0"
+    "firebase": "^10.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
