@@ -97,10 +97,10 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps (with date and time)
+    labels: [],  // Add your time labels here
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity percentages over time
+      data: [],  // Your capacity data goes here
       borderColor: '#003d00',
       fill: false
     }]
@@ -108,21 +108,22 @@ const historicalChart = new Chart(historicalCtx, {
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 3,  // Adjusted for a better fit
+    aspectRatio: 3,  // Adjust the aspect ratio for better visibility
     plugins: {
       legend: {
         position: 'bottom'
       },
+      // Enable zoom and pan
       zoom: {
         pan: {
           enabled: true,      // Enable panning
-          mode: 'x',          // Allow panning on the x-axis only
-          speed: 10           // Speed of panning
+          mode: 'x',          // Only allow panning on the x-axis
+          speed: 20           // Adjust the panning speed
         },
         zoom: {
           enabled: true,      // Enable zooming
-          mode: 'x',          // Zoom only on the x-axis
-          speed: 0.1          // Adjust zoom speed
+          mode: 'x',          // Only allow zooming on the x-axis
+          speed: 0.1          // Set the zoom speed
         }
       }
     },
@@ -130,24 +131,24 @@ const historicalChart = new Chart(historicalCtx, {
       x: {
         type: 'time',
         time: {
-          unit: 'second',   // Group data by seconds initially
-          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Show full date and time in the tooltip
+          unit: 'second',       // Group data by seconds
+          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',  // Display full date & time in tooltips
           displayFormats: {
-            second: 'YYYY-MM-DD HH:mm:ss',  // Ensure both date and time are shown on the x-axis
-            minute: 'YYYY-MM-DD HH:mm',     // For minute-level display
-            hour: 'YYYY-MM-DD HH',          // For hour-level display
-            day: 'YYYY-MM-DD'               // For day-level display
+            second: 'YYYY-MM-DD HH:mm:ss',  // Show date and time for every second
+            minute: 'YYYY-MM-DD HH:mm',     // Group by minutes when zoomed out
+            hour: 'YYYY-MM-DD HH',          // Group by hours when zoomed further out
+            day: 'YYYY-MM-DD'               // Show days when zoomed way out
           }
         },
         title: {
           display: true,
-          text: 'Date and Time',
+          text: 'Date and Time'
         }
       },
       y: {
         title: {
           display: true,
-          text: 'Capacity (%)',
+          text: 'Capacity (%)'
         },
         beginAtZero: true
       }
