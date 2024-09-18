@@ -1,31 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',  // Path to your main JS file
+  entry: './src/index.js',  // Your main JavaScript file
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')  // Output directory
+    filename: 'bundle.js',  // Output file name
+    path: path.resolve(__dirname, 'dist'),  // Output directory
   },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
-    ]
-  },
-  mode: 'development',
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),  // Public directory for HTML, etc.
-    },
-    compress: true,
-    port: 8080,
-  },
+  mode: 'development',  // Change to 'production' for final deployment
 };
