@@ -32,25 +32,18 @@ const capacityChart = new Chart(capacityCtx, {
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#52fa52', '#003d00'],
-      borderWidth: 10 // Adjusted border width
+      backgroundColor: ['#36a2eb', '#d3d3d3'],  // Initial color for "Normal"
+      borderWidth: 2
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2.5,  // Adjust aspect ratio for better fit
+    aspectRatio: 2.5,
     plugins: {
       legend: {
         position: 'bottom',
-        labels: {
-          color: '#333'  // Static color
-        }
       }
-    },
-    scales: {
-      x: { grid: { color: '#cccccc' }, ticks: { color: '#000' } },
-      y: { grid: { color: '#cccccc' }, ticks: { color: '#000' } }
     }
   }
 });
@@ -60,13 +53,12 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [], // This will be updated dynamically
+    labels: [],  // Placeholder for timestamps
     datasets: [{
-      label: 'Septic Tank Levels Over Time',
-      data: [], // This will be updated dynamically
-      borderColor: 'rgba(75, 192, 192, 1)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      fill: true,
+      label: 'Septic Tank Capacity Over Time',
+      data: [],  // Placeholder for data
+      borderColor: '#36a2eb',
+      fill: false,
       tension: 0.1,
     }]
   },
@@ -74,18 +66,17 @@ const historicalChart = new Chart(historicalCtx, {
     scales: {
       x: {
         type: 'time',
-        time: { unit: 'day', tooltipFormat: 'll HH:mm' },
-        title: { display: true, text: 'Date & Time' }
+        time: {
+          unit: 'day',
+          tooltipFormat: 'YYYY-MM-DD HH:mm:ss',
+          displayFormats: {
+            day: 'MMM D'
+          }
+        }
       },
       y: {
-        title: { display: true, text: 'Tank Capacity (%)' },
-        min: 0, max: 100
-      }
-    },
-    plugins: {
-      zoom: {
-        pan: { enabled: true, mode: 'x' },
-        zoom: { enabled: true, mode: 'x', drag: true, speed: 0.1 }
+        beginAtZero: true,
+        max: 100,
       }
     }
   }
@@ -137,7 +128,7 @@ onValue(capacityRef, (snapshot) => {
   const keys = Object.keys(data);
   const latestKey = keys[keys.length - 1];
   const latestData = data[latestKey];
-  const { capacity, date, timestamp} = latestData;
+  const { capacity, timestamp } = latestData;
 
   updateCapacity(capacity);  // Update capacity and chart
   updateHistoricalChart(capacity, timestamp);  // Update historical chart
