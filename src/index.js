@@ -3,8 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, onValue } from "firebase/database";
 import Chart from "chart.js/auto";
-import zoomPlugin from 'chartjs-plugin-zoom';
-Chart.register(zoomPlugin);
 
 // Firebase configuration
 const firebaseConfig = {
@@ -63,6 +61,13 @@ const historicalChart = new Chart(historicalCtx, {
 
 // Function to update capacity and status
 function updateCapacity(capacity) {
+
+  const available = 100 - capacity;
+  capacityChart.data.datasets[0].data = [capacity, available];
+  capacityChart.update();
+
+  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+
   let status;
   let color;
 
@@ -79,13 +84,6 @@ function updateCapacity(capacity) {
     status = 'Full';
     color = '#ff6384';  // Red for "Full"
   }
-
-  const available = 100 - capacity;
-  capacityChart.data.datasets[0].data = [capacity, available];
-  capacityChart.update();
-
-  // Update capacity and status display
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
   document.getElementById("status").textContent = `Status: ${status}`;
 }
 
