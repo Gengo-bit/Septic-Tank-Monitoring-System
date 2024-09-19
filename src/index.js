@@ -41,22 +41,7 @@ const capacityChart = new Chart(ctx, {
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            family: 'Montserrat',  // Use Montserrat font for labels
-            size: 14
-          }
-        }
-      }
-    },
-    elements: {
-      arc: {
-        borderWidth: 2
-      }
-    }
+    maintainAspectRatio: false
   }
 });
 
@@ -65,59 +50,17 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps will be populated from Firebase
+    labels: [],  // Timestamps
     datasets: [{
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
-      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Light blue fill color for the line
-      borderWidth: 2,
-      pointBackgroundColor: '#FF4C4C',  // Highlight points in red
-      fill: true,  // Fill area under the line
-      tension: 0.3  // Smooth curve for the line
+      fill: false
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          unit: 'day',
-          tooltipFormat: 'MMM DD, YYYY'
-        },
-        title: {
-          display: true,
-          text: 'Date',
-          font: {
-            family: 'Poppins',
-            size: 14
-          }
-        }
-      },
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Capacity (%)',
-          font: {
-            family: 'Poppins',
-            size: 14
-          }
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            family: 'Montserrat',
-            size: 16
-          }
-        }
-      }
-    }
+    maintainAspectRatio: false
   }
 });
 
@@ -182,7 +125,7 @@ const septicDataRef = ref(database, 'septicTankData');
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;  // Get capacity percentage from Firebase
-  const timestamp = new Date(data.timestamp * 1000).toLocaleString();  // Convert to a readable date format
+  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
   const currentVolume = capacity * septicTankCapacity / 100;  // Calculate current volume based on capacity
 
   // Update both the capacity chart and historical chart
