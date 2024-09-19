@@ -85,11 +85,11 @@ const historicalChart = new Chart(historicalCtx, {
         type: 'time',
         time: {
           unit: 'day',
-          tooltipFormat: 'MMM DD, YYYY HH:mm'  // Show both date and time
+          tooltipFormat: 'MMM DD, YYYY'
         },
         title: {
           display: true,
-          text: 'Date & Time',
+          text: 'Date',
           font: {
             family: 'Poppins',
             size: 14
@@ -145,13 +145,9 @@ function updateCapacity(capacity) {
   }
 }
 
-// Function to update the historical chart with both date and time
+// Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
-  // Convert the timestamp to a readable date and time format
-  const dateTime = new Date(timestamp * 1000);  // Convert seconds to milliseconds
-  const formattedDateTime = dateTime.toISOString();  // Use ISO format (YYYY-MM-DDTHH:MM:SS)
-  
-  historicalChart.data.labels.push(formattedDateTime);
+  historicalChart.data.labels.push(timestamp);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
@@ -169,9 +165,9 @@ function calculatePrediction(currentVolume, currentTime) {
 
     if (flowRate > 0) {
       const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert seconds to hours
-      document.getElementById("prediction").innerHTML = `<span style="font-family: 'Poppins', sans-serif; font-size: 20px; color: #4A4A4A;"><strong>Estimated Time Until Full: <span class="time-until-full">${hoursToFull} hours</strong></span>`;
+      document.getElementById("prediction").innerHTML = `<span class="time-until-full" style="font-family: 'Poppins', sans-serif; font-size: 20px; color: #4A4A4A;"><strong>Estimated Time Until Full: ${hoursToFull} hours</strong></span>`;
     } else {
-      document.getElementById("prediction").innerHTML = `<span style="font-family: 'Poppins', sans-serif; font-size: 20px; color: #4A4A4A;"><strong>Flow rate is too low to estimate time.</strong></span>`;
+      document.getElementById("prediction").innerHTML = `<span class="rate-too-low" style="font-family: 'Poppins', sans-serif; font-size: 20px; color: #4A4A4A;"><strong>Flow rate is too low to estimate time.</strong></span>`;
     }
   }
 
@@ -186,11 +182,11 @@ const septicDataRef = ref(database, 'septicTankData');
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;  // Get capacity percentage from Firebase
-  const timestamp = data.timestamp;  // Get timestamp from Firebase
+  const timestamp = new Date(data.timestamp * 1000).toLocaleString();  // Convert to a readable date format
   const currentVolume = capacity * septicTankCapacity / 100;  // Calculate current volume based on capacity
 
   // Update both the capacity chart and historical chart
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
-  calculatePrediction(currentVolume, timestamp);  // Update prediction
+  calculatePrediction(currentVolume, data.timestamp);  // Update prediction
 });
