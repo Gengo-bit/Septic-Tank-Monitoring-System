@@ -56,7 +56,10 @@ document.head.appendChild(styleSheet);
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
-const septicTankCapacity = 101.25; // Adjust according to your actual septic tank volume in liters
+const tankHeight = 50; // cm
+const tankLength = 45; // cm
+const tankWidth = 45;  // cm
+const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Total capacity in liters
 
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
@@ -137,46 +140,23 @@ function updateHistoricalChart(capacity, timestamp) {
 }
 
 // Function to calculate and update the estimated time until full
-// Function to calculate the capacity percentage from sensor distance
-function calculateCapacityPercentage(sensorDistance) {
-  const tankHeight = 50; // cm
-  const tankLength = 45; // cm
-  const tankWidth = 45;  // cm
-  const tankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // in liters
-  
-  // Calculate the current water level
-  const waterLevel = tankHeight - sensorDistance; // h = H - d (cm)
-  
-  // Calculate the current volume in liters
-  const currentVolume = (tankLength * tankWidth * waterLevel) / 1000; // Vc in liters
-  
-  // Calculate capacity percentage
-  const capacityPercentage = (currentVolume / tankCapacity) * 100;
-  return capacityPercentage;
-}
-
-// Modify your existing `calculatePrediction` function
-function calculatePrediction(sensorDistance, currentTime) {
-  const tankHeight = 50; // cm
-  const tankLength = 45; // cm
-  const tankWidth = 45;  // cm
-  const tankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // in liters
-
-  // Calculate the current capacity percentage from sensor distance
-  const capacityPercentage = calculateCapacityPercentage(sensorDistance);
-
-  // If using previous values (volume and time)
+function calculatePrediction(currentVolume, currentTime) {
   if (previousVolume !== null && previousTimestamp !== null) {
-    const deltaVolume = currentVolume - previousVolume;  // liters
-    const deltaTime = currentTime - previousTimestamp;   // seconds
-    
-    const flowRate = deltaVolume / deltaTime;  // liters per second
-    
-    const remainingVolume = tankCapacity - currentVolume; // in liters
-    const estimatedTimeToFull = remainingVolume / flowRate;  // seconds
-    
+    // Calculate the difference in volume and time
+    const deltaVolume = currentVolume - previousVolume;  // in liters
+    const deltaTime = currentTime - previousTimestamp;   // in seconds
+
+    // Calculate flow rate (liters per second)
+    const flowRate = deltaVolume / deltaTime;
+
+    // Calculate remaining volume (in liters)
+    const remainingVolume = septicTankCapacity - currentVolume;
+
+    // Calculate estimated time to full (in seconds)
+    const estimatedTimeToFull = remainingVolume / flowRate;
+
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2);  // convert to hours
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // Convert to hours
       document.getElementById("prediction").innerHTML = 
         `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
@@ -185,6 +165,7 @@ function calculatePrediction(sensorDistance, currentTime) {
     }
   }
 
+  // Store current values for next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
 }
@@ -198,10 +179,12 @@ onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;  // Get capacity percentage from Firebase
   const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
-  const currentVolume = capacity * septicTankCapacity / 100;  // Calculate current volume based on capacity
+  const currentVolume = (capacity / 100) * septicTankCapacity;  // Calculate current volume based on capacity
 
   // Update both the capacity chart and historical chart
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
-  calculatePrediction(currentVolume, data.timestamp);  // Update prediction
+  
+  // Calculate and update the prediction using current volume and timestamp
+  calculatePrediction(currentVolume, data.timestamp);
 });
