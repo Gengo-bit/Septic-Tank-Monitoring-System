@@ -21,6 +21,11 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
+// Variables for the prediction logic
+let previousVolume = null;
+let previousTimestamp = null;
+const septicTankCapacity = 1000; // Adjust according to your actual septic tank volume in liters
+
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
 const capacityChart = new Chart(ctx, {
@@ -61,7 +66,6 @@ const historicalChart = new Chart(historicalCtx, {
 
 // Function to update capacity and status
 function updateCapacity(capacity) {
-
   const available = 100 - capacity;
   capacityChart.data.datasets[0].data = [capacity, available];
   capacityChart.update();
@@ -69,8 +73,6 @@ function updateCapacity(capacity) {
   document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
 
   let status;
-  let color;
-
   if (capacity < 75) {
     status = 'Normal';
     document.getElementById("status").innerHTML = `Status: <span style="color: green;">${status}</span>`;
@@ -84,12 +86,36 @@ function updateCapacity(capacity) {
     status = 'Full';
     document.getElementById("status").innerHTML = `Status: <span style="color: red;">${status}</span>`;
   }
-  }
+}
+
 // Function to update the historical chart
 function updateHistoricalChart(capacity, timestamp) {
   historicalChart.data.labels.push(timestamp);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
+}
+
+// Function to calculate and update the estimated time until full
+function calculatePrediction(currentVolume, currentTime) {
+  if (previousVolume !== null && previousTimestamp !== null) {
+    const deltaVolume = currentVolume - previousVolume;
+    const deltaTime = currentTime - previousTimestamp;
+
+    const flowRate = deltaVolume / deltaTime; // liters per second
+
+    const remainingVolume = septicTankCapacity - currentVolume; // liters
+    const estimatedTimeToFull = remainingVolume / flowRate; // seconds
+
+    if (flowRate > 0) {
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert seconds to hours
+      document.getElementById("prediction").textContent = `Estimated Time Until Full: ${hoursToFull} hours`;
+    } else {
+      document.getElementById("prediction").textContent = `Flow rate is too low to estimate time.`;
+    }
+  }
+
+  previousVolume = currentVolume;
+  previousTimestamp = currentTime;
 }
 
 // Set up real-time listener from Firebase Realtime Database
@@ -100,8 +126,10 @@ onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;  // Get capacity percentage from Firebase
   const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+  const currentVolume = capacity * septicTankCapacity / 100;  // Calculate current volume based on capacity
 
   // Update both the capacity chart and historical chart
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
+  calculatePrediction(currentVolume, data.timestamp);  // Update prediction
 });
