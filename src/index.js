@@ -70,7 +70,7 @@ function updateCapacity(capacity) {
   capacityChart.data.datasets[0].data = [capacity, available];
   capacityChart.update();
 
-  document.getElementById("capacity").innerHTML = `<span style="font-family: 'Montserrat', sans-serif; font-size: 18px; color: #333333;">>Capacity: ${capacity}%</span>`;
+  document.getElementById("capacity").innerHTML = `<span style="font-family: 'Poppins', sans-serif; font-size: 16px; color: #333333; font-weight: 300;">Capacity: ${capacity}%</span>`;
 
   let status;
   if (capacity < 75) {
@@ -112,9 +112,9 @@ function calculatePrediction(currentVolume, currentTime) {
 
     if (flowRate > 0) {
       const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert seconds to hours
-      document.getElementById("prediction").innerHTML = `<span class="time-until-full" style="font-family: 'Poppins', sans-serif; font-size: 18px; color: #4A4A4A;">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
+      document.getElementById("prediction").innerHTML = `<span class="time-until-full" style="font-family: 'Poppins', sans-serif; font-size: 16px; color: #4A4A4A;">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
-      document.getElementById("prediction").innerHTML = `<span class="rate-too-low" style="font-family: 'Poppins', sans-serif; font-size: 18px; color: #4A4A4A;">Flow rate is too low to estimate time.</span>`;
+      document.getElementById("prediction").innerHTML = `<span class="rate-too-low" style="font-family: 'Poppins', sans-serif; font-size: 16px; color: #4A4A4A;">Flow rate is too low to estimate time.</span>`;
     }
   }
 
