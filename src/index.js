@@ -1,7 +1,7 @@
 // Import necessary Firebase functions and Chart.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, onChildAdded } from "firebase/database";
+import { getDatabase, ref, query, limitToLast, onChildAdded } from "firebase/database";
 import Chart from "chart.js/auto";
 
 // Firebase configuration
@@ -19,7 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app);
+const database = getDatabase(app); 
 
 // Add CSS styles dynamically to the document
 const styles = `
@@ -163,6 +163,7 @@ function calculatePrediction(currentVolume, currentTime) {
 
 // Set up real-time listener from Firebase Realtime Database
 const septicDataRef = ref(database, 'septicTankData');
+const limitedDataRef = query(septicDataRef, limitToLast(10)); // Fetch only the last 10 entries
 
 // Listening for real-time data updates
 onChildAdded(septicDataRef, (snapshot) => {
