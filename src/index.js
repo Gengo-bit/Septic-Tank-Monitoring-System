@@ -56,7 +56,7 @@ document.head.appendChild(styleSheet);
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
-const septicTankCapacity = 1000; // Adjust according to your actual septic tank volume in liters
+const septicTankCapacity = 101.25; // Adjust according to your actual septic tank volume in liters
 
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
@@ -137,26 +137,44 @@ function updateHistoricalChart(capacity, timestamp) {
 }
 
 // Function to calculate and update the estimated time until full
-function calculatePrediction(currentVolume, currentTime) {
+function calculatePrediction(sensorDistance, currentTime) {
+  const tankHeight = 50; // cm
+  const tankLength = 45; // cm
+  const tankWidth = 45;  // cm
+  const tankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Liters (convert from cm³ to liters)
+
+  // Calculate current water level based on sensor distance
+  const currentWaterLevel = tankHeight - sensorDistance; // h = H - d (cm)
+  
+  // Calculate current volume in liters
+  const currentVolume = (tankLength * tankWidth * currentWaterLevel) / 1000; // Vc in Liters
+
   if (previousVolume !== null && previousTimestamp !== null) {
-    const deltaVolume = currentVolume - previousVolume;
-    const deltaTime = currentTime - previousTimestamp;
-
-    const flowRate = deltaVolume / deltaTime; // liters per second
-
-    const remainingVolume = septicTankCapacity - currentVolume; // liters
-    const estimatedTimeToFull = remainingVolume / flowRate; // seconds
-
+    // Calculate the change in volume and time
+    const deltaVolume = currentVolume - previousVolume;  // Liters
+    const deltaTime = currentTime - previousTimestamp;   // Seconds
+    
+    // Calculate flow rate (liters per second)
+    const flowRate = deltaVolume / deltaTime;  // Q = ΔV / t
+    
+    // Calculate remaining volume (in liters)
+    const remainingVolume = tankCapacity - currentVolume;
+    
+    // Calculate estimated time to full in seconds
+    const estimatedTimeToFull = remainingVolume / flowRate;  // T_full = (C - Vc) / Q
+    
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert seconds to hours
-      document.getElementById("prediction").innerHTML = `
-        <span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
+      // Convert estimated time to hours
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2);
+      document.getElementById("prediction").innerHTML = 
+        `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
-      document.getElementById("prediction").innerHTML = `
-        <span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
+      document.getElementById("prediction").innerHTML = 
+        `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
 
+  // Store current values for next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
 }
