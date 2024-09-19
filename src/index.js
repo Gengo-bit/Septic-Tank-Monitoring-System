@@ -41,7 +41,22 @@ const capacityChart = new Chart(ctx, {
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            family: 'Montserrat',  // Use Montserrat font for labels
+            size: 14
+          }
+        }
+      }
+    },
+    elements: {
+      arc: {
+        borderWidth: 2
+      }
+    }
   }
 });
 
@@ -50,17 +65,59 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps
+    labels: [],  // Timestamps will be populated from Firebase
     datasets: [{
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
-      fill: false
+      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Light blue fill color for the line
+      borderWidth: 2,
+      pointBackgroundColor: '#FF4C4C',  // Highlight points in red
+      fill: true,  // Fill area under the line
+      tension: 0.3  // Smooth curve for the line
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'day',
+          tooltipFormat: 'MMM DD, YYYY HH:mm'  // Show both date and time
+        },
+        title: {
+          display: true,
+          text: 'Date & Time',
+          font: {
+            family: 'Poppins',
+            size: 14
+          }
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Capacity (%)',
+          font: {
+            family: 'Poppins',
+            size: 14
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            family: 'Montserrat',
+            size: 16
+          }
+        }
+      }
+    }
   }
 });
 
@@ -70,27 +127,31 @@ function updateCapacity(capacity) {
   capacityChart.data.datasets[0].data = [capacity, available];
   capacityChart.update();
 
-  document.getElementById("capacity").textContent = `Capacity: ${capacity}%`;
+  document.getElementById("capacity").innerHTML = `<span style="font-family: 'Montserrat', sans-serif; font-size: 24px; color: #333333;"><strong>Capacity: ${capacity}%</strong></span>`;
 
   let status;
   if (capacity < 75) {
     status = 'Normal';
-    document.getElementById("status").innerHTML = `Status: <span style="color: green;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `<span class="status" style="color: green; font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700;"><strong>Status: ${status}</strong></span>`;
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    document.getElementById("status").innerHTML = `Status: <span style="color: yellow;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `<span class="status" style="color: yellow; font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700;"><strong>Status: ${status}</strong></span>`;
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    document.getElementById("status").innerHTML = `Status: <span style="color: orange;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `<span class="status" style="color: orange; font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700;"><strong>Status: ${status}</strong></span>`;
   } else if (capacity > 95) {
     status = 'Full';
-    document.getElementById("status").innerHTML = `Status: <span style="color: red;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `<span class="status" style="color: red; font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700;"><strong>Status: ${status}</strong></span>`;
   }
 }
 
-// Function to update the historical chart
+// Function to update the historical chart with both date and time
 function updateHistoricalChart(capacity, timestamp) {
-  historicalChart.data.labels.push(timestamp);
+  // Convert the timestamp to a readable date and time format
+  const dateTime = new Date(timestamp * 1000);  // Convert seconds to milliseconds
+  const formattedDateTime = dateTime.toISOString();  // Use ISO format (YYYY-MM-DDTHH:MM:SS)
+  
+  historicalChart.data.labels.push(formattedDateTime);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
@@ -108,9 +169,9 @@ function calculatePrediction(currentVolume, currentTime) {
 
     if (flowRate > 0) {
       const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert seconds to hours
-      document.getElementById("prediction").textContent = `Estimated Time Until Full: ${hoursToFull} hours`;
+      document.getElementById("prediction").innerHTML = `<span style="font-family: 'Poppins', sans-serif; font-size: 20px; color: #4A4A4A;"><strong>Estimated Time Until Full: <span class="time-until-full">${hoursToFull} hours</strong></span>`;
     } else {
-      document.getElementById("prediction").textContent = `Flow rate is too low to estimate time.`;
+      document.getElementById("prediction").innerHTML = `<span style="font-family: 'Poppins', sans-serif; font-size: 20px; color: #4A4A4A;"><strong>Flow rate is too low to estimate time.</strong></span>`;
     }
   }
 
@@ -125,11 +186,11 @@ const septicDataRef = ref(database, 'septicTankData');
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;  // Get capacity percentage from Firebase
-  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+  const timestamp = data.timestamp;  // Get timestamp from Firebase
   const currentVolume = capacity * septicTankCapacity / 100;  // Calculate current volume based on capacity
 
   // Update both the capacity chart and historical chart
   updateCapacity(capacity);
   updateHistoricalChart(capacity, timestamp);
-  calculatePrediction(currentVolume, data.timestamp);  // Update prediction
+  calculatePrediction(currentVolume, timestamp);  // Update prediction
 });
