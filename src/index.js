@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// Add CSS styles dynamically to the document
+// CSS
 const styles = `
   .capacity-text {
     font-family: 'Poppins', sans-serif;
@@ -56,44 +56,123 @@ document.head.appendChild(styleSheet);
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
-const septicTankCapacity = 1000; // Adjust according to your actual septic tank volume in liters
+const septicTankCapacity = 1000; // TENTATIVE PANI
 
 // Capacity Chart
+// Get theme colors dynamically
+const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+
 const ctx = document.getElementById('capacityChart').getContext('2d');
 const capacityChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Used', 'Available'],
-    datasets: [{
-      label: 'Septic Tank Capacity',
-      data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#ff6384', '#36a2eb'],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false
-  }
+    type: 'doughnut', // or 'bar', 'line', etc., depending on the desired type
+    data: {
+        labels: ['Used Capacity', 'Remaining Capacity'],
+        datasets: [{
+            data: [capacity, 100 - capacity], // Dynamically update this with real data
+            backgroundColor: [accentColor, primaryColor], // Use theme colors
+            borderColor: primaryColor,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    color: textColor, // Adapt legend text color
+                    font: {
+                        family: 'Poppins',
+                        weight: '600'
+                    }
+                }
+            },
+            tooltip: {
+                backgroundColor: primaryColor,
+                bodyColor: textColor, // Adapt tooltip text color
+                titleColor: textColor,
+            }
+        },
+        layout: {
+            padding: 20
+        }
+    }
 });
 
 // Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
-  type: 'line',
-  data: {
-    labels: [],  // Timestamps
-    datasets: [{
-      label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity percentages over time
-      borderColor: '#42a5f5',
-      fill: false
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false
-  }
+    type: 'line', // Historical data chart as a line chart
+    data: {
+        labels: historicalLabels, // Time labels from your data
+        datasets: [{
+            label: 'Capacity Over Time',
+            data: historicalData, // Your historical capacity data
+            borderColor: accentColor, // Match the theme's accent color
+            backgroundColor: 'rgba(244, 197, 66, 0.2)', // Transparent accent color
+            fill: true, // Filled under the line
+            pointBackgroundColor: accentColor,
+            pointBorderColor: primaryColor,
+            pointHoverRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    color: textColor, // Adapt legend text color to the theme
+                    font: {
+                        family: 'Poppins',
+                        weight: '600'
+                    }
+                }
+            },
+            tooltip: {
+                backgroundColor: primaryColor,
+                bodyColor: textColor,
+                titleColor: textColor,
+            },
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'x', // Only zoom along the x-axis
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: textColor, // Adapt x-axis labels color
+                },
+                grid: {
+                    display: false // Optionally hide grid lines for cleaner look
+                }
+            },
+            y: {
+                ticks: {
+                    color: textColor, // Adapt y-axis labels color
+                },
+                grid: {
+                    color: primaryColor // Adapt grid lines color
+                }
+            }
+        },
+        layout: {
+            padding: {
+                top: 20,
+                bottom: 20
+            }
+        }
+    }
 });
 
 // Function to update capacity and status
