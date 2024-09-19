@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-// CSS
+// Add CSS styles dynamically to the document
 const styles = `
   .capacity-text {
     font-family: 'Poppins', sans-serif;
@@ -56,107 +56,44 @@ document.head.appendChild(styleSheet);
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
-const septicTankCapacity = 1000; // TENTATIVE PANI
+const septicTankCapacity = 1000; // Adjust according to your actual septic tank volume in liters
 
 // Capacity Chart
-document.addEventListener('DOMContentLoaded', () => {
-  const ctx = document.getElementById('capacityChart').getContext('2d');
-  const capacity = 60;  // Replace with Firebase data dynamically
-
-  // Check if it's dark mode or light mode
-  const isDarkMode = document.body.classList.contains('dark-mode');  // Replace with your own condition
-
-  // Set colors based on theme
-  const usedCapacityColor = isDarkMode ? '#4CAF50' : '#388E3C';  // Green variants
-  const remainingCapacityColor = isDarkMode ? '#424242' : '#ddd';  // Grey variants
-
-  new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-          labels: ['Used Capacity', 'Remaining Capacity'],
-          datasets: [{
-              data: [capacity, 100 - capacity],
-              backgroundColor: [usedCapacityColor, remainingCapacityColor],
-              borderWidth: 0  // Make sure it blends well without extra borders
-          }]
-      },
-      options: {
-          responsive: true,
-          cutout: '70%',  // Make the center part bigger for a cleaner look
-          plugins: {
-              legend: {
-                  display: true,
-                  labels: {
-                      color: isDarkMode ? '#fff' : '#000'  // Adjust text color for the legend
-                  }
-              }
-          },
-          animation: {
-              animateScale: true  // Adds a pop-in animation
-          }
-      }
-  });
+const ctx = document.getElementById('capacityChart').getContext('2d');
+const capacityChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Used', 'Available'],
+    datasets: [{
+      label: 'Septic Tank Capacity',
+      data: [0, 100],  // Initial values: 0% used, 100% available
+      backgroundColor: ['#ff6384', '#36a2eb'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
 });
 
 // Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
-document.addEventListener('DOMContentLoaded', () => {
-  const historicalCtx = document.getElementById('historicalChart').getContext('2d');
-
-  // Check if it's dark mode or light mode
-  const isDarkMode = document.body.classList.contains('dark-mode');
-
-  // Set theme-specific colors
-  const lineColor = isDarkMode ? '#66BB6A' : '#2E7D32';  // Green variants for lines
-  const backgroundColor = isDarkMode ? 'rgba(76, 175, 80, 0.1)' : 'rgba(46, 125, 50, 0.2)';  // Subtle backgrounds
-  const gridColor = isDarkMode ? '#424242' : '#ddd';  // Grid line color
-
-  new Chart(historicalCtx, {
-      type: 'line',
-      data: {
-          labels: historicalLabels,
-          datasets: [{
-              label: 'Capacity Over Time',
-              data: historicalData,
-              borderColor: lineColor,
-              backgroundColor: backgroundColor,
-              fill: true,  // Add a filled area under the line
-              tension: 0.4  // Add some curve to the line for better aesthetics
-          }]
-      },
-      options: {
-          responsive: true,
-          scales: {
-              x: {
-                  grid: {
-                      color: gridColor  // Gridline color for X-axis
-                  },
-                  ticks: {
-                      color: isDarkMode ? '#fff' : '#000'  // X-axis text color
-                  }
-              },
-              y: {
-                  grid: {
-                      color: gridColor  // Gridline color for Y-axis
-                  },
-                  ticks: {
-                      color: isDarkMode ? '#fff' : '#000'  // Y-axis text color
-                  }
-              }
-          },
-          plugins: {
-              legend: {
-                  labels: {
-                      color: isDarkMode ? '#fff' : '#000'  // Legend text color
-                  }
-              }
-          },
-          animation: {
-              duration: 1000,  // Add smooth transition animations
-              easing: 'easeOutBounce'  // Makes animation slightly bouncy
-          }
-      }
-  });
+const historicalChart = new Chart(historicalCtx, {
+  type: 'line',
+  data: {
+    labels: [],  // Timestamps
+    datasets: [{
+      label: 'Septic Tank Levels Over Time',
+      data: [],  // Capacity percentages over time
+      borderColor: '#42a5f5',
+      fill: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
 });
 
 // Function to update capacity and status
