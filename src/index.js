@@ -154,9 +154,16 @@ function calculatePrediction(sensorDistance, currentTime) {
     const deltaVolume = currentVolume - previousVolume;  // Liters
     const deltaTime = currentTime - previousTimestamp;   // Seconds
     
+    // Log delta values for debugging
+    console.log("Delta Volume:", deltaVolume);
+    console.log("Delta Time:", deltaTime);
+    
     // Calculate flow rate (liters per second)
     const flowRate = deltaVolume / deltaTime;  // Q = ΔV / t
     
+    // Log flow rate for debugging
+    console.log("Flow Rate:", flowRate);
+
     // Calculate remaining volume (in liters)
     const remainingVolume = tankCapacity - currentVolume;
     
@@ -172,6 +179,8 @@ function calculatePrediction(sensorDistance, currentTime) {
       document.getElementById("prediction").innerHTML = 
         `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
+  } else {
+    console.log("Previous data not available yet.");
   }
 
   // Store current values for next calculation
