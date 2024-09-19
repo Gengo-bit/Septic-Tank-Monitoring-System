@@ -137,53 +137,54 @@ function updateHistoricalChart(capacity, timestamp) {
 }
 
 // Function to calculate and update the estimated time until full
+// Function to calculate the capacity percentage from sensor distance
+function calculateCapacityPercentage(sensorDistance) {
+  const tankHeight = 50; // cm
+  const tankLength = 45; // cm
+  const tankWidth = 45;  // cm
+  const tankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // in liters
+  
+  // Calculate the current water level
+  const waterLevel = tankHeight - sensorDistance; // h = H - d (cm)
+  
+  // Calculate the current volume in liters
+  const currentVolume = (tankLength * tankWidth * waterLevel) / 1000; // Vc in liters
+  
+  // Calculate capacity percentage
+  const capacityPercentage = (currentVolume / tankCapacity) * 100;
+  return capacityPercentage;
+}
+
+// Modify your existing `calculatePrediction` function
 function calculatePrediction(sensorDistance, currentTime) {
   const tankHeight = 50; // cm
   const tankLength = 45; // cm
   const tankWidth = 45;  // cm
-  const tankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Liters (convert from cm³ to liters)
+  const tankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // in liters
 
-  // Calculate current water level based on sensor distance
-  const currentWaterLevel = tankHeight - sensorDistance; // h = H - d (cm)
-  
-  // Calculate current volume in liters
-  const currentVolume = (tankLength * tankWidth * currentWaterLevel) / 1000; // Vc in Liters
+  // Calculate the current capacity percentage from sensor distance
+  const capacityPercentage = calculateCapacityPercentage(sensorDistance);
 
+  // If using previous values (volume and time)
   if (previousVolume !== null && previousTimestamp !== null) {
-    // Calculate the change in volume and time
-    const deltaVolume = currentVolume - previousVolume;  // Liters
-    const deltaTime = currentTime - previousTimestamp;   // Seconds
+    const deltaVolume = currentVolume - previousVolume;  // liters
+    const deltaTime = currentTime - previousTimestamp;   // seconds
     
-    // Log delta values for debugging
-    console.log("Delta Volume:", deltaVolume);
-    console.log("Delta Time:", deltaTime);
+    const flowRate = deltaVolume / deltaTime;  // liters per second
     
-    // Calculate flow rate (liters per second)
-    const flowRate = deltaVolume / deltaTime;  // Q = ΔV / t
-    
-    // Log flow rate for debugging
-    console.log("Flow Rate:", flowRate);
-
-    // Calculate remaining volume (in liters)
-    const remainingVolume = tankCapacity - currentVolume;
-    
-    // Calculate estimated time to full in seconds
-    const estimatedTimeToFull = remainingVolume / flowRate;  // T_full = (C - Vc) / Q
+    const remainingVolume = tankCapacity - currentVolume; // in liters
+    const estimatedTimeToFull = remainingVolume / flowRate;  // seconds
     
     if (flowRate > 0) {
-      // Convert estimated time to hours
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2);
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2);  // convert to hours
       document.getElementById("prediction").innerHTML = 
         `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
       document.getElementById("prediction").innerHTML = 
         `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
-  } else {
-    console.log("Previous data not available yet.");
   }
 
-  // Store current values for next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
 }
