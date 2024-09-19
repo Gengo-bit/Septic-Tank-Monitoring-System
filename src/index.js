@@ -26,12 +26,12 @@ const styles = `
   .capacity-text {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
-    color: var(--text-color);
+    color: #333333;
     font-weight: 300;
   }
 
-  .status-text {
-    color: var(--text-color);
+  .status-font {
+    color: #333333;
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 300;
@@ -46,7 +46,7 @@ const styles = `
   .time-until-full, .rate-too-low {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
-    color: var(--secondary-text);
+    color: #4A4A4A;
   }
 `;
 const styleSheet = document.createElement("style");
@@ -109,22 +109,22 @@ function updateCapacity(capacity) {
   if (capacity < 75) {
     status = 'Normal';
     document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
+      <span class="status-font">The Septic Tank is </span>
       <span class="status" style="color: green;"><strong>${status}</strong></span>`;
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
     document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
+      <span class="status-font">The Septic Tank is </span>
       <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
     document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
+      <span class="status-font">The Septic Tank is </span>
       <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
   } else if (capacity > 95) {
     status = 'Full';
     document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
+      <span class="status-font">The Septic Tank is </span>
       <span class="status" style="color: red;"><strong>${status}</strong></span>`;
   }
 }
