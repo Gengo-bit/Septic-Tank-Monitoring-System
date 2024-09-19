@@ -178,9 +178,6 @@ canvas {
   max-height: 300px;
   display: block;
   margin: 20px auto;
-  background-color: var(--base-variant); /* Use background that adapts to light/dark mode */
-  border-radius: 8px; /* Add rounded corners to match section styling */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Footer Styles */

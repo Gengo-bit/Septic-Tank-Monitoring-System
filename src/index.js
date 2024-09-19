@@ -59,120 +59,104 @@ let previousTimestamp = null;
 const septicTankCapacity = 1000; // TENTATIVE PANI
 
 // Capacity Chart
-// Get theme colors dynamically
-const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
-const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+document.addEventListener('DOMContentLoaded', () => {
+  const ctx = document.getElementById('capacityChart').getContext('2d');
+  const capacity = 60;  // Replace with Firebase data dynamically
 
-const ctx = document.getElementById('capacityChart').getContext('2d');
-const capacityChart = new Chart(ctx, {
-    type: 'doughnut', // or 'bar', 'line', etc., depending on the desired type
-    data: {
-        labels: ['Used Capacity', 'Remaining Capacity'],
-        datasets: [{
-            data: [capacity, 100 - capacity], // Dynamically update this with real data
-            backgroundColor: [accentColor, primaryColor], // Use theme colors
-            borderColor: primaryColor,
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                labels: {
-                    color: textColor, // Adapt legend text color
-                    font: {
-                        family: 'Poppins',
-                        weight: '600'
-                    }
-                }
-            },
-            tooltip: {
-                backgroundColor: primaryColor,
-                bodyColor: textColor, // Adapt tooltip text color
-                titleColor: textColor,
-            }
-        },
-        layout: {
-            padding: 20
-        }
-    }
+  // Check if it's dark mode or light mode
+  const isDarkMode = document.body.classList.contains('dark-mode');  // Replace with your own condition
+
+  // Set colors based on theme
+  const usedCapacityColor = isDarkMode ? '#4CAF50' : '#388E3C';  // Green variants
+  const remainingCapacityColor = isDarkMode ? '#424242' : '#ddd';  // Grey variants
+
+  new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels: ['Used Capacity', 'Remaining Capacity'],
+          datasets: [{
+              data: [capacity, 100 - capacity],
+              backgroundColor: [usedCapacityColor, remainingCapacityColor],
+              borderWidth: 0  // Make sure it blends well without extra borders
+          }]
+      },
+      options: {
+          responsive: true,
+          cutout: '70%',  // Make the center part bigger for a cleaner look
+          plugins: {
+              legend: {
+                  display: true,
+                  labels: {
+                      color: isDarkMode ? '#fff' : '#000'  // Adjust text color for the legend
+                  }
+              }
+          },
+          animation: {
+              animateScale: true  // Adds a pop-in animation
+          }
+      }
+  });
 });
 
 // Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
-const historicalChart = new Chart(historicalCtx, {
-    type: 'line', // Historical data chart as a line chart
-    data: {
-        labels: historicalLabels, // Time labels from your data
-        datasets: [{
-            label: 'Capacity Over Time',
-            data: historicalData, // Your historical capacity data
-            borderColor: accentColor, // Match the theme's accent color
-            backgroundColor: 'rgba(244, 197, 66, 0.2)', // Transparent accent color
-            fill: true, // Filled under the line
-            pointBackgroundColor: accentColor,
-            pointBorderColor: primaryColor,
-            pointHoverRadius: 6
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                labels: {
-                    color: textColor, // Adapt legend text color to the theme
-                    font: {
-                        family: 'Poppins',
-                        weight: '600'
-                    }
-                }
-            },
-            tooltip: {
-                backgroundColor: primaryColor,
-                bodyColor: textColor,
-                titleColor: textColor,
-            },
-            zoom: {
-                zoom: {
-                    wheel: {
-                        enabled: true,
-                    },
-                    pinch: {
-                        enabled: true
-                    },
-                    mode: 'x', // Only zoom along the x-axis
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColor, // Adapt x-axis labels color
-                },
-                grid: {
-                    display: false // Optionally hide grid lines for cleaner look
-                }
-            },
-            y: {
-                ticks: {
-                    color: textColor, // Adapt y-axis labels color
-                },
-                grid: {
-                    color: primaryColor // Adapt grid lines color
-                }
-            }
-        },
-        layout: {
-            padding: {
-                top: 20,
-                bottom: 20
-            }
-        }
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  const historicalCtx = document.getElementById('historicalChart').getContext('2d');
+
+  // Check if it's dark mode or light mode
+  const isDarkMode = document.body.classList.contains('dark-mode');
+
+  // Set theme-specific colors
+  const lineColor = isDarkMode ? '#66BB6A' : '#2E7D32';  // Green variants for lines
+  const backgroundColor = isDarkMode ? 'rgba(76, 175, 80, 0.1)' : 'rgba(46, 125, 50, 0.2)';  // Subtle backgrounds
+  const gridColor = isDarkMode ? '#424242' : '#ddd';  // Grid line color
+
+  new Chart(historicalCtx, {
+      type: 'line',
+      data: {
+          labels: historicalLabels,
+          datasets: [{
+              label: 'Capacity Over Time',
+              data: historicalData,
+              borderColor: lineColor,
+              backgroundColor: backgroundColor,
+              fill: true,  // Add a filled area under the line
+              tension: 0.4  // Add some curve to the line for better aesthetics
+          }]
+      },
+      options: {
+          responsive: true,
+          scales: {
+              x: {
+                  grid: {
+                      color: gridColor  // Gridline color for X-axis
+                  },
+                  ticks: {
+                      color: isDarkMode ? '#fff' : '#000'  // X-axis text color
+                  }
+              },
+              y: {
+                  grid: {
+                      color: gridColor  // Gridline color for Y-axis
+                  },
+                  ticks: {
+                      color: isDarkMode ? '#fff' : '#000'  // Y-axis text color
+                  }
+              }
+          },
+          plugins: {
+              legend: {
+                  labels: {
+                      color: isDarkMode ? '#fff' : '#000'  // Legend text color
+                  }
+              }
+          },
+          animation: {
+              duration: 1000,  // Add smooth transition animations
+              easing: 'easeOutBounce'  // Makes animation slightly bouncy
+          }
+      }
+  });
 });
 
 // Function to update capacity and status
