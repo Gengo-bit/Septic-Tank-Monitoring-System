@@ -75,16 +75,16 @@ function updateCapacity(capacity) {
   let status;
   if (capacity < 75) {
     status = 'Normal';
-    document.getElementById("status").innerHTML = `Status: <span style="color: green;">${status}</span>`;
+    document.getElementById("status").innerHTML = `Status: <span style="color: green;"><strong>${status}</strong></span>`;
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    document.getElementById("status").innerHTML = `Status: <span style="color: yellow;">${status}</span>`;
+    document.getElementById("status").innerHTML = `Status: <span style="color: yellow;"><strong>${status}</strong></span>`;
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    document.getElementById("status").innerHTML = `Status: <span style="color: orange;">${status}</span>`;
+    document.getElementById("status").innerHTML = `Status: <span style="color: orange;"><strong>${status}</strong></span>`;
   } else if (capacity > 95) {
     status = 'Full';
-    document.getElementById("status").innerHTML = `Status: <span style="color: red;">${status}</span>`;
+    document.getElementById("status").innerHTML = `Status: <span style="color: red;"><strong>${status}</strong></span>`;
   }
 }
 
