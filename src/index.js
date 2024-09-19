@@ -21,6 +21,38 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
+// Add CSS styles dynamically to the document
+const styles = `
+  .capacity-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #333333;
+    font-weight: 300;
+  }
+
+  .status-font {
+    color: #333333;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  .status {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  .time-until-full, .rate-too-low {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #4A4A4A;
+  }
+`;
+const styleSheet = document.createElement("style");
+styleSheet.textContent = styles;
+document.head.appendChild(styleSheet);
+
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
@@ -70,25 +102,30 @@ function updateCapacity(capacity) {
   capacityChart.data.datasets[0].data = [capacity, available];
   capacityChart.update();
 
-  document.getElementById("capacity").innerHTML = `<span style="font-family: 'Poppins', sans-serif; font-size: 16px; color: #333333; font-weight: 300;">Capacity: ${capacity}%</span>`;
+  document.getElementById("capacity").innerHTML = `
+    <span class="capacity-text">Capacity: ${capacity}%</span>`;
 
   let status;
   if (capacity < 75) {
     status = 'Normal';
-    document.getElementById("status").innerHTML = `<span class="status-font" style="color: #333333; font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 300;">The Septic Tank is </span>
-                                                  <span class="status" style="color: green; font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 300;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `
+      <span class="status-font">The Septic Tank is </span>
+      <span class="status" style="color: green;"><strong>${status}</strong></span>`;
   } else if (capacity >= 75 && capacity <= 85) {
     status = 'Above Normal';
-    document.getElementById("status").innerHTML = `<span class="status-font" style="color: #333333; font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 300;">The Septic Tank is </span>
-                                                  <span class="status" style="color: yellow; font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 300;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `
+      <span class="status-font">The Septic Tank is </span>
+      <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
   } else if (capacity >= 86 && capacity <= 95) {
     status = 'Critical';
-    document.getElementById("status").innerHTML = `<span class="status-font" style="color: #333333; font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 300;">The Septic Tank is </span>
-                                                  <span class="status" style="color: orange; font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 300;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `
+      <span class="status-font">The Septic Tank is </span>
+      <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
   } else if (capacity > 95) {
     status = 'Full';
-    document.getElementById("status").innerHTML = `<span class="status-font" style="color: #333333; font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 300;">The Septic Tank is </span>
-                                                  <span class="status" style="color: red; font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 300;"><strong>${status}</strong></span>`;
+    document.getElementById("status").innerHTML = `
+      <span class="status-font">The Septic Tank is </span>
+      <span class="status" style="color: red;"><strong>${status}</strong></span>`;
   }
 }
 
@@ -112,9 +149,11 @@ function calculatePrediction(currentVolume, currentTime) {
 
     if (flowRate > 0) {
       const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert seconds to hours
-      document.getElementById("prediction").innerHTML = `<span class="time-until-full" style="font-family: 'Poppins', sans-serif; font-size: 16px; color: #4A4A4A;">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
+      document.getElementById("prediction").innerHTML = `
+        <span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
-      document.getElementById("prediction").innerHTML = `<span class="rate-too-low" style="font-family: 'Poppins', sans-serif; font-size: 16px; color: #4A4A4A;">Flow rate is too low to estimate time.</span>`;
+      document.getElementById("prediction").innerHTML = `
+        <span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
 
