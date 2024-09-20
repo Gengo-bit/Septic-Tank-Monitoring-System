@@ -4,7 +4,7 @@ const body = document.body;
 themeSwitch.addEventListener("click", () => {
   body.classList.toggle("darkmode");
   updateIcons();
-  updateChartColors();  // Call this function to update chart colors
+  updateChartColors();  // Call this function to update chart colors on theme switch
 });
 
 function updateIcons() {

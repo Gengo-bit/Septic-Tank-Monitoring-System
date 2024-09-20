@@ -31,17 +31,15 @@ function updateChartColors() {
   const textColor = getTextColor();
 
   // Update capacity chart colors
-  capacityChart.options.plugins.legend.labels.color = textColor;
-  capacityChart.options.plugins.legend.labels.font.color = textColor; // Ensure the font color is updated
+  capacityChart.options.plugins.legend.labels.color = textColor; // Set legend color
   capacityChart.update();
 
   // Update historical chart colors
-  historicalChart.options.plugins.legend.labels.color = textColor;
-  historicalChart.options.plugins.legend.labels.font.color = textColor; // Ensure the font color is updated
-  historicalChart.options.scales.x.title.color = textColor;
-  historicalChart.options.scales.x.ticks.color = textColor;
-  historicalChart.options.scales.y.title.color = textColor;
-  historicalChart.options.scales.y.ticks.color = textColor;
+  historicalChart.options.plugins.legend.labels.color = textColor; // Set legend color
+  historicalChart.options.scales.x.title.color = textColor; // X-axis title color
+  historicalChart.options.scales.x.ticks.color = textColor; // X-axis ticks color
+  historicalChart.options.scales.y.title.color = textColor; // Y-axis title color
+  historicalChart.options.scales.y.ticks.color = textColor; // Y-axis ticks color
   historicalChart.update();
 }
 
@@ -225,7 +223,7 @@ function calculatePrediction(currentVolume, currentTime) {
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // Convert to hours
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(1); // Convert to hours
       document.getElementById("prediction").innerHTML = 
         `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
