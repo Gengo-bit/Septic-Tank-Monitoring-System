@@ -4,15 +4,15 @@
   "description": "",
   "main": "chart.js",
   "scripts": {
-    "start": "webpack serve",     
-    "build": "webpack"       
+    "start": "webpack serve",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chart.js": "^4.4.4",
-    "firebase": "^10.13.1"
+    "firebase": "^10.13.2"
   },
   "devDependencies": {
     "webpack": "^5.94.0",

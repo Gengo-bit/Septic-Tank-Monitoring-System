@@ -6,20 +6,20 @@ import Chart from "chart.js/auto";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
+  authDomain: "septic-tank-capacity.firebaseapp.com",
+  databaseURL: "https://septic-tank-capacity-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "septic-tank-capacity",
+  storageBucket: "septic-tank-capacity.appspot.com",
+  messagingSenderId: "445055846573",
+  appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
+  measurementId: "G-M9K3YTLTRP"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app);
+const database = getDatabase(app); 
 
 // Add CSS styles dynamically to the document
 const styles = `
@@ -80,7 +80,7 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Historical Chart with Improved Design
+// Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
@@ -90,12 +90,7 @@ const historicalChart = new Chart(historicalCtx, {
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
-      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Adding light blue fill
-      fill: true,  // Fill the area under the line
-      borderWidth: 2,
-      tension: 0.3,  // Smooth curves
-      pointRadius: 3,  // Size of the points
-      pointBackgroundColor: '#ff6384',  // Color of the points
+      fill: false
     }]
   },
   options: {
@@ -103,44 +98,28 @@ const historicalChart = new Chart(historicalCtx, {
     maintainAspectRatio: false,
     scales: {
       x: {
+        type: 'time',
+        time: {
+          tooltipFormat: 'MMM DD, YYYY HH:mm:ss'
+        },
         title: {
           display: true,
-          text: 'Time and Date',
+          text: 'Date and Time',
           font: {
             family: 'Poppins',
-            size: 14,
-            weight: 'bold',
-            lineHeight: 1.2,
-          },
-          color: '#333',
-        },
-        ticks: {
-          font: {
-            family: 'Poppins',
-            size: 12
-          },
-          color: '#666'
+            size: 14
+          }
         }
       },
       y: {
+        beginAtZero: true,
         title: {
           display: true,
           text: 'Septic Tank Capacity (%)',
           font: {
             family: 'Poppins',
-            size: 14,
-            weight: 'bold',
-            lineHeight: 1.2,
-          },
-          color: '#333',
-        },
-        ticks: {
-          beginAtZero: true,
-          font: {
-            family: 'Poppins',
-            size: 12
-          },
-          color: '#666'
+            size: 14
+          }
         }
       }
     },
@@ -148,16 +127,8 @@ const historicalChart = new Chart(historicalCtx, {
       legend: {
         labels: {
           font: {
-            family: 'Poppins',
-            size: 14,
-          },
-          color: '#333'
-        }
-      },
-      tooltip: {
-        callbacks: {
-          label: function(tooltipItem) {
-            return `Capacity: ${tooltipItem.raw}%`;
+            family: 'Montserrat',
+            size: 16
           }
         }
       }
@@ -244,6 +215,7 @@ const limitedDataRef = query(septicDataRef, limitToLast(10)); // Fetch only the 
 // Listening for real-time data updates
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
+  console.log("Data from Firebase:", data); // Debugging log to ensure data is received
   const capacity = data.capacity;  // Get capacity percentage from Firebase
   const date = data.date;  // Get date from Firebase
   const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
