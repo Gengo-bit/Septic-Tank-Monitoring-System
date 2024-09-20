@@ -87,17 +87,76 @@ const historicalChart = new Chart(historicalCtx, {
   data: {
     labels: [],  // Timestamps
     datasets: [{
-      label: 'Septic Tank Levels Over Time',
+      label: 'Septic Tank Capacity Over Time',
       data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
-      fill: false
+      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Light blue fill for better readability
+      borderWidth: 2,
+      fill: true,
+      tension: 0.4 // Smooth out the line curve
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'day',
+          tooltipFormat: 'MMM DD, YYYY, HH:mm:ss',
+          displayFormats: {
+            day: 'MMM D',
+            hour: 'HH:mm'
+          }
+        },
+        title: {
+          display: true,
+          text: 'Time and Date',
+          font: {
+            family: 'Poppins',
+            size: 14,
+            weight: 'bold',
+          },
+          color: '#333'  // Text color for x-axis
+        }
+      },
+      y: {
+        beginAtZero: true,
+        max: 100,  // Y-axis for capacity percentage
+        title: {
+          display: true,
+          text: 'Septic Tank Capacity (%)',
+          font: {
+            family: 'Poppins',
+            size: 14,
+            weight: 'bold',
+          },
+          color: '#333'  // Text color for y-axis
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        labels: {
+          font: {
+            family: 'Montserrat',
+            size: 14
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return `${context.parsed.y}% on ${context.label}`;
+          }
+        }
+      }
+    }
   }
 });
+
 
 // Function to update capacity and status
 function updateCapacity(capacity) {
