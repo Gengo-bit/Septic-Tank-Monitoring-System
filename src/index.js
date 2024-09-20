@@ -43,6 +43,9 @@ function updateChartColors() {
   historicalChart.update();
 }
 
+// Call updateChartColors initially to set the colors based on the initial theme
+updateChartColors();
+
 // Add CSS styles dynamically to the document
 const styles = `
   .capacity-text {
@@ -223,7 +226,7 @@ function calculatePrediction(currentVolume, currentTime) {
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = Math.floor(estimatedTimeToFull / 3600 * 10) / 10; // Limit to one decimal point without rounding up
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // Convert to hours
       document.getElementById("prediction").innerHTML = 
         `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
