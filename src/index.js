@@ -102,7 +102,7 @@ const historicalChart = new Chart(historicalCtx, {
     datasets: [{
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
-      borderColor: '#42a5f5',
+      borderColor: '#FF5A5F',
       fill: false
     }]
   },
