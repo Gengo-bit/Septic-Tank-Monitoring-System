@@ -26,108 +26,21 @@ function getTextColor() {
   return getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
 }
 
-// Function to create the Capacity Chart
-function createCapacityChart() {
-  const ctx = document.getElementById('capacityChart').getContext('2d');
+// Function to update chart colors dynamically
+function updateChartColors() {
   const textColor = getTextColor();
 
-  return new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Used', 'Available'],
-      datasets: [{
-        label: 'Septic Tank Capacity',
-        data: [0, 100],  // Initial values: 0% used, 100% available
-        backgroundColor: ['#ff6384', '#36a2eb'],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor  // Set the legend color to the CSS variable
-          }
-        }
-      }
-    }
-  });
-}
+  // Update capacity chart colors
+  capacityChart.options.plugins.legend.labels.color = textColor;
+  capacityChart.update();
 
-// Function to create the Historical Chart
-function createHistoricalChart() {
-  const historicalCtx = document.getElementById('historicalChart').getContext('2d');
-  const textColor = getTextColor();
-
-  return new Chart(historicalCtx, {
-    type: 'line',
-    data: {
-      labels: [],  // Timestamps
-      datasets: [{
-        label: 'Septic Tank Levels Over Time',
-        data: [],  // Capacity percentages over time
-        borderColor: '#42a5f5',
-        fill: false
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor  // Set the legend color to the CSS variable
-          }
-        }
-      },
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: 'Time and Date',  // X-axis label
-            font: {
-              size: 14
-            },
-            color: textColor  // Set X-axis title color to the CSS variable
-          },
-          ticks: {
-            color: textColor  // Set X-axis tick color to the CSS variable
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'Septic Tank Capacity (%)',  // Y-axis label
-            font: {
-              size: 14
-            },
-            color: textColor  // Set Y-axis title color to the CSS variable
-          },
-          ticks: {
-            color: textColor  // Set Y-axis tick color to the CSS variable
-          },
-          min: 0,  // Start Y-axis from 0
-          max: 100 // Maximum value for the Y-axis
-        }
-      }
-    }
-  });
-}
-
-// Initialize charts
-let capacityChart = createCapacityChart();
-let historicalChart = createHistoricalChart();
-
-// Function to recreate charts when theme changes
-function recreateCharts() {
-  capacityChart.destroy();  // Destroy the previous chart instance
-  historicalChart.destroy();  // Destroy the previous chart instance
-
-  // Recreate the charts with the updated theme colors
-  capacityChart = createCapacityChart();
-  historicalChart = createHistoricalChart();
+  // Update historical chart colors
+  historicalChart.options.plugins.legend.labels.color = textColor;
+  historicalChart.options.scales.x.title.color = textColor;
+  historicalChart.options.scales.x.ticks.color = textColor;
+  historicalChart.options.scales.y.title.color = textColor;
+  historicalChart.options.scales.y.ticks.color = textColor;
+  historicalChart.update();
 }
 
 // Add CSS styles dynamically to the document
@@ -169,6 +82,88 @@ const tankHeight = 35; // cm
 const tankLength = 45; // cm
 const tankWidth = 45;  // cm
 const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Total capacity in liters
+
+// Capacity Chart
+const ctx = document.getElementById('capacityChart').getContext('2d');
+const capacityChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Used', 'Available'],
+    datasets: [{
+      label: 'Septic Tank Capacity',
+      data: [0, 100],  // Initial values: 0% used, 100% available
+      backgroundColor: ['#ff6384', '#36a2eb'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: getTextColor()  // Set the legend color to the CSS variable
+        }
+      }
+    }
+  }
+});
+
+// Historical Chart
+const historicalCtx = document.getElementById('historicalChart').getContext('2d');
+const historicalChart = new Chart(historicalCtx, {
+  type: 'line',
+  data: {
+    labels: [],  // Timestamps
+    datasets: [{
+      label: 'Septic Tank Levels Over Time',
+      data: [],  // Capacity percentages over time
+      borderColor: '#42a5f5',
+      fill: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: getTextColor()  // Set the legend color to the CSS variable
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Time and Date',  // X-axis label
+          font: {
+            size: 14
+          },
+          color: getTextColor()  // Set X-axis title color to the CSS variable
+        },
+        ticks: {
+          color: getTextColor()  // Set X-axis tick color to the CSS variable
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Septic Tank Capacity (%)',  // Y-axis label
+          font: {
+            size: 14
+          },
+          color: getTextColor()  // Set Y-axis title color to the CSS variable
+        },
+        ticks: {
+          color: getTextColor()  // Set Y-axis tick color to the CSS variable
+        },
+        min: 0,  // Start Y-axis from 0
+        max: 100 // Maximum value for the Y-axis
+      }
+    }
+  }
+});
 
 // Function to update capacity and status
 function updateCapacity(capacity) {
@@ -236,7 +231,7 @@ function calculatePrediction(currentVolume, currentTime) {
         `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
-
+  
   // Store current values for next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
