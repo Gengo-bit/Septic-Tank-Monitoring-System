@@ -23,6 +23,32 @@ const database = getDatabase(app);
 
 // Add CSS styles dynamically to the document
 const styles = `
+:root {
+  --base-color: #a4a4a4; /* Lighter base color for secondary elements */
+  --base-variant: #e4e4e4; /* Light background for text areas */
+  --text-color: #2d3a4b; /* Text color for light mode */
+  --secondary-text: #5c6f81; /* Lighter secondary text color */
+  --primary-color: #1f1f1f; /* Primary color for headings */
+  --accent-color: #f4c542; /* Yellow accent */
+  --header-bg: #e4e4e4; /* Light background for header */
+  --footer-bg: #e4e4e4; /* Light background for footer */
+  --header-text-color: #2d3a4b; /* Dark text color for header */
+  --footer-text-color: #2d3a4b; /* Dark text color for footer */
+  --transition-duration: 0.4s;
+}
+
+.darkmode {
+  --base-color: #121212; /* Dark mode background */
+  --base-variant: #1f1f1f; /* Dark mode variant */
+  --text-color: #e4e4e4; /* Light text color in dark mode */
+  --secondary-text: #a4a4a4; /* Secondary text color in dark mode */
+  --primary-color: #e4e4e4; /* Light color for headings in dark mode */
+  --accent-color: #f4c542; /* Yellow accent */
+  --header-bg: #1f1f1f; /* Dark background for header */
+  --footer-bg: #1f1f1f; /* Dark background for footer */
+  --header-text-color: #e4e4e4; /* Light text color for header in dark mode */
+  --footer-text-color: #e4e4e4; /* Light text color for footer in dark mode */
+}
   .capacity-text {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
