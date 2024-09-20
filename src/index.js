@@ -70,7 +70,7 @@ const capacityChart = new Chart(ctx, {
     datasets: [{
       label: 'Septic Tank Capacity',
       data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#ff6384', '#36a2eb'],
+      backgroundColor: ['#FF5A5F', '#82CFFF'],  // Updated colors
       borderWidth: 1
     }]
   },
@@ -80,7 +80,13 @@ const capacityChart = new Chart(ctx, {
     plugins: {
       legend: {
         labels: {
-          color: 'blue'  // Change color of legend labels
+          color: function(context) {
+            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
+          },
+          font: {
+            family: 'Poppins',  // Matching font
+            size: 14
+          }
         }
       }
     }
@@ -106,7 +112,13 @@ const historicalChart = new Chart(historicalCtx, {
     plugins: {
       legend: {
         labels: {
-          color: 'blue'  // Change color of legend labels
+          color: function(context) {
+            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
+          },
+          font: {
+            family: 'Poppins',
+            size: 14
+          }
         }
       }
     },
@@ -116,12 +128,17 @@ const historicalChart = new Chart(historicalCtx, {
           display: true,
           text: 'Time and Date',  // X-axis label
           font: {
-            size: 14
+            size: 14,
+            family: 'Poppins'
           },
-          color: 'blue'  // Change color of X-axis label
+          color: function(context) {
+            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis label colors
+          }
         },
         ticks: {
-          color: 'blue'  // Change color of X-axis ticks
+          color: function(context) {
+            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis ticks color
+          }
         }
       },
       y: {
@@ -129,12 +146,17 @@ const historicalChart = new Chart(historicalCtx, {
           display: true,
           text: 'Septic Tank Capacity (%)',  // Y-axis label
           font: {
-            size: 14
+            size: 14,
+            family: 'Poppins'
           },
-          color: 'blue'  // Change color of Y-axis label
+          color: function(context) {
+            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis label colors
+          }
         },
         ticks: {
-          color: 'blue'  // Change color of Y-axis ticks
+          color: function(context) {
+            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis ticks color
+          }
         },
         min: 0,  // Start Y-axis from 0
         max: 100 // Maximum value for the Y-axis
