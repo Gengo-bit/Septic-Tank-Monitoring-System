@@ -133,8 +133,9 @@ function updateCapacity(capacity) {
 }
 
 // Function to update the historical chart
-function updateHistoricalChart(capacity, timestamp) {
-  historicalChart.data.labels.push(timestamp);
+function updateHistoricalChart(capacity, date, timestamp) {
+  const label = `${date} ${timestamp}`;  // Combine date and timestamp for display
+  historicalChart.data.labels.push(label);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
@@ -178,12 +179,13 @@ const limitedDataRef = query(septicDataRef, limitToLast(10)); // Fetch only the 
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
   const capacity = data.capacity;  // Get capacity percentage from Firebase
+  const date = data.date;  // Get date from Firebase
   const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
   const currentVolume = (capacity / 100) * septicTankCapacity;  // Calculate current volume based on capacity
 
   // Update both the capacity chart and historical chart
   updateCapacity(capacity);
-  updateHistoricalChart(capacity, timestamp);
+  updateHistoricalChart(capacity, date, timestamp);
   
   // Calculate and update the prediction using current volume and timestamp
   calculatePrediction(currentVolume, data.timestamp);
