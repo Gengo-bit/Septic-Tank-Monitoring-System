@@ -32,10 +32,12 @@ function updateChartColors() {
 
   // Update capacity chart colors
   capacityChart.options.plugins.legend.labels.color = textColor;
+  capacityChart.options.plugins.legend.labels.font.color = textColor; // Ensure the font color is updated
   capacityChart.update();
 
   // Update historical chart colors
   historicalChart.options.plugins.legend.labels.color = textColor;
+  historicalChart.options.plugins.legend.labels.font.color = textColor; // Ensure the font color is updated
   historicalChart.options.scales.x.title.color = textColor;
   historicalChart.options.scales.x.ticks.color = textColor;
   historicalChart.options.scales.y.title.color = textColor;
