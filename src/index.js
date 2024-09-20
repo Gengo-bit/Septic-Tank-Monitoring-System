@@ -56,7 +56,7 @@ document.head.appendChild(styleSheet);
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
-const tankHeight = 50; // cm
+const tankHeight = 35; // cm
 const tankLength = 45; // cm
 const tankWidth = 45;  // cm
 const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Total capacity in liters
