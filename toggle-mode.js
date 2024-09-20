@@ -4,9 +4,9 @@ const root = document.documentElement;  // Add this to get the root element
 
 themeSwitch.addEventListener("click", () => {
   body.classList.toggle("darkmode");
-  updateIcons();
-  updateChartColors(capacityChart);    // Update capacity chart colors
-  updateChartColors(historicalChart);  // Update historical chart colors
+  updateIcons();  // Update sun/moon icon when switching theme
+  updateChartColors(capacityChart);  // Update chart colors when theme changes
+  updateChartColors(historicalChart);
 });
 
 function updateIcons() {
@@ -23,16 +23,19 @@ function updateIcons() {
 }
 
 function updateChartColors(chart) {
-  // Get the updated CSS variables
+  // Get the updated CSS variables from the root element
   const textColor = getComputedStyle(root).getPropertyValue('--text-color').trim();
   const secondaryTextColor = getComputedStyle(root).getPropertyValue('--secondary-text').trim();
-
-  // Update chart options
+  
+  // Update chart options with the correct color variables
   chart.options.scales.x.ticks.color = textColor;
   chart.options.scales.y.ticks.color = textColor;
-  chart.options.plugins.legend.labels.color = textColor;  // Update legend text color
-
-  chart.update();  // Re-render the chart
+  chart.data.datasets.forEach(dataset => {
+    dataset.backgroundColor = textColor; // Update chart colors
+    dataset.borderColor = secondaryTextColor;
+  });
+  
+  chart.update();
 }
 
 updateIcons();  // Initialize the correct icon on page load
