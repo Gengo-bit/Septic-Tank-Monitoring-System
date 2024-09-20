@@ -28,20 +28,21 @@ function getTextColor() {
 
 // Function to update chart colors dynamically
 function updateChartColors() {
-  const textColor = getTextColor();
+  const textColor = getTextColor(); // Retrieve the current text color based on the theme
 
-  // Update capacity chart colors
+  // Update capacity chart legend colors
   capacityChart.options.plugins.legend.labels.color = textColor;
-  capacityChart.update();
+  capacityChart.update();  // Ensure the capacity chart is updated
 
-  // Update historical chart colors
+  // Update historical chart legend and scale colors
   historicalChart.options.plugins.legend.labels.color = textColor;
   historicalChart.options.scales.x.title.color = textColor;
   historicalChart.options.scales.x.ticks.color = textColor;
   historicalChart.options.scales.y.title.color = textColor;
   historicalChart.options.scales.y.ticks.color = textColor;
-  historicalChart.update();
+  historicalChart.update();  // Ensure the historical chart is updated
 }
+
 
 // Add CSS styles dynamically to the document
 const styles = `
@@ -262,5 +263,7 @@ recreateCharts();
 
 // Update charts whenever the theme changes
 document.getElementById('theme-switch').addEventListener('click', () => {
-  setTimeout(recreateCharts, 300);  // Give it some time to toggle theme
+  setTimeout(() => {
+    updateChartColors();
+  }, 300);  // Give it some time to toggle theme
 });
