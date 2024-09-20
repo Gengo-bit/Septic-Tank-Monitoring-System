@@ -21,10 +21,28 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app); 
 
-// Get the CSS variable value in JavaScript
-const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+// Function to get the current value of the CSS variable
+function getTextColor() {
+  return getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+}
 
-// Capacity Chart
+// Function to update chart options dynamically
+function updateChartColors() {
+  const textColor = getTextColor();
+
+  // Update capacity chart colors
+  capacityChart.options.plugins.legend.labels.color = textColor;
+  capacityChart.update();
+
+  // Update historical chart colors
+  historicalChart.options.plugins.legend.labels.color = textColor;
+  historicalChart.options.scales.x.title.color = textColor;
+  historicalChart.options.scales.x.ticks.color = textColor;
+  historicalChart.options.scales.y.title.color = textColor;
+  historicalChart.options.scales.y.ticks.color = textColor;
+  historicalChart.update();
+}
+
 // Add CSS styles dynamically to the document
 const styles = `
   .capacity-text {
@@ -84,7 +102,7 @@ const capacityChart = new Chart(ctx, {
     plugins: {
       legend: {
         labels: {
-          color: textColor // Set the legend color to the CSS variable
+          color: getTextColor() // Set the legend color to the CSS variable
         }
       }
     }
@@ -110,7 +128,7 @@ const historicalChart = new Chart(historicalCtx, {
     plugins: {
       legend: {
         labels: {
-          color: textColor  // Set the legend color to the CSS variable
+          color: getTextColor()  // Set the legend color to the CSS variable
         }
       }
     },
@@ -122,10 +140,10 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             size: 14
           },
-          color: textColor  // Set X-axis title color to the CSS variable
+          color: getTextColor()  // Set X-axis title color to the CSS variable
         },
         ticks: {
-          color: textColor  // Set X-axis tick color to the CSS variable
+          color: getTextColor()  // Set X-axis tick color to the CSS variable
         }
       },
       y: {
@@ -135,10 +153,10 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             size: 14
           },
-          color: textColor  // Set Y-axis title color to the CSS variable
+          color: getTextColor()  // Set Y-axis title color to the CSS variable
         },
         ticks: {
-          color: textColor  // Set Y-axis tick color to the CSS variable
+          color: getTextColor()  // Set Y-axis tick color to the CSS variable
         },
         min: 0,  // Start Y-axis from 0
         max: 100 // Maximum value for the Y-axis
@@ -237,4 +255,12 @@ onChildAdded(septicDataRef, (snapshot) => {
   
   // Calculate and update the prediction using current volume and timestamp
   calculatePrediction(currentVolume, data.timestamp);
+});
+
+// Call `updateChartColors` to apply the initial theme
+updateChartColors();
+
+// Update charts whenever the theme changes
+document.getElementById('theme-switch').addEventListener('click', () => {
+  setTimeout(updateChartColors, 300);  // Give it some time to toggle theme
 });
