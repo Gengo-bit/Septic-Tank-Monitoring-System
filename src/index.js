@@ -6,20 +6,20 @@ import Chart from "chart.js/auto";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
-  authDomain: "septic-tank-capacity.firebaseapp.com",
-  databaseURL: "https://septic-tank-capacity-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "septic-tank-capacity",
-  storageBucket: "septic-tank-capacity.appspot.com",
-  messagingSenderId: "445055846573",
-  appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
-  measurementId: "G-M9K3YTLTRP"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app); 
+const database = getDatabase(app);
 
 // Add CSS styles dynamically to the document
 const styles = `
@@ -80,7 +80,7 @@ const capacityChart = new Chart(ctx, {
   }
 });
 
-// Historical Chart
+// Historical Chart with Improved Design
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
@@ -90,12 +90,78 @@ const historicalChart = new Chart(historicalCtx, {
       label: 'Septic Tank Levels Over Time',
       data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
-      fill: false
+      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Adding light blue fill
+      fill: true,  // Fill the area under the line
+      borderWidth: 2,
+      tension: 0.3,  // Smooth curves
+      pointRadius: 3,  // Size of the points
+      pointBackgroundColor: '#ff6384',  // Color of the points
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Time and Date',
+          font: {
+            family: 'Poppins',
+            size: 14,
+            weight: 'bold',
+            lineHeight: 1.2,
+          },
+          color: '#333',
+        },
+        ticks: {
+          font: {
+            family: 'Poppins',
+            size: 12
+          },
+          color: '#666'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Septic Tank Capacity (%)',
+          font: {
+            family: 'Poppins',
+            size: 14,
+            weight: 'bold',
+            lineHeight: 1.2,
+          },
+          color: '#333',
+        },
+        ticks: {
+          beginAtZero: true,
+          font: {
+            family: 'Poppins',
+            size: 12
+          },
+          color: '#666'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            family: 'Poppins',
+            size: 14,
+          },
+          color: '#333'
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            return `Capacity: ${tooltipItem.raw}%`;
+          }
+        }
+      }
+    }
   }
 });
 
