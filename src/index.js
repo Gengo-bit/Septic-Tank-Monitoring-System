@@ -223,7 +223,7 @@ function calculatePrediction(currentVolume, currentTime) {
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(1); // Convert to hours
+      const hoursToFull = Math.floor(estimatedTimeToFull / 3600 * 10) / 10; // Limit to one decimal point without rounding up
       document.getElementById("prediction").innerHTML = 
         `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
