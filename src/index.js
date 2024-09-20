@@ -53,15 +53,6 @@ const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
 
-// Get the root element (or any other element that holds the CSS variable)
-const root = document.documentElement;
-
-// Get the value of the --text-color CSS variable
-const textColor = getComputedStyle(root).getPropertyValue('--text-color').trim();
-
-// Get the value of the --secondary-text CSS variable
-const secondaryTextColor = getComputedStyle(root).getPropertyValue('--secondary-text').trim();
-
 // Variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
