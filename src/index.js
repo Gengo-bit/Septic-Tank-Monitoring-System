@@ -85,67 +85,17 @@ const historicalCtx = document.getElementById('historicalChart').getContext('2d'
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps from Firebase
+    labels: [],  // Timestamps
     datasets: [{
-      label: 'Septic Tank Capacity (%)',
-      data: [],  // Capacity values from Firebase
+      label: 'Septic Tank Levels Over Time',
+      data: [],  // Capacity percentages over time
       borderColor: '#42a5f5',
-      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Light blue fill
-      borderWidth: 2,
-      fill: true,
-      tension: 0.4,  // Smooth curve for line chart
-      pointBackgroundColor: '#ff6384',  // Highlight points in red for better visibility
+      fill: false
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        type: 'time',  // Use 'time' type to display timestamps properly
-        time: {
-          tooltipFormat: 'MMM DD, YYYY, HH:mm',  // Date format for tooltips
-          unit: 'day',
-          displayFormats: {
-            day: 'MMM D'
-          }
-        },
-        title: {
-          display: true,
-          text: 'Time and Date',
-          font: {
-            family: 'Poppins',
-            size: 14,
-            weight: 'bold'
-          },
-          color: '#333'
-        }
-      },
-      y: {
-        beginAtZero: true,
-        max: 100,  // Assuming septic tank capacity is percentage-based
-        title: {
-          display: true,
-          text: 'Septic Tank Capacity (%)',
-          font: {
-            family: 'Poppins',
-            size: 14,
-            weight: 'bold'
-          },
-          color: '#333'
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            family: 'Montserrat',
-            size: 14
-          }
-        }
-      }
-    }
+    maintainAspectRatio: false
   }
 });
 
@@ -183,7 +133,7 @@ function updateCapacity(capacity) {
 }
 
 // Function to update the historical chart
-function updateHistoricalChart(capacity, timestamp, date) {
+function updateHistoricalChart(capacity, date, timestamp) {
   const label = `${date} ${timestamp}`;  // Combine date and timestamp for display
   historicalChart.data.labels.push(label);
   historicalChart.data.datasets[0].data.push(capacity);
