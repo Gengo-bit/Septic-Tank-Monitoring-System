@@ -81,21 +81,86 @@ const capacityChart = new Chart(ctx, {
 });
 
 // Historical Chart
+// Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps
+    labels: [],  // Timestamps will be added dynamically
     datasets: [{
       label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity percentages over time
+      data: [],  // Capacity percentages over time will be added dynamically
       borderColor: '#42a5f5',
-      fill: false
+      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Optional: Add a translucent fill color under the line
+      fill: true,  // Fill under the line to give a better visual cue
+      tension: 0.4  // Optional: Smooth out the line for better aesthetics
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        type: 'time',  // Use a time scale for the X axis
+        title: {
+          display: true,
+          text: 'Time and Date',  // Label the X axis
+          color: '#666',  // Optional: Customize the axis label color
+          font: {
+            size: 16,
+            family: 'Poppins',
+            weight: '300'
+          }
+        },
+        time: {
+          unit: 'hour',  // Set the granularity of the time (e.g., hour, day, etc.)
+          tooltipFormat: 'MMM D, h:mm a',  // Tooltip format for better readability
+        },
+        ticks: {
+          color: '#666',  // Color for the X-axis tick labels
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Septic Tank Capacity (%)',  // Label the Y axis
+          color: '#666',
+          font: {
+            size: 16,
+            family: 'Poppins',
+            weight: '300'
+          }
+        },
+        ticks: {
+          color: '#666',  // Color for the Y-axis tick labels
+          callback: function(value) {
+            return value + '%';  // Add percentage symbol to Y-axis ticks
+          }
+        },
+        min: 0,
+        max: 100,  // Since we're dealing with percentages, keep the Y-axis within 0-100%
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        labels: {
+          color: '#666',  // Customize legend text color
+          font: {
+            size: 14,
+            family: 'Poppins',
+            weight: '300'
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            return `Capacity: ${tooltipItem.raw}%`;  // Custom tooltip format
+          }
+        }
+      }
+    }
   }
 });
 
