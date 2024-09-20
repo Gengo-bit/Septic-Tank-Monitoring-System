@@ -95,44 +95,7 @@ const historicalChart = new Chart(historicalCtx, {
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          tooltipFormat: 'MMM DD, YYYY HH:mm:ss'
-        },
-        title: {
-          display: true,
-          text: 'Date and Time',
-          font: {
-            family: 'Poppins',
-            size: 14
-          }
-        }
-      },
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Septic Tank Capacity (%)',
-          font: {
-            family: 'Poppins',
-            size: 14
-          }
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            family: 'Montserrat',
-            size: 16
-          }
-        }
-      }
-    }
+    maintainAspectRatio: false
   }
 });
 
@@ -215,7 +178,6 @@ const limitedDataRef = query(septicDataRef, limitToLast(10)); // Fetch only the 
 // Listening for real-time data updates
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
-  console.log("Data from Firebase:", data); // Debugging log to ensure data is received
   const capacity = data.capacity;  // Get capacity percentage from Firebase
   const date = data.date;  // Get date from Firebase
   const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
