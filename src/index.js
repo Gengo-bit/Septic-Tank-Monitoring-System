@@ -81,20 +81,20 @@ const capacityChart = new Chart(ctx, {
 });
 
 // Historical Chart
-// Historical Chart
 const historicalCtx = document.getElementById('historicalChart').getContext('2d');
 const historicalChart = new Chart(historicalCtx, {
   type: 'line',
   data: {
-    labels: [],  // Timestamps
+    labels: [],  // Timestamps from Firebase
     datasets: [{
-      label: 'Septic Tank Capacity Over Time',
-      data: [],  // Capacity percentages over time
+      label: 'Septic Tank Capacity (%)',
+      data: [],  // Capacity values from Firebase
       borderColor: '#42a5f5',
-      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Light blue fill for better readability
+      backgroundColor: 'rgba(66, 165, 245, 0.2)',  // Light blue fill
       borderWidth: 2,
       fill: true,
-      tension: 0.4 // Smooth out the line curve
+      tension: 0.4,  // Smooth curve for line chart
+      pointBackgroundColor: '#ff6384',  // Highlight points in red for better visibility
     }]
   },
   options: {
@@ -102,13 +102,12 @@ const historicalChart = new Chart(historicalCtx, {
     maintainAspectRatio: false,
     scales: {
       x: {
-        type: 'time',
+        type: 'time',  // Use 'time' type to display timestamps properly
         time: {
+          tooltipFormat: 'MMM DD, YYYY, HH:mm',  // Date format for tooltips
           unit: 'day',
-          tooltipFormat: 'MMM DD, YYYY, HH:mm:ss',
           displayFormats: {
-            day: 'MMM D',
-            hour: 'HH:mm'
+            day: 'MMM D'
           }
         },
         title: {
@@ -117,40 +116,32 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             family: 'Poppins',
             size: 14,
-            weight: 'bold',
+            weight: 'bold'
           },
-          color: '#333'  // Text color for x-axis
+          color: '#333'
         }
       },
       y: {
         beginAtZero: true,
-        max: 100,  // Y-axis for capacity percentage
+        max: 100,  // Assuming septic tank capacity is percentage-based
         title: {
           display: true,
           text: 'Septic Tank Capacity (%)',
           font: {
             family: 'Poppins',
             size: 14,
-            weight: 'bold',
+            weight: 'bold'
           },
-          color: '#333'  // Text color for y-axis
+          color: '#333'
         }
       }
     },
     plugins: {
       legend: {
-        display: true,
         labels: {
           font: {
             family: 'Montserrat',
             size: 14
-          }
-        }
-      },
-      tooltip: {
-        callbacks: {
-          label: function(context) {
-            return `${context.parsed.y}% on ${context.label}`;
           }
         }
       }
@@ -192,7 +183,7 @@ function updateCapacity(capacity) {
 }
 
 // Function to update the historical chart
-function updateHistoricalChart(capacity, date, timestamp) {
+function updateHistoricalChart(capacity, timestamp, date) {
   const label = `${date} ${timestamp}`;  // Combine date and timestamp for display
   historicalChart.data.labels.push(label);
   historicalChart.data.datasets[0].data.push(capacity);
