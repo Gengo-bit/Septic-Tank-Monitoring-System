@@ -80,7 +80,7 @@ const capacityChart = new Chart(ctx, {
     plugins: {
       legend: {
         labels: {
-          color: 'var(--text-color)'  // Change color of legend labels
+          color: 'blue'  // Change color of legend labels
         }
       }
     }
@@ -106,7 +106,7 @@ const historicalChart = new Chart(historicalCtx, {
     plugins: {
       legend: {
         labels: {
-          color: 'var(--text-color)'  // Change color of legend labels
+          color: 'blue'  // Change color of legend labels
         }
       }
     },
@@ -118,10 +118,10 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             size: 14
           },
-          color: 'var(--text-color)'  // Change color of X-axis label
+          color: 'blue'  // Change color of X-axis label
         },
         ticks: {
-          color: 'var(--text-color)'  // Change color of X-axis ticks
+          color: 'blue'  // Change color of X-axis ticks
         }
       },
       y: {
@@ -131,10 +131,10 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             size: 14
           },
-          color: 'var(--text-color)'  // Change color of Y-axis label
+          color: 'blue'  // Change color of Y-axis label
         },
         ticks: {
-          color: 'var(--text-color)'  // Change color of Y-axis ticks
+          color: 'blue'  // Change color of Y-axis ticks
         },
         min: 0,  // Start Y-axis from 0
         max: 100 // Maximum value for the Y-axis
