@@ -28,11 +28,11 @@ function getTextColor() {
 
 // Function to update chart colors dynamically
 function updateChartColors() {
-  const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+  const textColor = getTextColor();
 
   // Update capacity chart colors
   capacityChart.options.plugins.legend.labels.color = textColor;
-  capacityChart.update();  // This will refresh the chart
+  capacityChart.update();
 
   // Update historical chart colors
   historicalChart.options.plugins.legend.labels.color = textColor;
@@ -40,7 +40,7 @@ function updateChartColors() {
   historicalChart.options.scales.x.ticks.color = textColor;
   historicalChart.options.scales.y.title.color = textColor;
   historicalChart.options.scales.y.ticks.color = textColor;
-  historicalChart.update();  // This will refresh the chart
+  historicalChart.update();
 }
 
 // Add CSS styles dynamically to the document
@@ -257,23 +257,10 @@ onChildAdded(septicDataRef, (snapshot) => {
   calculatePrediction(currentVolume, data.timestamp);
 });
 
-// Function to handle theme switching
-function recreateCharts() {
-  // Toggle between light and dark mode
-  const isDarkMode = document.body.classList.toggle('darkmode');
-  
-  // Update chart colors after switching the theme
-  updateChartColors();
-}
-
-// Event listener for the theme switch button
-document.getElementById('theme-switch').addEventListener('click', () => {
-  setTimeout(recreateCharts, 300);  // Delay to allow theme switch transition
-});
+// Call `recreateCharts` to apply the initial theme
+recreateCharts();
 
 // Update charts whenever the theme changes
 document.getElementById('theme-switch').addEventListener('click', () => {
-  setTimeout(() => {
-    updateChartColors();
-  }, 300);  // Give it some time to toggle theme
+  setTimeout(recreateCharts, 300);  // Give it some time to toggle theme
 });
