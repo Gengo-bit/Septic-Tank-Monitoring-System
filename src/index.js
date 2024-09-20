@@ -19,32 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app);
-
-// Function to get the current value of the CSS variable
-function getTextColor() {
-  return getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
-}
-
-// Function to update chart colors dynamically
-function updateChartColors() {
-  const textColor = getTextColor();
-
-  // Update capacity chart colors
-  capacityChart.options.plugins.legend.labels.color = textColor; // Set legend color
-  capacityChart.update();
-
-  // Update historical chart colors
-  historicalChart.options.plugins.legend.labels.color = textColor; // Set legend color
-  historicalChart.options.scales.x.title.color = textColor; // X-axis title color
-  historicalChart.options.scales.x.ticks.color = textColor; // X-axis ticks color
-  historicalChart.options.scales.y.title.color = textColor; // Y-axis title color
-  historicalChart.options.scales.y.ticks.color = textColor; // Y-axis ticks color
-  historicalChart.update();
-}
-
-// Call updateChartColors initially to set the colors based on the initial theme
-updateChartColors();
+const database = getDatabase(app); 
 
 // Add CSS styles dynamically to the document
 const styles = `
@@ -105,7 +80,7 @@ const capacityChart = new Chart(ctx, {
     plugins: {
       legend: {
         labels: {
-          color: getTextColor()  // Set the legend color to the CSS variable
+          color: 'var(--text-color)'  // Change color of legend labels
         }
       }
     }
@@ -131,7 +106,7 @@ const historicalChart = new Chart(historicalCtx, {
     plugins: {
       legend: {
         labels: {
-          color: getTextColor()  // Set the legend color to the CSS variable
+          color: 'var(--text-color)'  // Change color of legend labels
         }
       }
     },
@@ -143,10 +118,10 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             size: 14
           },
-          color: getTextColor()  // Set X-axis title color to the CSS variable
+          color: 'var(--text-color)'  // Change color of X-axis label
         },
         ticks: {
-          color: getTextColor()  // Set X-axis tick color to the CSS variable
+          color: 'var(--text-color)'  // Change color of X-axis ticks
         }
       },
       y: {
@@ -156,10 +131,10 @@ const historicalChart = new Chart(historicalCtx, {
           font: {
             size: 14
           },
-          color: getTextColor()  // Set Y-axis title color to the CSS variable
+          color: 'var(--text-color)'  // Change color of Y-axis label
         },
         ticks: {
-          color: getTextColor()  // Set Y-axis tick color to the CSS variable
+          color: 'var(--text-color)'  // Change color of Y-axis ticks
         },
         min: 0,  // Start Y-axis from 0
         max: 100 // Maximum value for the Y-axis
@@ -234,7 +209,7 @@ function calculatePrediction(currentVolume, currentTime) {
         `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
-  
+
   // Store current values for next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
@@ -258,12 +233,4 @@ onChildAdded(septicDataRef, (snapshot) => {
   
   // Calculate and update the prediction using current volume and timestamp
   calculatePrediction(currentVolume, data.timestamp);
-});
-
-// Call `recreateCharts` to apply the initial theme
-recreateCharts();
-
-// Update charts whenever the theme changes
-document.getElementById('theme-switch').addEventListener('click', () => {
-  setTimeout(recreateCharts, 300);  // Give it some time to toggle theme
 });

@@ -4,9 +4,6 @@ const body = document.body;
 themeSwitch.addEventListener("click", () => {
   body.classList.toggle("darkmode");
   updateIcons();
-  setTimeout(() => {
-    updateChartColors();
-}, 300); //delay
 });
 
 function updateIcons() {
