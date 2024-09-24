@@ -1,4 +1,4 @@
-// Import necessary Firebase functions and Chart.js
+// firebase, chart js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, query, limitToLast, onChildAdded } from "firebase/database";
@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app); 
 
-// Add CSS styles dynamically to the document
+// CSS
 const styles = `
   .capacity-text {
     font-family: 'Poppins', sans-serif;
@@ -53,13 +53,13 @@ const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
 
-// Variables for the prediction logic
+// variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
 const tankHeight = 35; // cm
 const tankLength = 45; // cm
 const tankWidth = 45;  // cm
-const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Total capacity in liters
+const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // total capacity in liters
 
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
@@ -165,7 +165,7 @@ const historicalChart = new Chart(historicalCtx, {
   }
 });
 
-// Function to update capacity and status
+// update capacity and status
 function updateCapacity(capacity) {
   const available = 100 - capacity;
   capacityChart.data.datasets[0].data = [capacity, available];
@@ -198,32 +198,32 @@ function updateCapacity(capacity) {
   }
 }
 
-// Function to update the historical chart
+// update the historical chart
 function updateHistoricalChart(capacity, date, timestamp) {
-  const label = `${date} ${timestamp}`;  // Combine date and timestamp for display
+  const label = `${date} ${timestamp}`;  // combine date and timestamp for display
   historicalChart.data.labels.push(label);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
 
-// Function to calculate and update the estimated time until full
+// prediction
 function calculatePrediction(currentVolume, currentTime) {
   if (previousVolume !== null && previousTimestamp !== null) {
-    // Calculate the difference in volume and time
+    // difference in volume and time
     const deltaVolume = currentVolume - previousVolume;  // in liters
     const deltaTime = currentTime - previousTimestamp;   // in seconds
 
-    // Calculate flow rate (liters per second)
+    // flow rate (liters per second)
     const flowRate = deltaVolume / deltaTime;
 
-    // Calculate remaining volume (in liters)
+    // remaining volume (in liters)
     const remainingVolume = septicTankCapacity - currentVolume;
 
-    // Calculate estimated time to full (in seconds)
+    // estimated time to full (in seconds)
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // Convert to hours
+      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert to hours
       document.getElementById("prediction").innerHTML = 
         `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
     } else {
@@ -237,22 +237,22 @@ function calculatePrediction(currentVolume, currentTime) {
   previousTimestamp = currentTime;
 }
 
-// Set up real-time listener from Firebase Realtime Database
+// node tree
 const septicDataRef = ref(database, 'septicTankData');
-const limitedDataRef = query(septicDataRef, limitToLast(10)); // Fetch only the last 10 entries
+const limitedDataRef = query(septicDataRef, limitToLast(10)); // limit last 10 entries only(if daghan na kaayo)
 
-// Listening for real-time data updates
+// real time update listener
 onChildAdded(septicDataRef, (snapshot) => {
   const data = snapshot.val();
-  const capacity = data.capacity;  // Get capacity percentage from Firebase
-  const date = data.date;  // Get date from Firebase
-  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
-  const currentVolume = (capacity / 100) * septicTankCapacity;  // Calculate current volume based on capacity
+  const capacity = data.capacity;  // capacity
+  const date = data.date;  // date 
+  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString(); // timestamp
+  const currentVolume = (capacity / 100) * septicTankCapacity;  // calculate current volume based on capacity
 
-  // Update both the capacity chart and historical chart
+  // update capacity chart and historical chart
   updateCapacity(capacity);
   updateHistoricalChart(capacity, date, timestamp);
   
-  // Calculate and update the prediction using current volume and timestamp
+  // prediction
   calculatePrediction(currentVolume, data.timestamp);
 });
