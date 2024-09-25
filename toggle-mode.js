@@ -11,28 +11,22 @@ closeBtn.addEventListener('click', () => {
     sidebar.classList.remove('sidebar-open');
 });
 
-// Modal for Thresholds
-const thresholdBtn = document.getElementById('threshold-btn');
-const thresholdModal = document.getElementById('thresholdModal');
-const modalClose = document.querySelector('.modal .close');
-
-thresholdBtn.addEventListener('click', () => {
-    thresholdModal.style.display = 'block';
-});
-
-modalClose.addEventListener('click', () => {
-    thresholdModal.style.display = 'none';
-});
-
-window.addEventListener('click', (event) => {
-    if (event.target === thresholdModal) {
-        thresholdModal.style.display = 'none';
-    }
-});
-
-// Light/Dark Mode switch in sidebar
+// Light/Dark Mode toggle with animation
 const themeSwitchSidebar = document.getElementById('theme-switch-sidebar');
 themeSwitchSidebar.addEventListener('click', () => {
     document.body.classList.toggle('darkmode');
     updateIcons();
 });
+
+function updateIcons() {
+    const sunIcon = document.getElementById('sidebar-sun-icon');
+    const moonIcon = document.getElementById('sidebar-moon-icon');
+    
+    if (document.body.classList.contains('darkmode')) {
+        sunIcon.style.opacity = '0';
+        moonIcon.style.opacity = '1';
+    } else {
+        sunIcon.style.opacity = '1';
+        moonIcon.style.opacity = '0';
+    }
+}
