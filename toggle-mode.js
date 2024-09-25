@@ -29,5 +29,13 @@ function updateIcons() {
         moonIcon.style.display = "none";
     }
 }
+document.querySelector("#threshold-button").addEventListener("click", function() {
+    const modal = document.querySelector("#threshold-modal");
+    modal.style.display = "block"; // Ensure it's visible
+});
 
+document.querySelector(".modal-close").addEventListener("click", function() {
+    const modal = document.querySelector("#threshold-modal");
+    modal.style.display = "none"; // Hides the modal on close
+});
 updateIcons();  // Initialize the correct icon on page load

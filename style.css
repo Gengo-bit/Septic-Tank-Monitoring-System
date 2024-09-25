@@ -140,20 +140,29 @@ header {
 }
 /* Sidebar */
 .sidebar {
-  width: 60px;
-  height: 100%;
-  background-color: var(--header-bg);
   position: fixed;
   top: 0;
   left: 0;
+  width: 220px; /* Adjust this if it's covering the logo */
+  height: 100%;
+  background-color: #333; /* Dark background for contrast */
+  z-index: 1000; /* Ensures it’s above other content */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: width 0.4s ease;
-  z-index: 1000;
-  overflow: hidden;
+  padding-top: 20px;
+}
+.logo-container {
+  padding-left: 250px; /* Ensure logo stays visible and not covered */
 }
 
+.sidebar .light-dark-mode {
+  margin-top: auto; /* Pushes the button to the bottom */
+}
+
+.sidebar-item:hover {
+  background-color: #444; /* Highlight effect for items on hover */
+}
 .sidebar:hover {
   width: 250px;
 }
