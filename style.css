@@ -164,6 +164,7 @@
 
 /* Modal content centered in the middle */
 .modal-content {
+  font-family: 'Poppins', sans-serif;
   background-color: var(--base-variant);
   padding: 25px 40px;
   border-radius: 12px;
