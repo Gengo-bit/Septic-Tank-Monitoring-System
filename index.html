@@ -24,15 +24,6 @@
     </button>
 </div>
 
-<!-- Header Section -->
-    <header>
-            <nav class="header-nav">
-                <button class="nav-button" onclick="scrollToSection('status-section')">Current Capacity</button>
-                <button class="nav-button" onclick="scrollToSection('prediction-section')">Estimation</button>
-                <button class="nav-button" onclick="scrollToSection('historical-section')">Historical Data</button>
-            </nav>
-    </header>    
-
     <!-- Status Section -->
     <section id="status-section">
         <h2>Current Capacity</h2>
@@ -54,6 +45,9 @@
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
     <button id="close-btn" class="close-btn">&times;</button>
+    <a href="javascript:void(0)" onclick="scrollToSection('status-section')">Current Capacity</a>
+    <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
+    <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
     <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
     <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
     <!-- Dark/Light Mode Button at the Bottom -->

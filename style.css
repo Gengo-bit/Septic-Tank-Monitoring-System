@@ -52,10 +52,11 @@
   opacity: 1;
 }
 #sidebar-sun-icon {
-  transform: rotate(-360deg);
+  transform: rotate(360deg);
   opacity: 1;
 }
 #sidebar-moon-icon {
+  transform: rotate(360deg);
   opacity: 0;
 }
 
@@ -64,7 +65,7 @@
   opacity: 0;
 }
 .darkmode #sidebar-moon-icon {
-  transform: rotate(0deg);
+  transform: rotate(360deg);
   opacity: 1;
 }
 /* Sidebar open animation */
@@ -86,7 +87,6 @@
   transition: 0.4s ease;
   padding-top: 60px;
   z-index: 100;
-  text-align: left; /* Left align all the texts */
 }
 .sidebar a, .sidebar button {
   padding: 15px;
@@ -96,6 +96,7 @@
   display: block;
   transition: background-color 0.3s, color 0.3s;
   font-weight: 600;
+  text-align: left;
 }
 
 .sidebar a:hover, .sidebar button:hover {
@@ -137,7 +138,12 @@
   background: none;
   border: none;
 }
-
+/* Hide the hamburger icon when sidebar is open */
+.sidebar-open ~ .sidebar-toggle {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
 .sidebar-open {
   right: 0; /* Open from the right side */
 }

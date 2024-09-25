@@ -9,10 +9,12 @@ const modalClose = document.querySelector('.modal .close');
 // Sidebar open/close functionality
 sidebarToggle.addEventListener('click', () => {
     sidebar.classList.toggle('sidebar-open');
+    sidebarToggle.style.opacity = '0';  // Hide the hamburger icon when sidebar is open
 });
 
 closeBtn.addEventListener('click', () => {
     sidebar.classList.remove('sidebar-open');
+    sidebarToggle.style.opacity = '1';  // Show the hamburger icon when sidebar is closed
 });
 
 // Show Threshold Modal on button click
@@ -37,7 +39,6 @@ themeSwitchSidebar.addEventListener('click', () => {
     updateIcons();
 });
 
-// Handle Sun/Moon icon transitions
 function updateIcons() {
     const sunIcon = document.getElementById('sidebar-sun-icon');
     const moonIcon = document.getElementById('sidebar-moon-icon');
