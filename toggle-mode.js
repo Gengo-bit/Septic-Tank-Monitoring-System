@@ -10,7 +10,15 @@ sidebarToggle.addEventListener('click', () => {
 closeBtn.addEventListener('click', () => {
     sidebar.classList.remove('sidebar-open');
 });
+const menuItems = document.querySelectorAll('.menu-items li');
 
+document.querySelector('#menu-toggle').addEventListener('click', () => {
+    sidebar.classList.toggle('minimized');
+    menuItems.forEach((item) => {
+        const text = item.textContent.trim();
+        item.setAttribute('data-letter', text.charAt(0)); // Set the first letter for minimized mode
+    });
+});
 // Modal for Thresholds
 const thresholdBtn = document.getElementById('threshold-btn');
 const thresholdModal = document.getElementById('thresholdModal');
