@@ -40,7 +40,7 @@
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.6s ease; /* Smooth rotation animation */
 }
 #theme-switch-sidebar:hover {
   background-color: var(--accent-color);
@@ -48,31 +48,30 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 #sidebar-sun-icon, #sidebar-moon-icon {
-  transition: transform 0.4s ease;
-  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.6s ease; /* Added transform animation for rotating */
 }
-#sidebar-sun-icon {
-  transform: rotate(360deg);
-  opacity: 1;
-}
-#sidebar-moon-icon {
-  transform: rotate(360deg);
-  opacity: 0;
-}
-
 .darkmode #sidebar-sun-icon {
   transform: rotate(360deg);
   opacity: 0;
 }
+
 .darkmode #sidebar-moon-icon {
   transform: rotate(360deg);
   opacity: 1;
+}
+
+#sidebar-sun-icon {
+  transform: rotate(0deg);
+  opacity: 1;
+}
+#sidebar-moon-icon {
+  opacity: 0;
+  transform: rotate(-360deg); /* Rotate back when switching to light mode */
 }
 /* Sidebar open animation */
 .sidebar {
   transition: right 0.4s ease-in-out;
 }
-
 .sidebar-open {
   right: 0;
 }
@@ -94,16 +93,16 @@
   font-size: 18px;
   color: var(--text-color);
   display: block;
-  transition: background-color 0.3s, color 0.3s;
   font-weight: 600;
   text-align: left;
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth color change and size increase */
 }
 
 .sidebar a:hover, .sidebar button:hover {
-  background-color: var(--primary-color);
   color: var(--accent-color);
-  transform: translateX(-10px);
+  transform: scale(1.05); /* Slightly bigger when hovered */
 }
+
 .sidebar-toggle {
   position: absolute;
   right: 20px;
@@ -113,6 +112,7 @@
   border: none;
   cursor: pointer;
   z-index: 101;
+  transition: opacity 0.4s ease;
 }
 
 .hamburger-icon {
@@ -132,7 +132,7 @@
 .close-btn {
   position: absolute;
   top: 10px;
-  left: 8px; 
+  left: 5px;
   font-size: 30px;
   cursor: pointer;
   background: none;
@@ -168,13 +168,6 @@
   max-width: 400px;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.close {
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 * {

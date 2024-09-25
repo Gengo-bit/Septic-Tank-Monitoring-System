@@ -32,22 +32,23 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Light/Dark Mode toggle with animation
+// Light/Dark Mode toggle with smooth rotation
 const themeSwitchSidebar = document.getElementById('theme-switch-sidebar');
 themeSwitchSidebar.addEventListener('click', () => {
     document.body.classList.toggle('darkmode');
     updateIcons();
 });
 
+// Handle Sun/Moon icon transitions
 function updateIcons() {
     const sunIcon = document.getElementById('sidebar-sun-icon');
     const moonIcon = document.getElementById('sidebar-moon-icon');
 
     if (document.body.classList.contains('darkmode')) {
         sunIcon.style.transform = 'rotate(360deg)';
-        moonIcon.style.transform = 'rotate(0deg)';
+        moonIcon.style.transform = 'rotate(360deg)';
     } else {
         sunIcon.style.transform = 'rotate(-360deg)';
-        moonIcon.style.transform = 'rotate(0deg)';
+        moonIcon.style.transform = 'rotate(-360deg)';
     }
 }
