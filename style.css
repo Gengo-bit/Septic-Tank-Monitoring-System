@@ -194,15 +194,6 @@
   font-weight: bold;
 }
 
-.close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 28px;
-  cursor: pointer;
-  color: var(--text-color);
-}
-
 * {
   margin: 0;
   padding: 0;
