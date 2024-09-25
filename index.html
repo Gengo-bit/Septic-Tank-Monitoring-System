@@ -12,10 +12,16 @@
 </head>
 <body class="light-mode">
 
-<!-- Branding Section (outside the header) -->
+<!-- Branding Section -->
 <div class="branding">
     <img src="assets/logo.png" alt="Logo" class="logo">
     <h1>Septic Tank Monitoring System</h1>
+    <!-- Sidebar Toggle Button (Moved to Branding Section) -->
+    <button id="sidebar-toggle" class="sidebar-toggle">
+        <svg width="24" height="24" fill="currentColor">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+    </button>
 </div>
 
 <!-- Header Section -->
@@ -45,19 +51,20 @@
         <canvas id="historicalChart"></canvas>
     </section>
     <body class="light-mode">
-        <!-- Sidebar -->
-        <div id="sidebar" class="sidebar">
-            <button id="close-btn" class="close-btn">&times;</button>
-            <a href="javascript:void(0)" onclick="scrollToSection('status-section')">Current Capacity</a>
-            <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
-            <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
-            <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
-            <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
-            <button id="theme-switch-sidebar">
-                <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor"><circle cx="12" cy="12" r="5"></circle></svg>
-                <svg id="sidebar-moon-icon" width="24" height="24"><path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path></svg>
-            </button>
-        </div>
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button id="close-btn" class="close-btn">&times;</button>
+    <a href="javascript:void(0)" onclick="scrollToSection('status-section')">Current Capacity</a>
+    <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
+    <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
+    <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
+    <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
+    <!-- Dark/Light Mode Button at the Bottom -->
+    <button id="theme-switch-sidebar">
+        <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor"><circle cx="12" cy="12" r="5"></circle></svg>
+        <svg id="sidebar-moon-icon" width="24" height="24"><path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path></svg>
+    </button>
+</div>
     
         <!-- Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="sidebar-toggle">

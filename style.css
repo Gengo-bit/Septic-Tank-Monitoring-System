@@ -25,9 +25,29 @@
   --footer-text-color: #e4e4e4; /* Light text color for footer in dark mode */
 }
 /* Sidebar styles */
+/* Positioning the theme switch button at the bottom */
+#theme-switch-sidebar {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#theme-switch-sidebar:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
 .sidebar {
   position: fixed;
-  left: -250px;
+  right: -250px; /* Move sidebar to the right */
   top: 0;
   width: 250px;
   height: 100%;
@@ -72,7 +92,7 @@
 }
 
 .sidebar-open {
-  left: 0;
+  right: 0; /* Open from the right side */
 }
 
 /* Modal styles */
@@ -133,6 +153,7 @@ header {
 
 /* Branding Section */
 .branding {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the left */
@@ -140,7 +161,12 @@ header {
   background-color: var(--header-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
+.branding .sidebar-toggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .capacity {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
