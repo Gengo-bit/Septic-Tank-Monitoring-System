@@ -171,7 +171,6 @@
   width: 80%;
   max-width: 500px;
   text-align: center;
-  animation: fadeIn 0.4s ease; /* Smooth modal appearance */
 }
 
 .modal h2 {
