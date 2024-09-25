@@ -314,35 +314,3 @@ footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
-
-#theme-switch {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--base-variant);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  transition: background-color var(--transition-duration);
-}
-
-#theme-switch svg {
-  fill: var(--primary-color);
-  transition: fill var(--transition-duration);
-}
-
-#theme-switch #moon-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #sun-icon {
-  display: none;
-}
-
-.darkmode #theme-switch #moon-icon {
-  display: block;
-}
