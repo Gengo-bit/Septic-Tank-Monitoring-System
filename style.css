@@ -175,7 +175,7 @@
   animation: fadeIn 0.4s ease; /* Smooth modal appearance */
 }
 
-.modal p, h2{
+.modal p, .modal-title{
   font-family: 'Poppins', sans-serif;
 }
 .close {
