@@ -160,6 +160,7 @@
   z-index: 102;
   justify-content: center;
   align-items: center;
+  display: flex;
 }
 
 .modal-content {
@@ -170,7 +171,6 @@
   width: 80%;
   max-width: 500px;
   text-align: center;
-  display: flex;
   animation: fadeIn 0.4s ease; /* Smooth modal appearance */
 }
 
