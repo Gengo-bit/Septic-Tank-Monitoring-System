@@ -44,10 +44,21 @@
         <h2>Historical Data</h2>
         <canvas id="historicalChart"></canvas>
     </section>
-        <!-- Sidebar -->
+       <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
     <div class="sidebar-content">
-        <!-- Dark Mode Switch -->
+        <!-- Navigation Buttons -->
+        <button class="sidebar-button" onclick="scrollToSection('status-section')">Current Capacity</button>
+        <button class="sidebar-button" onclick="scrollToSection('prediction-section')">Estimation</button>
+        <button class="sidebar-button" onclick="scrollToSection('historical-section')">Historical Data</button>
+        <a href="https://ourprofile.netlify.app" target="_blank" class="sidebar-button">About Us</a>
+
+        <!-- Thresholds Button -->
+        <button id="thresholds-button" class="sidebar-button">Thresholds</button>
+    </div>
+
+    <!-- Theme Switch at the bottom -->
+    <div class="sidebar-bottom">
         <button id="theme-switch" class="sidebar-button">
             <svg id="sun-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
                 <!-- Sun Icon -->
@@ -56,13 +67,10 @@
                 <!-- Moon Icon -->
             </svg>
         </button>
-
-        <!-- Thresholds Button -->
-        <button id="thresholds-button" class="sidebar-button">Thresholds</button>
     </div>
 </div>
 
-<!-- Modal for Thresholds -->
+<!-- Modal for Thresholds (unchanged) -->
 <div id="thresholds-modal" class="modal">
     <div class="modal-content">
         <h2>Capacity Status Thresholds</h2>
