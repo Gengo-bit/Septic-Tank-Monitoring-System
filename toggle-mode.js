@@ -19,16 +19,18 @@ closeBtn.addEventListener('click', () => {
 
 // Show Threshold Modal on button click
 thresholdBtn.addEventListener('click', () => {
-    thresholdModal.style.display = 'block';
+    thresholdModal.style.display = 'flex'; // Show the modal
 });
 
+// Close the modal when the close button is clicked
 modalClose.addEventListener('click', () => {
-    thresholdModal.style.display = 'none';
+    thresholdModal.style.display = 'none'; // Hide the modal
 });
 
+// Close the modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === thresholdModal) {
-        thresholdModal.style.display = 'none';
+        thresholdModal.style.display = 'none'; // Hide the modal
     }
 });
 

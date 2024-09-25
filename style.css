@@ -150,7 +150,7 @@
 
 /* Modal styles */
 .modal {
-  display: flex; /* Use flexbox to center the modal */
+  display: none; /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;
@@ -158,10 +158,11 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   z-index: 102;
-  justify-content: center; /* Horizontally center */
-  align-items: center; /* Vertically center */
+  justify-content: center; /* Centers horizontally */
+  align-items: center;  /* Centers vertically */
 }
 
+/* Modal content centered in the middle */
 .modal-content {
   background-color: var(--base-variant);
   padding: 25px 40px;
@@ -170,28 +171,17 @@
   width: 80%;
   max-width: 500px;
   text-align: center;
+  position: relative;
   animation: fadeIn 0.4s ease; /* Smooth modal appearance */
-  position: relative; /* Make sure the close button is positioned relative to the modal content */
 }
 
-.modal h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.modal p {
-  font-size: 18px;
-  line-height: 1.6;
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
   color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 10px;
-}
-
-.modal span {
-  font-weight: bold;
 }
 
 .close {
