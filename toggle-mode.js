@@ -36,3 +36,19 @@ themeSwitchSidebar.addEventListener('click', () => {
     document.body.classList.toggle('darkmode');
     updateIcons();
 });
+
+// Icons update for light/dark mode
+function updateIcons() {
+    const sunIcon = document.getElementById("sidebar-sun-icon");
+    const moonIcon = document.getElementById("sidebar-moon-icon");
+
+    if (document.body.classList.contains("darkmode")) {
+        sunIcon.style.display = "none";
+        moonIcon.style.display = "block";
+    } else {
+        sunIcon.style.display = "block";
+        moonIcon.style.display = "none";
+    }
+}
+
+updateIcons();  // Initialize the correct icon on page load

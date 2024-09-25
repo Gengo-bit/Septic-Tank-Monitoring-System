@@ -6,26 +6,56 @@
     <title>Septic Tank Monitoring System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Add the logo as a favicon -->
     <link rel="icon" type="image/png" href="assets/logo.png">
     <script type="text/javascript" src="toggle-mode.js" defer></script>
 </head>
 <body class="light-mode">
 
-<!-- Branding Section (outside the header) -->
-<div class="branding">
-    <img src="assets/logo.png" alt="Logo" class="logo">
-    <h1>Septic Tank Monitoring System</h1>
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button id="close-btn" class="close-btn">&times;</button>
+    <a href="javascript:void(0)" onclick="scrollToSection('status-section')"><span class="full-text">Current Capacity</span><span class="icon">C</span></a>
+    <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')"><span class="full-text">Estimation</span><span class="icon">E</span></a>
+    <a href="javascript:void(0)" onclick="scrollToSection('historical-section')"><span class="full-text">Historical Data</span><span class="icon">H</span></a>
+    <a href="javascript:void(0)" id="threshold-btn"><span class="full-text">Thresholds</span><span class="icon">T</span></a>
+    <a href="https://ourprofile.netlify.app" target="_blank"><span class="full-text">About Us</span><span class="icon">A</span></a>
+    <!-- Light/Dark Mode Button -->
+    <button id="theme-switch-sidebar" class="theme-switch-sidebar">
+        <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor">
+            <circle cx="12" cy="12" r="5"></circle>
+        </svg>
+        <svg id="sidebar-moon-icon" width="24" height="24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path>
+        </svg>
+    </button>
 </div>
 
-<!-- Header Section -->
-    <header>
-            <nav class="header-nav">
-                <button class="nav-button" onclick="scrollToSection('status-section')">Current Capacity</button>
-                <button class="nav-button" onclick="scrollToSection('prediction-section')">Estimation</button>
-                <button class="nav-button" onclick="scrollToSection('historical-section')">Historical Data</button>
-            </nav>
-    </header>    
+<!-- Sidebar Toggle Button -->
+<button id="sidebar-toggle" class="sidebar-toggle">
+    <svg width="24" height="24" fill="currentColor">
+        <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+</button>
+
+<!-- Modal for Thresholds -->
+<div id="thresholdModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Capacity Thresholds</h2>
+        <p>Capacity < 75% : <span style="color: green;">Normal</span></p>
+        <p>Capacity >= 75% && <= 85% : <span style="color: yellow;">Above Normal</span></p>
+        <p>Capacity >= 86% && <= 95% : <span style="color: orange;">Critical</span></p>
+        <p>Capacity > 95% : <span style="color: red;">Full</span></p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Branding Section -->
+    <div class="branding">
+        <img src="assets/logo.png" alt="Logo" class="logo">
+        <h1>Septic Tank Monitoring System</h1>
+    </div>
 
     <!-- Status Section -->
     <section id="status-section">
@@ -35,67 +65,37 @@
         <p id="status" class="status-text">Status:<!--display status here--></span></p>
     </section>
 
+    <!-- Prediction Section -->
     <section id="prediction-section">
         <h2>Estimated Time Until Full</h2>
         <p id="prediction">Calculating...</p>
     </section>
 
+    <!-- Historical Section -->
     <section id="historical-section">
         <h2>Historical Data</h2>
         <canvas id="historicalChart"></canvas>
     </section>
-    <body class="light-mode">
-        <!-- Sidebar -->
-        <div id="sidebar" class="sidebar">
-            <button id="close-btn" class="close-btn">&times;</button>
-            <a href="javascript:void(0)" onclick="scrollToSection('status-section')">Current Capacity</a>
-            <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
-            <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
-            <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
-            <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
-            <button id="theme-switch-sidebar">
-                <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor"><circle cx="12" cy="12" r="5"></circle></svg>
-                <svg id="sidebar-moon-icon" width="24" height="24"><path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path></svg>
-            </button>
-        </div>
-    
-        <!-- Sidebar Toggle Button -->
-        <button id="sidebar-toggle" class="sidebar-toggle">
-            <svg width="24" height="24" fill="currentColor">
-                <path d="M3 12h18M3 6h18M3 18h18"/>
-            </svg>
-        </button>
-    
-        <!-- Modal for Thresholds -->
-        <div id="thresholdModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Capacity Thresholds</h2>
-                <p>Capacity < 75% : <span style="color: green;">Normal</span></p>
-                <p>Capacity >= 75% && <= 85% : <span style="color: yellow;">Above Normal</span></p>
-                <p>Capacity >= 86% && <= 95% : <span style="color: orange;">Critical</span></p>
-                <p>Capacity > 95% : <span style="color: red;">Full</span></p>
-            </div>
-        </div>
-    
-    <footer>
-        <div class="footer-left">
-          <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
-        </div>
-        <div class="footer-right">
-          <img src="assets/logo.png" alt="Logo" class="footer-logo">
-          <p>Septic Tank Monitoring System | © 2024</p>
-        </div>
-      </footer>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
-  <script src="src/index.js"></script>
-    <script src="dist/bundle.js"></script>
-    <script>
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+<footer>
+    <div class="footer-left">
+      <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
+    </div>
+    <div class="footer-right">
+      <img src="assets/logo.png" alt="Logo" class="footer-logo">
+      <p>Septic Tank Monitoring System | © 2024</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+<script src="src/index.js"></script>
+<script src="dist/bundle.js"></script>
+<script>
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
 </body>
 </html>
