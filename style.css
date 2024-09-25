@@ -61,34 +61,8 @@
 }
 
 #sidebar-sun-icon {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
   transform: rotate(0deg);
   opacity: 1;
-}
-#sidebar-sun-icon circle {
-  cx: 12;
-  cy: 12;
-  r: 5;
-}
-#sidebar-sun-icon line {
-  stroke: currentColor;
-  stroke-width: 2;
-}
-#sidebar-sun-icon .ray {
-  stroke-linecap: round;
-  animation: rayRotate 1.5s infinite linear;
-}
-@keyframes rayRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 #sidebar-moon-icon {
   opacity: 0;
@@ -174,7 +148,7 @@
   right: 0; /* Open from the right side */
 }
 
-/* Modal Styling */
+/* Modal styles */
 .modal {
   display: none;
   position: fixed;
@@ -184,60 +158,18 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 102;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .modal-content {
-  background-color: var(--base-variant);
+  background-color: var(--base-color);
+  margin: 15% auto;
   padding: 20px;
   width: 80%;
-  max-width: 500px;
+  max-width: 400px;
   border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.4s ease; /* Modal Fade-in Animation */
-  position: relative;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.modal h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: var(--primary-color);
-  text-align: center;
-  font-weight: bold;
-}
-
-.modal p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 15px;
-}
-
-.modal span {
-  font-weight: bold;
-}
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  color: var(--text-color);
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 * {
   margin: 0;
   padding: 0;
