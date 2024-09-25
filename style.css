@@ -132,7 +132,7 @@
 .close-btn {
   position: absolute;
   top: 10px;
-  left: 20px; 
+  left: 8px; 
   font-size: 30px;
   cursor: pointer;
   background: none;
@@ -194,16 +194,6 @@ body {
   transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
-header {
-  background-color: var(--header-bg);
-  color: var(--header-text-color); /* Use header text color variable */
-  padding: 10px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 /* Branding Section */
 .branding {
   position: relative;
@@ -253,21 +243,6 @@ header {
   margin-right: 5px; /* Space between the logo and the title */
   display: inline-block;
   vertical-align: middle; /* Align with the title text */
-}
-
-/* Header Navigation */
-header {
-  background-color: var(--header-bg);
-  padding: 10px 30px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.header-nav {
-  display: flex;
-  gap: 30px;
 }
 
 .nav-button {
