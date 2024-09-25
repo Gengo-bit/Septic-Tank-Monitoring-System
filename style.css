@@ -150,7 +150,7 @@
 
 /* Modal styles */
 .modal {
-  display: none;
+  display: flex; /* Use flexbox to center the modal */
   position: fixed;
   top: 0;
   left: 0;
@@ -158,8 +158,8 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   z-index: 102;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
 }
 
 .modal-content {
@@ -171,6 +171,7 @@
   max-width: 500px;
   text-align: center;
   animation: fadeIn 0.4s ease; /* Smooth modal appearance */
+  position: relative; /* Make sure the close button is positioned relative to the modal content */
 }
 
 .modal h2 {
