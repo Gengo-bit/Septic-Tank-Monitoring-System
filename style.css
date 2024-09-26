@@ -393,3 +393,68 @@ footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
+
+/* Login page */
+/* Basic styles for login form */
+#login-form {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#login-form h2 {
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+}
+
+#login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Style for the dashboard */
+#dashboard {
+  display: none;
+  margin: 20px;
+}
+
+#dashboard header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#dashboard header button {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#dashboard header button:hover {
+  background-color: #d94343;
+}
