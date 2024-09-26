@@ -4,7 +4,10 @@ const sidebarToggle = document.getElementById('sidebar-toggle');
 const closeBtn = document.getElementById('close-btn');
 const thresholdBtn = document.getElementById('threshold-btn');
 const thresholdModal = document.getElementById('thresholdModal');
+const settingsBtn = document.getElementById('settings-btn');
+const settingsModal = document.getElementById('settingsModal');
 const modalClose = document.querySelector('.modal .close');
+const settingsModalClose = document.querySelector('.close-settings');
 
 // Sidebar open/close functionality
 sidebarToggle.addEventListener('click', () => {
@@ -22,16 +25,37 @@ thresholdBtn.addEventListener('click', () => {
     thresholdModal.style.display = 'flex'; // Show the modal
 });
 
-// Close the modal when the close button is clicked
+// Close the threshold modal when the close button is clicked
 modalClose.addEventListener('click', () => {
     thresholdModal.style.display = 'none'; // Hide the modal
 });
 
-// Close the modal when clicking outside of the modal content
+// Close the threshold modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === thresholdModal) {
         thresholdModal.style.display = 'none'; // Hide the modal
     }
+});
+
+// Show/Hide Settings Modal
+settingsBtn.addEventListener('click', () => {
+    settingsModal.style.display = 'flex';  // Show settings modal in center
+});
+
+settingsModalClose.addEventListener('click', () => {
+    settingsModal.style.display = 'none';  // Hide settings modal
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === settingsModal) {
+        settingsModal.style.display = 'none';  // Hide settings modal when clicking outside
+    }
+});
+
+// Prevent modals from showing on page load
+document.addEventListener('DOMContentLoaded', () => {
+    settingsModal.style.display = 'none';
+    thresholdModal.style.display = 'none';
 });
 
 // Light/Dark Mode toggle with smooth rotation
@@ -40,21 +64,7 @@ themeSwitchSidebar.addEventListener('click', () => {
     document.body.classList.toggle('darkmode');
     updateIcons();
 });
-// Show/Hide Settings Modal
-document.getElementById('settings-btn').addEventListener('click', () => {
-    document.getElementById('settingsModal').style.display = 'block';
-  });
-  
-  document.querySelector('.close-settings').addEventListener('click', () => {
-    document.getElementById('settingsModal').style.display = 'none';
-  });
-  
-  window.addEventListener('click', (event) => {
-    if (event.target === document.getElementById('settingsModal')) {
-      document.getElementById('settingsModal').style.display = 'none';
-    }
-  });
-  
+
 // Handle Sun/Moon icon transitions
 function updateIcons() {
     const sunIcon = document.getElementById('sidebar-sun-icon');
