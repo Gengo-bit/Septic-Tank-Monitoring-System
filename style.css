@@ -393,34 +393,3 @@ footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
-
-/* User Authentication */
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.login-container h2 {
-  font-family: 'Poppins', sans-serif;
-}
-
-.login-container form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.login-container input {
-  margin: 10px 0;
-  padding: 10px;
-  width: 80%;
-  max-width: 300px;
-}
-
-.login-container button {
-  padding: 10px;
-  width: 100px;
-}
