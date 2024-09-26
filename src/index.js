@@ -49,6 +49,19 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
+// Fetch tank dimensions from Firebase and update variables
+const settingsRef = ref(database, 'septicTankSettings');
+onValue(settingsRef, (snapshot) => {
+  const settings = snapshot.val();
+  const tankHeight = settings.tankHeight || 35;  // cm, default if not set
+  const tankLength = settings.tankLength || 45;  // cm
+  const tankWidth = settings.tankWidth || 45;    // cm
+
+  // Update septic tank capacity
+  const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // total capacity in liters
+  console.log('Tank dimensions updated:', { tankHeight, tankLength, tankWidth, septicTankCapacity });
+});
+
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
