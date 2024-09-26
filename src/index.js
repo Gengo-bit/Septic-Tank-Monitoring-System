@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import Chart from "chart.js/auto";
 
 // Firebase configuration
@@ -20,6 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app); 
+const auth = getAuth(); // Initialize Firebase Auth
 
 // CSS
 const styles = `
@@ -49,6 +51,7 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
+
 // Parameterized tank dimensions
 let tankHeight = 35;  // default value, will be updated from Firebase
 let tankLength = 45;  // default value, will be updated from Firebase
@@ -110,38 +113,7 @@ function saveTankDimensions(height, length, width) {
     fetchTankDataFromFirebase();  // Re-fetch data to update charts
   }).catch((error) => console.error('Error saving tank settings:', error));
 }
-// Function to update the capacity chart after changing dimensions
-function updateCapacityChart(capacityPercentage) {
-  const available = 100 - capacityPercentage;
-  capacityChart.data.datasets[0].data = [capacityPercentage, available];
-  capacityChart.update();
 
-  document.getElementById("capacity").innerHTML = `
-    <span class="capacity-text">Capacity: ${capacityPercentage}%</span>`;
-
-  let status;
-  if (capacityPercentage < 75) {
-    status = 'Normal';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: green;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage >= 75 && capacity <= 85) {
-    status = 'Above Normal';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage >= 86 && capacityPercentage <= 95) {
-    status = 'Critical';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage > 95) {
-    status = 'Full';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: red;"><strong>${status}</strong></span>`;
-  }
-}
 // Event listener for the Save button in the Settings modal
 document.getElementById('save-settings').addEventListener('click', () => {
   const newHeight = parseFloat(document.getElementById('input-tankHeight').value);
@@ -154,16 +126,38 @@ document.getElementById('save-settings').addEventListener('click', () => {
 
 // Fetch tank dimensions and capacity on page load
 document.addEventListener('DOMContentLoaded', () => {
-  fetchTankDataFromFirebase();  // Fetch the dimensions and capacity from Firebase
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is logged in, proceed with septic tank monitoring functionalities
+      fetchTankDataFromFirebase();
+      document.getElementById("main-content").style.display = "block"; // Show main content
+      document.getElementById("login-container").style.display = "none"; // Hide login form
+    } else {
+      // No user is signed in, show login form
+      document.getElementById("main-content").style.display = "none"; // Hide main content
+      document.getElementById("login-container").style.display = "flex"; // Show login form
+    }
+  });
 });
 
-const styleSheet = document.createElement("style");
-styleSheet.textContent = styles;
-document.head.appendChild(styleSheet);
+// Handle Login form submission
+document.getElementById("login-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-// variables for the prediction logic
-let previousVolume = null;
-let previousTimestamp = null;
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      // Successfully logged in, show main content
+      document.getElementById("main-content").style.display = "block";
+      document.getElementById("login-container").style.display = "none";
+    })
+    .catch((error) => {
+      // Display error message to the user
+      document.getElementById("login-error").textContent = error.message;
+    });
+});
 
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
