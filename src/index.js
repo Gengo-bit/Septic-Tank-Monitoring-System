@@ -129,9 +129,116 @@ document.addEventListener('DOMContentLoaded', () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is logged in, proceed with septic tank monitoring functionalities
-      fetchTankDataFromFirebase();
-      document.getElementById("main-content").style.display = "block"; // Show main content
-      document.getElementById("login-container").style.display = "none"; // Hide login form
+      fetchTankDataFromFirebase();  // Fetch the dimensions and capacity from Firebase
+
+      // Show main content
+      document.getElementById("main-content").style.display = "block";
+      document.getElementById("login-container").style.display = "none";
+
+      // Initialize Capacity Chart
+      const ctx = document.getElementById('capacityChart').getContext('2d');
+      const capacityChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Used', 'Available'],
+          datasets: [{
+            label: 'Septic Tank Capacity',
+            data: [0, 100],  // Initial values: 0% used, 100% available
+            backgroundColor: ['#FF5A5F', '#82CFFF'],  // Updated colors
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: function(context) {
+                  return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
+                },
+                font: {
+                  family: 'Poppins',  // Matching font
+                  size: 14
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // Initialize Historical Chart
+      const historicalCtx = document.getElementById('historicalChart').getContext('2d');
+      const historicalChart = new Chart(historicalCtx, {
+        type: 'line',
+        data: {
+          labels: [],  // Timestamps
+          datasets: [{
+            label: 'Septic Tank Levels Over Time',
+            data: [],  // Capacity percentages over time
+            borderColor: '#82CFFF',
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: function(context) {
+                  return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
+                },
+                font: {
+                  family: 'Poppins',
+                  size: 14
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Time and Date',  // X-axis label
+                font: {
+                  size: 14,
+                  family: 'Poppins'
+                },
+                color: function(context) {
+                  return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis label colors
+                }
+              },
+              ticks: {
+                color: function(context) {
+                  return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis ticks color
+                }
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Septic Tank Capacity (%)',  // Y-axis label
+                font: {
+                  size: 14,
+                  family: 'Poppins'
+                },
+                color: function(context) {
+                  return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis label colors
+                }
+              },
+              ticks: {
+                color: function(context) {
+                  return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis ticks color
+                }
+              },
+              min: 0,  // Start Y-axis from 0
+              max: 100 // Maximum value for the Y-axis
+            }
+          }
+        }
+      });
+
     } else {
       // No user is signed in, show login form
       document.getElementById("main-content").style.display = "none"; // Hide main content
@@ -157,110 +264,6 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
       // Display error message to the user
       document.getElementById("login-error").textContent = error.message;
     });
-});
-
-// Capacity Chart
-const ctx = document.getElementById('capacityChart').getContext('2d');
-const capacityChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Used', 'Available'],
-    datasets: [{
-      label: 'Septic Tank Capacity',
-      data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#FF5A5F', '#82CFFF'],  // Updated colors
-      borderWidth: 1
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
-          },
-          font: {
-            family: 'Poppins',  // Matching font
-            size: 14
-          }
-        }
-      }
-    }
-  }
-});
-
-// Historical Chart
-const historicalCtx = document.getElementById('historicalChart').getContext('2d');
-const historicalChart = new Chart(historicalCtx, {
-  type: 'line',
-  data: {
-    labels: [],  // Timestamps
-    datasets: [{
-      label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity percentages over time
-      borderColor: '#82CFFF',
-      fill: false
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
-          },
-          font: {
-            family: 'Poppins',
-            size: 14
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Time and Date',  // X-axis label
-          font: {
-            size: 14,
-            family: 'Poppins'
-          },
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis label colors
-          }
-        },
-        ticks: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis ticks color
-          }
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Septic Tank Capacity (%)',  // Y-axis label
-          font: {
-            size: 14,
-            family: 'Poppins'
-          },
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis label colors
-          }
-        },
-        ticks: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis ticks color
-          }
-        },
-        min: 0,  // Start Y-axis from 0
-        max: 100 // Maximum value for the Y-axis
-      }
-    }
-  }
 });
 
 // update capacity and status
