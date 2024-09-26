@@ -1,7 +1,7 @@
 // Firebase, chart.js imports
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; 
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
 import Chart from "chart.js/auto";
 
@@ -52,10 +52,7 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
-// Global variable for the current user
-let currentUser = null;
-
-// Show or hide login form and dashboard based on auth state
+// Function to toggle UI based on authentication state
 function toggleUI(isLoggedIn) {
   if (isLoggedIn) {
     document.getElementById('login-form').style.display = 'none';
@@ -66,25 +63,38 @@ function toggleUI(isLoggedIn) {
   }
 }
 
-// Authenticate using Email/Password
-function loginWithEmail(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
+// Sign-Up with Email and Password
+function signUpWithEmail(email, password) {
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      currentUser = userCredential.user;
-      toggleUI(true);  // Show dashboard after successful login
+      // User signed up
+      toggleUI(true);  // Show dashboard
     })
     .catch((error) => {
-      console.error("Login failed: ", error.message);
-      alert("Login failed: " + error.message);  // Display error message to user
+      console.error("Sign-up failed: ", error.message);
+      alert("Sign-up failed: " + error.message);  // Show error to user
     });
 }
 
-// Authenticate using Google Sign-In
-function loginWithGoogle() {
+// Sign-In with Email and Password
+function signInWithEmail(email, password) {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // User signed in
+      toggleUI(true);  // Show dashboard
+    })
+    .catch((error) => {
+      console.error("Login failed: ", error.message);
+      alert("Login failed: " + error.message);  // Show error to user
+    });
+}
+
+// Sign-In with Google
+function signInWithGoogle() {
   signInWithPopup(auth, googleProvider)
     .then((result) => {
-      currentUser = result.user;
-      toggleUI(true);  // Show dashboard after successful login
+      // User signed in with Google
+      toggleUI(true);  // Show dashboard
     })
     .catch((error) => {
       console.error("Google Sign-In failed: ", error.message);
@@ -92,38 +102,41 @@ function loginWithGoogle() {
     });
 }
 
-// Logout the user
+// Sign out
 function logout() {
   signOut(auth).then(() => {
-    console.log("User signed out.");
     toggleUI(false);  // Show login form after logout
   }).catch((error) => {
-    console.error("Error logging out: ", error);
+    console.error("Logout failed: ", error.message);
   });
 }
 
-// On page load, check if the user is already authenticated
+// Listen for authentication state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    currentUser = user;
-    toggleUI(true);  // User is logged in, show dashboard
+    toggleUI(true);  // User is logged in, show the dashboard
   } else {
-    toggleUI(false);  // User is not logged in, show login form
+    toggleUI(false);  // User is not logged in, show the login form
   }
 });
 
-// Event listeners for the login buttons
-document.getElementById('login-btn').addEventListener('click', () => {
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-  loginWithEmail(email, password);  // Trigger email/password login
+// Event listeners for form buttons
+document.getElementById('sign-up-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  signUpWithEmail(email, password);  // Trigger sign-up
 });
 
-document.getElementById('google-login-btn').addEventListener('click', () => {
-  loginWithGoogle();  // Trigger Google Sign-In
+document.getElementById('sign-in-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  signInWithEmail(email, password);  // Trigger sign-in
 });
 
-// Event listener for logout button
+document.getElementById('google-sign-in-btn').addEventListener('click', () => {
+  signInWithGoogle();  // Trigger Google sign-in
+});
+
 document.getElementById('logout-btn').addEventListener('click', () => {
   logout();  // Trigger logout
 });
