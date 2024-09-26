@@ -49,7 +49,6 @@
     <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
     <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
     <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
-    <button id="settings-btn" class="sidebar-item">Settings</button>
     <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
     <!-- Dark/Light Mode Button at the Bottom -->
     <button id="theme-switch-sidebar">
@@ -64,23 +63,7 @@
                 <path d="M3 12h18M3 6h18M3 18h18"/>
             </svg>
         </button>
-<!-- Modal for updating tank dimensions -->
-<div id="settingsModal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="settings-close">&times;</span>
-      <h2 class="modal-title">Update Tank Dimensions</h2>
-      <form id="settingsForm">
-        <label for="tankHeight">Tank Height (cm):</label>
-        <input type="number" id="tankHeightInput" name="tankHeight" required>
-        <label for="tankLength">Tank Length (cm):</label>
-        <input type="number" id="tankLengthInput" name="tankLength" required>
-        <label for="tankWidth">Tank Width (cm):</label>
-        <input type="number" id="tankWidthInput" name="tankWidth" required>
-        <button type="submit">Save</button>
-      </form>
-    </div>
-  </div>
-
+    
 <!-- Modal for Thresholds -->
 <div id="thresholdModal" class="modal">
     <div class="modal-content">

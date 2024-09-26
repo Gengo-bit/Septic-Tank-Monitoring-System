@@ -5,10 +5,6 @@ const closeBtn = document.getElementById('close-btn');
 const thresholdBtn = document.getElementById('threshold-btn');
 const thresholdModal = document.getElementById('thresholdModal');
 const modalClose = document.querySelector('.modal .close');
-const settingsBtn = document.getElementById('settings-btn');
-const settingsModal = document.getElementById('settingsModal');
-const settingsClose = document.getElementById('settings-close');
-const settingsForm = document.getElementById('settingsForm');
 
 // Sidebar open/close functionality
 sidebarToggle.addEventListener('click', () => {
@@ -58,43 +54,3 @@ function updateIcons() {
         moonIcon.style.transform = 'rotate(-360deg)';
     }
 }
-
-// Open settings modal
-settingsBtn.addEventListener('click', () => {
-    settingsModal.style.display = 'flex';
-});
-
-// Close settings modal
-settingsClose.addEventListener('click', () => {
-    settingsModal.style.display = 'none';
-});
-
-// Close modal on outside click
-window.addEventListener('click', (event) => {
-    if (event.target === settingsModal) {
-        settingsModal.style.display = 'none';
-    }
-});
-
-// Handle form submission for tank dimensions
-settingsForm.addEventListener('submit', (event) => {
-    event.preventDefault();  // Prevent default form submission
-
-    // Get input values
-    const tankHeight = document.getElementById('tankHeightInput').value;
-    const tankLength = document.getElementById('tankLengthInput').value;
-    const tankWidth = document.getElementById('tankWidthInput').value;
-
-    // Save the values to Firebase or other storage
-    const settingsRef = ref(database, 'septicTankSettings');
-    set(settingsRef, {
-        tankHeight: Number(tankHeight),
-        tankLength: Number(tankLength),
-        tankWidth: Number(tankWidth)
-    }).then(() => {
-        alert('Tank dimensions updated successfully!');
-        settingsModal.style.display = 'none';
-    }).catch((error) => {
-        console.error('Error saving tank dimensions:', error);
-    });
-});
