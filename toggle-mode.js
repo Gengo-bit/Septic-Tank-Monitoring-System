@@ -20,42 +20,43 @@ closeBtn.addEventListener('click', () => {
     sidebarToggle.style.opacity = '1';  // Show the hamburger icon when sidebar is closed
 });
 
+// Ensure modals are not shown on page load or refresh
+window.addEventListener('DOMContentLoaded', () => {
+    settingsModal.style.display = 'none';
+    thresholdModal.style.display = 'none';
+});
+
 // Show Threshold Modal on button click
 thresholdBtn.addEventListener('click', () => {
-    thresholdModal.style.display = 'flex'; // Show the modal
+    thresholdModal.style.display = 'flex';  // Show the threshold modal
 });
 
 // Close the threshold modal when the close button is clicked
 modalClose.addEventListener('click', () => {
-    thresholdModal.style.display = 'none'; // Hide the modal
+    thresholdModal.style.display = 'none';  // Hide the modal
 });
 
 // Close the threshold modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === thresholdModal) {
-        thresholdModal.style.display = 'none'; // Hide the modal
+        thresholdModal.style.display = 'none';  // Hide the modal
     }
 });
 
 // Show/Hide Settings Modal
 settingsBtn.addEventListener('click', () => {
-    settingsModal.style.display = 'flex';  // Show settings modal in center
+    settingsModal.style.display = 'flex';  // Show the settings modal
 });
 
 settingsModalClose.addEventListener('click', () => {
-    settingsModal.style.display = 'none';  // Hide settings modal
+    settingsModal.style.display = 'none';  // Hide the settings modal
 });
 
+// Close the settings modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === settingsModal) {
-        settingsModal.style.display = 'none';  // Hide settings modal when clicking outside
+        settingsModal.style.display = 'none';  // Hide the settings modal
     }
-});
-
-// Prevent modals from showing on page load
-document.addEventListener('DOMContentLoaded', () => {
-    settingsModal.style.display = 'none';
-    thresholdModal.style.display = 'none';
 });
 
 // Light/Dark Mode toggle with smooth rotation
