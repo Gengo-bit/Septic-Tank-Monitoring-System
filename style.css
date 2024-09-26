@@ -326,8 +326,8 @@ section {
 }
 
 section:hover {
-  transform: scale(1.05); 
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); 
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
@@ -365,8 +365,6 @@ footer {
   align-items: center;  /* Vertically align items */
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
-  bottom: 0;
-  width: 100%;
 }
 .footer-right {
   display: flex;
