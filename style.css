@@ -238,7 +238,7 @@ body {
 
 /* Branding Section */
 .branding {
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the left */
