@@ -1,7 +1,7 @@
 // Firebase, chart.js imports
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; 
 import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
 import Chart from "chart.js/auto";
 
@@ -22,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app); 
+const googleProvider = new GoogleAuthProvider();
 
 // CSS
 const styles = `
@@ -54,12 +55,23 @@ const styles = `
 // Global variable for the current user
 let currentUser = null;
 
-// Function to authenticate and login
-function login(email, password) {
+// Show or hide login form and dashboard based on auth state
+function toggleUI(isLoggedIn) {
+  if (isLoggedIn) {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+  } else {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+}
+
+// Authenticate using Email/Password
+function loginWithEmail(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       currentUser = userCredential.user;
-      checkAdminAccess(currentUser);  // Check if user is admin
+      toggleUI(true);  // Show dashboard after successful login
     })
     .catch((error) => {
       console.error("Login failed: ", error.message);
@@ -67,59 +79,52 @@ function login(email, password) {
     });
 }
 
+// Authenticate using Google Sign-In
+function loginWithGoogle() {
+  signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      currentUser = result.user;
+      toggleUI(true);  // Show dashboard after successful login
+    })
+    .catch((error) => {
+      console.error("Google Sign-In failed: ", error.message);
+      alert("Google Sign-In failed: " + error.message);
+    });
+}
+
 // Logout the user
 function logout() {
   signOut(auth).then(() => {
     console.log("User signed out.");
-    window.location.reload();  // Reload the page after logout
+    toggleUI(false);  // Show login form after logout
   }).catch((error) => {
     console.error("Error logging out: ", error);
   });
-}
-
-// Check if the user has admin access
-function checkAdminAccess(user) {
-  // For now, we can hardcode the admin's email, or this can be stored in the database
-  const adminEmail = "admin@example.com";
-
-  if (user.email === adminEmail) {
-    console.log("Admin logged in.");
-    loadDashboard();  // Load the main dashboard if admin
-  } else {
-    console.log("Access denied. Not an admin.");
-    alert("You do not have permission to access this page.");
-    logout();
-  }
-}
-
-// Load the dashboard after authentication
-function loadDashboard() {
-  document.getElementById("login-form").style.display = "none";  // Hide login form
-  document.getElementById("dashboard").style.display = "block";  // Show dashboard
-  fetchTankDataFromFirebase();  // Fetch data after login
 }
 
 // On page load, check if the user is already authenticated
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUser = user;
-    checkAdminAccess(user);  // If user is logged in, check if they're admin
+    toggleUI(true);  // User is logged in, show dashboard
   } else {
-    // User is not logged in, show login form
-    document.getElementById("login-form").style.display = "block";
-    document.getElementById("dashboard").style.display = "none";
+    toggleUI(false);  // User is not logged in, show login form
   }
 });
 
-// Event listener for the login form
-document.getElementById("login-btn").addEventListener("click", () => {
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
-  login(email, password);  // Trigger login
+// Event listeners for the login buttons
+document.getElementById('login-btn').addEventListener('click', () => {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  loginWithEmail(email, password);  // Trigger email/password login
 });
 
-// Event listener for logout
-document.getElementById("logout-btn").addEventListener("click", () => {
+document.getElementById('google-login-btn').addEventListener('click', () => {
+  loginWithGoogle();  // Trigger Google Sign-In
+});
+
+// Event listener for logout button
+document.getElementById('logout-btn').addEventListener('click', () => {
   logout();  // Trigger logout
 });
 

@@ -11,17 +11,17 @@
 </head>
 <body class="light-mode">
 
-<!-- Login Form (hidden by default) -->
+<!-- Login Form (shown when user is not authenticated) -->
 <div id="login-form" style="display: none;">
     <h2>Login</h2>
     <input type="email" id="login-email" placeholder="Email" required>
     <input type="password" id="login-password" placeholder="Password" required>
-    <button id="login-btn">Login</button>
+    <button id="login-btn">Login with Email</button>
+    <button id="google-login-btn">Login with Google</button>
 </div>
 
-<!-- Dashboard (hidden by default until user is authenticated) -->
+<!-- Dashboard (hidden by default, shown when user is authenticated) -->
 <div id="dashboard" style="display: none;">
-
     <!-- Branding Section -->
     <div class="branding">
         <img src="assets/logo.png" alt="Logo" class="logo">
@@ -61,7 +61,7 @@
         <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
         <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
         <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
-        <a href="javascript:void(0)" id="settings-btn">Settings</a> <!-- New Settings button -->
+        <a href="javascript:void(0)" id="settings-btn">Settings</a>
         <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
         <!-- Dark/Light Mode Button at the Bottom -->
         <button id="theme-switch-sidebar">
