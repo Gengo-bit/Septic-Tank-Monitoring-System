@@ -21,7 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app); 
-const auth = getAuth(); // Initialize Firebase Auth
+const auth = getAuth();
 
 // CSS
 const styles = `
@@ -51,7 +51,6 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
-
 // Parameterized tank dimensions
 let tankHeight = 35;  // default value, will be updated from Firebase
 let tankLength = 45;  // default value, will be updated from Firebase
@@ -113,7 +112,38 @@ function saveTankDimensions(height, length, width) {
     fetchTankDataFromFirebase();  // Re-fetch data to update charts
   }).catch((error) => console.error('Error saving tank settings:', error));
 }
+// Function to update the capacity chart after changing dimensions
+function updateCapacityChart(capacityPercentage) {
+  const available = 100 - capacityPercentage;
+  capacityChart.data.datasets[0].data = [capacityPercentage, available];
+  capacityChart.update();
 
+  document.getElementById("capacity").innerHTML = `
+    <span class="capacity-text">Capacity: ${capacityPercentage}%</span>`;
+
+  let status;
+  if (capacityPercentage < 75) {
+    status = 'Normal';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: green;"><strong>${status}</strong></span>`;
+  } else if (capacityPercentage >= 75 && capacity <= 85) {
+    status = 'Above Normal';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
+  } else if (capacityPercentage >= 86 && capacityPercentage <= 95) {
+    status = 'Critical';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
+  } else if (capacityPercentage > 95) {
+    status = 'Full';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: red;"><strong>${status}</strong></span>`;
+  }
+}
 // Event listener for the Save button in the Settings modal
 document.getElementById('save-settings').addEventListener('click', () => {
   const newHeight = parseFloat(document.getElementById('input-tankHeight').value);
@@ -139,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
 // Handle Login form submission
 document.getElementById("login-form").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -158,6 +187,13 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
       document.getElementById("login-error").textContent = error.message;
     });
 });
+const styleSheet = document.createElement("style");
+styleSheet.textContent = styles;
+document.head.appendChild(styleSheet);
+
+// variables for the prediction logic
+let previousVolume = null;
+let previousTimestamp = null;
 
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
