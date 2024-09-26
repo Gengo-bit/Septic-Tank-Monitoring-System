@@ -50,9 +50,9 @@ const styles = `
   }
 `;
 // Parameterized tank dimensions
-let tankHeight = 35;  // default value, will be updated from Firebase
-let tankLength = 45;  // default value, will be updated from Firebase
-let tankWidth = 45;   // default value, will be updated from Firebase
+let tankHeight = 35;  //cm
+let tankLength = 45;  //cm
+let tankWidth = 45;   //cm
 let septicTankCapacity = calculateSepticTankCapacity(); // Initialize septic tank capacity
 
 // Function to calculate septic tank capacity
