@@ -6,41 +6,23 @@
     <title>Septic Tank Monitoring System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Add the logo as a favicon -->
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <script type="module" src="index.js" defer></script>
+    <script type="text/javascript" src="toggle-mode.js" defer></script>
 </head>
 <body class="light-mode">
 
-<!-- Sign-Up/Sign-In Form (shown when user is not authenticated) -->
-<div id="login-form" style="display: none;">
-    <h2>Sign Up or Sign In</h2>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button id="sign-up-btn">Sign Up</button>
-    <button id="sign-in-btn">Sign In</button>
-    <button id="google-sign-in-btn">Sign In with Google</button>
+<!-- Branding Section -->
+<div class="branding">
+    <img src="assets/logo.png" alt="Logo" class="logo">
+    <h1>Septic Tank Monitoring System</h1>
+    <!-- Sidebar Toggle Button with Hamburger Icon -->
+    <button id="sidebar-toggle" class="sidebar-toggle">
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon"></span>
+    </button>
 </div>
-<!-- Admin-specific section, hidden for regular users -->
-<div id="admin-section" style="display: none;">
-    <h2>Admin Settings</h2>
-    <!-- Admin content goes here -->
-  </div>
-  
-<!-- Dashboard (hidden by default, shown when user is authenticated) -->
-<div id="dashboard" style="display: none;">
-    <!-- Branding Section -->
-    <div class="branding">
-        <img src="assets/logo.png" alt="Logo" class="logo">
-        <h1>Septic Tank Monitoring System</h1>
-        <!-- Sidebar Toggle Button with Hamburger Icon -->
-        <button id="sidebar-toggle" class="sidebar-toggle">
-            <span class="hamburger-icon"></span>
-            <span class="hamburger-icon"></span>
-            <span class="hamburger-icon"></span>
-        </button>
-        <!-- Logout Button -->
-        <button id="logout-btn" class="logout-btn">Logout</button>
-    </div>
 
     <!-- Status Section -->
     <section id="status-section">
@@ -59,80 +41,76 @@
         <h2>Historical Data</h2>
         <canvas id="historicalChart"></canvas>
     </section>
-
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <button id="close-btn" class="close-btn">&times;</button>
-        <a href="javascript:void(0)" onclick="scrollToSection('status-section')">Current Capacity</a>
-        <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
-        <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
-        <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
-        <a href="javascript:void(0)" id="settings-btn">Settings</a>
-        <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
-        <!-- Dark/Light Mode Button at the Bottom -->
-        <button id="theme-switch-sidebar">
-            <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor">
-                <circle cx="12" cy="12" r="5"></circle>
-            </svg>
-            <svg id="sidebar-moon-icon" width="24" height="24">
-                <path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path>
-            </svg>
-        </button>
-    </div>
-
-    <!-- Sidebar Toggle Button -->
-    <button id="sidebar-toggle" class="sidebar-toggle">
-        <svg width="24" height="24" fill="currentColor">
-            <path d="M3 12h18M3 6h18M3 18h18"/>
+    <body class="light-mode">
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button id="close-btn" class="close-btn">&times;</button>
+    <a href="javascript:void(0)" onclick="scrollToSection('status-section')">Current Capacity</a>
+    <a href="javascript:void(0)" onclick="scrollToSection('prediction-section')">Estimation</a>
+    <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
+    <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
+    <a href="javascript:void(0)" id="settings-btn">Settings</a> <!-- New Settings button -->
+    <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
+    <!-- Dark/Light Mode Button at the Bottom -->
+    <button id="theme-switch-sidebar">
+        <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor">
+            <circle cx="12" cy="12" r="5"></circle>
+        </svg>
+        <svg id="sidebar-moon-icon" width="24" height="24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path>
         </svg>
     </button>
+</div>
 
-    <!-- Modal for Settings -->
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <span class="close-settings">&times;</span>
-            <h2>Tank Settings</h2>
-            <form id="settingsForm">
-                <label for="input-tankHeight">Tank Height (cm):</label>
-                <input type="number" id="input-tankHeight" value="35">
-                <label for="input-tankLength">Tank Length (cm):</label>
-                <input type="number" id="input-tankLength" value="45">
-                <label for="input-tankWidth">Tank Width (cm):</label>
-                <input type="number" id="input-tankWidth" value="45">
-                <button type="button" id="save-settings">Save</button>
-            </form>
-        </div>
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <svg width="24" height="24" fill="currentColor">
+                <path d="M3 12h18M3 6h18M3 18h18"/>
+            </svg>
+        </button>
+<!-- Modal for Settings -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-settings">&times;</span>
+      <h2>Tank Settings</h2>
+      <form id="settingsForm">
+        <label for="input-tankHeight">Tank Height (cm):</label>
+        <input type="number" id="input-tankHeight" value="35">
+        <label for="input-tankLength">Tank Length (cm):</label>
+        <input type="number" id="input-tankLength" value="45">
+        <label for="input-tankWidth">Tank Width (cm):</label>
+        <input type="number" id="input-tankWidth" value="45">
+        <button type="button" id="save-settings">Save</button>
+      </form>
     </div>
-
-    <!-- Modal for Thresholds -->
-    <div id="thresholdModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Capacity Thresholds</h2>
-            <p>Capacity < 75% : <span style="color: green;"><strong>Normal</strong></span></p>
-            <p>Capacity >= 75% and <= 85% : <span style="color: yellow;"><strong>Above Normal</strong></span></p>
-            <p>Capacity >= 86% and <= 95% : <span style="color: orange;"><strong>Critical</strong></span></p>
-            <p>Capacity > 95% : <span style="color: red;"><strong>Full</strong></span></p>
-        </div>
+  </div>  
+<!-- Modal for Thresholds -->
+<div id="thresholdModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Capacity Thresholds</h2>
+        <p>Capacity < 75% : <span style="color: green;"><strong>Normal</strong></span></p>
+        <p>Capacity >= 75% and <= 85% : <span style="color: yellow;"><strong>Above Normal</strong></span></p>
+        <p>Capacity >= 86% and <= 95% : <span style="color: orange;"><strong>Critical</strong></span></p>
+        <p>Capacity > 95% : <span style="color: red;"><strong>Full</strong></span></p>
     </div>
-
+</div>
+    
     <footer>
         <div class="footer-right">
-            <img src="assets/logo.png" alt="Logo" class="footer-logo">
-            <p>Septic Tank Monitoring System | © 2024</p>
+          <img src="assets/logo.png" alt="Logo" class="footer-logo">
+          <p>Septic Tank Monitoring System | © 2024</p>
         </div>
-    </footer>
+      </footer>
 
-</div> <!-- End of Dashboard -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
-<script src="src/index.js"></script>
-<script>
-    function scrollToSection(sectionId) {
-        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-    }
-</script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="src/index.js"></script>
+    <script src="dist/bundle.js"></script>
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
