@@ -50,77 +50,113 @@ const styles = `
   }
 `;
 // Parameterized tank dimensions
-let tankHeight = 35;  // default value, can be changed by user
-let tankLength = 45;  // default value, can be changed by user
-let tankWidth = 45;   // default value, can be changed by user
+let tankHeight = 35;  // default value, will be updated from Firebase
+let tankLength = 45;  // default value, will be updated from Firebase
+let tankWidth = 45;   // default value, will be updated from Firebase
+let septicTankCapacity = calculateSepticTankCapacity(); // Initialize septic tank capacity
 
 // Function to calculate septic tank capacity
 function calculateSepticTankCapacity() {
   return (tankLength * tankWidth * tankHeight) / 1000;  // capacity in liters
 }
 
-let septicTankCapacity = calculateSepticTankCapacity();
-
-// Fetch tank dimensions from Firebase on page load
-function fetchTankDimensions() {
+// Fetch tank dimensions and capacity percentage from Firebase on page load
+function fetchTankDataFromFirebase() {
   const tankSettingsRef = ref(database, 'tankSettings');
-  
+  const capacityRef = ref(database, 'septicTankData');  // Assuming capacity % is stored here
+
+  // Fetch tank dimensions
   get(tankSettingsRef).then((snapshot) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
-      tankHeight = data.tankHeight || tankHeight;  // use existing value or default
+      tankHeight = data.tankHeight || tankHeight;
       tankLength = data.tankLength || tankLength;
       tankWidth = data.tankWidth || tankWidth;
       septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity with new dimensions
-      updateCapacityChart();  // Update charts after fetching new dimensions
+
+      // Fetch current capacity percentage
+      get(query(capacityRef, limitToLast(1))).then((capacitySnapshot) => {
+        if (capacitySnapshot.exists()) {
+          const capacityData = Object.values(capacitySnapshot.val())[0];
+          const capacityPercentage = capacityData.capacity || 0;
+
+          // Recalculate the volume and update the charts
+          const currentVolume = (capacityPercentage / 100) * septicTankCapacity;
+          updateCapacityChart(capacityPercentage);
+          updateHistoricalChart(capacityPercentage, capacityData.date, capacityData.timestamp);
+        }
+      }).catch((error) => console.error('Error fetching capacity data:', error));
     } else {
       console.log('No tank settings found in Firebase');
     }
-  }).catch((error) => {
-    console.error('Error fetching tank settings: ', error);
-  });
+  }).catch((error) => console.error('Error fetching tank settings:', error));
 }
 
 // Save new tank dimensions to Firebase when user clicks Save
 function saveTankDimensions(height, length, width) {
   const tankSettingsRef = ref(database, 'tankSettings');
-  
+
   tankHeight = height;
   tankLength = length;
   tankWidth = width;
   septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity
-  
+
   set(tankSettingsRef, {
     tankHeight: tankHeight,
     tankLength: tankLength,
     tankWidth: tankWidth
   }).then(() => {
     console.log('Tank settings saved to Firebase');
-    updateCapacityChart();  // Update charts after saving new dimensions
-  }).catch((error) => {
-    console.error('Error saving tank settings: ', error);
-  });
+    fetchTankDataFromFirebase();  // Re-fetch data to update charts
+  }).catch((error) => console.error('Error saving tank settings:', error));
 }
 // Function to update the capacity chart after changing dimensions
-function updateCapacityChart() {
-  // Update the capacity chart with the new dimensions
-  const available = 100 - currentCapacity;
-  capacityChart.data.datasets[0].data = [currentCapacity, available];
+function updateCapacityChart(capacityPercentage) {
+  const available = 100 - capacityPercentage;
+  capacityChart.data.datasets[0].data = [capacityPercentage, available];
   capacityChart.update();
+
+  document.getElementById("capacity").innerHTML = `
+    <span class="capacity-text">Capacity: ${capacityPercentage}%</span>`;
+
+  let status;
+  if (capacityPercentage < 75) {
+    status = 'Normal';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: green;"><strong>${status}</strong></span>`;
+  } else if (capacityPercentage >= 75 && capacity <= 85) {
+    status = 'Above Normal';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
+  } else if (capacityPercentage >= 86 && capacityPercentage <= 95) {
+    status = 'Critical';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
+  } else if (capacityPercentage > 95) {
+    status = 'Full';
+    document.getElementById("status").innerHTML = `
+      <span class="status-text">The Septic Tank is </span>
+      <span class="status" style="color: red;"><strong>${status}</strong></span>`;
+  }
 }
 // Event listener for the Save button in the Settings modal
 document.getElementById('save-settings').addEventListener('click', () => {
   const newHeight = parseFloat(document.getElementById('input-tankHeight').value);
   const newLength = parseFloat(document.getElementById('input-tankLength').value);
   const newWidth = parseFloat(document.getElementById('input-tankWidth').value);
-  
+
   saveTankDimensions(newHeight, newLength, newWidth);  // Save new dimensions to Firebase
   document.getElementById('settingsModal').style.display = 'none';  // Close the settings modal
 });
-// Fetch tank dimensions on page load
+
+// Fetch tank dimensions and capacity on page load
 document.addEventListener('DOMContentLoaded', () => {
-  fetchTankDimensions();  // Fetch the dimensions from Firebase
+  fetchTankDataFromFirebase();  // Fetch the dimensions and capacity from Firebase
 });
+
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
