@@ -40,7 +40,21 @@ themeSwitchSidebar.addEventListener('click', () => {
     document.body.classList.toggle('darkmode');
     updateIcons();
 });
-
+// Show/Hide Settings Modal
+document.getElementById('settings-btn').addEventListener('click', () => {
+    document.getElementById('settingsModal').style.display = 'block';
+  });
+  
+  document.querySelector('.close-settings').addEventListener('click', () => {
+    document.getElementById('settingsModal').style.display = 'none';
+  });
+  
+  window.addEventListener('click', (event) => {
+    if (event.target === document.getElementById('settingsModal')) {
+      document.getElementById('settingsModal').style.display = 'none';
+    }
+  });
+  
 // Handle Sun/Moon icon transitions
 function updateIcons() {
     const sunIcon = document.getElementById('sidebar-sun-icon');
