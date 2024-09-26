@@ -208,11 +208,16 @@
 /* Close button styling for both modals */
 .close, .close-settings {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 20px;
   font-size: 28px;
   cursor: pointer;
   color: var(--text-color);
+}
+/* Explicitly hide modals in CSS to avoid unexpected popups */
+#thresholdModal,
+#settingsModal {
+  display: none; /* Ensure modals are hidden by default */
 }
 * {
   margin: 0;
