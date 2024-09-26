@@ -60,56 +60,6 @@ function calculateSepticTankCapacity() {
   return (tankLength * tankWidth * tankHeight) / 1000;  // capacity in liters
 }
 
-// Fetch tank dimensions and capacity percentage from Firebase on page load
-function fetchTankDataFromFirebase() {
-  const tankSettingsRef = ref(database, 'tankSettings');
-  const capacityRef = ref(database, 'septicTankData');  // Assuming capacity % is stored here
-
-  // Fetch tank dimensions
-  get(tankSettingsRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      tankHeight = data.tankHeight || tankHeight;
-      tankLength = data.tankLength || tankLength;
-      tankWidth = data.tankWidth || tankWidth;
-      septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity with new dimensions
-
-      // Fetch current capacity percentage
-      get(query(capacityRef, limitToLast(1))).then((capacitySnapshot) => {
-        if (capacitySnapshot.exists()) {
-          const capacityData = Object.values(capacitySnapshot.val())[0];
-          const capacityPercentage = capacityData.capacity || 0;
-
-          // Recalculate the volume and update the charts
-          const currentVolume = (capacityPercentage / 100) * septicTankCapacity;
-          updateCapacityChart(capacityPercentage);
-          updateHistoricalChart(capacityPercentage, capacityData.date, capacityData.timestamp);
-        }
-      }).catch((error) => console.error('Error fetching capacity data:', error));
-    } else {
-      console.log('No tank settings found in Firebase');
-    }
-  }).catch((error) => console.error('Error fetching tank settings:', error));
-}
-
-// Save new tank dimensions to Firebase when user clicks Save
-function saveTankDimensions(height, length, width) {
-  const tankSettingsRef = ref(database, 'tankSettings');
-
-  tankHeight = height;
-  tankLength = length;
-  tankWidth = width;
-  septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity
-
-  set(tankSettingsRef, {
-    tankHeight: tankHeight,
-    tankLength: tankLength,
-    tankWidth: tankWidth
-  }).then(() => {
-    console.log('Tank settings saved to Firebase');
-    fetchTankDataFromFirebase();  // Re-fetch data to update charts
-  }).catch((error) => console.error('Error saving tank settings:', error));
-}
 // Function to update the capacity chart after changing dimensions
 function updateCapacityChart(capacityPercentage) {
   const available = 100 - capacityPercentage;
