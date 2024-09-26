@@ -343,31 +343,14 @@ footer {
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
 }
-
-.footer-left, .footer-right {
+.footer-right {
   display: flex;
   align-items: center;  /* Ensures both sections are vertically centered */
 }
-
-.footer-left a {
-  color: var(--footer-text-color);
-  font-size: 1em;
-  font-weight: 500;
-  text-decoration: none;
-  margin-right: 10px;  /* Add some space between "About Us" and the edge */
-  transition: color 0.3s ease;
-}
-
-.footer-left a:hover {
-  color: var(--accent-color);
-  text-decoration: underline;
-}
-
 .footer-right {
   display: flex;
   align-items: center;  /* Ensure vertical alignment of the logo and text */
 }
-
 .footer-right p {
   margin: 0;  /* Reset margins to prevent misalignment */
   margin-left: 5px;
