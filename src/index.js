@@ -63,41 +63,29 @@ function calculateSepticTankCapacity() {
 // Fetch tank dimensions and capacity percentage from Firebase on page load
 function fetchTankDataFromFirebase() {
   const tankSettingsRef = ref(database, 'tankSettings');
-  const distanceRef = ref(database, 'septicTankData');  // Assuming the distance in cm is stored here
+  const capacityRef = ref(database, 'septicTankData');  // Assuming capacity % is stored here
 
   // Fetch tank dimensions
   get(tankSettingsRef).then((snapshot) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
-      const tankHeight = data.tankHeight || tankHeight;
-      const tankLength = data.tankLength || tankLength;
-      const tankWidth = data.tankWidth || tankWidth;
-      const totalCapacity = (tankLength * tankWidth * tankHeight) / 1000;  // in liters
+      tankHeight = data.tankHeight || tankHeight;
+      tankLength = data.tankLength || tankLength;
+      tankWidth = data.tankWidth || tankWidth;
+      septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity with new dimensions
 
-      // Fetch the latest distance data
-      get(query(distanceRef, limitToLast(1))).then((distanceSnapshot) => {
-        if (distanceSnapshot.exists()) {
-          const distanceData = Object.values(distanceSnapshot.val())[0];
-          const distanceCm = distanceData.distance || 0;  // The distance in cm from the sensor
-          const timestamp = distanceData.timestamp || new Date().getTime();
+      // Fetch current capacity percentage
+      get(query(capacityRef, limitToLast(1))).then((capacitySnapshot) => {
+        if (capacitySnapshot.exists()) {
+          const capacityData = Object.values(capacitySnapshot.val())[0];
+          const capacityPercentage = capacityData.capacity || 0;
 
-          // Calculate the water level (distance from the bottom of the tank to the water level)
-          const waterLevel = tankHeight - distanceCm;
-
-          // Ensure waterLevel doesn't go below 0
-          if (waterLevel < 0) waterLevel = 0;
-
-          // Calculate the current volume in liters
-          const currentVolume = (tankLength * tankWidth * waterLevel) / 1000;  // in liters
-
-          // Calculate the capacity percentage
-          const capacityPercentage = (currentVolume / totalCapacity) * 100;
-
-          // Update the charts and UI with the calculated capacity percentage
+          // Recalculate the volume and update the charts
+          const currentVolume = (capacityPercentage / 100) * septicTankCapacity;
           updateCapacityChart(capacityPercentage);
-          updateHistoricalChart(capacityPercentage, distanceData.date, timestamp);
+          updateHistoricalChart(capacityPercentage, capacityData.date, capacityData.timestamp);
         }
-      }).catch((error) => console.error('Error fetching distance data:', error));
+      }).catch((error) => console.error('Error fetching capacity data:', error));
     } else {
       console.log('No tank settings found in Firebase');
     }
@@ -122,14 +110,14 @@ function saveTankDimensions(height, length, width) {
     fetchTankDataFromFirebase();  // Re-fetch data to update charts
   }).catch((error) => console.error('Error saving tank settings:', error));
 }
-// Update capacity chart with calculated percentage
+// Function to update the capacity chart after changing dimensions
 function updateCapacityChart(capacityPercentage) {
   const available = 100 - capacityPercentage;
   capacityChart.data.datasets[0].data = [capacityPercentage, available];
   capacityChart.update();
 
   document.getElementById("capacity").innerHTML = `
-    <span class="capacity-text">Capacity: ${capacityPercentage.toFixed(2)}%</span>`;
+    <span class="capacity-text">Capacity: ${capacityPercentage}%</span>`;
 
   let status;
   if (capacityPercentage < 75) {
@@ -137,7 +125,7 @@ function updateCapacityChart(capacityPercentage) {
     document.getElementById("status").innerHTML = `
       <span class="status-text">The Septic Tank is </span>
       <span class="status" style="color: green;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage >= 75 && capacityPercentage <= 85) {
+  } else if (capacityPercentage >= 75 && capacity <= 85) {
     status = 'Above Normal';
     document.getElementById("status").innerHTML = `
       <span class="status-text">The Septic Tank is </span>
