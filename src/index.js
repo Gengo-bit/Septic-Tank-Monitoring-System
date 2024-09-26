@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
 import Chart from "chart.js/auto";
 
@@ -22,6 +23,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app); 
+const firestore = getFirestore(app); 
 const googleProvider = new GoogleAuthProvider();
 
 // CSS
@@ -52,6 +54,87 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
+// Function to save user data in Firestore
+async function saveUserInFirestore(user, isAdmin = false) {
+  try {
+    // Store the user data in Firestore under "users" collection with `isAdmin` field
+    await setDoc(doc(firestore, "users", user.uid), {
+      email: user.email,
+      isAdmin: isAdmin
+    });
+    console.log('User saved in Firestore with admin status:', isAdmin);
+  } catch (error) {
+    console.error('Error saving user to Firestore:', error);
+  }
+}
+
+// Sign-Up with Email and Password
+function signUpWithEmail(email, password) {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
+
+      // On sign-up, assign admin role if needed. Example: Make the first user the admin
+      const isAdmin = (user.email === "admin@example.com"); // Change to your logic for determining admin
+      await saveUserInFirestore(user, isAdmin);  // Save the user data in Firestore
+
+      toggleUI(true);
+      console.log('User signed up and logged in:', user);
+    })
+    .catch((error) => {
+      console.error("Sign-up failed: ", error.message);
+      alert("Sign-up failed: " + error.message);  // Show error to user
+    });
+}
+
+// Function to toggle UI based on authentication state
+function toggleUI(isLoggedIn, isAdmin = false) {
+  if (isLoggedIn) {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+
+    // Show/hide admin-specific features based on isAdmin flag
+    if (isAdmin) {
+      document.getElementById('admin-section').style.display = 'block';  // Example admin section
+    } else {
+      document.getElementById('admin-section').style.display = 'none';
+    }
+  } else {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+}
+
+// Check if user is an admin
+async function checkIfAdmin(user) {
+  const docRef = doc(firestore, "users", user.uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const userData = docSnap.data();
+    return userData.isAdmin;
+  } else {
+    console.log("No such document!");
+    return false;
+  }
+}
+
+// Listen for authentication state changes
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const isAdmin = await checkIfAdmin(user);  // Check if the user is an admin
+    toggleUI(true, isAdmin);  // Pass the isAdmin flag to toggle UI
+  } else {
+    toggleUI(false);
+  }
+});
+
+// Event listeners for form buttons
+document.getElementById('sign-up-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  signUpWithEmail(email, password);  // Trigger sign-up
+});
 // Function to toggle UI based on authentication state
 function toggleUI(isLoggedIn) {
   if (isLoggedIn) {
@@ -69,6 +152,7 @@ function signUpWithEmail(email, password) {
     .then((userCredential) => {
       // User signed up
       toggleUI(true);  // Show dashboard
+      console.log('User signed up and logged in:', userCredential.user);
     })
     .catch((error) => {
       console.error("Sign-up failed: ", error.message);
@@ -82,6 +166,7 @@ function signInWithEmail(email, password) {
     .then((userCredential) => {
       // User signed in
       toggleUI(true);  // Show dashboard
+      console.log('User signed in:', userCredential.user);
     })
     .catch((error) => {
       console.error("Login failed: ", error.message);
@@ -95,6 +180,7 @@ function signInWithGoogle() {
     .then((result) => {
       // User signed in with Google
       toggleUI(true);  // Show dashboard
+      console.log('User signed in with Google:', result.user);
     })
     .catch((error) => {
       console.error("Google Sign-In failed: ", error.message);
@@ -106,6 +192,7 @@ function signInWithGoogle() {
 function logout() {
   signOut(auth).then(() => {
     toggleUI(false);  // Show login form after logout
+    console.log('User signed out');
   }).catch((error) => {
     console.error("Logout failed: ", error.message);
   });
