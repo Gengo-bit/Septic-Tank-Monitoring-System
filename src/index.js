@@ -277,9 +277,17 @@ function calculatePrediction(currentVolume, currentTime) {
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert to hours
-      document.getElementById("prediction").innerHTML = 
-        `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
+      let hoursToFull = estimatedTimeToFull / 3600; // convert to hours
+      if (hoursToFull >= 1) {
+        // If the time to full is more than or equal to 1 hour, display in hours
+        document.getElementById("prediction").innerHTML = 
+          `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull.toFixed(2)} hours</strong></span>`;
+      } else {
+        // If the time to full is less than 1 hour, convert to minutes
+        const minutesToFull = (hoursToFull * 60).toFixed(0); // convert to minutes
+        document.getElementById("prediction").innerHTML = 
+          `<span class="time-until-full">The Septic Tank will be full in <strong>${minutesToFull} minutes</strong></span>`;
+      }
     } else {
       document.getElementById("prediction").innerHTML = 
         `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
