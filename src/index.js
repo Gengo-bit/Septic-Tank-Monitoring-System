@@ -50,33 +50,6 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
-// Parameterized tank dimensions
-let tankHeight = 35;  // default value, can be changed by user
-let tankLength = 45;  // default value, can be changed by user
-let tankWidth = 45;   // default value, can be changed by user
-
-// Function to calculate septic tank capacity
-function calculateSepticTankCapacity() {
-  return (tankLength * tankWidth * tankHeight) / 1000;  // capacity in liters
-}
-
-let septicTankCapacity = calculateSepticTankCapacity();
-
-// Function to fetch tank dimensions from Firebase
-function fetchTankDimensions() {
-  const tankSettingsRef = ref(database, 'tankSettings');
-  onChildAdded(tankSettingsRef, (snapshot) => {
-    const data = snapshot.val();
-    tankHeight = data.tankHeight;
-    tankLength = data.tankLength;
-    tankWidth = data.tankWidth;
-    septicTankCapacity = calculateSepticTankCapacity();  // recalculate capacity
-  });
-}
-
-// Call fetchTankDimensions when the system starts
-fetchTankDimensions();
-
 // Function to save the tank dimensions to Firebase
 function saveTankDimensions(height, length, width) {
   const tankSettingsRef = ref(database, 'tankSettings');
@@ -99,6 +72,27 @@ document.getElementById('save-settings').addEventListener('click', () => {
   saveTankDimensions(newHeight, newLength, newWidth);
   document.getElementById('settingsModal').style.display = 'none';  // close modal
 });
+// Function to fetch tank dimensions from Firebase
+function fetchTankDimensions() {
+  const tankSettingsRef = ref(database, 'tankSettings');
+  onChildAdded(tankSettingsRef, (snapshot) => {
+    const data = snapshot.val();
+    tankHeight = data.tankHeight;
+    tankLength = data.tankLength;
+    tankWidth = data.tankWidth;
+    septicTankCapacity = calculateSepticTankCapacity();  // recalculate capacity
+  });
+}
+
+// Call fetchTankDimensions when the system starts
+fetchTankDimensions();
+
+// Function to calculate septic tank capacity
+function calculateSepticTankCapacity() {
+  return (tankLength * tankWidth * tankHeight) / 1000;  // capacity in liters
+}
+
+let septicTankCapacity = calculateSepticTankCapacity();
 
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
