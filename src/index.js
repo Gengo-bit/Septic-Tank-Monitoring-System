@@ -1,8 +1,7 @@
-// firebase, chart js
+// Firebase, chart.js imports
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, query, limitToLast, onChildAdded } from "firebase/database";
-import { set } from "firebase/database";  // Import 'set' for saving data
+import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
 import Chart from "chart.js/auto";
 
 // Firebase configuration
@@ -62,44 +61,66 @@ function calculateSepticTankCapacity() {
 
 let septicTankCapacity = calculateSepticTankCapacity();
 
-// Function to fetch tank dimensions from Firebase
+// Fetch tank dimensions from Firebase on page load
 function fetchTankDimensions() {
   const tankSettingsRef = ref(database, 'tankSettings');
-  onChildAdded(tankSettingsRef, (snapshot) => {
-    const data = snapshot.val();
-    tankHeight = data.tankHeight;
-    tankLength = data.tankLength;
-    tankWidth = data.tankWidth;
-    septicTankCapacity = calculateSepticTankCapacity();  // recalculate capacity
+  
+  get(tankSettingsRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      tankHeight = data.tankHeight || tankHeight;  // use existing value or default
+      tankLength = data.tankLength || tankLength;
+      tankWidth = data.tankWidth || tankWidth;
+      septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity with new dimensions
+      updateCapacityChart();  // Update charts after fetching new dimensions
+    } else {
+      console.log('No tank settings found in Firebase');
+    }
+  }).catch((error) => {
+    console.error('Error fetching tank settings: ', error);
   });
 }
 
-// Call fetchTankDimensions when the system starts
-fetchTankDimensions();
-
-// Function to save the tank dimensions to Firebase
+// Save new tank dimensions to Firebase when user clicks Save
 function saveTankDimensions(height, length, width) {
   const tankSettingsRef = ref(database, 'tankSettings');
+  
   tankHeight = height;
   tankLength = length;
   tankWidth = width;
-  septicTankCapacity = calculateSepticTankCapacity();  // recalculate capacity
+  septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity
+  
   set(tankSettingsRef, {
     tankHeight: tankHeight,
     tankLength: tankLength,
     tankWidth: tankWidth
+  }).then(() => {
+    console.log('Tank settings saved to Firebase');
+    updateCapacityChart();  // Update charts after saving new dimensions
+  }).catch((error) => {
+    console.error('Error saving tank settings: ', error);
   });
 }
-
-// Event listener for Save button
+// Function to update the capacity chart after changing dimensions
+function updateCapacityChart() {
+  // Update the capacity chart with the new dimensions
+  const available = 100 - currentCapacity;
+  capacityChart.data.datasets[0].data = [currentCapacity, available];
+  capacityChart.update();
+}
+// Event listener for the Save button in the Settings modal
 document.getElementById('save-settings').addEventListener('click', () => {
   const newHeight = parseFloat(document.getElementById('input-tankHeight').value);
   const newLength = parseFloat(document.getElementById('input-tankLength').value);
   const newWidth = parseFloat(document.getElementById('input-tankWidth').value);
-  saveTankDimensions(newHeight, newLength, newWidth);
-  document.getElementById('settingsModal').style.display = 'none';  // close modal
+  
+  saveTankDimensions(newHeight, newLength, newWidth);  // Save new dimensions to Firebase
+  document.getElementById('settingsModal').style.display = 'none';  // Close the settings modal
 });
-
+// Fetch tank dimensions on page load
+document.addEventListener('DOMContentLoaded', () => {
+  fetchTankDimensions();  // Fetch the dimensions from Firebase
+});
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
