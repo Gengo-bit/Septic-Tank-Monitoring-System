@@ -49,18 +49,44 @@ const styles = `
     color: var(--secondary-text);
   }
 `;
-// Fetch tank dimensions from Firebase and update variables
-const settingsRef = ref(database, 'septicTankSettings');
-onValue(settingsRef, (snapshot) => {
-  const settings = snapshot.val();
-  const tankHeight = settings.tankHeight || 35;  // cm, default if not set
-  const tankLength = settings.tankLength || 45;  // cm
-  const tankWidth = settings.tankWidth || 45;    // cm
+// Centralized tank dimension variables
+let tankHeight = 35;  // Default values
+let tankLength = 45;  // Default values
+let tankWidth = 45;   // Default values
 
-  // Update septic tank capacity
-  const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // total capacity in liters
-  console.log('Tank dimensions updated:', { tankHeight, tankLength, tankWidth, septicTankCapacity });
-});
+let septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Calculate initial capacity
+
+// Centralized function to fetch and update tank dimensions
+function fetchAndUpdateTankDimensions() {
+    const settingsRef = ref(database, 'septicTankSettings');
+    onValue(settingsRef, (snapshot) => {
+        const settings = snapshot.val();
+        tankHeight = settings?.tankHeight || tankHeight;  // Use the existing value if not set
+        tankLength = settings?.tankLength || tankLength;
+        tankWidth = settings?.tankWidth || tankWidth;
+        septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // Update capacity
+        console.log('Tank dimensions updated:', { tankHeight, tankLength, tankWidth, septicTankCapacity });
+    });
+}
+
+// Call the function once during page load
+fetchAndUpdateTankDimensions();
+
+// Function to update tank dimensions from modal (called when saving changes in the modal)
+function updateTankDimensionsInFirebase(newHeight, newLength, newWidth) {
+    const settingsRef = ref(database, 'septicTankSettings');
+    set(settingsRef, {
+        tankHeight: newHeight,
+        tankLength: newLength,
+        tankWidth: newWidth
+    }).then(() => {
+        console.log("Tank dimensions updated in Firebase.");
+        // Fetch the latest values and recalculate capacity
+        fetchAndUpdateTankDimensions();
+    }).catch((error) => {
+        console.error("Error updating tank dimensions:", error);
+    });
+}
 
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
@@ -69,10 +95,6 @@ document.head.appendChild(styleSheet);
 // variables for the prediction logic
 let previousVolume = null;
 let previousTimestamp = null;
-const tankHeight = 35; // cm
-const tankLength = 45; // cm
-const tankWidth = 45;  // cm
-const septicTankCapacity = (tankLength * tankWidth * tankHeight) / 1000; // total capacity in liters
 
 // Capacity Chart
 const ctx = document.getElementById('capacityChart').getContext('2d');
