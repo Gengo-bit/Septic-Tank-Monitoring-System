@@ -238,7 +238,7 @@ body {
 
 /* Branding Section */
 .branding {
-  position: relative;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the left */
@@ -365,7 +365,6 @@ footer {
   align-items: center;  /* Vertically align items */
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
-  position: fixed;
   bottom: 0;
   width: 100%;
 }
@@ -395,10 +394,4 @@ footer {
 footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-}
-@media screen and (max-width: 600px) {
-  .sidebar {
-    width: 80%;
-    right: -80%; /* Move it fully out */
-  }
 }
