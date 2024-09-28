@@ -402,6 +402,7 @@ footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
+
 /* Authentication modal styling */
 #authModal {
   display: none;
