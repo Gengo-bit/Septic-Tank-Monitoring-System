@@ -1,138 +1,25 @@
-  // Firebase, chart.js imports
-  import { initializeApp } from "firebase/app";
-  import { getAnalytics } from "firebase/analytics";
-  import { getDatabase, ref, query, limitToLast, onChildAdded } from "firebase/database";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "firebase/auth";
-  import Chart from "chart.js/auto";
-  
-  // Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
-    authDomain: "septic-tank-capacity.firebaseapp.com",
-    databaseURL: "https://septic-tank-capacity-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "septic-tank-capacity",
-    storageBucket: "septic-tank-capacity.appspot.com",
-    messagingSenderId: "445055846573",
-    appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
-    measurementId: "G-M9K3YTLTRP"
-  };
+// Firebase, chart.js imports
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
+import Chart from "chart.js/auto";
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const database = getDatabase(app);
-  const auth = getAuth();
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
+  authDomain: "septic-tank-capacity.firebaseapp.com",
+  databaseURL: "https://septic-tank-capacity-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "septic-tank-capacity",
+  storageBucket: "septic-tank-capacity.appspot.com",
+  messagingSenderId: "445055846573",
+  appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
+  measurementId: "G-M9K3YTLTRP"
+};
 
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM is fully loaded, script is running");
-  
-    // Show a log when trying to show the modal
-    function showAuthModal() {
-      console.log("Showing authentication modal");
-      const authModal = document.getElementById('authModal');
-      authModal.style.display = 'flex';
-    }
-  
-    function hideAuthModal() {
-      console.log("Hiding authentication modal");
-      const authModal = document.getElementById('authModal');
-      authModal.style.display = 'none';
-    }
-  
-    // Check for authentication state
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is logged in");
-        hideAuthModal();
-        fetchTankDataFromFirebase();  // Load data only after login
-      } else {
-        console.log("User is not logged in, showing modal");
-        showAuthModal();
-      }
-    });
-  
-    // Add a log in the login button click handler
-    document.getElementById('loginBtn').addEventListener('click', () => {
-      console.log("Login button clicked");
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          console.log("User logged in, hiding modal");
-          hideAuthModal();
-        })
-        .catch(error => {
-          console.error("Error logging in:", error.message);
-        });
-    });
-  
-    // Add similar logs to other sections of your code
-  });
-  console.log(document.getElementById('loginBtn'));
-  console.log(auth);  // Should print the Firebase Auth instance
-
-  // Handle sign-up functionality
-  document.getElementById('signupBtn').addEventListener('click', () => {
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        hideAuthModal();  // Hide modal after sign-up
-      })
-      .catch(error => {
-        console.error("Error signing up:", error.message);
-      });
-  });
-
-  // Handle password reset functionality
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    const email = document.getElementById('resetEmail').value;
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        console.log("Password reset email sent");
-      })
-      .catch(error => {
-        console.error("Error sending password reset email:", error.message);
-      });
-  });
-
-  // Switch between login, signup, and reset password forms
-  document.getElementById('showSignUp').addEventListener('click', () => {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('signupForm').style.display = 'block';
-  });
-
-  document.getElementById('showLogin').addEventListener('click', () => {
-    document.getElementById('signupForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
-  });
-
-  document.getElementById('showReset').addEventListener('click', () => {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('resetForm').style.display = 'block';
-  });
-
-  document.getElementById('backToLogin').addEventListener('click', () => {
-    document.getElementById('resetForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
-  });
-
-  // Function to fetch septic tank data from Firebase Database after login
-  function fetchTankDataFromFirebase() {
-    const septicDataRef = ref(database, 'septicTankData');
-    onChildAdded(septicDataRef, (snapshot) => {
-      const data = snapshot.val();
-      const capacity = data.capacity;
-      const date = data.date;
-      const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
-      const currentVolume = (capacity / 100) * septicTankCapacity;
-
-      // Now call your existing functions to update UI
-      updateCapacity(capacity);
-      updateHistoricalChart(capacity, date, timestamp);
-      calculatePrediction(currentVolume, data.timestamp);
-    });
-  }
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase(app); 
 
 // CSS
 const styles = `
