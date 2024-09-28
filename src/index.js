@@ -16,141 +16,6 @@ const firebaseConfig = {
   measurementId: "G-M9K3YTLTRP"
 };
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-
-// Firebase Firestore instance
-const firestore = getFirestore(app);
-const auth = getAuth();
-
-// UI Elements
-const authModal = document.getElementById('authModal');
-const closeAuth = document.querySelector('.close-auth');
-const loginForm = document.getElementById('loginForm');
-const signupForm = document.getElementById('signupForm');
-const resetForm = document.getElementById('resetForm');
-
-// Open the authentication modal
-authModal.style.display = 'flex';
-
-// Close the modal when the close button is clicked
-closeAuth.addEventListener('click', () => {
-    authModal.style.display = 'none';
-});
-
-// Switch between forms
-document.getElementById('showSignUp').addEventListener('click', () => {
-    loginForm.style.display = 'none';
-    signupForm.style.display = 'block';
-});
-document.getElementById('showLogin').addEventListener('click', () => {
-    signupForm.style.display = 'none';
-    loginForm.style.display = 'block';
-});
-document.getElementById('showReset').addEventListener('click', () => {
-    loginForm.style.display = 'none';
-    resetForm.style.display = 'block';
-});
-document.getElementById('backToLogin').addEventListener('click', () => {
-    resetForm.style.display = 'none';
-    loginForm.style.display = 'block';
-});
-
-// Handle login
-document.getElementById('loginBtn').addEventListener('click', () => {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-          // Hide modal after successful login
-          authModal.style.display = 'none';
-          
-          // Now load the data after login
-          fetchTankDataFromFirebase();
-      })
-      .catch(error => {
-          console.error("Error logging in:", error.message);
-      });
-});
-
-// Handle sign up
-document.getElementById('signupBtn').addEventListener('click', () => {
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-            // Signed up 
-            authModal.style.display = 'none';
-            console.log("User created successfully:", userCredential.user);
-            
-            // Store user data in Firestore
-            setDoc(doc(firestore, "users", userCredential.user.uid), {
-                email: email,
-                role: "admin"  // You can modify the role based on your needs
-            });
-        })
-        .catch(error => {
-            console.error("Error signing up:", error.message);
-        });
-});
-
-// Handle password reset
-document.getElementById('resetBtn').addEventListener('click', () => {
-    const email = document.getElementById('resetEmail').value;
-    sendPasswordResetEmail(auth, email)
-        .then(() => {
-            console.log("Password reset email sent!");
-        })
-        .catch(error => {
-            console.error("Error sending password reset email:", error.message);
-        });
-});
-
-// Function to show the authentication modal
-function showAuthModal() {
-  const authModal = document.getElementById('authModal');
-  authModal.style.display = 'flex';
-}
-
-// Monitor authentication state
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-      // User is authenticated
-      console.log("User is authenticated:", user);
-      // Now load the data only after login
-      fetchTankDataFromFirebase();
-  } else {
-      // User is not authenticated, show the modal
-      showAuthModal();
-  }
-});
-
-// Sign out function
-document.getElementById('signOutBtn').addEventListener('click', () => {
-    signOut(auth).then(() => {
-        console.log("User signed out successfully");
-    }).catch((error) => {
-        console.error("Error signing out:", error.message);
-    });
-});
-
-
-//import { doc, getDoc } from "firebase/firestore";
-
-function checkAdmin(uid) {
-    const userRef = doc(firestore, "users", uid);
-    getDoc(userRef).then(docSnap => {
-        if (docSnap.exists() && docSnap.data().role === "admin") {
-            console.log("User is admin.");
-            // Allow access to admin features
-        } else {
-            console.log("User is not an admin.");
-            // Redirect or restrict access
-        }
-    });
-}
-
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -237,21 +102,10 @@ document.getElementById('save-settings').addEventListener('click', () => {
   document.getElementById('settingsModal').style.display = 'none';  // Close the settings modal
 });
 
-// Fetch tank data only after authentication
-function fetchTankDataFromFirebase() {
-  const septicDataRef = ref(database, 'septicTankData');
-  onChildAdded(septicDataRef, (snapshot) => {
-      const data = snapshot.val();
-      const capacity = data.capacity;
-      const date = data.date;
-      const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
-      const currentVolume = (capacity / 100) * septicTankCapacity;
-
-      updateCapacity(capacity);
-      updateHistoricalChart(capacity, date, timestamp);
-      calculatePrediction(currentVolume, data.timestamp);
-  });
-}
+// Fetch tank dimensions and capacity on page load
+document.addEventListener('DOMContentLoaded', () => {
+  fetchTankDataFromFirebase();  // Fetch the dimensions and capacity from Firebase
+});
 
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
