@@ -1,7 +1,7 @@
 // Firebase, chart.js imports
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
+import { getDatabase, ref, query, limitToLast, onChildAdded } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "firebase/auth";
 import Chart from "chart.js/auto";
 
@@ -20,91 +20,108 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app); 
+const database = getDatabase(app);
 const auth = getAuth();
 
 // Function to show the authentication modal
 function showAuthModal() {
-    const authModal = document.getElementById('authModal');
-    authModal.style.display = 'flex';
+  const authModal = document.getElementById('authModal');
+  authModal.style.display = 'flex';
 }
 
 // Function to hide the authentication modal
 function hideAuthModal() {
-    const authModal = document.getElementById('authModal');
-    authModal.style.display = 'none';
+  const authModal = document.getElementById('authModal');
+  authModal.style.display = 'none';
 }
 
-// Listen for authentication state changes
+// Prevent data loading until user is authenticated
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is authenticated, hide the modal and load the data
-        hideAuthModal();
-        fetchTankDataFromFirebase();  // Only load data after login
-    } else {
-        // User is not authenticated, show the login modal
-        showAuthModal();
-    }
+  if (user) {
+      // User is authenticated, load the data and hide the modal
+      hideAuthModal();
+      fetchTankDataFromFirebase();  // Load data only after login
+  } else {
+      // Show the login modal if the user is not logged in
+      showAuthModal();
+  }
 });
 
-// Handle login
+// Handle login functionality
 document.getElementById('loginBtn').addEventListener('click', () => {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            hideAuthModal();  // Hide the modal after login
-        })
-        .catch(error => {
-            console.error("Error logging in:", error.message);
-        });
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+          hideAuthModal();  // Hide modal after login
+      })
+      .catch(error => {
+          console.error("Error logging in:", error.message);
+      });
 });
 
-// Handle sign up
+// Handle sign-up functionality
 document.getElementById('signupBtn').addEventListener('click', () => {
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            hideAuthModal();  // Hide the modal after sign-up
-        })
-        .catch(error => {
-            console.error("Error signing up:", error.message);
-        });
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
+  createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+          hideAuthModal();  // Hide modal after sign-up
+      })
+      .catch(error => {
+          console.error("Error signing up:", error.message);
+      });
 });
 
-// Handle password reset
+// Handle password reset functionality
 document.getElementById('resetBtn').addEventListener('click', () => {
-    const email = document.getElementById('resetEmail').value;
-    sendPasswordResetEmail(auth, email)
-        .then(() => {
-            console.log("Password reset email sent");
-        })
-        .catch(error => {
-            console.error("Error sending password reset email:", error.message);
-        });
+  const email = document.getElementById('resetEmail').value;
+  sendPasswordResetEmail(auth, email)
+      .then(() => {
+          console.log("Password reset email sent");
+      })
+      .catch(error => {
+          console.error("Error sending password reset email:", error.message);
+      });
 });
 
 // Switch between login, signup, and reset password forms
 document.getElementById('showSignUp').addEventListener('click', () => {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('signupForm').style.display = 'block';
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('signupForm').style.display = 'block';
 });
 
 document.getElementById('showLogin').addEventListener('click', () => {
-    document.getElementById('signupForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
 });
 
 document.getElementById('showReset').addEventListener('click', () => {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('resetForm').style.display = 'block';
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('resetForm').style.display = 'block';
 });
 
 document.getElementById('backToLogin').addEventListener('click', () => {
-    document.getElementById('resetForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('resetForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
 });
+
+// Function to fetch septic tank data from Firebase Database after login
+function fetchTankDataFromFirebase() {
+  const septicDataRef = ref(database, 'septicTankData');
+  onChildAdded(septicDataRef, (snapshot) => {
+      const data = snapshot.val();
+      const capacity = data.capacity;
+      const date = data.date;
+      const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+      const currentVolume = (capacity / 100) * septicTankCapacity;
+
+      // Now call your existing functions to update UI
+      updateCapacity(capacity);
+      updateHistoricalChart(capacity, date, timestamp);
+      calculatePrediction(currentVolume, data.timestamp);
+  });
+}
 
 // CSS
 const styles = `
