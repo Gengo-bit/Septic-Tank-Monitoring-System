@@ -1,4 +1,3 @@
-// Firebase, chart.js imports
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, query, limitToLast, onChildAdded } from "firebase/database";
@@ -38,12 +37,12 @@ function hideAuthModal() {
 // Prevent data loading until user is authenticated
 onAuthStateChanged(auth, (user) => {
   if (user) {
-      // User is authenticated, load the data and hide the modal
-      hideAuthModal();
-      fetchTankDataFromFirebase();  // Load data only after login
+    // User is authenticated, load the data and hide the modal
+    hideAuthModal();
+    fetchTankDataFromFirebase();  // Load data only after login
   } else {
-      // Show the login modal if the user is not logged in
-      showAuthModal();
+    // Show the login modal if the user is not logged in
+    showAuthModal();
   }
 });
 
@@ -52,12 +51,12 @@ document.getElementById('loginBtn').addEventListener('click', () => {
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
   signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-          hideAuthModal();  // Hide modal after login
-      })
-      .catch(error => {
-          console.error("Error logging in:", error.message);
-      });
+    .then(() => {
+      hideAuthModal();  // Hide modal after login
+    })
+    .catch(error => {
+      console.error("Error logging in:", error.message);
+    });
 });
 
 // Handle sign-up functionality
@@ -65,24 +64,24 @@ document.getElementById('signupBtn').addEventListener('click', () => {
   const email = document.getElementById('signupEmail').value;
   const password = document.getElementById('signupPassword').value;
   createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-          hideAuthModal();  // Hide modal after sign-up
-      })
-      .catch(error => {
-          console.error("Error signing up:", error.message);
-      });
+    .then(() => {
+      hideAuthModal();  // Hide modal after sign-up
+    })
+    .catch(error => {
+      console.error("Error signing up:", error.message);
+    });
 });
 
 // Handle password reset functionality
 document.getElementById('resetBtn').addEventListener('click', () => {
   const email = document.getElementById('resetEmail').value;
   sendPasswordResetEmail(auth, email)
-      .then(() => {
-          console.log("Password reset email sent");
-      })
-      .catch(error => {
-          console.error("Error sending password reset email:", error.message);
-      });
+    .then(() => {
+      console.log("Password reset email sent");
+    })
+    .catch(error => {
+      console.error("Error sending password reset email:", error.message);
+    });
 });
 
 // Switch between login, signup, and reset password forms
@@ -110,16 +109,16 @@ document.getElementById('backToLogin').addEventListener('click', () => {
 function fetchTankDataFromFirebase() {
   const septicDataRef = ref(database, 'septicTankData');
   onChildAdded(septicDataRef, (snapshot) => {
-      const data = snapshot.val();
-      const capacity = data.capacity;
-      const date = data.date;
-      const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
-      const currentVolume = (capacity / 100) * septicTankCapacity;
+    const data = snapshot.val();
+    const capacity = data.capacity;
+    const date = data.date;
+    const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+    const currentVolume = (capacity / 100) * septicTankCapacity;
 
-      // Now call your existing functions to update UI
-      updateCapacity(capacity);
-      updateHistoricalChart(capacity, date, timestamp);
-      calculatePrediction(currentVolume, data.timestamp);
+    // Now call your existing functions to update UI
+    updateCapacity(capacity);
+    updateHistoricalChart(capacity, date, timestamp);
+    calculatePrediction(currentVolume, data.timestamp);
   });
 }
 
