@@ -5,8 +5,6 @@
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "firebase/auth";
   import Chart from "chart.js/auto";
   
-document.addEventListener('DOMContentLoaded', () => {
-  // Firebase and authentication code goes here
   // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
@@ -25,42 +23,53 @@ document.addEventListener('DOMContentLoaded', () => {
   const database = getDatabase(app);
   const auth = getAuth();
 
-  // Function to show the authentication modal
-  function showAuthModal() {
-    const authModal = document.getElementById('authModal');
-    authModal.style.display = 'flex';
-  }
-
-  // Function to hide the authentication modal
-  function hideAuthModal() {
-    const authModal = document.getElementById('authModal');
-    authModal.style.display = 'none';
-  }
-
-  // Prevent data loading until user is authenticated
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is authenticated, load the data and hide the modal
-      hideAuthModal();
-      fetchTankDataFromFirebase();  // Load data only after login
-    } else {
-      // Show the login modal if the user is not logged in
-      showAuthModal();
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM is fully loaded, script is running");
+  
+    // Show a log when trying to show the modal
+    function showAuthModal() {
+      console.log("Showing authentication modal");
+      const authModal = document.getElementById('authModal');
+      authModal.style.display = 'flex';
     }
+  
+    function hideAuthModal() {
+      console.log("Hiding authentication modal");
+      const authModal = document.getElementById('authModal');
+      authModal.style.display = 'none';
+    }
+  
+    // Check for authentication state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is logged in");
+        hideAuthModal();
+        fetchTankDataFromFirebase();  // Load data only after login
+      } else {
+        console.log("User is not logged in, showing modal");
+        showAuthModal();
+      }
+    });
+  
+    // Add a log in the login button click handler
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      console.log("Login button clicked");
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          console.log("User logged in, hiding modal");
+          hideAuthModal();
+        })
+        .catch(error => {
+          console.error("Error logging in:", error.message);
+        });
+    });
+  
+    // Add similar logs to other sections of your code
   });
-
-  // Handle login functionality
-  document.getElementById('loginBtn').addEventListener('click', () => {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        hideAuthModal();  // Hide modal after login
-      })
-      .catch(error => {
-        console.error("Error logging in:", error.message);
-      });
-  });
+  console.log(document.getElementById('loginBtn'));
+  console.log(auth);  // Should print the Firebase Auth instance
 
   // Handle sign-up functionality
   document.getElementById('signupBtn').addEventListener('click', () => {
@@ -124,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
       calculatePrediction(currentVolume, data.timestamp);
     });
   }
-});
 
 // CSS
 const styles = `
