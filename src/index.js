@@ -16,6 +16,129 @@ const firebaseConfig = {
   measurementId: "G-M9K3YTLTRP"
 };
 
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+
+// Firebase Firestore instance
+const firestore = getFirestore(app);
+const auth = getAuth();
+
+// UI Elements
+const authModal = document.getElementById('authModal');
+const closeAuth = document.querySelector('.close-auth');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const resetForm = document.getElementById('resetForm');
+
+// Open the authentication modal
+authModal.style.display = 'flex';
+
+// Close the modal when the close button is clicked
+closeAuth.addEventListener('click', () => {
+    authModal.style.display = 'none';
+});
+
+// Switch between forms
+document.getElementById('showSignUp').addEventListener('click', () => {
+    loginForm.style.display = 'none';
+    signupForm.style.display = 'block';
+});
+document.getElementById('showLogin').addEventListener('click', () => {
+    signupForm.style.display = 'none';
+    loginForm.style.display = 'block';
+});
+document.getElementById('showReset').addEventListener('click', () => {
+    loginForm.style.display = 'none';
+    resetForm.style.display = 'block';
+});
+document.getElementById('backToLogin').addEventListener('click', () => {
+    resetForm.style.display = 'none';
+    loginForm.style.display = 'block';
+});
+
+// Handle login
+document.getElementById('loginBtn').addEventListener('click', () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+            // Signed in 
+            authModal.style.display = 'none';
+            console.log("Logged in successfully:", userCredential.user);
+        })
+        .catch(error => {
+            console.error("Error logging in:", error.message);
+        });
+});
+
+// Handle sign up
+document.getElementById('signupBtn').addEventListener('click', () => {
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+            // Signed up 
+            authModal.style.display = 'none';
+            console.log("User created successfully:", userCredential.user);
+            
+            // Store user data in Firestore
+            setDoc(doc(firestore, "users", userCredential.user.uid), {
+                email: email,
+                role: "admin"  // You can modify the role based on your needs
+            });
+        })
+        .catch(error => {
+            console.error("Error signing up:", error.message);
+        });
+});
+
+// Handle password reset
+document.getElementById('resetBtn').addEventListener('click', () => {
+    const email = document.getElementById('resetEmail').value;
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            console.log("Password reset email sent!");
+        })
+        .catch(error => {
+            console.error("Error sending password reset email:", error.message);
+        });
+});
+
+// Monitor authentication state
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("User is logged in:", user);
+    } else {
+        authModal.style.display = 'flex';  // Show login modal if not logged in
+    }
+});
+
+// Sign out function
+document.getElementById('signOutBtn').addEventListener('click', () => {
+    signOut(auth).then(() => {
+        console.log("User signed out successfully");
+    }).catch((error) => {
+        console.error("Error signing out:", error.message);
+    });
+});
+
+
+//import { doc, getDoc } from "firebase/firestore";
+
+function checkAdmin(uid) {
+    const userRef = doc(firestore, "users", uid);
+    getDoc(userRef).then(docSnap => {
+        if (docSnap.exists() && docSnap.data().role === "admin") {
+            console.log("User is admin.");
+            // Allow access to admin features
+        } else {
+            console.log("User is not an admin.");
+            // Redirect or restrict access
+        }
+    });
+}
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
