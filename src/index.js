@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "firebase/auth";
 import Chart from "chart.js/auto";
 
 // Firebase configuration
@@ -20,6 +21,90 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app); 
+const auth = getAuth();
+
+// Listen for authentication state changes
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is authenticated, load the data
+        fetchTankDataFromFirebase();
+        hideAuthModal();
+    } else {
+        // User is not authenticated, show the login modal
+        showAuthModal();
+    }
+});
+
+// Function to show the authentication modal
+function showAuthModal() {
+    const authModal = document.getElementById('authModal');
+    authModal.style.display = 'flex';
+}
+
+// Function to hide the authentication modal
+function hideAuthModal() {
+    const authModal = document.getElementById('authModal');
+    authModal.style.display = 'none';
+}
+// Handle login
+document.getElementById('loginBtn').addEventListener('click', () => {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+          console.log("Logged in successfully");
+          hideAuthModal();
+      })
+      .catch(error => {
+          console.error("Error logging in:", error.message);
+      });
+});
+
+// Handle sign up
+document.getElementById('signupBtn').addEventListener('click', () => {
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
+  createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+          console.log("User signed up successfully");
+          hideAuthModal();
+      })
+      .catch(error => {
+          console.error("Error signing up:", error.message);
+      });
+});
+
+// Handle password reset
+document.getElementById('resetBtn').addEventListener('click', () => {
+  const email = document.getElementById('resetEmail').value;
+  sendPasswordResetEmail(auth, email)
+      .then(() => {
+          console.log("Password reset email sent");
+      })
+      .catch(error => {
+          console.error("Error sending password reset email:", error.message);
+      });
+});
+// Switch between login, signup, and reset password forms
+document.getElementById('showSignUp').addEventListener('click', () => {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('signupForm').style.display = 'block';
+});
+
+document.getElementById('showLogin').addEventListener('click', () => {
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+});
+
+document.getElementById('showReset').addEventListener('click', () => {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('resetForm').style.display = 'block';
+});
+
+document.getElementById('backToLogin').addEventListener('click', () => {
+  document.getElementById('resetForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+});
 
 // CSS
 const styles = `
