@@ -403,9 +403,9 @@ footer p, footer a {
   font-weight: 500;
 }
 
-/* Authentication modal styling */
+/* Modal for login/signup/reset */
 #authModal {
-  display: none;
+  display: none; /* Initially hidden */
   position: fixed;
   z-index: 103;
   left: 0;
@@ -417,6 +417,7 @@ footer p, footer a {
   align-items: center;
 }
 
+/* When modal is shown, it will cover the screen */
 .auth-form {
   display: block;
   background-color: var(--base-variant);

@@ -58,17 +58,19 @@ document.getElementById('backToLogin').addEventListener('click', () => {
 
 // Handle login
 document.getElementById('loginBtn').addEventListener('click', () => {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-            // Signed in 
-            authModal.style.display = 'none';
-            console.log("Logged in successfully:", userCredential.user);
-        })
-        .catch(error => {
-            console.error("Error logging in:", error.message);
-        });
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+          // Hide modal after successful login
+          authModal.style.display = 'none';
+          
+          // Now load the data after login
+          fetchTankDataFromFirebase();
+      })
+      .catch(error => {
+          console.error("Error logging in:", error.message);
+      });
 });
 
 // Handle sign up
@@ -104,13 +106,23 @@ document.getElementById('resetBtn').addEventListener('click', () => {
         });
 });
 
+// Function to show the authentication modal
+function showAuthModal() {
+  const authModal = document.getElementById('authModal');
+  authModal.style.display = 'flex';
+}
+
 // Monitor authentication state
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("User is logged in:", user);
-    } else {
-        authModal.style.display = 'flex';  // Show login modal if not logged in
-    }
+  if (user) {
+      // User is authenticated
+      console.log("User is authenticated:", user);
+      // Now load the data only after login
+      fetchTankDataFromFirebase();
+  } else {
+      // User is not authenticated, show the modal
+      showAuthModal();
+  }
 });
 
 // Sign out function
@@ -225,10 +237,21 @@ document.getElementById('save-settings').addEventListener('click', () => {
   document.getElementById('settingsModal').style.display = 'none';  // Close the settings modal
 });
 
-// Fetch tank dimensions and capacity on page load
-document.addEventListener('DOMContentLoaded', () => {
-  fetchTankDataFromFirebase();  // Fetch the dimensions and capacity from Firebase
-});
+// Fetch tank data only after authentication
+function fetchTankDataFromFirebase() {
+  const septicDataRef = ref(database, 'septicTankData');
+  onChildAdded(septicDataRef, (snapshot) => {
+      const data = snapshot.val();
+      const capacity = data.capacity;
+      const date = data.date;
+      const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString();
+      const currentVolume = (capacity / 100) * septicTankCapacity;
+
+      updateCapacity(capacity);
+      updateHistoricalChart(capacity, date, timestamp);
+      calculatePrediction(currentVolume, data.timestamp);
+  });
+}
 
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
