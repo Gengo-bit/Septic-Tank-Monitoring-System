@@ -9,8 +9,34 @@
     <!-- Add the logo as a favicon -->
     <link rel="icon" type="image/png" href="assets/logo.png">
     <script type="text/javascript" src="toggle-mode.js" defer></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js"></script>
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
+            authDomain: "septic-tank-capacity.firebaseapp.com",
+            databaseURL: "https://septic-tank-capacity-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "septic-tank-capacity",
+            storageBucket: "septic-tank-capacity.appspot.com",
+            messagingSenderId: "445055846573",
+            appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
+            measurementId: "G-M9K3YTLTRP"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Redirect to login if user is not authenticated
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                window.location.href = 'login.html'; // Redirect to login page if not authenticated
+            }
+        });
+    </script>
 </head>
 <body class="light-mode">
+
+   
 
 <!-- Branding Section -->
 <div class="branding">
