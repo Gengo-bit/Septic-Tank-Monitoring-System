@@ -290,6 +290,9 @@
   background: none;
   border: none;
 }
+.close:hover, .close-settings:hover {
+  color: var(--accent-color); /* Change color on hover for visibility */
+}
 /* Hide the hamburger icon when sidebar is open */
 .sidebar-open ~ .sidebar-toggle {
   opacity: 0;
@@ -315,6 +318,7 @@
 }
 
 .modal-content {
+  position: relative;
   background-color: var(--base-variant);
   padding: 20px;
   border-radius: 12px;
@@ -370,6 +374,7 @@
   padding: 5px;
   transition: color 0.3s ease;
 }
+
 /* Explicitly hide modals in CSS to avoid unexpected popups */
 #thresholdModal,
 #settingsModal {
