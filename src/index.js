@@ -50,9 +50,9 @@ const styles = `
   }
 `;
 // Parameterized tank dimensions
-let tankHeight = 35;  // default value, will be updated from Firebase
-let tankLength = 45;  // default value, will be updated from Firebase
-let tankWidth = 45;   // default value, will be updated from Firebase
+let tankHeight = 35;  //cm
+let tankLength = 45;  //cm
+let tankWidth = 45;   //cm
 let septicTankCapacity = calculateSepticTankCapacity(); // Initialize septic tank capacity
 
 // Function to calculate septic tank capacity
@@ -60,56 +60,6 @@ function calculateSepticTankCapacity() {
   return (tankLength * tankWidth * tankHeight) / 1000;  // capacity in liters
 }
 
-// Fetch tank dimensions and capacity percentage from Firebase on page load
-function fetchTankDataFromFirebase() {
-  const tankSettingsRef = ref(database, 'tankSettings');
-  const capacityRef = ref(database, 'septicTankData');  // Assuming capacity % is stored here
-
-  // Fetch tank dimensions
-  get(tankSettingsRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      tankHeight = data.tankHeight || tankHeight;
-      tankLength = data.tankLength || tankLength;
-      tankWidth = data.tankWidth || tankWidth;
-      septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity with new dimensions
-
-      // Fetch current capacity percentage
-      get(query(capacityRef, limitToLast(1))).then((capacitySnapshot) => {
-        if (capacitySnapshot.exists()) {
-          const capacityData = Object.values(capacitySnapshot.val())[0];
-          const capacityPercentage = capacityData.capacity || 0;
-
-          // Recalculate the volume and update the charts
-          const currentVolume = (capacityPercentage / 100) * septicTankCapacity;
-          updateCapacityChart(capacityPercentage);
-          updateHistoricalChart(capacityPercentage, capacityData.date, capacityData.timestamp);
-        }
-      }).catch((error) => console.error('Error fetching capacity data:', error));
-    } else {
-      console.log('No tank settings found in Firebase');
-    }
-  }).catch((error) => console.error('Error fetching tank settings:', error));
-}
-
-// Save new tank dimensions to Firebase when user clicks Save
-function saveTankDimensions(height, length, width) {
-  const tankSettingsRef = ref(database, 'tankSettings');
-
-  tankHeight = height;
-  tankLength = length;
-  tankWidth = width;
-  septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity
-
-  set(tankSettingsRef, {
-    tankHeight: tankHeight,
-    tankLength: tankLength,
-    tankWidth: tankWidth
-  }).then(() => {
-    console.log('Tank settings saved to Firebase');
-    fetchTankDataFromFirebase();  // Re-fetch data to update charts
-  }).catch((error) => console.error('Error saving tank settings:', error));
-}
 // Function to update the capacity chart after changing dimensions
 function updateCapacityChart(capacityPercentage) {
   const available = 100 - capacityPercentage;
@@ -327,9 +277,17 @@ function calculatePrediction(currentVolume, currentTime) {
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert to hours
-      document.getElementById("prediction").innerHTML = 
-        `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
+      let hoursToFull = estimatedTimeToFull / 3600; // convert to hours
+      if (hoursToFull >= 1) {
+        // If the time to full is more than or equal to 1 hour, display in hours
+        document.getElementById("prediction").innerHTML = 
+          `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull.toFixed(2)} hours</strong></span>`;
+      } else {
+        // If the time to full is less than 1 hour, convert to minutes
+        const minutesToFull = (hoursToFull * 60).toFixed(0); // convert to minutes
+        document.getElementById("prediction").innerHTML = 
+          `<span class="time-until-full">The Septic Tank will be full in <strong>${minutesToFull} minutes</strong></span>`;
+      }
     } else {
       document.getElementById("prediction").innerHTML = 
         `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
