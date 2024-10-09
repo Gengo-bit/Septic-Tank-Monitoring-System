@@ -1,3 +1,155 @@
+/* Login Page Styles */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 40px;
+  background-color: var(--base-variant);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-container img.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.login-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-container label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container button {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.login-container button:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+.login-options {
+  margin-top: 20px;
+}
+
+.login-options button {
+  margin: 0 10px;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.login-options button:hover {
+  color: var(--accent-color);
+}
+
+
+/* Registration and Forgot Password Page Styles */
+.register-container,
+.forgot-password-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: var(--base-variant);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.register-container h1,
+.forgot-password-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-container label,
+.forgot-password-container label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.register-container input,
+.forgot-password-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register-container button,
+.forgot-password-container button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.register-container button:hover,
+.forgot-password-container button:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+
+}
+
+.register-options,
+.forgot-password-options {
+    margin-top: 20px;
+}
+
+.register-options button,
+.forgot-password-options button {
+    margin: 0 10px;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.register-options button:hover,
+.forgot-password-options button:hover {
+    color: var(--accent-color);
+}
+
+
+
+
+
 :root {
   --base-color: #a4a4a4; /* Lighter base color for secondary elements */
   --base-variant: #e4e4e4; /* Light background for text areas */
@@ -138,9 +290,6 @@
   background: none;
   border: none;
 }
-.close:hover, .close-settings:hover {
-  color: var(--accent-color); /* Change color on hover for visibility */
-}
 /* Hide the hamburger icon when sidebar is open */
 .sidebar-open ~ .sidebar-toggle {
   opacity: 0;
@@ -166,7 +315,6 @@
 }
 
 .modal-content {
-  position: relative;
   background-color: var(--base-variant);
   padding: 20px;
   border-radius: 12px;
@@ -212,17 +360,12 @@
 /* Close button styling for both modals */
 .close, .close-settings {
   position: absolute;
-  top: 10px;  
-  right: 10px;  
-  font-size: 24px;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
   cursor: pointer;
-  color: var(--text-color); 
-  background: none;
-  border: none;
-  padding: 5px;
-  transition: color 0.3s ease;
+  color: var(--text-color);
 }
-
 /* Explicitly hide modals in CSS to avoid unexpected popups */
 #thresholdModal,
 #settingsModal {
