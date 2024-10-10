@@ -402,3 +402,56 @@ footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
+
+/* login.html*/
+.login-html {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.login-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 350px;
+}
+.login-text {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+.input-email .input-pass {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.login-btn {
+  background-color: #f4c542;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.login-btn:hover {
+  background-color: #e0b52e;
+}
+.error-message {
+  color: #ff4c4c;
+  margin-top: 1rem;
+  text-align: center;
+}
