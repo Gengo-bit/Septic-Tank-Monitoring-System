@@ -70,11 +70,10 @@
 }
 /* Sidebar open animation */
 .sidebar {
-  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  transform: translateX(100%);
+  transition: right 0.4s ease-in-out;
 }
 .sidebar-open {
-  transform: translateX(0);
+  right: 0;
 }
 .sidebar {
   position: fixed;
@@ -113,19 +112,16 @@
   border: none;
   cursor: pointer;
   z-index: 101;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
-.sidebar-toggle:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
+
 .hamburger-icon {
   display: block;
   width: 30px;
   height: 2px;
   background-color: var(--text-color);
   margin: 6px 0;
-  transition: transform 0.4s ease;
+  transition: 0.4s;
 }
 
 /* Hover effect for sidebar toggle */
@@ -154,9 +150,6 @@
 .sidebar-open {
   right: 0; /* Open from the right side */
 }
-.sidebar-open .hamburger-icon {
-  transform: rotate(90deg); /* Rotate when sidebar is open */
-}
 /* Modal styles */
 .modal {
   display: none;
@@ -181,14 +174,8 @@
   width: 80%;
   max-width: 400px;
   text-align: center;
-  transform: scale(0.8);
-  opacity: 0;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
-.modal.open .modal-content {
-  transform: scale(1);
-  opacity: 1;
-}
+
 .modal-content label {
   display: block;
   margin-bottom: 8px;
@@ -348,8 +335,8 @@ section {
 }
 
 section:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
