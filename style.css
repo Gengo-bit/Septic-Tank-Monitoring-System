@@ -421,10 +421,10 @@ footer p, footer a {
   width: 100%;
   max-width: 350px;
 }
-.login-text {
-  text-align: center;
-  color: #333;
-  margin-bottom: 1.5rem;
+.login-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
 }
 .login-formm {
   display: flex;
