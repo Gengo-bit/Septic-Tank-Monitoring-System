@@ -1,9 +1,3 @@
-// Firebase, chart.js imports
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, query, limitToLast, onChildAdded, set, get } from "firebase/database";
-import Chart from "chart.js/auto";
-
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
@@ -17,346 +11,208 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const database = getDatabase(app); 
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const database = firebase.database();
 
-// CSS
-const styles = `
-  .capacity-text {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    color: var(--text-color);
-    font-weight: 300;
-  }
+// Tank dimensions and capacity
+let tankDimensions = { height: 35, length: 45, width: 45 };
+let septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
 
-  .status-text {
-    color: var(--text-color);
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-  }
+// Charts
+let capacityChart, historicalChart;
 
-  .status {
-    font-family: 'Poppins', sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-  }
-
-  .time-until-full, .rate-too-low {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    color: var(--secondary-text);
-  }
-`;
-// Parameterized tank dimensions
-let tankHeight = 35;  // default value, will be updated from Firebase
-let tankLength = 45;  // default value, will be updated from Firebase
-let tankWidth = 45;   // default value, will be updated from Firebase
-let septicTankCapacity = calculateSepticTankCapacity(); // Initialize septic tank capacity
-
-// Function to calculate septic tank capacity
-function calculateSepticTankCapacity() {
-  return (tankLength * tankWidth * tankHeight) / 1000;  // capacity in liters
-}
-
-// Fetch tank dimensions and capacity percentage from Firebase on page load
-function fetchTankDataFromFirebase() {
-  const tankSettingsRef = ref(database, 'tankSettings');
-  const capacityRef = ref(database, 'septicTankData');  // Assuming capacity % is stored here
-
-  // Fetch tank dimensions
-  get(tankSettingsRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      tankHeight = data.tankHeight || tankHeight;
-      tankLength = data.tankLength || tankLength;
-      tankWidth = data.tankWidth || tankWidth;
-      septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity with new dimensions
-
-      // Fetch current capacity percentage
-      get(query(capacityRef, limitToLast(1))).then((capacitySnapshot) => {
-        if (capacitySnapshot.exists()) {
-          const capacityData = Object.values(capacitySnapshot.val())[0];
-          const capacityPercentage = capacityData.capacity || 0;
-
-          // Recalculate the volume and update the charts
-          const currentVolume = (capacityPercentage / 100) * septicTankCapacity;
-          updateCapacityChart(capacityPercentage);
-          updateHistoricalChart(capacityPercentage, capacityData.date, capacityData.timestamp);
-        }
-      }).catch((error) => console.error('Error fetching capacity data:', error));
-    } else {
-      console.log('No tank settings found in Firebase');
-    }
-  }).catch((error) => console.error('Error fetching tank settings:', error));
-}
-
-// Save new tank dimensions to Firebase when user clicks Save
-function saveTankDimensions(height, length, width) {
-  const tankSettingsRef = ref(database, 'tankSettings');
-
-  tankHeight = height;
-  tankLength = length;
-  tankWidth = width;
-  septicTankCapacity = calculateSepticTankCapacity();  // Recalculate capacity
-
-  set(tankSettingsRef, {
-    tankHeight: tankHeight,
-    tankLength: tankLength,
-    tankWidth: tankWidth
-  }).then(() => {
-    console.log('Tank settings saved to Firebase');
-    fetchTankDataFromFirebase();  // Re-fetch data to update charts
-  }).catch((error) => console.error('Error saving tank settings:', error));
-}
-// Function to update the capacity chart after changing dimensions
-function updateCapacityChart(capacityPercentage) {
-  const available = 100 - capacityPercentage;
-  capacityChart.data.datasets[0].data = [capacityPercentage, available];
-  capacityChart.update();
-
-  document.getElementById("capacity").innerHTML = `
-    <span class="capacity-text">Capacity: ${capacityPercentage}%</span>`;
-
-  let status;
-  if (capacityPercentage < 75) {
-    status = 'Normal';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: green;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage >= 75 && capacity <= 85) {
-    status = 'Above Normal';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage >= 86 && capacityPercentage <= 95) {
-    status = 'Critical';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
-  } else if (capacityPercentage > 95) {
-    status = 'Full';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: red;"><strong>${status}</strong></span>`;
-  }
-}
-// Event listener for the Save button in the Settings modal
-document.getElementById('save-settings').addEventListener('click', () => {
-  const newHeight = parseFloat(document.getElementById('input-tankHeight').value);
-  const newLength = parseFloat(document.getElementById('input-tankLength').value);
-  const newWidth = parseFloat(document.getElementById('input-tankWidth').value);
-
-  saveTankDimensions(newHeight, newLength, newWidth);  // Save new dimensions to Firebase
-  document.getElementById('settingsModal').style.display = 'none';  // Close the settings modal
-});
-
-// Fetch tank dimensions and capacity on page load
-document.addEventListener('DOMContentLoaded', () => {
-  fetchTankDataFromFirebase();  // Fetch the dimensions and capacity from Firebase
-});
-
-const styleSheet = document.createElement("style");
-styleSheet.textContent = styles;
-document.head.appendChild(styleSheet);
-
-// variables for the prediction logic
+// Prediction variables
 let previousVolume = null;
 let previousTimestamp = null;
 
-// Capacity Chart
-const ctx = document.getElementById('capacityChart').getContext('2d');
-const capacityChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Used', 'Available'],
-    datasets: [{
-      label: 'Septic Tank Capacity',
-      data: [0, 100],  // Initial values: 0% used, 100% available
-      backgroundColor: ['#FF5A5F', '#82CFFF'],  // Updated colors
-      borderWidth: 1
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
-          },
-          font: {
-            family: 'Poppins',  // Matching font
-            size: 14
-          }
-        }
-      }
-    }
-  }
+// Authentication check and app initialization
+auth.onAuthStateChanged((user) => {
+  if (user) initializeApp();
+  else window.location.href = 'login.html';
 });
 
-// Historical Chart
-const historicalCtx = document.getElementById('historicalChart').getContext('2d');
-const historicalChart = new Chart(historicalCtx, {
-  type: 'line',
-  data: {
-    labels: [],  // Timestamps
-    datasets: [{
-      label: 'Septic Tank Levels Over Time',
-      data: [],  // Capacity percentages over time
-      borderColor: '#82CFFF',
-      fill: false
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting legend colors
-          },
-          font: {
-            family: 'Poppins',
-            size: 14
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Time and Date',  // X-axis label
-          font: {
-            size: 14,
-            family: 'Poppins'
-          },
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis label colors
-          }
-        },
-        ticks: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting X-axis ticks color
-          }
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Septic Tank Capacity (%)',  // Y-axis label
-          font: {
-            size: 14,
-            family: 'Poppins'
-          },
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis label colors
-          }
-        },
-        ticks: {
-          color: function(context) {
-            return context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A';  // Adapting Y-axis ticks color
-          }
-        },
-        min: 0,  // Start Y-axis from 0
-        max: 100 // Maximum value for the Y-axis
-      }
+function initializeApp() {
+  // Fetch tank dimensions
+  database.ref('tankDimensions').once('value', (snapshot) => {
+    if (snapshot.exists()) {
+      tankDimensions = snapshot.val();
+      septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
     }
-  }
-});
+  });
 
-// update capacity and status
-function updateCapacity(capacity) {
-  const available = 100 - capacity;
-  capacityChart.data.datasets[0].data = [capacity, available];
-  capacityChart.update();
+  // Initialize charts
+  initializeCharts();
 
-  document.getElementById("capacity").innerHTML = `
-    <span class="capacity-text">Capacity: ${capacity}%</span>`;
+  // Real-time update listener
+  database.ref('septicTankData').limitToLast(10).on('child_added', (snapshot) => {
+    const data = snapshot.val();
+    const capacity = data.capacity;
+    const currentVolume = (capacity / 100) * septicTankCapacity;
 
-  let status;
-  if (capacity < 75) {
-    status = 'Normal';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: green;"><strong>${status}</strong></span>`;
-  } else if (capacity >= 75 && capacity <= 85) {
-    status = 'Above Normal';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: yellow;"><strong>${status}</strong></span>`;
-  } else if (capacity >= 86 && capacity <= 95) {
-    status = 'Critical';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: orange;"><strong>${status}</strong></span>`;
-  } else if (capacity > 95) {
-    status = 'Full';
-    document.getElementById("status").innerHTML = `
-      <span class="status-text">The Septic Tank is </span>
-      <span class="status" style="color: red;"><strong>${status}</strong></span>`;
-  }
+    updateCapacity(capacity);
+    updateHistoricalChart(capacity, data.date, new Date(data.timestamp * 1000).toLocaleTimeString());
+    calculatePrediction(currentVolume, data.timestamp);
+  });
+
+  // Event listener for saving tank dimensions
+  document.getElementById('save-settings').addEventListener('click', saveTankDimensions);
 }
 
-// update the historical chart
+function initializeCharts() {
+  capacityChart = new Chart(document.getElementById('capacityChart').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Used', 'Available'],
+      datasets: [{
+        data: [0, 100],
+        backgroundColor: ['#FF5A5F', '#82CFFF'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: (context) => context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A',
+            font: { family: 'Poppins', size: 14 }
+          }
+        }
+      }
+    }
+  });
+
+  historicalChart = new Chart(document.getElementById('historicalChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Septic Tank Levels Over Time',
+        data: [],
+        borderColor: '#82CFFF',
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          title: { display: true, text: 'Time and Date' },
+          ticks: { color: (context) => context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A' }
+        },
+        y: {
+          title: { display: true, text: 'Septic Tank Capacity (%)' },
+          ticks: { color: (context) => context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A' },
+          min: 0,
+          max: 100
+        }
+      }
+    }
+  });
+}
+
+function updateCapacity(capacity) {
+  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
+  capacityChart.update();
+
+  document.getElementById("capacity").innerHTML = `<span class="capacity-text">Capacity: ${capacity}%</span>`;
+
+  const statusElement = document.getElementById("status");
+  let status, color;
+
+  if (capacity < 75) [status, color] = ['Normal', 'green'];
+  else if (capacity <= 85) [status, color] = ['Above Normal', 'yellow'];
+  else if (capacity <= 95) [status, color] = ['Critical', 'orange'];
+  else [status, color] = ['Full', 'red'];
+
+  statusElement.innerHTML = `<span class="status-text">The Septic Tank is </span><span class="status" style="color: ${color};"><strong>${status}</strong></span>`;
+}
+
 function updateHistoricalChart(capacity, date, timestamp) {
-  const label = `${date} ${timestamp}`;  // combine date and timestamp for display
-  historicalChart.data.labels.push(label);
+  historicalChart.data.labels.push(`${date} ${timestamp}`);
   historicalChart.data.datasets[0].data.push(capacity);
   historicalChart.update();
 }
 
-// prediction
 function calculatePrediction(currentVolume, currentTime) {
   if (previousVolume !== null && previousTimestamp !== null) {
-    // difference in volume and time
-    const deltaVolume = currentVolume - previousVolume;  // in liters
-    const deltaTime = currentTime - previousTimestamp;   // in seconds
-
-    // flow rate (liters per second)
-    const flowRate = deltaVolume / deltaTime;
-
-    // remaining volume (in liters)
+    const flowRate = (currentVolume - previousVolume) / (currentTime - previousTimestamp);
     const remainingVolume = septicTankCapacity - currentVolume;
-
-    // estimated time to full (in seconds)
     const estimatedTimeToFull = remainingVolume / flowRate;
 
     if (flowRate > 0) {
-      const hoursToFull = (estimatedTimeToFull / 3600).toFixed(2); // convert to hours
-      document.getElementById("prediction").innerHTML = 
-        `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull} hours</strong></span>`;
+      const hoursToFull = estimatedTimeToFull / 3600;
+      document.getElementById("prediction").innerHTML = hoursToFull >= 1 ?
+        `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull.toFixed(2)} hours</strong></span>` :
+        `<span class="time-until-full">The Septic Tank will be full in <strong>${(hoursToFull * 60).toFixed(0)} minutes</strong></span>`;
     } else {
-      document.getElementById("prediction").innerHTML = 
-        `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
+      document.getElementById("prediction").innerHTML = `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
 
-  // Store current values for next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
 }
 
-// node tree
-const septicDataRef = ref(database, 'septicTankData');
-const limitedDataRef = query(septicDataRef, limitToLast(10)); // limit last 10 entries only(if daghan na kaayo)
+function saveTankDimensions() {
+  const newDimensions = {
+    height: parseFloat(document.getElementById('input-tankHeight').value),
+    length: parseFloat(document.getElementById('input-tankLength').value),
+    width: parseFloat(document.getElementById('input-tankWidth').value)
+  };
 
-// real time update listener
-onChildAdded(septicDataRef, (snapshot) => {
-  const data = snapshot.val();
-  const capacity = data.capacity;  // capacity
-  const date = data.date;  // date 
-  const timestamp = new Date(data.timestamp * 1000).toLocaleTimeString(); // timestamp
-  const currentVolume = (capacity / 100) * septicTankCapacity;  // calculate current volume based on capacity
+  database.ref('tankDimensions').set(newDimensions)
+    .then(() => {
+      tankDimensions = newDimensions;
+      septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
+      document.getElementById('settingsModal').style.display = 'none';
+    })
+    .catch((error) => console.error("Error saving dimensions: ", error));
+}
 
-  // update capacity chart and historical chart
-  updateCapacity(capacity);
-  updateHistoricalChart(capacity, date, timestamp);
-  
-  // prediction
-  calculatePrediction(currentVolume, data.timestamp);
-});
+function logout() {
+  auth.signOut()
+    .then(() => window.location.href = 'login.html')
+    .catch((error) => console.error("Logout Error:", error));
+}
+
+function registerUser(email, password) {
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Registration successful
+      const user = userCredential.user;
+      console.log("User registered successfully:", user);
+      // You can redirect to the main page or show a success message
+      window.location.href = 'index.html';
+    })
+    .catch((error) => {
+      // Handle errors here
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Registration error:", errorCode, errorMessage);
+      // Display error message to the user
+      document.getElementById('error-message').textContent = errorMessage;
+    });
+}
+
+
+// Make logout function available globally
+window.logout = logout;
+window.registerUser = registerUser;
+// Add styles
+const styles = `
+  .capacity-text, .status-text, .time-until-full, .rate-too-low {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 300;
+  }
+  .status { font-size: 20px; }
+`;
+
+const styleSheet = document.createElement("style");
+styleSheet.textContent = styles;
+document.head.appendChild(styleSheet);

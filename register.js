@@ -1,26 +1,41 @@
-// Add event listener for form submission
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
+  authDomain: "septic-tank-capacity.firebaseapp.com",
+  databaseURL: "https://septic-tank-capacity-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "septic-tank-capacity",
+  storageBucket: "septic-tank-capacity.appspot.com",
+  messagingSenderId: "445055846573",
+  appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
+  measurementId: "G-M9K3YTLTRP"
+};
 
-    // Use Firebase Authentication to create a new user
-    firebase.auth().createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // User registered successfully
-            alert('Registration successful! Welcome, ' + username + '!');
-            window.location.href = 'login.html'; // Redirect to the login page
-        })
-        .catch((error) => {
-            alert(error.message); // Show error message
-        });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
+function registerUser(email, password) {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Registration successful
+      const user = userCredential.user;
+      console.log("User registered successfully:", user);
+      // Redirect to the main page
+      window.location.href = 'index.html';
+    })
+    .catch((error) => {
+      // Handle errors here
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Registration error:", errorCode, errorMessage);
+      // Display error message to the user
+      document.getElementById('error-message').textContent = errorMessage;
+    });
+}
 
-});
-
-// Add event listener for Back to Login button
-document.getElementById('loginBtn').addEventListener('click', function() {
-    window.location.href = 'login.html'; // Redirect to the login page
-});
+// Make registerUser function available globally
+window.registerUser = registerUser;
