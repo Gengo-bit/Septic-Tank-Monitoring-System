@@ -38,18 +38,3 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             alert('Login failed: ' + error.message);
         });
 });
-
-// Handle Registration
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            window.location.href = 'index.html'; // Redirect to home page after registration
-        })
-        .catch(error => {
-            alert('Registration failed: ' + error.message);
-        });
-});
