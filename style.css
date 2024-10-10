@@ -430,7 +430,7 @@ footer p, footer a {
   display: flex;
   flex-direction: column;
 }
-.input-email .input-pass {
+.input-email, .input-pass {
   margin-bottom: 1rem;
   padding: 0.5rem;
   border: 1px solid #ddd;
