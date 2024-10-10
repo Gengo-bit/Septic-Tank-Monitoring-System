@@ -182,7 +182,7 @@ function logout() {
 function registerUser(email, password) {
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      // Registration successful
+      // Registration successfulzW
       const user = userCredential.user;
       console.log("User registered successfully:", user);
       // You can redirect to the main page or show a success message
