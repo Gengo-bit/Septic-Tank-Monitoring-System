@@ -160,9 +160,15 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 102;
-  display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.4s ease; /* Smooth fade-in transition */
+}
+
+.modal.show { /* Class to show the modal */
+  display: flex; /* Make modal visible */
+  opacity: 1;    /* Fade in */
 }
 
 .modal-content {
@@ -174,6 +180,14 @@
   width: 80%;
   max-width: 400px;
   text-align: center;
+  transform: scale(0.8); /* Start smaller */
+  opacity: 0; /* Start hidden */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scale and fade */
+}
+
+.modal.show .modal-content {
+  transform: scale(1);  /* Scale up */
+  opacity: 1;  /* Fade in */
 }
 
 .modal-content label {
@@ -209,7 +223,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Close button styling for both modals */
+/* Close button styling */
 .close, .close-settings {
   position: absolute;
   top: 10px;  
@@ -223,11 +237,16 @@
   transition: color 0.3s ease;
 }
 
-/* Explicitly hide modals in CSS to avoid unexpected popups */
+.close:hover, .close-settings:hover {
+  color: var(--accent-color); /* Change color on hover */
+}
+
+/* Explicitly hide modals */
 #thresholdModal,
 #settingsModal {
-  display: none; /* Ensure modals are hidden by default */
+  display: none;
 }
+
 * {
   margin: 0;
   padding: 0;

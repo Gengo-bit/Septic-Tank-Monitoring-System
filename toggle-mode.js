@@ -26,36 +26,44 @@ window.addEventListener('DOMContentLoaded', () => {
     thresholdModal.style.display = 'none';
 });
 
+// Function to show modal with animation
+function showModal(modal) {
+    modal.style.display = 'flex';  // Make the modal visible
+    setTimeout(() => {
+        modal.classList.add('show');  // Add the 'show' class for fade-in and scale-up
+    }, 10);  // Slight delay to allow display change to apply before transition
+}
+
+// Function to hide modal with animation
+function hideModal(modal) {
+    modal.classList.remove('show');  // Remove the 'show' class for fade-out and scale-down
+    setTimeout(() => {
+        modal.style.display = 'none';  // Fully hide the modal after the animation
+    }, 300);  // Match the CSS transition duration (300ms)
+}
+
 // Show Threshold Modal on button click
-thresholdBtn.addEventListener('click', () => {
-    thresholdModal.style.display = 'flex';  // Show the threshold modal
-});
+thresholdBtn.addEventListener('click', () => showModal(thresholdModal));
 
 // Close the threshold modal when the close button is clicked
-modalClose.addEventListener('click', () => {
-    thresholdModal.style.display = 'none';  // Hide the modal
-});
+modalClose.addEventListener('click', () => hideModal(thresholdModal));
 
 // Close the threshold modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === thresholdModal) {
-        thresholdModal.style.display = 'none';  // Hide the modal
+        hideModal(thresholdModal);
     }
 });
 
 // Show/Hide Settings Modal
-settingsBtn.addEventListener('click', () => {
-    settingsModal.style.display = 'flex';  // Show the settings modal
-});
+settingsBtn.addEventListener('click', () => showModal(settingsModal));
 
-settingsModalClose.addEventListener('click', () => {
-    settingsModal.style.display = 'none';  // Hide the settings modal
-});
+settingsModalClose.addEventListener('click', () => hideModal(settingsModal));
 
 // Close the settings modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === settingsModal) {
-        settingsModal.style.display = 'none';  // Hide the settings modal
+        hideModal(settingsModal);
     }
 });
 
