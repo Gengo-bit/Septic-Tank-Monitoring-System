@@ -406,56 +406,84 @@ footer p, footer a {
 /* login.html*/
 .login-html {
   font-family: 'Poppins', sans-serif;
-  background-color: #f4f4f4;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
 }
+
+/* Container Style */
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #ffffff;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
+  transition: transform 0.3s ease;
 }
+.login-container:hover {
+  transform: scale(1.02);
+}
+
+/* Logo Style */
 .login-logo {
-  width: 100px;
+  width: 120px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
-.login-formm {
-  display: flex;
-  flex-direction: column;
-}
+
+/* Input Fields Style */
 .input-email, .input-pass {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s;
 }
+.input-email:focus, .input-pass:focus {
+  border-color: #f4c542;
+  outline: none;
+}
+
+/* Button Style */
 .login-btn {
   background-color: #f4c542;
   color: white;
   border: none;
-  padding: 0.75rem;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 .login-btn:hover {
   background-color: #e0b52e;
+  transform: translateY(-2px);
 }
+
+/* Error Message Style */
 .error-message {
   color: #ff4c4c;
   margin-top: 1rem;
   text-align: center;
+}
+
+/* Link Style */
+.login-formm a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.login-formm a:hover {
+  color: #3730a3;
 }
