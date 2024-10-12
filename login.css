@@ -7,7 +7,7 @@
   align-items: center;
   flex-direction: column; /* Ensures content is stacked vertically */
   padding: 0; /* Ensure no extra padding affects the layout */
-  opacity: 0; /* Start hidden */
+  /*opacity: 0; /* Start hidden */
   transform: translateY(50px); /* For the animation effect */
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
@@ -79,6 +79,7 @@ body {
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
   font-size: 0.8rem; 
   animation: fadeInUp 0.8s ease;
 }
@@ -165,6 +166,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center; /* Centers the content */
+  padding: 20px; /* Add padding for small screens */
 }
 
 #hero-video {
@@ -183,6 +185,7 @@ body {
   padding: 20px;
   background: rgba(0, 0, 0, 0.5); /* Add a transparent black overlay */
   color: white;
+  box-sizing: border-box;
 }
 
 /* Typography */
@@ -369,6 +372,7 @@ p {
   text-decoration: none;
   font-size: 1.2rem; 
   font-weight: 600;
+  margin-top: 20px;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -606,14 +610,115 @@ p {
     color: white;
   }
 }
+
+/* General Full-Screen Sections */
+.full-screen {
+  height: 100vh; /* Full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0; /* Remove extra padding */
+  box-sizing: border-box;
+}
+
 /* Responsive Media Queries */
 @media (max-width: 768px) {
-  .hero-section, .features, .cta-section {
+  /* Full-Screen Sections - Mobile adjustments */
+  .full-screen {
     padding: 20px;
+    height: auto; /* Allow sections to grow if content is long */
+    min-height: 100vh; /* Ensure it still takes up the viewport height */
+    text-align: center; /* Center-align text on smaller screens */
   }
-}
-/* Responsive Modal */
-@media (max-width: 768px) {
+
+  /* Section Title for Mobile */
+  .section-title {
+    font-size: 2rem; /* Smaller font size for mobile */
+  }
+
+  /* Hero Section for Mobile */
+  .hero-section {
+    height: 100vh;
+    min-height: 100vh;
+    background-image: url('assets/hero-fallback.jpg'); /* Fallback image for mobile */
+    background-size: cover;
+    background-position: center;
+  }
+
+  #hero-video {
+    display: none; /* Hide video on mobile for better performance */
+  }
+
+  .overlay h2 {
+    font-size: 1.8rem; /* Adjust text size for mobile */
+  }
+
+  .overlay p {
+    font-size: 1.1rem; /* Adjust paragraph size */
+  }
+
+  /* CTA Section for Mobile */
+  .cta-section {
+    padding: 30px 20px;
+    height: auto; /* Allow height to adjust based on content */
+    min-height: 100vh;
+  }
+
+  .cta-section h2 {
+    font-size: 2rem; /* Adjust heading size */
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+  }
+
+  .cta-btn {
+    font-size: 1rem;
+    padding: 12px 25px; /* Adjust button size */
+  }
+
+  /* Product Offerings */
+  .product {
+    width: 90%; /* Full width on smaller screens */
+    margin: 10px auto;
+  }
+
+  /* Features and Benefits Sections */
+  .features, .product-offerings, .benefits {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align */
+  }
+
+  .feature-item, .benefit-item {
+    width: 90%; /* Full width for smaller screens */
+    margin: 10px 0; /* Spacing between items */
+  }
+
+  /* Footer for Mobile */
+  .main-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-content {
+    width: 100%;
+  }
+
+  .footer-logo img {
+    width: 30px; /* Smaller logo for mobile */
+  }
+
+  .footer-links a {
+    font-size: 0.7rem; /* Smaller text */
+    margin: 5px;
+  }
+
+  .social-media a img {
+    width: 14px; /* Smaller icons */
+  }
+
+  /* Modal for Mobile */
   .modal-content {
     padding: 2rem;
     max-width: 90%;
@@ -624,37 +729,8 @@ p {
     padding: 0.6rem 1.8rem;
   }
 }
-/* Responsive Design */
-@media (max-width: 768px) {
-  .features,
-  .product-offerings {
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center align */
-  }
 
-  .feature-item {
-    width: 90%; /* Full width for smaller screens */
-    margin: 10px 0; /* Spacing between items */
-  }
-
-  .benefit-item {
-    width: 90%; /* Full width for smaller screens */
-  }
-
-  .section-image {
-    height: auto; /* Adjust height for responsiveness */
-  }
-}
-@media (max-width: 768px) {
-  .product {
-    width: 90%; /* Full width on smaller screens */
-    margin: 10px auto;
-  }
-
-  .main-footer .social-media a img {
-    width: 18px; /* Even smaller on small screens */
-  }
-}
+/* Smaller Devices */
 @media (max-width: 576px) {
   h1 {
     font-size: 1.8rem;
@@ -671,7 +747,12 @@ p {
   .modal-content {
     padding: 1.5rem;
   }
+
+  .main-footer .social-media a img {
+    width: 18px; /* Even smaller icons */
+  }
 }
+
 /* Smooth Scroll Animation Keyframes */
 @keyframes fadeInUp {
   from {
@@ -684,27 +765,14 @@ p {
   }
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes textFadeIn {
+/* Other Animation Keyframes */
+@keyframes fadeInDown, textFadeIn, textZoomIn, imageZoomIn, productFadeIn, videoFadeIn, slideDown, slideIn, fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
   }
-}
-
-@keyframes textZoomIn {
   from {
     transform: scale(0.8);
     opacity: 0;
@@ -715,68 +783,6 @@ p {
   }
 }
 
-@keyframes imageZoomIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes productFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes videoFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
 .responsive-image {
   width: 100%; /* Make it responsive */
