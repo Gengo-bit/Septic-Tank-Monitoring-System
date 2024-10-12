@@ -7,17 +7,28 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // If the user is authenticated, redirect to home.html
+                window.location.href = 'home.html';
+            }
+        });
+    </script>  
 </head>
-<body class="login-html">
+<body>
+
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Logo" class="logo">
+            <h1>Septic Tank Monitoring System</h1>
+        </div>
+        <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
+    </header>
 
     <!-- Main Commercialization Section -->
     <section class="commercialization">
-        <header class="branding">
-            <img src="assets/logo.png" alt="Logo" class="logo">
-            <h1>Septic Tank Monitoring System</h1>
-            <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
-        </header>
-
         <!-- Introduction Section -->
         <div class="introduction">
             <h2>Smart Solutions for Septic Tank Management</h2>
@@ -71,7 +82,6 @@
                     <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
                 </div>
             </div>
-            <img src="assets/data_insights.jpg" alt="Data Insights" class="section-image">
         </section>
 
         <!-- Call to Action -->
@@ -82,46 +92,7 @@
         </section>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <h2>What Our Clients Say</h2>
-        <blockquote>
-            <p>"This system saved us thousands of pesos in potential repair costs! Highly recommend."</p>
-            <cite>- Lyxzmm, Satisfied Customer</cite>
-        </blockquote>
-        <blockquote>
-            <p>"Real-time monitoring has transformed our septic tank management."</p>
-            <cite>- Nica, Facility Manager</cite>
-        </blockquote>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <h4>How does the sensor module work?</h4>
-            <p>The sensor module monitors the septic tank level in real-time and sends alerts if levels get critical.</p>
-        </div>
-        <div class="faq-item">
-            <h4>Is the system easy to install?</h4>
-            <p>Yes, our system is designed for easy installation with step-by-step guides provided.</p>
-        </div>
-        <div class="faq-item">
-            <h4>Can I monitor multiple tanks?</h4>
-            <p>Absolutely! Our monitoring module supports multiple tanks with detailed analytics for each.</p>
-        </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="video-demo">
-        <h2>Watch Our System in Action</h2>
-        <video controls class="demo-video">
-            <source src="assets/demo_video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </section>
-
-    <!-- Login Form Modal -->
+    <!-- Login Modal -->
     <div class="modal" id="login-modal">
         <div class="modal-content">
             <span class="close" id="close-modal">&times;</span>
@@ -145,17 +116,17 @@
         const closeModal = document.querySelector('.close');
 
         function showModal(modal) {
-            modal.style.display = 'flex';  // Make the modal visible
+            modal.style.display = 'flex';
             setTimeout(() => {
-                modal.classList.add('show');  // Add the 'show' class for fade-in and scale-up
-            }, 10);  // Slight delay to allow display change to apply before transition
+                modal.classList.add('show');
+            }, 10);
         }
 
         function hideModal(modal) {
-            modal.classList.remove('show');  // Remove the 'show' class for fade-out and scale-down
+            modal.classList.remove('show');
             setTimeout(() => {
-                modal.style.display = 'none';  // Fully hide the modal after the animation
-            }, 300);  // Match the CSS transition duration (300ms)
+                modal.style.display = 'none';
+            }, 300);
         }
 
         loginToggleBtn.addEventListener('click', () => {

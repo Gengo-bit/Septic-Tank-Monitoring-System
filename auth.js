@@ -32,7 +32,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     auth.signInWithEmailAndPassword(email, password)
         .then(() => {
-            window.location.href = 'index.html'; // Redirect to home page after login
+            window.location.href = 'home.html'; // Redirect to home page after login
         })
         .catch(error => {
             alert('Login failed: ' + error.message);
