@@ -1,13 +1,10 @@
 // Import and configure Firebase
 
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import auth functions
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
     authDomain: "septic-tank-capacity.firebaseapp.com",
@@ -17,20 +14,20 @@ const firebaseConfig = {
     messagingSenderId: "445055846573",
     appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24",
     measurementId: "G-M9K3YTLTRP"
-  };
-  
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(); // Initialize Firebase Auth
 
 // Handle Login
-document.getElementById('loginForm').addEventListener('submit', function(event) {
+document.getElementById('login-modal').addEventListener('submit', function(event) { // Corrected ID here
     event.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password) // Using auth instance
         .then(() => {
             window.location.href = 'home.html'; // Redirect to home page after login
         })
