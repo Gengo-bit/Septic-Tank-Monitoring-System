@@ -16,6 +16,10 @@
   opacity: 1;
   transform: translateY(0);
 }
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling */
+}
+
 /* Smooth Scroll Behavior */
 html, body {
   scroll-behavior: smooth;
@@ -30,18 +34,31 @@ body {
   display: flex;
   flex-direction: column;
 }
+/* header */
+.navbar {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #48cae4; /* Highlight link on hover */
+  color: #fff;
+}
+
 /* Enhancing Transition */
 .hero-section,
 .commercialization,
 .benefits-section,
 .cta-section {
   transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.full-screen {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
 }
 
 .full-screen.active {
@@ -72,9 +89,9 @@ body {
 }
 /* Footer */
 .main-footer {
-  background: #222;
-  color: #fff;
-  padding: 20px;
+  background-color: #333; /* Dark footer background */
+  color: white;
+  padding: 40px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,20 +111,30 @@ body {
 .footer-logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
+  padding-bottom: 20px;
 }
 
 .footer-logo img {
-  width: 40px; /* Smaller logo */
+  width: 80px;
+  margin-bottom: 10px;
 }
-
+.footer-links {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 .footer-links a {
-  font-size: 0.8rem; /* Smaller links */
-  margin: 0 5px;
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: white;
+  color: #48cae4; /* Hover effect */
 }
 
 .main-footer .social-media a {
@@ -122,15 +149,15 @@ body {
 .main-footer .social-media a:hover {
   transform: scale(1.2);
 }
+.social-media {
+  display: flex;
+  justify-content: center;
+}
 .social-media a img {
-  width: 15px;
-  margin: 0 5px;
-  opacity: 0.8;
-  transition: transform 0.3s, opacity 0.3s;
+  width: 24px;
 }
 .social-media a:hover img {
   transform: scale(1.2);
-  opacity: 1;
 }
 
 /* Header Section */
@@ -167,6 +194,7 @@ body {
   align-items: center;
   text-align: center; /* Centers the content */
   padding: 20px; /* Add padding for small screens */
+  background-color: white;/* In case video doesn't load */
 }
 
 #hero-video {
@@ -651,11 +679,18 @@ p {
     background-size: cover;
     background-position: center;
   }
+  @media (max-width: 768px) {
+    /* Hide video on mobile, use a fallback image */
+    #hero-video {
+        display: none;
+    }
 
-  #hero-video {
-    display: none; /* Hide video on mobile for better performance */
-  }
-
+    .hero-section {
+        background-image: url('assets/hero-fallback.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+}
   .overlay h2 {
     font-size: 1.8rem; /* Adjust text size for mobile */
   }
@@ -713,15 +748,6 @@ p {
 
   .footer-logo img {
     width: 30px; /* Smaller logo for mobile */
-  }
-
-  .footer-links a {
-    font-size: 0.7rem; /* Smaller text */
-    margin: 5px;
-  }
-
-  .social-media a img {
-    width: 14px; /* Smaller icons */
   }
 
   /* Modal for Mobile */
