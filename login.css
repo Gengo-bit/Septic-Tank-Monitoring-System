@@ -4,20 +4,21 @@
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f4c542, #ff9a3b);
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Use column layout for better scrolling */
+    justify-content: flex-start;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Change to min-height to allow content to expand */
     margin: 0;
-    overflow: hidden;
+    overflow-y: auto; /* Enable vertical scrolling */
     animation: backgroundSlide 10s ease-in-out infinite;
-  }
+}
   
   /* Background animation */
   @keyframes backgroundSlide {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-  }
+}
   
   /* Container Styling */
   .login-container {
@@ -181,6 +182,8 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin: 20px;
+    width: 90%; /* Adjust width to fit inside smaller screens */
+    max-width: 1200px; /* Max width for larger screens */
 }
 
 .introduction h2 {
@@ -198,6 +201,8 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 20px;
+    width: 90%; /* Adjust width */
+    max-width: 1200px; /* Ensure the section fits on larger screens */
 }
 
 .product {
@@ -240,6 +245,8 @@ body {
     margin: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Adjust width */
+    max-width: 1200px;
 }
 
 .benefits-section h2 {
@@ -257,6 +264,9 @@ body {
     text-align: center;
     background-color: var(--accent-color);
     color: white;
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 1200px;
 }
 
 .cta-section h2 {
@@ -351,6 +361,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overflow-y: auto; /* Allow scrolling within the modal if it exceeds height */
 }
 
 .modal .login-container {
