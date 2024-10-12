@@ -12,35 +12,55 @@ body {
 }
 
 :root {
-  --base-color: linear-gradient(135deg, #cfd9df, #e2ebf0); /* Soft gradient background */
-  --text-color: #2d3a4b;
-  --primary-color: #013a63; /* Dark, professional primary color */
-  --accent-color: #006d77; /* Soft teal accent */
-  --header-bg: linear-gradient(135deg, #005f73, #0a9396); /* Enhanced gradient for header */
-  --footer-bg: #343a40; /* Darker and sleek footer background */
+  --base-color: linear-gradient(135deg, #f0f0f0, #dcdcdc); /* Subtle grayscale gradient */
+  --text-color: #333;
+  --primary-color: #000; /* Dark grayscale for text */
+  --accent-color: #555; /* Mid-tone grayscale for accents */
+  --header-bg: linear-gradient(135deg, #333, #555); /* Darker gradient */
+  --footer-bg: #222; /* Sleek, dark footer background */
   --transition-duration: 0.4s;
 }
 /* Footer */
 .main-footer {
   background: var(--footer-bg);
   color: white;
-  padding: 30px;
-  text-align: center;
-}
-.footer-content {
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  border-top: 1px solid #444;
+  animation: fadeIn 0.8s ease;
+}
+
+.footer-content {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.footer-logo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.footer-logo img {
+  width: 50px;
+  margin-bottom: 10px;
 }
 .footer-links a {
-  color: #adb5bd;
+  color: #aaa;
   margin: 0 10px;
   font-size: 0.9rem;
 }
 
 .footer-links a:hover {
-  color: #ffffff;
+  color: white;
 }
+
 .main-footer .social-media a {
   margin: 0 5px;
   display: inline-block;
@@ -72,7 +92,7 @@ body {
   justify-content: space-between;
   align-items: center;
   color: white;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #444;
 }
 .logo-container {
   display: flex;
@@ -136,19 +156,19 @@ p {
 }
 
 .login-toggle-btn {
-  background-color: var(--accent-color);
+  background-color: #444;
   color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 20px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .login-toggle-btn:hover {
-  background-color: #2a9d8f;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #666;
+  transform: scale(1.05);
 }
 
 /* Container for all content */
@@ -205,6 +225,7 @@ p {
   border-radius: 12px;
   margin: 40px 0;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease;
 }
 
 .product-container {
@@ -214,16 +235,18 @@ p {
 }
 
 .product {
-  background: white;
+  background: #f9f9f9;
   padding: 20px;
   width: 48%;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: slideIn 0.8s ease;
 }
 
 .product:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .product h3 {
@@ -412,14 +435,15 @@ p {
   opacity: 1;  /* Fade in */
 }
 .modal-content {
-  background: white;
+  background: #e8e8e8;
   padding: 30px;
   border-radius: 12px;
   width: 80%;
   max-width: 400px;
   text-align: center;
-  animation: scaleUp 0.3s ease;
+  animation: scaleUp 0.4s ease;
 }
+
 @keyframes scaleUp {
   from {
     transform: scale(0.8);
@@ -592,7 +616,7 @@ p {
     padding: 1.5rem;
   }
 }
-/* Animations */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -678,7 +702,7 @@ p {
     opacity: 1;
   }
 }
-/* Animations */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -687,6 +711,17 @@ p {
     opacity: 1;
   }
 }
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .responsive-image {
   width: 100%; /* Make it responsive */
   height: auto; /* Maintain aspect ratio */
