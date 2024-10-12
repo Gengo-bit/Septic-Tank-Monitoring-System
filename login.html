@@ -7,6 +7,9 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="login.js"></script>
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -46,7 +49,7 @@
                     <li>Water-resistant design</li>
                     <li>Easy installation and maintenance</li>
                 </ul>
-                <img src="assets/sensor_module.png" alt="Sensor Module" class="product-image">
+                <img src="assets/sensor_module.jpg" alt="Sensor Module" class="product-image">
             </div>
 
             <div class="product">
@@ -88,8 +91,8 @@
         <!-- Call to Action -->
         <section class="cta-section">
             <h2>Ready to Optimize Your Septic Tank Management?</h2>
-            <p>Contact us to get started today and make sure your septic system is running smoothly!</p>
-            <button class="cta-btn">Contact Us</button>
+            <p>Buy our products now to ensure your septic system runs smoothly!</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform?fbclid=IwY2xjawF3bARleHRuA2FlbQIxMAABHdjNqD_kNxIX1SpkbCKxsWWssFahDrZ0RjH4Q53TjW7WxhZh45xg-XVWKg_aem_MA44E59jr1FVcL1w9napUA" class="cta-btn">Buy Here</a>
         </section>
     </section>
 
@@ -108,9 +111,6 @@
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="login.js"></script>
     <script>
         // Show Login Modal
         const loginToggleBtn = document.getElementById('login-toggle-btn');
