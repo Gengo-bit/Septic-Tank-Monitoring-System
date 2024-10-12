@@ -5,35 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script>
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // If the user is authenticated, redirect to home.html
-                window.location.href = 'home.html';
-            } else {
-                // If not authenticated, send to login.html
-                window.location.href = 'login.html';
-            }
-        });
-    </script>    
 </head>
 <body class="login-html">
-    <div class="login-container">
-        <img src="assets/logo.png" alt="Logo" class="login-logo">
-        
-        <form class="login-formm" id="login-form">
-            <input class="input-email" type="email" id="email" placeholder="Email" required>
-            <input class="input-pass" type="password" id="password" placeholder="Password" required>
-            <button class="login-btn" type="submit">Login</button>
-            <p>Don't have one? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank"> Apply here </a></p>
-        </form>
-        <p id="error-message" class="error-message"></p>
+
+    <!-- Main Commercialization Section -->
+    <section class="commercialization">
+        <header class="branding">
+            <img src="assets/logo.png" alt="Logo" class="logo">
+            <h1>Septic Tank Monitoring System</h1>
+            <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
+        </header>
+
+        <!-- Introduction Section -->
+        <div class="introduction">
+            <h2>Smart Solutions for Septic Tank Management</h2>
+            <p>Monitor your septic tanks efficiently with our state-of-the-art sensor and monitoring modules. Avoid costly overflows, reduce environmental risks, and stay informed with real-time data from anywhere.</p>
+            <img src="assets/monitoring_dashboard.jpg" alt="Monitoring Dashboard" class="section-image">
+        </div>
+
+        <!-- Product Offerings Section -->
+        <div class="product-offerings">
+            <div class="product">
+                <h3>Sensor Module - Only 1499 PHP</h3>
+                <p>Monitor septic tank levels with precision and reliability.</p>
+                <ul>
+                    <li>High accuracy and durability</li>
+                    <li>Water-resistant design</li>
+                    <li>Easy installation and maintenance</li>
+                </ul>
+                <img src="assets/sensor_module.png" alt="Sensor Module" class="product-image">
+            </div>
+
+            <div class="product">
+                <h3>Monitoring Module - Only 4999 PHP</h3>
+                <p>Get real-time alerts and insights.</p>
+                <ul>
+                    <li>Remote monitoring from any location</li>
+                    <li>Custom alerts for critical levels</li>
+                    <li>Detailed analytics and historical data</li>
+                </ul>
+                <img src="assets/monitoring_module.jpg" alt="Monitoring Module" class="product-image">
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <h2>Why Choose Our System?</h2>
+            <div class="benefits">
+                <div class="benefit-item">
+                    <h4>Prevent Costly Overflows</h4>
+                    <p>Never worry about unexpected tank overflows with real-time data and early warning alerts.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>Access Anywhere, Anytime</h4>
+                    <p>Monitor and manage your tanks from any location using our web-based platform.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>Reduce Environmental Risks</h4>
+                    <p>Ensure your septic system is operating efficiently, minimizing the impact on the environment.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>Data-Driven Insights</h4>
+                    <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
+                </div>
+            </div>
+            <img src="assets/data_insights.jpg" alt="Data Insights" class="section-image">
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2>Ready to Optimize Your Septic Tank Management?</h2>
+            <p>Buy our products now to ensure your septic system runs smoothly!</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" class="cta-btn">Buy Here</a>
+        </section>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <blockquote>
+            <p>"This system saved us thousands of pesos in potential repair costs! Highly recommend."</p>
+            <cite>- Lyxzmm, Satisfied Customer</cite>
+        </blockquote>
+        <blockquote>
+            <p>"Real-time monitoring has transformed our septic tank management."</p>
+            <cite>- Nica, Facility Manager</cite>
+        </blockquote>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h4>How does the sensor module work?</h4>
+            <p>The sensor module monitors the septic tank level in real-time and sends alerts if levels get critical.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Is the system easy to install?</h4>
+            <p>Yes, our system is designed for easy installation with step-by-step guides provided.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Can I monitor multiple tanks?</h4>
+            <p>Absolutely! Our monitoring module supports multiple tanks with detailed analytics for each.</p>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-demo">
+        <h2>Watch Our System in Action</h2>
+        <video controls class="demo-video">
+            <source src="assets/demo_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+    <!-- Login Form Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h3>Login to Your Account</h3>
+            <form class="login-formm" id="login-form">
+                <input class="input-email" type="email" id="email" placeholder="Email" required>
+                <input class="input-pass" type="password" id="password" placeholder="Password" required>
+                <button class="login-btn" type="submit">Login</button>
+                <p>Don't have an account? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Apply here</a></p>
+            </form>
+            <p id="error-message" class="error-message"></p>
+        </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="login.js"></script>
+
+    <!-- Modal Functionality -->
+    <script>
+        const loginToggleBtn = document.getElementById('login-toggle-btn');
+        const loginModal = document.getElementById('login-modal');
+        const closeModal = document.querySelector('.close');
+
+        function showModal(modal) {
+            modal.style.display = 'flex';  // Make the modal visible
+            setTimeout(() => {
+                modal.classList.add('show');  // Add the 'show' class for fade-in and scale-up
+            }, 10);  // Slight delay to allow display change to apply before transition
+        }
+
+        function hideModal(modal) {
+            modal.classList.remove('show');  // Remove the 'show' class for fade-out and scale-down
+            setTimeout(() => {
+                modal.style.display = 'none';  // Fully hide the modal after the animation
+            }, 300);  // Match the CSS transition duration (300ms)
+        }
+
+        loginToggleBtn.addEventListener('click', () => {
+            showModal(loginModal);
+        });
+
+        closeModal.addEventListener('click', () => {
+            hideModal(loginModal);
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === loginModal) {
+                hideModal(loginModal);
+            }
+        });
+    </script>
 </body>
 </html>
