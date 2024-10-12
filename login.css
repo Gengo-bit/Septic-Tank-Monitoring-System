@@ -12,6 +12,8 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header Section */
@@ -22,6 +24,7 @@ body {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeInDown 0.8s ease;
 }
 
 .logo-container {
@@ -30,28 +33,34 @@ body {
 }
 
 .logo {
-  width: 50px;
-  margin-right: 10px;
+  width: 60px;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
 }
 
 .main-header h1 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #333;
 }
 
 .login-toggle-btn {
   background-color: #ff9a3b;
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .login-toggle-btn:hover {
   background-color: #f47c21;
+  transform: translateY(-5px);
 }
 
 /* Container for all content */
@@ -59,33 +68,38 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
+  animation: fadeInUp 0.8s ease;
 }
 
 /* Introduction Section */
 .introduction {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .introduction h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #333;
+  margin-bottom: 1rem;
+  animation: textZoomIn 0.8s ease;
 }
 
 .introduction p {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #555;
   margin: 1.5rem 0;
+  animation: textFadeIn 1s ease;
 }
 
 .section-image {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin-top: 1.5rem;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: imageZoomIn 0.8s ease;
 }
 
 /* Product Offerings Section */
@@ -94,6 +108,7 @@ body {
   flex-wrap: wrap;
   justify-content: space-around;
   margin-top: 3rem;
+  gap: 1.5rem;
 }
 
 .product {
@@ -103,8 +118,8 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  margin: 1.5rem;
   transition: transform 0.3s ease;
+  animation: productFadeIn 1s ease;
 }
 
 .product:hover {
@@ -112,13 +127,13 @@ body {
 }
 
 .product h3 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #f4c542;
   margin-bottom: 1rem;
 }
 
 .product p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #333;
   margin-bottom: 1rem;
 }
@@ -131,12 +146,12 @@ body {
 
 .product li {
   margin-bottom: 0.75rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
 }
 
 .product-image {
-  width: 100px;
+  width: 120px;
   margin-top: 1rem;
 }
 
@@ -144,31 +159,33 @@ body {
 .cta-section {
   margin: 3rem 0;
   text-align: center;
+  animation: fadeInUp 0.8s ease;
 }
 
 .cta-section h2 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
 .cta-section p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 2rem;
 }
 
 .cta-btn {
   background-color: #ff9a3b;
   color: #fff;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border-radius: 8px;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .cta-btn:hover {
   background-color: #f47c21;
+  transform: translateY(-5px);
 }
 
 /* Benefits Section */
@@ -180,16 +197,16 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .benefit-item {
   background-color: #fff;
   width: 100%;
   max-width: 350px;
-  padding: 1.5rem;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -199,45 +216,14 @@ body {
 }
 
 .benefit-item h4 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #ff9a3b;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .benefit-item p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
-}
-
-/* Testimonials */
-.testimonials {
-  margin: 4rem 0;
-  text-align: center;
-}
-
-.testimonials h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-blockquote {
-  font-style: italic;
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  text-align: left;
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
-}
-
-cite {
-  display: block;
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: #333;
-  text-align: right;
 }
 
 /* FAQ Section */
@@ -247,11 +233,10 @@ cite {
 
 .faq-item {
   background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
-  text-align: left;
   transition: transform 0.3s ease;
 }
 
@@ -260,13 +245,13 @@ cite {
 }
 
 .faq-item h4 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #ff9a3b;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .faq-item p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
 }
 
@@ -278,9 +263,10 @@ cite {
 
 .demo-video {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: videoFadeIn 0.8s ease;
 }
 
 /* Modal */
@@ -295,12 +281,6 @@ cite {
   justify-content: center;
   align-items: center;
   z-index: 100;
-
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f4c542, #ff9a3b);
-  margin: 0;
-  overflow: hidden;
-  animation: backgroundSlide 10s ease-in-out infinite;
 }
 
 .modal.show {
@@ -317,17 +297,6 @@ cite {
   animation: modalFadeIn 0.5s ease;
 }
 
-@keyframes modalFadeIn {
-  from {
-      transform: translateY(-50px);
-      opacity: 0;
-  }
-  to {
-      transform: translateY(0);
-      opacity: 1;
-  }
-}
-
 .close {
   position: absolute;
   top: 10px;
@@ -336,132 +305,121 @@ cite {
   cursor: pointer;
 }
 
-.login-toggle-btn {
-  background-color: #ff9a3b;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  margin-top: 1rem;
+/* Keyframe Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.login-toggle-btn:hover {
-  background-color: #f47c21;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Media Queries */
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes textZoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes imageZoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes productFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .product-offerings, .benefits {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .product, .benefit-item {
-      width: 100%;
+    width: 100%;
   }
 
   h1 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .section-image {
-      width: 90%;
+    width: 90%;
   }
 }
 
 @media (max-width: 576px) {
   h1 {
-      font-size: 1.8rem;
+    font-size: 1.8rem;
   }
 
   h2 {
-      font-size: 1.6rem;
+    font-size: 1.6rem;
   }
 
   .cta-btn {
-      padding: 10px 16px;
-      font-size: 1rem;
+    padding: 10px 16px;
+    font-size: 1rem;
   }
 
   .logo {
-      width: 80px;
+    width: 80px;
   }
 
   .modal-content {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
-}
-
-.login-modal {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-/* Apply Link */
-.login-modal a {
-  text-decoration: none;
-  color: #9a66ff;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-/* Link hover effect */
-.login-modal a:hover {
-  color: #6a33cc;
-}
-/* Error Message */
-.error-message {
-  color: #ff4c4c;
-  margin-top: 1rem;
-  text-align: center;
-  animation: shake 0.3s ease-in-out;
-}
-/* Input Fields */
-.input-email, .input-pass {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: box-shadow 0.3s ease;
-}
-
-/* Input focus effect */
-.input-email:focus, .input-pass:focus {
-  box-shadow: 0 0 8px rgba(244, 197, 66, 0.6);
-  outline: none;
-}
-/* Button Styling */
-.login-btn {
-  background-color: #f4c542;
-  color: white;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  margin-bottom: 10px;
-}
-
-/* Hover effect on button */
-.login-btn:hover {
-  background-color: #ff9a3b;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Button click effect */
-.login-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* Error shake animation */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
 }

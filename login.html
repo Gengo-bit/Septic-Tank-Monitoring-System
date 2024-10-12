@@ -10,10 +10,8 @@
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                // If the user is authenticated, redirect to home.html
                 window.location.href = 'home.html';
             } else {
-                // If not authenticated, send to login.html
                 window.location.href = 'login.html';
             }
         });
@@ -87,6 +85,32 @@
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h4>How does the sensor module work?</h4>
+                <p>The sensor module monitors the septic tank level in real-time and sends alerts if levels get critical.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is the system easy to install?</h4>
+                <p>Yes, our system is designed for easy installation with step-by-step guides provided.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I monitor multiple tanks?</h4>
+                <p>Absolutely! Our monitoring module supports multiple tanks with detailed analytics for each.</p>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-demo">
+            <h2>Watch Our System in Action</h2>
+            <video controls class="demo-video">
+                <source src="assets/demo_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
         <!-- Call to Action -->
         <section class="cta-section">
             <h2>Ready to Optimize Your Septic Tank Management?</h2>
@@ -100,7 +124,7 @@
         <div class="modal-content">
             <span class="close" id="close-modal">&times;</span>
             <h3>Login to Your Account</h3>
-            <form class="login-form" id="login-modal"> <!-- This ID should match with the one in auth.js -->
+            <form class="login-form" id="login-modal">
                 <input class="input-email" type="email" id="email" placeholder="Email" required>
                 <input class="input-pass" type="password" id="password" placeholder="Password" required>
                 <button class="login-btn" type="submit">Login</button>
