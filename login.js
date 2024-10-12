@@ -28,3 +28,61 @@ const firebaseConfig = {
               });
       });
   });  
+   // Modal Functionality
+   const loginToggleBtn = document.getElementById('login-toggle-btn');
+   const loginModal = document.getElementById('login-modal');
+   const closeModal = document.querySelector('.close');
+
+   function showModal(modal) {
+       modal.style.display = 'flex';
+       setTimeout(() => {
+           modal.classList.add('show');
+       }, 10);
+   }
+
+   function hideModal(modal) {
+       modal.classList.remove('show');
+       setTimeout(() => {
+           modal.style.display = 'none';
+       }, 300);
+   }
+
+   loginToggleBtn.addEventListener('click', () => {
+       showModal(loginModal);
+   });
+
+   closeModal.addEventListener('click', () => {
+       hideModal(loginModal);
+   });
+
+   window.addEventListener('click', (event) => {
+       if (event.target === loginModal) {
+           hideModal(loginModal);
+       }
+   });
+   
+// JavaScript for Smooth Scrolling 
+      const sections = document.querySelectorAll('.full-screen');
+      let isScrolling = false;
+
+      function smoothScroll() {
+          if (!isScrolling) {
+              window.scrollTo({
+                  top: window.innerHeight * [...sections].indexOf(this),
+                  behavior: 'smooth'
+              });
+          }
+      }
+
+      window.addEventListener('scroll', () => {
+          if (!isScrolling) {
+              isScrolling = true;
+              setTimeout(() => {
+                  isScrolling = false;
+              }, 1000);
+          }
+      });
+
+      sections.forEach((section) => {
+          section.addEventListener('click', smoothScroll);
+      });

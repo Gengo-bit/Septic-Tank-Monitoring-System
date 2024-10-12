@@ -29,7 +29,7 @@
     </header>
 
     <!-- Hero Section with Video Background -->
-    <section class="hero-section">
+    <section class="hero-section full-screen">
         <video autoplay muted loop id="hero-video">
             <source src="assets/intro.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -41,83 +41,81 @@
     </section>
 
     <!-- Main Container -->
-    <section class="commercialization">
-        <!-- Introduction Section -->
+    <section class="commercialization full-screen">
         <div class="introduction">
-            <h2>Efficient & Reliable Monitoring</h2>
+            <h2 class="introd">Efficient & Reliable Monitoring</h2>
             <p>Get real-time insights to keep your septic system running smoothly.</p>
             <div class="section-image realtime-div" style="background-image: url('assets/sensor.png');"></div>
         </div>
+    </section>
 
-        <!-- Product Offerings Section -->
-        <div class="product-offerings">
-            <h2 class="section-title">Our Products</h2>
-            <div class="product-container">
-                <div class="product">
-                    <h3>Sensor Module - Only 1499 PHP</h3>
-                    <p>Monitor septic tank levels with precision and reliability.</p>
-                    <ul>
-                        <li>High accuracy and durability</li>
-                        <li>Water-resistant design</li>
-                        <li>Easy installation and maintenance</li>
-                    </ul>
-                    <div class="product-image" style="background-image: url('assets/sensor_module.png');"></div>
+   <!-- Product Offerings Section -->
+   <section class="product-offerings full-screen">
+    <h2 class="section-title">Our Products</h2>
+    <div class="product-container">
+        <div class="product">
+            <h3>Sensor Module - Only 1499 PHP</h3>
+            <p>Monitor septic tank levels with precision and reliability.</p>
+            <ul>
+                <li>High accuracy and durability</li>
+                <li>Water-resistant design</li>
+                <li>Easy installation and maintenance</li>
+            </ul>
+            <div class="product-image" style="background-image: url('assets/sensor_module.png');"></div>
+        </div>
+        <div class="product">
+            <h3>Monitoring Module - Only 4999 PHP</h3>
+            <p>Get real-time alerts and insights.</p>
+            <ul>
+                <li>Remote monitoring from any location</li>
+                <li>Custom alerts for critical levels</li>
+                <li>Detailed analytics and historical data</li>
+            </ul>
+            <div class="product-image" style="background-image: url('assets/monitoring_module.png');"></div>
+        </div>
+    </div>
+</section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section full-screen">
+        <h2>Why Choose Our System?</h2>
+        <div class="benefits">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <img src="assets/icons/prevent-overflows.png" alt="Prevent Overflows Icon" />
                 </div>
-                <div class="product">
-                    <h3>Monitoring Module - Only 4999 PHP</h3>
-                    <p>Get real-time alerts and insights.</p>
-                    <ul>
-                        <li>Remote monitoring from any location</li>
-                        <li>Custom alerts for critical levels</li>
-                        <li>Detailed analytics and historical data</li>
-                    </ul>
-                    <div class="product-image" style="background-image: url('assets/monitoring_module.jpg');"></div>
+                <h4>Prevent Costly Overflows</h4>
+                <p>Never worry about unexpected tank overflows with real-time data and early warning alerts.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <img src="assets/icons/access-anywhere.png" alt="Access Anywhere Icon" />
                 </div>
+                <h4>Access Anywhere, Anytime</h4>
+                <p>Monitor and manage your tanks from any location using our web-based platform.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <img src="assets/icons/reduce-risk.png" alt="Reduce Environmental Risks Icon" />
+                </div>
+                <h4>Reduce Environmental Risks</h4>
+                <p>Ensure your septic system is operating efficiently, minimizing the impact on the environment.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <img src="assets/icons/data-driven-insights.png" alt="Data-Driven Insights Icon" />
+                </div>
+                <h4>Data-Driven Insights</h4>
+                <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
             </div>
         </div>
+    </section>
 
-        <!-- Benefits Section -->
-        <section class="benefits-section">
-            <h2>Why Choose Our System?</h2>
-            <div class="benefits">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="assets/icons/prevent-overflows.png" alt="Prevent Overflows Icon" />
-                    </div>
-                    <h4>Prevent Costly Overflows</h4>
-                    <p>Never worry about unexpected tank overflows with real-time data and early warning alerts.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="assets/icons/access-anywhere.png" alt="Access Anywhere Icon" />
-                    </div>
-                    <h4>Access Anywhere, Anytime</h4>
-                    <p>Monitor and manage your tanks from any location using our web-based platform.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="assets/icons/reduce-risk.png" alt="Reduce Environmental Risks Icon" />
-                    </div>
-                    <h4>Reduce Environmental Risks</h4>
-                    <p>Ensure your septic system is operating efficiently, minimizing the impact on the environment.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="assets/icons/data-driven-insights.png" alt="Data-Driven Insights Icon" />
-                    </div>
-                    <h4>Data-Driven Insights</h4>
-                    <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="cta-section">
-            <h2>Ready to Optimize Your Septic Tank Management?</h2>
-            <p>Buy our products now to ensure your septic system runs smoothly!</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" class="cta-btn">Buy Here</a>
-        </section>
-
+    <!-- Call to Action -->
+    <section class="cta-section full-screen">
+        <h2>Ready to Optimize Your Septic Tank Management?</h2>
+        <p>Buy our products now to ensure your septic system runs smoothly!</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" class="cta-btn">Buy Here</a>
     </section>
 
     <!-- Modal -->
@@ -153,40 +151,7 @@
             </div>
         </div>
     </footer>
-    <!-- Modal Functionality -->
-    <script>
-        const loginToggleBtn = document.getElementById('login-toggle-btn');
-        const loginModal = document.getElementById('login-modal');
-        const closeModal = document.querySelector('.close');
 
-        function showModal(modal) {
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-        }
-
-        function hideModal(modal) {
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-
-        loginToggleBtn.addEventListener('click', () => {
-            showModal(loginModal);
-        });
-
-        closeModal.addEventListener('click', () => {
-            hideModal(loginModal);
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === loginModal) {
-                hideModal(loginModal);
-            }
-        });
-    </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>    
     <script src="login.js"></script>

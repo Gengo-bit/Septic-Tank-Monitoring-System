@@ -1,3 +1,44 @@
+/* General Full-Screen Sections */
+.full-screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+}
+
+/* Smooth Scroll Behavior */
+html, body {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Container for Full-Screen Scroll */
+body {
+  display: flex;
+  flex-direction: column;
+}
+/* Enhancing Transition */
+.hero-section,
+.commercialization,
+.benefits-section,
+.cta-section {
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.full-screen {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.full-screen.active {
+  opacity: 1;
+  transform: translateY(0);
+}
 /* General Reset */
 * {
   margin: 0;
@@ -22,15 +63,15 @@ body {
 }
 /* Footer */
 .main-footer {
-  background: var(--footer-bg);
-  color: white;
+  background: #222;
+  color: #fff;
   padding: 40px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   border-top: 1px solid #444;
-  animation: fadeIn 0.8s ease;
+  animation: fadeInUp 0.8s ease;
 }
 
 .footer-content {
@@ -40,15 +81,15 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
+
 .footer-logo {
   display: flex;
   align-items: center;
   flex-direction: column;
-  text-align: center;
 }
 
 .footer-logo img {
-  width: 50px;
+  width: 60px;
   margin-bottom: 10px;
 }
 .footer-links a {
@@ -134,6 +175,7 @@ body {
   align-items: center;
   text-align: center;
 }
+
 /* Typography */
 h1, h2 {
   font-family: 'Merriweather', serif; /* Use a serif font for headers */
@@ -141,9 +183,12 @@ h1, h2 {
 }
 
 h2 {
-  color: white;
+  color: var(--accent-color);
 }
-
+.introd {
+  font-size: 2.2rem;
+  color:white;
+}
 p {
   font-size: 1.1rem;
 }
@@ -210,10 +255,9 @@ p {
   animation: imageZoomIn 0.5s ease;
 }
 .section-title {
-  text-align: center;
-  color: var(--primary-color);
-  font-size: 2rem;
-  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 /* Product Offerings */
 .product-offerings {
@@ -613,11 +657,11 @@ p {
     padding: 1.5rem;
   }
 }
-
+/* Smooth Scroll Animation Keyframes */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
