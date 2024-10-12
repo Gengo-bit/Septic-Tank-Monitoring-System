@@ -28,43 +28,64 @@ const firebaseConfig = {
               });
       });
   });  
-    // Modal Toggle Functionality
-    const loginToggleBtn = document.getElementById('login-toggle-btn');
-    const loginModal = document.getElementById('login-modal');
-    const closeModal = document.getElementById('close-modal');
+   // Modal Functionality
+   const loginToggleBtn = document.getElementById('login-toggle-btn');
+   const loginModal = document.getElementById('login-modal');
+   const closeModal = document.querySelector('.close');
 
-    // Show modal when login button is clicked
-    loginToggleBtn.addEventListener('click', () => {
-        loginModal.style.display = 'flex';
-    });
+   function showModal(modal) {
+       modal.style.display = 'flex';
+       setTimeout(() => {
+           modal.classList.add('show');
+       }, 10);
+   }
 
-    // Close modal when 'X' button is clicked
-    closeModal.addEventListener('click', () => {
-        loginModal.style.display = 'none';
-    });
+   function hideModal(modal) {
+       modal.classList.remove('show');
+       setTimeout(() => {
+           modal.style.display = 'none';
+       }, 300);
+   }
 
-    // Close modal when clicking outside of modal content
-    window.addEventListener('click', (event) => {
-        if (event.target === loginModal) {
-            loginModal.style.display = 'none';
-        }
-    });
+   loginToggleBtn.addEventListener('click', () => {
+       showModal(loginModal);
+   });
+
+   closeModal.addEventListener('click', () => {
+       hideModal(loginModal);
+   });
+
+   window.addEventListener('click', (event) => {
+       if (event.target === loginModal) {
+           hideModal(loginModal);
+       }
+   });
    
 // JavaScript for Smooth Scrolling 
-document.addEventListener('DOMContentLoaded', () => {
+    // Select all sections with the "full-screen" class
     const sections = document.querySelectorAll('.full-screen');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            } else {
-                entry.target.classList.remove('active');
-            }
-        });
-    }, { threshold: 0.1 });
 
-    sections.forEach(section => observer.observe(section));
-});
+    // Use IntersectionObserver to detect when each section is in view
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Add 'active' class when section is in view for smooth transitions
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        },
+        {
+            threshold: 0.5, // Trigger when 50% of the section is visible
+        }
+    );
+
+    // Observe each section
+    sections.forEach((section) => {
+        observer.observe(section);
+    });
 
     // Smooth scroll when clicking internal links
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
