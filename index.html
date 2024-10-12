@@ -11,18 +11,21 @@
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                // Redirect to home.html if the user is authenticated
-                window.location.href = 'home.html';
+                // If the user is authenticated, check if they came from home.html
+                const referrer = document.referrer;
+                if (!referrer.includes('home.html')) {
+                    // Redirect to home.html if not coming from home.html
+                    window.location.href = 'home.html';
+                }
             } else {
-                // If no user is signed in, redirect to login
+                // Redirect to login.html if not authenticated
                 window.location.href = 'login.html';
             }
         });
-    
         function scrollToSection(sectionId) {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
         }
-    </script>
+    </script>    
 </head>
 <body>
 
