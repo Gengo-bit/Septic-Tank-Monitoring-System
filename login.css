@@ -205,7 +205,7 @@ body {
     background-color: #ff9a3b; /* Lighter orange background */
     padding: 20px;
     border-radius: 12px;
-    color: #fff; /* White text for better contrast */
+    color: #fff; /* White text for contrast against background */
 }
 
 .product {
@@ -216,20 +216,23 @@ body {
     width: 45%;
     margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text-color); /* Dark text for readability */
 }
 
 .product:hover {
-    transform: translateY(-5px); /* A bit of lift */
+    transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .product h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: var(--text-color); /* Ensure the title is visible */
 }
 
 .product p {
     font-size: 1.1rem;
+    color: var(--text-color); /* Ensure the description is visible */
 }
 
 .product ul {
@@ -239,8 +242,8 @@ body {
 
 .product ul li {
     padding: 5px 0;
+    color: var(--text-color); /* Ensure the list items are visible */
 }
-
 /* Benefits Section */
 .benefits-section {
     padding: 20px;
