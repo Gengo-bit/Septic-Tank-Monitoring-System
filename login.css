@@ -603,6 +603,12 @@ p {
   text-align: center;
   font-size: 0.95rem;
 }
+.responsive-image {
+  width: 100%; /* Make it responsive */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 12px; /* Optional for rounded corners */
+}
+
 /* Accessibility */
 @media (prefers-contrast: high) {
   body {
@@ -765,14 +771,27 @@ p {
   }
 }
 
-/* Other Animation Keyframes */
-@keyframes fadeInDown, textFadeIn, textZoomIn, imageZoomIn, productFadeIn, videoFadeIn, slideDown, slideIn, fadeIn {
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textFadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
   }
+}
+
+@keyframes textZoomIn {
   from {
     transform: scale(0.8);
     opacity: 0;
@@ -783,9 +802,66 @@ p {
   }
 }
 
+@keyframes imageZoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
-.responsive-image {
-  width: 100%; /* Make it responsive */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 12px; /* Optional for rounded corners */
+@keyframes productFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
