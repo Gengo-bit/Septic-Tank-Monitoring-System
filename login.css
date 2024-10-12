@@ -12,11 +12,11 @@ body {
 }
 
 :root {
-  --base-color: #f0f4f8;
+  --base-color: linear-gradient(135deg, #a4a4a4, #e4e4e4); /* Soft gradient */
   --text-color: #2d3a4b;
-  --primary-color: #0077b6; /* Deeper blue */
-  --accent-color: #00b4d8; /* Soft pastel blue */
-  --header-bg: linear-gradient(135deg, #0077b6, #00b4d8); /* Gradient for header */
+  --primary-color: #1f1f1f; /* Dark, professional primary color */
+  --accent-color: #f4c542; /* Softer pastel yellow accent */
+  --header-bg: linear-gradient(135deg, #e4e4e4, #ffffff); /* Light gradient */
   --footer-bg: #2d3a4b; /* Dark footer background */
   --transition-duration: 0.4s;
 }
@@ -29,14 +29,18 @@ body {
 }
 
 .main-footer .social-media a {
-  margin: 0 10px;
+  margin: 0 5px;
   display: inline-block;
   transition: transform 0.3s;
+}
+.main-footer .social-media a img {
+  width: 20px; /* Smaller icons */
 }
 
 .main-footer .social-media a:hover {
   transform: scale(1.2);
 }
+
 /* Header Section */
 .main-header {
   background: var(--header-bg);
@@ -44,16 +48,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: var(--text-color);
+  border-bottom: 1px solid #ccc;
 }
-
 .logo-container {
   display: flex;
   align-items: center;
 }
 
 .logo {
-  width: 70px;
+  width: 60px;
   transition: transform 0.3s ease;
 }
 
@@ -87,7 +91,9 @@ body {
   align-items: center;
   text-align: center;
 }
-
+h2 {
+  color: var(--accent-color);
+}
 /* Typography */
 h1, h2 {
   font-family: 'Merriweather', serif; /* Use a serif font for headers */
@@ -167,18 +173,22 @@ p {
 /* Product Offerings Section */
 .product-offerings {
   display: flex;
-  justify-content: space-between;
-  margin-top: 4rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 40px 0;
+  padding: 20px;
+  background: var(--base-color);
+  border-radius: 10px;
 }
 
 .product {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 45%;
-  transition: transform 0.3s ease;
-  animation: fadeInUp 0.5s ease;
+  background: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
 
 .product:hover {
@@ -505,8 +515,7 @@ p {
     align-items: center; /* Center align */
   }
 
-  .feature-item,
-  .product {
+  .feature-item {
     width: 90%; /* Full width for smaller screens */
     margin: 10px 0; /* Spacing between items */
   }
@@ -519,7 +528,16 @@ p {
     height: auto; /* Adjust height for responsiveness */
   }
 }
+@media (max-width: 768px) {
+  .product {
+    width: 90%; /* Full width on smaller screens */
+    margin: 10px auto;
+  }
 
+  .main-footer .social-media a img {
+    width: 18px; /* Even smaller on small screens */
+  }
+}
 @media (max-width: 576px) {
   h1 {
     font-size: 1.8rem;
@@ -623,6 +641,7 @@ p {
     opacity: 1;
   }
 }
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
