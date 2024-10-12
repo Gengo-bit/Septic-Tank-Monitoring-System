@@ -555,3 +555,53 @@ footer p, footer a {
   20%, 60% { transform: translateX(-5px); }
   40%, 80% { transform: translateX(5px); }
 }
+
+.commercialization {
+  padding: 2rem;
+  background-color: var(--base-variant);
+  border-radius: 12px;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.commercialization h2, .commercialization h3 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.product-offerings {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.product {
+  width: 45%;
+  background-color: var(--base-color);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product p, .product ul {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.benefits {
+  margin-top: 2rem;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+}
+
+.benefits li {
+  margin-bottom: 0.5rem;
+}
