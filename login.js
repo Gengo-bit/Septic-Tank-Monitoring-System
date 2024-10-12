@@ -28,38 +28,27 @@ const firebaseConfig = {
               });
       });
   });  
-   // Modal Functionality
-   const loginToggleBtn = document.getElementById('login-toggle-btn');
-   const loginModal = document.getElementById('login-modal');
-   const closeModal = document.querySelector('.close');
+    // Modal Toggle Functionality
+    const loginToggleBtn = document.getElementById('login-toggle-btn');
+    const loginModal = document.getElementById('login-modal');
+    const closeModal = document.getElementById('close-modal');
 
-   function showModal(modal) {
-       modal.style.display = 'flex';
-       setTimeout(() => {
-           modal.classList.add('show');
-       }, 10);
-   }
+    // Show modal when login button is clicked
+    loginToggleBtn.addEventListener('click', () => {
+        loginModal.style.display = 'flex';
+    });
 
-   function hideModal(modal) {
-       modal.classList.remove('show');
-       setTimeout(() => {
-           modal.style.display = 'none';
-       }, 300);
-   }
+    // Close modal when 'X' button is clicked
+    closeModal.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
 
-   loginToggleBtn.addEventListener('click', () => {
-       showModal(loginModal);
-   });
-
-   closeModal.addEventListener('click', () => {
-       hideModal(loginModal);
-   });
-
-   window.addEventListener('click', (event) => {
-       if (event.target === loginModal) {
-           hideModal(loginModal);
-       }
-   });
+    // Close modal when clicking outside of modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+    });
    
 // JavaScript for Smooth Scrolling 
 document.addEventListener('DOMContentLoaded', () => {
