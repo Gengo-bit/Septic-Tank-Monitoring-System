@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script>
         firebase.auth().onAuthStateChanged((user) => {
@@ -19,60 +19,102 @@
         });
     </script>    
 </head>
-<body class="login-html">
-    <div class="login-container">
-        <img src="assets/logo.png" alt="Logo" class="login-logo">
-        
-        <!-- Login Form -->
-        <form class="login-formm" id="login-form">
-            <input class="input-email" type="email" id="email" placeholder="Email" required>
-            <input class="input-pass" type="password" id="password" placeholder="Password" required>
-            <button class="login-btn" type="submit">Login</button>
-            <p>Don't have one? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank"> Apply here </a></p>
-        </form>
-        <p id="error-message" class="error-message"></p>
-    </div>
+<body>
 
-    <!-- Commercialization Section -->
+    <!-- Main Commercialization Section -->
     <section class="commercialization">
-        <h2>Get the Best Monitoring and Sensor Modules for Your Septic Tank!</h2>
+        <header class="branding">
+            <img src="assets/logo.png" alt="Logo" class="logo">
+            <h1>Septic Tank Monitoring System</h1>
+            <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
+        </header>
+
+        <!-- Introduction Section -->
+        <div class="introduction">
+            <h2>Smart Solutions for Septic Tank Management</h2>
+            <p>Monitor your septic tanks efficiently with our state-of-the-art sensor and monitoring modules. Avoid costly overflows, reduce environmental risks, and stay informed with real-time data from anywhere.</p>
+        </div>
+
+        <!-- Product Offerings Section -->
         <div class="product-offerings">
-            <!-- Sensor Module -->
             <div class="product">
                 <h3>Sensor Module - Only 1499 PHP</h3>
-                <p>Our highly accurate sensor module allows you to monitor your septic tank levels with precision, ensuring that you stay ahead of potential overflows.</p>
+                <p>Monitor septic tank levels with precision and reliability. Our sensor module ensures real-time data updates and seamless integration with the monitoring system.</p>
                 <ul>
-                    <li>Reliable and long-lasting sensor</li>
-                    <li>Easy installation</li>
-                    <li>Water-resistant and durable design</li>
-                    <li>Real-time data integration with monitoring systems</li>
+                    <li>High accuracy and durability</li>
+                    <li>Water-resistant design</li>
+                    <li>Easy installation and maintenance</li>
                 </ul>
             </div>
 
-            <!-- Monitoring Module -->
             <div class="product">
                 <h3>Monitoring Module - Only 4999 PHP</h3>
-                <p>With the monitoring module, you can visualize data from multiple tanks, get real-time alerts, and make data-driven decisions with ease.</p>
+                <p>Get real-time alerts and insights. Our monitoring module offers advanced features to help you make data-driven decisions for managing multiple tanks.</p>
                 <ul>
-                    <li>Real-time monitoring from anywhere</li>
-                    <li>Easy integration with existing systems</li>
-                    <li>Comprehensive data analytics and reporting</li>
-                    <li>Get alerts when septic tanks are nearing capacity</li>
+                    <li>Remote monitoring from any location</li>
+                    <li>Custom alerts for critical levels</li>
+                    <li>Detailed analytics and historical data</li>
                 </ul>
             </div>
         </div>
 
-        <h3>Why Choose Our Product?</h3>
-        <ul class="benefits">
-            <li>Prevent costly and inconvenient septic tank overflows</li>
-            <li>Make informed decisions with real-time monitoring</li>
-            <li>Get alerts and data at your fingertips</li>
-            <li>Reduce environmental risks with proactive maintenance</li>
-        </ul>
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <h2>Why Choose Our System?</h2>
+            <div class="benefits">
+                <div class="benefit-item">
+                    <h4>Prevent Costly Overflows</h4>
+                    <p>Never worry about unexpected tank overflows with real-time data and early warning alerts.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>Access Anywhere, Anytime</h4>
+                    <p>Monitor and manage your tanks from any location using our web-based platform.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>Reduce Environmental Risks</h4>
+                    <p>Ensure your septic system is operating efficiently, minimizing the impact on the environment.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>Data-Driven Insights</h4>
+                    <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2>Ready to Optimize Your Septic Tank Management?</h2>
+            <p>Contact us to get started today and make sure your septic system is running smoothly!</p>
+            <button class="cta-btn">Contact Us</button>
+        </section>
+
     </section>
+
+    <!-- Hidden Login Form -->
+    <div class="login-container hidden" id="login-container">
+        <form class="login-formm" id="login-form">
+            <h3>Login to Your Account</h3>
+            <input class="input-email" type="email" id="email" placeholder="Email" required>
+            <input class="input-pass" type="password" id="password" placeholder="Password" required>
+            <button class="login-btn" type="submit">Login</button>
+            <p>Don't have an account? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Apply here</a></p>
+        </form>
+        <p id="error-message" class="error-message"></p>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="login.js"></script>
+    <script>
+        // Toggle Login Form
+        const loginToggleBtn = document.getElementById('login-toggle-btn');
+        const loginContainer = document.getElementById('login-container');
+
+        loginToggleBtn.addEventListener('click', () => {
+            loginContainer.classList.toggle('hidden');
+            loginContainer.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
 </body>
 </html>
