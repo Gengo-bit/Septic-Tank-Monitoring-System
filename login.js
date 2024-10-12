@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 // Successful login
-                window.location.href = 'index.html'; // Redirect to main page
+                window.location.href = 'home.html'; // Redirect to home page
             })
             .catch((error) => {
                 // Handle errors
