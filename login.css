@@ -7,22 +7,31 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f4c542, #ff9a3b);
+  background: #f8f9fa; /* Light background */
   color: #333;
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
+}
+
+/* Updated Color Palette */
+:root {
+  --primary-color: #007bff; /* Light Blue */
+  --accent-color: #17a2b8; /* Teal */
+  --text-color: #333;
+  --bg-light: #f8f9fa; /* Light Gray */
+  --bg-dark: #343a40; /* Dark Gray */
+  --highlight-color: #17a2b8; /* Accent color for highlights */
 }
 
 /* Header Section */
 .main-header {
-  background-color: #fff;
-  padding: 20px;
+  background-color: var(--bg-dark);
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: fadeInDown 0.5s ease;
 }
@@ -44,12 +53,12 @@ body {
 
 .main-header h1 {
   font-size: 1.8rem;
-  color: #333;
+  color: white;
 }
 
 .login-toggle-btn {
-  background-color: #ff9a3b;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: white;
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
@@ -59,7 +68,7 @@ body {
 }
 
 .login-toggle-btn:hover {
-  background-color: #f47c21;
+  background-color: var(--accent-color);
   transform: translateY(-3px);
 }
 
@@ -68,34 +77,35 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
   text-align: center;
-  animation: fadeInUp 0.5s ease;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
 }
 
 /* Introduction Section */
 .introduction {
-  text-align: center;
   margin-bottom: 3rem;
 }
 
 .introduction h2 {
   font-size: 2.5rem;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 1rem;
   animation: textZoomIn 0.5s ease;
 }
 
 .introduction p {
   font-size: 1.4rem;
-  color: #555;
+  color: var(--text-color);
   margin: 1.5rem 0;
   animation: textFadeIn 0.5s ease;
 }
 
 .section-image {
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   margin-top: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -106,20 +116,20 @@ body {
 .product-offerings {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 3rem;
-  gap: 1.5rem;
+  justify-content: space-between;
+  margin-top: 4rem;
 }
 
 .product {
-  background-color: #fff;
-  padding: 1.5rem;
+  background-color: white;
+  padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   transition: transform 0.3s ease;
-  animation: productFadeIn 0.5s ease;
+  animation: fadeInUp 0.5s ease;
+  margin: 1.5rem;
 }
 
 .product:hover {
@@ -128,13 +138,13 @@ body {
 
 .product h3 {
   font-size: 1.8rem;
-  color: #f4c542;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }
 
 .product p {
   font-size: 1.2rem;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
@@ -151,14 +161,21 @@ body {
 }
 
 .product-image {
-  width: 120px;
+  width: 150px;
   margin-top: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.product:hover .product-image {
+  transform: scale(1.1);
 }
 
 /* Call to Action */
 .cta-section {
-  margin: 3rem 0;
+  margin: 4rem 0;
   text-align: center;
+  padding: 2rem 0;
+  background-color: var(--bg-light);
   animation: fadeInUp 0.5s ease;
 }
 
@@ -173,8 +190,8 @@ body {
 }
 
 .cta-btn {
-  background-color: #ff9a3b;
-  color: #fff;
+  background-color: var(--accent-color);
+  color: white;
   padding: 14px 28px;
   border-radius: 8px;
   text-decoration: none;
@@ -184,24 +201,25 @@ body {
 }
 
 .cta-btn:hover {
-  background-color: #f47c21;
+  background-color: var(--primary-color);
   transform: translateY(-3px);
 }
 
 /* Benefits Section */
 .benefits-section {
   margin: 4rem 0;
+  padding: 60px 0;
+  background-color: var(--bg-light);
 }
 
 .benefits {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1.5rem;
 }
 
 .benefit-item {
-  background-color: #fff;
+  background-color: white;
   width: 100%;
   max-width: 350px;
   padding: 2rem;
@@ -209,6 +227,7 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s ease;
+  margin-bottom: 1.5rem;
 }
 
 .benefit-item:hover {
@@ -217,7 +236,7 @@ body {
 
 .benefit-item h4 {
   font-size: 1.6rem;
-  color: #ff9a3b;
+  color: var(--primary-color);
   margin-bottom: 0.75rem;
 }
 
@@ -226,13 +245,19 @@ body {
   color: #555;
 }
 
+.benefit-icon {
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
 /* FAQ Section */
 .faq {
   margin: 4rem 0;
 }
 
 .faq-item {
-  background-color: #fff;
+  background-color: white;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -246,7 +271,7 @@ body {
 
 .faq-item h4 {
   font-size: 1.6rem;
-  color: #ff9a3b;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }
 
@@ -259,6 +284,7 @@ body {
 .video-demo {
   margin: 4rem 0;
   text-align: center;
+  background-color: var(--bg-light);
 }
 
 .demo-video {
@@ -266,7 +292,7 @@ body {
   max-width: 700px;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  animation: videoFadeIn 0.5s ease;
+  animation: fadeInUp 0.5s ease;
 }
 
 /* Modal */
@@ -301,17 +327,6 @@ body {
   position: relative;
 }
 
-@keyframes slideDown {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .close {
   position: absolute;
   top: 15px;
@@ -321,10 +336,11 @@ body {
   color: #ff4c4c;
 }
 
-.close:hover {
-  color: #ff2a2a;
-  transform: rotate(90deg);
-  transition: transform 0.2s ease;
+/* Icons for Features */
+.features-icon {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
 }
 /* Input Fields */
 .input-email,
@@ -431,7 +447,7 @@ body {
     padding: 1.5rem;
   }
 }
-/* Keyframe Animations */
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -504,5 +520,16 @@ body {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
