@@ -8,14 +8,6 @@ const firebaseConfig = {
   
   firebase.initializeApp(firebaseConfig);
   
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // If the user is authenticated, redirect to home.html
-        window.location.href = 'home.html';
-    }
-    // do nothing
-});
-
   document.addEventListener('DOMContentLoaded', () => {
       const loginForm = document.getElementById('login-form');
       const errorMessage = document.getElementById('error-message');
@@ -36,5 +28,3 @@ firebase.auth().onAuthStateChanged((user) => {
               });
       });
   });  
-
-
