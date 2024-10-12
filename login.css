@@ -4,12 +4,12 @@
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f4c542, #ff9a3b);
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Use column layout for better scrolling */
     justify-content: flex-start;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Change to min-height to allow content to expand */
     margin: 0;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable vertical scrolling */
     animation: backgroundSlide 10s ease-in-out infinite;
 }
   
@@ -361,6 +361,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overflow-y: auto; /* Allow scrolling within the modal if it exceeds height */
 }
 
 .modal .login-container {
@@ -383,17 +384,11 @@ body {
 }
 
 /* Image Sizing */
-.section-image {
-    max-width: 100%; /* Ensure images are responsive */
-    height: auto; /* Maintain aspect ratio */
+.section-image, .product-image {
+    max-width: 100%;
+    height: auto;
     border-radius: 12px;
     margin-top: 1rem;
-}
-.product-image {
-    max-width: 150px; /* Set a maximum width for product images */
-    height: auto; /* Maintain aspect ratio */
-    margin-top: 1rem;
-    border-radius: 8px;
 }
 
 .product-image {
@@ -401,8 +396,4 @@ body {
     height: auto;
     margin-top: 1rem;
     border-radius: 8px;
-}
-
-.commercialization {
-    padding-bottom: 100px; /* Provide space for the footer */
 }
