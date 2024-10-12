@@ -60,32 +60,6 @@ const firebaseConfig = {
            hideModal(loginModal);
        }
    });
-   
-// JavaScript for Smooth Scrolling 
-    // Select all sections with the "full-screen" class
-    const sections = document.querySelectorAll('.full-screen');
-
-    // Use IntersectionObserver to detect when each section is in view
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    // Add 'active' class when section is in view for smooth transitions
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
-                }
-            });
-        },
-        {
-            threshold: 0.5, // Trigger when 50% of the section is visible
-        }
-    );
-
-    // Observe each section
-    sections.forEach((section) => {
-        observer.observe(section);
-    });
 
     // Smooth scroll when clicking internal links
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

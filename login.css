@@ -72,6 +72,7 @@ body {
 /* ------------------------------ */
 .hero-section,
 .commercialization,
+.product-offerings,
 .benefits-section,
 .cta-section {
   transition: transform 0.8s ease, opacity 0.8s ease;
@@ -87,15 +88,6 @@ h1, h2 {
 
 h2 {
   color: var(--accent-color);
-}
-
-h1 {
-  font-size: 1.8rem;
-  color: white;
-}
-
-h2, .section-title {
-  text-align: center;
 }
 
 .introd {
