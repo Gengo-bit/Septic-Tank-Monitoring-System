@@ -1,188 +1,156 @@
-/* login.html*/
 :root {
-    --logo-color: #f4c542;
-    --accent-color: #ff9a3b;
-    --background-color: #f5f5f5;
-    --text-color: #333;
-    --button-hover: #e68a2e;
+    --base-color: #a4a4a4; /* Lighter base color for secondary elements */
+    --base-variant: #e4e4e4; /* Light background for text areas */
+    --text-color: #2d3a4b; /* Text color for light mode */
+    --secondary-text: #5c6f81; /* Lighter secondary text color */
+    --primary-color: #1f1f1f; /* Primary color for headings */
+    --accent-color: #f4c542; /* Yellow accent */
+    --header-bg: #e4e4e4; /* Light background for header */
+    --footer-bg: #e4e4e4; /* Light background for footer */
+    --header-text-color: #2d3a4b; /* Dark text color for header */
+    --footer-text-color: #2d3a4b; /* Dark text color for footer */
+    --transition-duration: 0.4s;
 }
-/* Main Page Styling */
-.login-html {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f4c542, #ff9a3b);
-    display: flex;
-    flex-direction: column; /* Use column layout for better scrolling */
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 100vh; /* Change to min-height to allow content to expand */
-    margin: 0;
-    overflow-y: auto; /* Enable vertical scrolling */
-    animation: backgroundSlide 10s ease-in-out infinite;
-}
-  
-  /* Background animation */
-  @keyframes backgroundSlide {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-  
-  /* Container Styling */
-  .login-container {
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 450px;
-    animation: fadeIn 0.5s ease-in-out;
-}
-  
-/* Smooth fade-in for modal */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-  
-  /* Logo Styling */
-  .login-logo {
-    width: 120px;
-    height: auto;
-    margin-bottom: 1.5rem;
-    animation: logoBounce 1.2s ease-in-out;
-  }
-  
-  /* Logo bounce animation */
-  @keyframes logoBounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-  }
-  
-  /* Form Styling */
-  .login-formm {
-    display: flex;
-    flex-direction: column;
-}
-  
-  /* Input Fields */
-  .input-email, .input-pass {
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: box-shadow 0.3s ease;
-}
-  
-  /* Input focus effect */
-  .input-email:focus, .input-pass:focus {
-    box-shadow: 0 0 8px rgba(244, 197, 66, 0.6); /* Logo color shadow */
-    outline: none;
-}
-  
-  /* Button Styling */
-  .login-btn {
-    background-color: var(--logo-color); /* Logo color */
-    color: white;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    margin-bottom: 10px;
-}
-  
-  /* Hover effect on button */
-  .login-btn:hover {
-    background-color: var(--accent-color); /* Accent color on hover */
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-  /* Button click effect */
-  .login-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Apply Link */
-  .login-formm a {
-    text-decoration: none;
-    color: #9a66ff;
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-  
-  /* Link hover effect */
-  .login-formm a:hover {
-    color: #6a33cc;
-  }
-  
-  /* Error Message */
-  .error-message {
-    color: #ff4c4c;
-    margin-top: 1rem;
-    text-align: center;
-    animation: shake 0.3s ease-in-out;
-}
-  
-  /* Error shake animation */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-5px); }
-    40%, 80% { transform: translateX(5px); }
+
+.darkmode {
+    --base-color: #121212; /* Dark mode background */
+    --base-variant: #1f1f1f; /* Dark mode variant */
+    --text-color: #e4e4e4; /* Light text color in dark mode */
+    --secondary-text: #a4a4a4; /* Secondary text color in dark mode */
+    --primary-color: #e4e4e4; /* Light color for headings in dark mode */
+    --accent-color: #f4c542; /* Yellow accent */
+    --header-bg: #1f1f1f; /* Dark background for header */
+    --footer-bg: #1f1f1f; /* Dark background for footer */
+    --header-text-color: #e4e4e4; /* Light text color for header in dark mode */
+    --footer-text-color: #e4e4e4; /* Light text color for footer in dark mode */
 }
 
 /* General Styles */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Branding and Header */
+html {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--base-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+/* Branding Section */
 .branding {
-    background-color: var(--accent-color);
-    padding: 20px 40px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+    padding: 20px 30px;
+    background-color: var(--header-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .branding .logo {
     width: 50px;
-    margin-right: 10px;
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); /* Enhances logo visibility */
+    height: auto; /* Keep the logo's proportions */
+    margin-right: 15px;
 }
 
 .branding h1 {
-    color: #fff; /* White text for contrast */
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin: 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--header-text-color);
 }
 
-.login-toggle-btn {
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 102;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.4s ease; /* Smooth fade-in transition */
+}
+
+.modal.show { /* Class to show the modal */
+    display: flex; /* Make modal visible */
+    opacity: 1;    /* Fade in */
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--base-variant);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    transform: scale(0.8); /* Start smaller */
+    opacity: 0; /* Start hidden */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scale and fade */
+}
+
+.modal.show .modal-content {
+    transform: scale(1);  /* Scale up */
+    opacity: 1;  /* Fade in */
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
     padding: 10px 20px;
-    background-color: var(--logo-color); /* Logo color */
-    color: white;
+    background-color: var(--primary-color);
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
-.login-toggle-btn:hover {
-    background-color: var(--button-hover); /* Darker orange on hover */
+.modal-content button:hover {
+    background-color: var(--accent-color);
+}
+
+/* Close button styling */
+.close {
+    position: absolute;
+    top: 10px;  
+    right: 10px;  
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color); 
+    background: none;
+    border: none;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--accent-color); /* Change color on hover */
 }
 
 /* Introduction Section */
@@ -197,15 +165,6 @@ body {
     max-width: 1200px; /* Max width for larger screens */
 }
 
-.introduction h2 {
-    font-size: 2rem;
-}
-
-.introduction p {
-    font-size: 1.1rem;
-    color: var(--text-color);
-}
-
 /* Product Offerings Section */
 .product-offerings {
     display: flex;
@@ -215,13 +174,13 @@ body {
 }
 
 .product {
-    width: 45%;
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     color: var(--text-color);
+    width: 45%;
     margin-bottom: 20px;
 }
 
@@ -248,24 +207,7 @@ body {
 
 .product ul li {
     padding: 5px 0;
-    color: var(--tex-color); /* Ensure list items are visible */
-}
-/* Smooth transitions for sections */
-section {
-    padding: 60px 20px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Benefits Section Animation */
-.benefits-section .benefit-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease-in-out;
-}
-
-.benefits-section .benefit-item:hover {
-    opacity: 1;
-    transform: translateY(0);
+    color: var(--text-color); /* Ensure list items are visible */
 }
 
 /* Benefits Section */
@@ -284,25 +226,18 @@ section {
     margin-bottom: 20px;
 }
 
-.benefit-item {
-    margin-bottom: 20px;
-}
-
 /* Call to Action */
 .cta-section {
-    background-color: #f4c542; /* Match logo color */
+    background-color: var(--accent-color); /* Match logo color */
     color: #333; /* Darker text for readability */
     padding: 30px;
     text-align: center;
     border-radius: 12px;
 }
+
 .cta-section h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
-}
-
-.cta-section p {
-    font-size: 1.1rem;
 }
 
 .cta-btn {
@@ -317,131 +252,11 @@ section {
 }
 
 .cta-btn:hover {
-    background-color: #f44336; /* More pronounced hover effect */
+    background-color: #e68a2e; /* More pronounced hover effect */
     transform: scale(1.05);
 }
-/* Button Hover Effects */
-.cta-btn, .login-btn {
-    transition: background-color 0.3s, transform 0.2s;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 8px;
-}
 
-.cta-btn:hover, .login-btn:hover {
-    background-color: #e68a2e; /* Slightly darker orange */
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Login Container */
-.login-container {
-    background-color: white;
-    padding: 30px;
-    margin: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: none;
-}
-
-.hidden {
-    display: none;
-}
-
-.login-container h3 {
-    margin-bottom: 20px;
-}
-
-.login-container .login-btn {
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.login-container .login-btn:hover {
-    background-color: #e3b12c;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .product-offerings {
-        flex-direction: column;
-    }
-
-    .product {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .introduction h2 {
-        font-size: 1.5rem;
-    }
-
-    .product h3 {
-        font-size: 1.3rem;
-    }
-
-    .cta-section h2 {
-        font-size: 1.5rem;
-    }
-}
-
-/* Modal Styles */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the modal */
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Darker semi-transparent background */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000; /* Ensure the modal appears on top */
-    overflow-y: auto; /* Allow scrolling if needed */
-    transition: opacity 0.3s ease-in-out; /* Smooth fade-in effect */
-}
-.modal.show { /* Show modal */
-    display: flex; /* Make it visible */
-    opacity: 1;
-}
-.modal .login-container {
-    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency */
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow */
-    max-width: 450px;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.close-modal {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #333;
-}
-/* Image Sizing */
-.section-image, .product-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin-top: 1rem;
-}
-
-.product-image {
-    max-width: 150px;
-    height: auto;
-    margin-top: 1rem;
-    border-radius: 8px;
-}
-
+/* Testimonials Section */
 .testimonials {
     background-color: #fff;
     padding: 20px;
@@ -458,17 +273,7 @@ section {
     margin-bottom: 20px;
 }
 
-.testimonials blockquote {
-    font-style: italic;
-    color: var(--text-color);
-    margin-bottom: 15px;
-}
-
-.testimonials cite {
-    display: block;
-    margin-top: 5px;
-    color: #777;
-}
+/* FAQ Section */
 .faq {
     background-color: #fff;
     padding: 20px;
@@ -491,7 +296,7 @@ section {
 
 .faq-item h4 {
     font-size: 1.2rem;
-    color: var(--logo-color);
+    color: var(--accent-color);
 }
 
 .faq-item p {
@@ -499,6 +304,8 @@ section {
     color: var(--text-color);
     margin-top: 5px;
 }
+
+/* Video Section */
 .video-demo {
     background-color: #fff;
     padding: 20px;
@@ -521,32 +328,14 @@ section {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-/* Typography Improvements */
-h1, h2, h3 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: #333; /* Professional dark color */
-}
 
-p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--text-color);
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-offerings {
+        flex-direction: column;
+    }
 
-/* Improve heading sizes for sections */
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-h3 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
+    .product {
+        width: 100%;
+    }
 }
