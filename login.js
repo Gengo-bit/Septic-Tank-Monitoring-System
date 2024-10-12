@@ -37,21 +37,4 @@ firebase.auth().onAuthStateChanged((user) => {
       });
   });  
 
-// Show Login Modal
-const loginToggleBtn = document.getElementById('login-toggle-btn');
-const loginModal = document.getElementById('login-modal');
-const closeModal = document.getElementById('close-modal');
 
-loginToggleBtn.addEventListener('click', () => {
-    loginModal.style.display = 'flex'; // Ensure the modal is visible
-});
-
-closeModal.addEventListener('click', () => {
-    loginModal.style.display = 'none'; // Hide the modal
-});
-
-window.addEventListener('click', (event) => {
-    if (event.target === loginModal) {
-        loginModal.style.display = 'none'; // Hide modal when clicking outside
-    }
-});
