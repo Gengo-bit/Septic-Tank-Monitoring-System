@@ -1,4 +1,4 @@
-/* General Styling */
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -14,9 +14,10 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
 }
 
-/* Commercialization Section */
+/* Container for all content */
 .commercialization {
   width: 100%;
   max-width: 1200px;
@@ -25,6 +26,7 @@ body {
   text-align: center;
 }
 
+/* Branding Section */
 .branding {
   display: flex;
   flex-direction: column;
@@ -38,35 +40,42 @@ body {
 }
 
 h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Introduction Section */
+.introduction {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.introduction h2 {
   font-size: 2rem;
   color: #333;
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-p {
-  font-size: 1rem;
+.introduction p {
+  font-size: 1.2rem;
   color: #555;
-  line-height: 1.6;
+  margin: 1.5rem 0;
 }
 
 .section-image {
   width: 100%;
   max-width: 600px;
-  margin: 20px 0;
+  margin-top: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Product Offerings */
+/* Product Offerings Section */
 .product-offerings {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .product {
@@ -74,43 +83,68 @@ p {
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 45%;
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: scale(1.05);
 }
 
 .product h3 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #f4c542;
   margin-bottom: 1rem;
 }
 
 .product p {
+  font-size: 1.1rem;
   color: #333;
   margin-bottom: 1rem;
 }
 
 .product ul {
   list-style: none;
+  padding: 0;
   margin-bottom: 1rem;
 }
 
 .product li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
   color: #555;
 }
 
 .product-image {
   width: 100px;
-  height: auto;
   margin-top: 1rem;
+}
+
+/* Call to Action */
+.cta-section {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 .cta-btn {
   background-color: #ff9a3b;
   color: #fff;
-  padding: 12px 20px;
+  padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
+  font-size: 1.2rem;
   font-weight: 600;
   transition: background-color 0.3s ease;
 }
@@ -121,42 +155,51 @@ p {
 
 /* Benefits Section */
 .benefits-section {
-  margin: 3rem 0;
+  margin: 4rem 0;
 }
 
 .benefits {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .benefit-item {
-  width: 45%;
   background-color: #fff;
+  width: 100%;
+  max-width: 350px;
   padding: 1.5rem;
   border-radius: 10px;
-  margin-bottom: 1.5rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+  transform: translateY(-10px);
 }
 
 .benefit-item h4 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #ff9a3b;
   margin-bottom: 0.5rem;
 }
 
 .benefit-item p {
+  font-size: 1rem;
   color: #555;
 }
 
 /* Testimonials */
 .testimonials {
-  margin: 3rem 0;
+  margin: 4rem 0;
+  text-align: center;
 }
 
 .testimonials h2 {
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 blockquote {
@@ -165,42 +208,54 @@ blockquote {
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
 }
 
 cite {
   display: block;
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #333;
+  text-align: right;
 }
 
 /* FAQ Section */
 .faq {
-  margin: 3rem 0;
+  margin: 4rem 0;
 }
 
 .faq-item {
-  margin-bottom: 1.5rem;
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-10px);
 }
 
 .faq-item h4 {
-  font-size: 1.2rem;
-  color: #f47c21;
-  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: #ff9a3b;
+  margin-bottom: 0.75rem;
 }
 
 .faq-item p {
+  font-size: 1rem;
   color: #555;
 }
 
 /* Video Section */
 .video-demo {
-  margin: 3rem 0;
+  margin: 4rem 0;
+  text-align: center;
 }
 
 .demo-video {
@@ -210,7 +265,7 @@ cite {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Login Modal */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -221,6 +276,7 @@ cite {
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .modal.show {
@@ -233,7 +289,6 @@ cite {
   border-radius: 12px;
   width: 100%;
   max-width: 400px;
-  position: relative;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   animation: modalFadeIn 0.5s ease;
 }
@@ -272,70 +327,45 @@ cite {
   background-color: #f47c21;
 }
 
-/* Form Styling (Shared with login.html) */
-.login-formm {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+/* Media Queries */
+@media (max-width: 768px) {
+  .product-offerings, .benefits {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .product, .benefit-item {
+      width: 100%;
+  }
+
+  h1 {
+      font-size: 2rem;
+  }
+
+  .section-image {
+      width: 90%;
+  }
 }
 
-.input-email, .input-pass {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: box-shadow 0.3s ease;
-}
+@media (max-width: 576px) {
+  h1 {
+      font-size: 1.8rem;
+  }
 
-.input-email:focus, .input-pass:focus {
-  box-shadow: 0 0 8px rgba(244, 197, 66, 0.6);
-  outline: none;
-}
+  h2 {
+      font-size: 1.6rem;
+  }
 
-.login-btn {
-  background-color: #f4c542;
-  color: white;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  margin-bottom: 10px;
-}
+  .cta-btn {
+      padding: 10px 16px;
+      font-size: 1rem;
+  }
 
-.login-btn:hover {
-  background-color: #ff9a3b;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+  .logo {
+      width: 80px;
+  }
 
-.login-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.login-formm a {
-  text-decoration: none;
-  color: #9a66ff;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.login-formm a:hover {
-  color: #6a33cc;
-}
-
-.error-message {
-  color: #ff4c4c;
-  margin-top: 1rem;
-  text-align: center;
-  animation: shake 0.3s ease-in-out;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
+  .modal-content {
+      padding: 1.5rem;
+  }
 }
