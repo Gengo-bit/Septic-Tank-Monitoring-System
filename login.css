@@ -3,13 +3,13 @@
 /* ------------------------------ */
 :root {
   --base-color: linear-gradient(135deg, #f0f0f0, #dcdcdc); /* Subtle grayscale gradient */
-  --base-variant: #f9f9f9; /* Added for benefits-section */
+  --base-variant: #f9f9f9; /* Variant for sections like benefits */
   --text-color: #333;
   --primary-color: #000; /* Dark grayscale for text */
   --accent-color: #555; /* Mid-tone grayscale for accents */
   --header-bg: linear-gradient(135deg, #333, #555); /* Darker gradient */
   --footer-bg: #222; /* Sleek, dark footer background */
-  --bg-light: #f4f4f4; /* Added for cta-section and video-demo */
+  --bg-light: #f4f4f4; /* Light background for CTA and video sections */
   --transition-duration: 0.4s;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --box-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.2);
@@ -82,7 +82,7 @@ body {
 /*          Typography             */
 /* ------------------------------ */
 h1, h2 {
-  font-family: 'Merriweather', serif; /* Use a serif font for headers */
+  font-family: 'Merriweather', serif; /* Serif font for headers */
   font-weight: 700;
 }
 
@@ -134,6 +134,22 @@ p {
 
 .logo:hover {
   transform: rotate(5deg) scale(1.1);
+}
+
+.login-toggle-btn {
+  background-color: #444;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.login-toggle-btn:hover {
+  background-color: #666;
+  transform: scale(1.05);
 }
 
 /* ------------------------------ */
