@@ -12,9 +12,12 @@
             if (user) {
                 // If the user is authenticated, redirect to home.html
                 window.location.href = 'home.html';
+            } else {
+                // If not authenticated, send to login.html
+                window.location.href = 'login.html';
             }
         });
-    </script>  
+    </script>   
 </head>
 <body>
 
@@ -107,8 +110,6 @@
         </div>
     </div>
 
-    <script src="login.js"></script>
-
     <!-- Modal Functionality -->
     <script>
         const loginToggleBtn = document.getElementById('login-toggle-btn');
@@ -145,5 +146,7 @@
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>    
+    <script src="login.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
