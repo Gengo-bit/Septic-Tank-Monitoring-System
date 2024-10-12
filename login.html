@@ -10,11 +10,13 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="login.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
+<!-- AOS CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
 </head>
 <body class="login-html">
 
@@ -36,30 +38,29 @@
         <!-- Product Offerings Section -->
         <div class="product-offerings" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
         <!-- Apply Scroll Animations to Elements -->
-<div class="product-offerings" data-aos="fade-up">
-    <div class="product" data-aos="fade-right">
-        <h3>Sensor Module - Only 1499 PHP</h3>
-        <p>Monitor septic tank levels with precision and reliability.</p>
-        <ul>
-            <li>High accuracy and durability</li>
-            <li>Water-resistant design</li>
-            <li>Easy installation and maintenance</li>
-        </ul>
-        <img src="assets/sensor_module.png" alt="Sensor Module" class="product-image">
-    </div>
-
-    <div class="product" data-aos="fade-left">
-        <h3>Monitoring Module - Only 4999 PHP</h3>
-        <p>Get real-time alerts and insights.</p>
-        <ul>
-            <li>Remote monitoring from any location</li>
-            <li>Custom alerts for critical levels</li>
-            <li>Detailed analytics and historical data</li>
-        </ul>
-        <img src="assets/monitoring_module.jpg" alt="Monitoring Module" class="product-image">
-    </div>
-</div>
-
+        <div class="product-offerings" data-aos="fade-up">
+            <div class="product" data-aos="fade-right">
+                <h3>Sensor Module - Only 1499 PHP</h3>
+                <p>Monitor septic tank levels with precision and reliability.</p>
+                <ul>
+                    <li>High accuracy and durability</li>
+                    <li>Water-resistant design</li>
+                    <li>Easy installation and maintenance</li>
+                </ul>
+                <img src="assets/sensor_module.png" alt="Sensor Module" class="product-image">
+            </div>
+        
+            <div class="product" data-aos="fade-left">
+                <h3>Monitoring Module - Only 4999 PHP</h3>
+                <p>Get real-time alerts and insights.</p>
+                <ul>
+                    <li>Remote monitoring from any location</li>
+                    <li>Custom alerts for critical levels</li>
+                    <li>Detailed analytics and historical data</li>
+                </ul>
+                <img src="assets/monitoring_module.jpg" alt="Monitoring Module" class="product-image">
+            </div>
+        </div>        
 
         <!-- Benefits Section -->
         <section class="benefits-section">
@@ -148,19 +149,18 @@ const loginModal = document.getElementById('login-modal');
 const closeModal = document.getElementById('close-modal');
 
 loginToggleBtn.addEventListener('click', () => {
-    loginModal.classList.add('show'); // Add the show class to display modal
+    loginModal.classList.add('show'); // Show the modal
 });
 
 closeModal.addEventListener('click', () => {
-    loginModal.classList.remove('show'); // Remove the show class to hide modal
+    loginModal.classList.remove('show'); // Hide the modal
 });
 
 window.addEventListener('click', (event) => {
     if (event.target === loginModal) {
-        loginModal.classList.remove('show');
+        loginModal.classList.remove('show'); // Hide modal when clicking outside
     }
 });
-
     </script>
 </body>
 </html>

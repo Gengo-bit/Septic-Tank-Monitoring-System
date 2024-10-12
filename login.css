@@ -38,11 +38,11 @@
     animation: fadeIn 0.5s ease-in-out;
 }
   
-/* Smooth fade-in */
+/* Smooth fade-in for modal */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
     to {
         opacity: 1;
@@ -210,7 +210,8 @@ body {
 .product-offerings {
     display: flex;
     justify-content: space-between;
-    padding: 40px 0;
+    padding: 40px 20px;
+    flex-wrap: wrap; /* Ensure items wrap on smaller screens */
 }
 
 .product {
@@ -220,6 +221,8 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    color: var(--text-color);
+    margin-bottom: 20px;
 }
 
 .product:hover {
@@ -230,12 +233,12 @@ body {
 .product h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: var(--text-color); /* Ensure the title is visible */
+    color: var(--text-color); /* Ensure text is visible */
 }
 
 .product p {
     font-size: 1.1rem;
-    color: var(--text-color); /* Ensure the description is visible */
+    color: var(--text-color); /* Ensure description is visible */
 }
 
 .product ul {
@@ -245,7 +248,7 @@ body {
 
 .product ul li {
     padding: 5px 0;
-    color: var(--text-color); /* Ensure the list items are visible */
+    color: var(--tex-color); /* Ensure list items are visible */
 }
 /* Smooth transitions for sections */
 section {
@@ -389,30 +392,29 @@ section {
 
 /* Modal Styles */
 .modal {
-    display: none; /* Initially hidden */
+    display: none; /* Hidden by default */
     position: fixed;
-    top: 50%; /* Ensure it's centered */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Center the modal */
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.7); /* Darker semi-transparent background */
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    overflow-y: auto; /* Allow scrolling within the modal if needed */
+    z-index: 2000; /* Ensure the modal appears on top */
+    overflow-y: auto; /* Allow scrolling if needed */
     transition: opacity 0.3s ease-in-out; /* Smooth fade-in effect */
 }
-.modal.show { /* Show modal with opacity */
-    display: flex; /* Ensure it shows flex and centers properly */
+.modal.show { /* Show modal */
+    display: flex; /* Make it visible */
     opacity: 1;
 }
 .modal .login-container {
-    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency for better focus */
+    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency */
     padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Slight shadow */
-    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow */
     max-width: 450px;
     animation: fadeIn 0.5s ease-in-out;
 }
