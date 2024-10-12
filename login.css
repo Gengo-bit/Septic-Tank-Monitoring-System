@@ -269,7 +269,7 @@ body {
   animation: videoFadeIn 0.8s ease;
 }
 
-/* Modal */
+/* Modal Styling */
 .modal {
   display: none;
   position: fixed;
@@ -281,6 +281,8 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 100;
+  backdrop-filter: blur(8px); /* Adds background blur */
+  animation: modalFadeIn 0.5s ease-in-out;
 }
 
 .modal.show {
@@ -289,20 +291,38 @@ body {
 
 .modal-content {
   background-color: #fff;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 12px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  animation: modalFadeIn 0.5s ease;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.6s ease;
+  text-align: center;
+  position: relative;
+}
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   font-size: 1.5rem;
   cursor: pointer;
+  color: #ff4c4c;
+}
+.close:hover {
+  color: #ff2a2a;
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
 }
 
 /* Keyframe Animations */
@@ -380,7 +400,68 @@ body {
     transform: scale(1);
   }
 }
+/* Input Fields */
+.input-email,
+.input-pass {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.8rem 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  font-size: 1.1rem;
+}
 
+.input-email:focus,
+.input-pass:focus {
+  border-color: #f4c542;
+  box-shadow: 0 0 8px rgba(244, 197, 66, 0.6);
+  outline: none;
+}
+/* Submit Button */
+.login-btn {
+  background-color: #f4c542;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+.login-btn:hover {
+  background-color: #ff9a3b;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Error Message */
+.error-message {
+  color: #ff4c4c;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Modal Responsive */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 2rem;
+    max-width: 90%;
+  }
+
+  .login-btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.8rem;
+  }
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .product-offerings, .benefits {
