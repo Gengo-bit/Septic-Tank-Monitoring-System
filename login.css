@@ -338,3 +338,51 @@ body {
         font-size: 1.5rem;
     }
 } 
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal .login-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Section Images */
+.section-image {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 1rem;
+    border-radius: 12px;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 1rem;
+    border-radius: 8px;
+}

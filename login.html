@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script>
         firebase.auth().onAuthStateChanged((user) => {
@@ -19,7 +19,7 @@
         });
     </script>    
 </head>
-<body>
+<body class="login-html">
 
     <!-- Main Commercialization Section -->
     <section class="commercialization">
@@ -33,6 +33,8 @@
         <div class="introduction">
             <h2>Smart Solutions for Septic Tank Management</h2>
             <p>Monitor your septic tanks efficiently with our state-of-the-art sensor and monitoring modules. Avoid costly overflows, reduce environmental risks, and stay informed with real-time data from anywhere.</p>
+            <!-- Suggestion: Add an image of a septic tank or a modern IoT monitoring dashboard here -->
+            <img src="assets/monitoring_dashboard.jpg" alt="Monitoring Dashboard" class="section-image">
         </div>
 
         <!-- Product Offerings Section -->
@@ -45,6 +47,8 @@
                     <li>Water-resistant design</li>
                     <li>Easy installation and maintenance</li>
                 </ul>
+                <!-- Suggestion: Add an image of the sensor module here -->
+                <img src="assets/sensor_module.jpg" alt="Sensor Module" class="product-image">
             </div>
 
             <div class="product">
@@ -55,6 +59,8 @@
                     <li>Custom alerts for critical levels</li>
                     <li>Detailed analytics and historical data</li>
                 </ul>
+                <!-- Suggestion: Add an image of the monitoring module here -->
+                <img src="assets/monitoring_module.jpg" alt="Monitoring Module" class="product-image">
             </div>
         </div>
 
@@ -79,6 +85,8 @@
                     <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
                 </div>
             </div>
+            <!-- Suggestion: Add an image showing data analytics or reports here -->
+            <img src="assets/data_insights.jpg" alt="Data Insights" class="section-image">
         </section>
 
         <!-- Call to Action -->
@@ -87,34 +95,45 @@
             <p>Contact us to get started today and make sure your septic system is running smoothly!</p>
             <button class="cta-btn">Contact Us</button>
         </section>
-
     </section>
 
-    <!-- Hidden Login Form -->
-    <div class="login-container hidden" id="login-container">
-        <form class="login-formm" id="login-form">
-            <h3>Login to Your Account</h3>
-            <input class="input-email" type="email" id="email" placeholder="Email" required>
-            <input class="input-pass" type="password" id="password" placeholder="Password" required>
-            <button class="login-btn" type="submit">Login</button>
-            <p>Don't have an account? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Apply here</a></p>
-        </form>
-        <p id="error-message" class="error-message"></p>
+    <!-- Login Form Modal -->
+    <div class="modal" id="login-modal">
+        <div class="login-container">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <form class="login-formm" id="login-form">
+                <h3>Login to Your Account</h3>
+                <input class="input-email" type="email" id="email" placeholder="Email" required>
+                <input class="input-pass" type="password" id="password" placeholder="Password" required>
+                <button class="login-btn" type="submit">Login</button>
+                <p>Don't have an account? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Apply here</a></p>
+            </form>
+            <p id="error-message" class="error-message"></p>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="login.js"></script>
     <script>
-        // Toggle Login Form
+        // Show Login Modal
         const loginToggleBtn = document.getElementById('login-toggle-btn');
-        const loginContainer = document.getElementById('login-container');
+        const loginModal = document.getElementById('login-modal');
+        const closeModal = document.getElementById('close-modal');
 
         loginToggleBtn.addEventListener('click', () => {
-            loginContainer.classList.toggle('hidden');
-            loginContainer.scrollIntoView({ behavior: 'smooth' });
+            loginModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == loginModal) {
+                loginModal.style.display = 'none';
+            }
         });
     </script>
-
 </body>
 </html>
