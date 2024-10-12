@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Septic Tank Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <script type="text/javascript" src="toggle-mode.js" defer></script>
+</head>
+<body>
+
+<!-- Header Section -->
+<div class="branding">
+    <div class="header-left">
+        <img src="assets/profile.png" alt="Profile" class="profile-pic">
+        <h2>Welcome back, @User!</h2> <!-- Dynamic User Welcome -->
+    </div>
+    <button id="sidebar-toggle" class="sidebar-toggle">
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon"></span>
+    </button>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button id="close-btn" class="close-btn">&times;</button>
+    <a href="javascript:void(0)" id="add-tank">Add Tank</a>
+    <a href="javascript:void(0)" id="delete-tank">Delete Tank</a>
+    <a href="javascript:void(0)" id="contact-us">Contact Us</a>
+    <a href="javascript:void(0)" id="about-us">About Us</a>
+    <a href="javascript:void(0)" id="Logout-btn">Log Out</a>
+    <button id="theme-switch-sidebar">
+        <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor">
+            <circle cx="12" cy="12" r="5"></circle>
+        </svg>
+        <svg id="sidebar-moon-icon" width="24" height="24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7.5 7.5 0 0021 12.79z"></path>
+        </svg>
+    </button>
+</div>
+
+<!-- Main Content -->
+<section class="tank-list">
+    <h2>Your Septic Tanks</h2>
+    <div class="tank-box">
+        <p><a href="index.html">Septic Tank 1</a></p>
+        <p><a href="index.html">Septic Tank 2</a></p>
+        <p><a href="index.html">Septic Tank 3</a></p>
+        <!-- Add more tanks dynamically if needed -->
+    </div>
+</section>
+
+<footer>
+    <div class="footer-right">
+        <img src="assets/logo.png" alt="Logo" class="footer-logo">
+        <p>Septic Tank Monitoring System | © 2024</p>
+    </div>
+</footer>
+
+<script>
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('close-btn');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.remove('sidebar-open');
+    });
+</script>
+
+</body>
+</html>
