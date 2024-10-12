@@ -372,17 +372,17 @@ body {
     color: #333;
 }
 
-/* Section Images */
-.section-image {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 1rem;
+/* Image Sizing */
+.section-image, .product-image {
+    max-width: 100%;
+    height: auto;
     border-radius: 12px;
+    margin-top: 1rem;
 }
 
 .product-image {
-    width: 100%;
-    max-width: 200px;
+    max-width: 150px;
+    height: auto;
     margin-top: 1rem;
     border-radius: 8px;
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script>
         firebase.auth().onAuthStateChanged((user) => {
@@ -33,7 +33,6 @@
         <div class="introduction">
             <h2>Smart Solutions for Septic Tank Management</h2>
             <p>Monitor your septic tanks efficiently with our state-of-the-art sensor and monitoring modules. Avoid costly overflows, reduce environmental risks, and stay informed with real-time data from anywhere.</p>
-            <!-- Suggestion: Add an image of a septic tank or a modern IoT monitoring dashboard here -->
             <img src="assets/monitoring_dashboard.jpg" alt="Monitoring Dashboard" class="section-image">
         </div>
 
@@ -47,8 +46,7 @@
                     <li>Water-resistant design</li>
                     <li>Easy installation and maintenance</li>
                 </ul>
-                <!-- Suggestion: Add an image of the sensor module here -->
-                <img src="assets/sensor_module.png" alt="Sensor Module" class="product-image">
+                <img src="assets/sensor_module.jpg" alt="Sensor Module" class="product-image">
             </div>
 
             <div class="product">
@@ -59,7 +57,6 @@
                     <li>Custom alerts for critical levels</li>
                     <li>Detailed analytics and historical data</li>
                 </ul>
-                <!-- Suggestion: Add an image of the monitoring module here -->
                 <img src="assets/monitoring_module.jpg" alt="Monitoring Module" class="product-image">
             </div>
         </div>
@@ -85,7 +82,6 @@
                     <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
                 </div>
             </div>
-            <!-- Suggestion: Add an image showing data analytics or reports here -->
             <img src="assets/data_insights.jpg" alt="Data Insights" class="section-image">
         </section>
 
@@ -122,7 +118,7 @@
         const closeModal = document.getElementById('close-modal');
 
         loginToggleBtn.addEventListener('click', () => {
-            loginModal.style.display = 'block';
+            loginModal.style.display = 'flex';
         });
 
         closeModal.addEventListener('click', () => {
