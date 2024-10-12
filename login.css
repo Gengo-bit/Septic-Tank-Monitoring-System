@@ -533,18 +533,8 @@ body {
     opacity: 1;
   }
 }
-
-.realtime-div {
-  background-image: url('assets/path/to/your-image.jpg'); /* Replace with your image path */
-  background-size: cover; /* This makes sure the image covers the entire div */
-  background-position: center; /* Center the image */
-  width: 100%; /* Set your desired width */
-  height: 300px; /* Set a fixed height */
-  border-radius: 12px; /* Optional: to make the corners rounded */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: to add shadow effect */
-  transition: transform 0.3s ease; /* Optional: for hover effects */
-}
-
-.realtime-div:hover {
-  transform: scale(1.05); /* Optional: scale effect on hover */
+.responsive-image {
+  width: 100%; /* Make it responsive */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 12px; /* Optional for rounded corners */
 }

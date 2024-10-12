@@ -28,8 +28,3 @@ const firebaseConfig = {
               });
       });
   });  
-
-  OnlineWebFonts_Com({
-    'Id':'.realtime-div',
-    'Data':__Animations['277373'],
-}).Play();
