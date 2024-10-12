@@ -5,19 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
+    <script src="login.js"></script>
     <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script>
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // If the user is authenticated, redirect to home.html
-                window.location.href = 'home.html';
-            } else {
-                // If not authenticated, send to login.html
-                window.location.href = 'login.html';
-            }
-        });
-    </script>    
 </head>
 <body class="login-html">
 
@@ -92,7 +82,22 @@
             <button class="cta-btn">Contact Us</button>
         </section>
     </section>
-
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <blockquote>
+            <p>"This system saved us thousands of pesos in potential repair costs! Highly recommend."</p>
+            <cite>- John D., satisfied customer</cite>
+        </blockquote>
+    </section>
+    
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h4>How does the sensor module work?</h4>
+            <p>The sensor module monitors the septic tank level in real-time and sends alerts if levels get critical.</p>
+        </div>
+    </section>
+    
     <!-- Login Form Modal -->
     <div class="modal" id="login-modal">
         <div class="login-container">
@@ -110,26 +115,5 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="login.js"></script>
-    <script>
-        // Show Login Modal
-        const loginToggleBtn = document.getElementById('login-toggle-btn');
-        const loginModal = document.getElementById('login-modal');
-        const closeModal = document.getElementById('close-modal');
-
-        loginToggleBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
-
-        closeModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target == loginModal) {
-                loginModal.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>

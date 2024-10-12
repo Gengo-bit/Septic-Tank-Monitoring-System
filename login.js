@@ -8,6 +8,16 @@ const firebaseConfig = {
   
   firebase.initializeApp(firebaseConfig);
   
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // If the user is authenticated, redirect to home.html
+        window.location.href = 'home.html';
+    } else {
+        // If not authenticated, send to login.html
+        window.location.href = 'login.html';
+    }
+});
+
   document.addEventListener('DOMContentLoaded', () => {
       const loginForm = document.getElementById('login-form');
       const errorMessage = document.getElementById('error-message');
@@ -28,3 +38,22 @@ const firebaseConfig = {
               });
       });
   });  
+
+// Show Login Modal
+const loginToggleBtn = document.getElementById('login-toggle-btn');
+const loginModal = document.getElementById('login-modal');
+const closeModal = document.getElementById('close-modal');
+
+loginToggleBtn.addEventListener('click', () => {
+    loginModal.style.display = 'flex'; // Change from 'none' to 'flex'
+});
+
+closeModal.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+});
