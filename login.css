@@ -7,35 +7,44 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--base-color);
+  background: var(--base-color);
   color: var(--text-color);
-  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
 :root {
-  --base-color: #a4a4a4; /* Lighter base color for secondary elements */
-  --base-variant: #e4e4e4; /* Light background for text areas */
-  --text-color: #2d3a4b; /* Text color for light mode */
-  --secondary-text: #5c6f81; /* Lighter secondary text color */
-  --primary-color: #1f1f1f; /* Primary color for headings */
-  --accent-color: #f4c542; /* Yellow accent */
-  --header-bg: #e4e4e4; /* Light background for header */
-  --footer-bg: #e4e4e4; /* Light background for footer */
-  --header-text-color: #2d3a4b; /* Dark text color for header */
-  --footer-text-color: #2d3a4b; /* Dark text color for footer */
+  --base-color: #f0f4f8;
+  --text-color: #2d3a4b;
+  --primary-color: #0077b6; /* Deeper blue */
+  --accent-color: #00b4d8; /* Soft pastel blue */
+  --header-bg: linear-gradient(135deg, #0077b6, #00b4d8); /* Gradient for header */
+  --footer-bg: #2d3a4b; /* Dark footer background */
   --transition-duration: 0.4s;
 }
+/* Footer */
+.main-footer {
+  background: var(--footer-bg);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
+.main-footer .social-media a {
+  margin: 0 10px;
+  display: inline-block;
+  transition: transform 0.3s;
+}
+
+.main-footer .social-media a:hover {
+  transform: scale(1.2);
+}
 /* Header Section */
 .main-header {
-  background-color: var(--bg-dark);
+  background: var(--header-bg);
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--header-text-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  animation: fadeInDown 0.5s ease;
+  color: white;
 }
 
 .logo-container {
@@ -44,15 +53,54 @@ body {
 }
 
 .logo {
-  width: 60px;
-  margin-right: 15px;
+  width: 70px;
   transition: transform 0.3s ease;
 }
 
 .logo:hover {
-  transform: scale(1.1);
+  transform: rotate(5deg) scale(1.1);
+}
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 60vh;
+  overflow: hidden;
 }
 
+#hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Typography */
+h1, h2 {
+  font-family: 'Merriweather', serif; /* Use a serif font for headers */
+  font-weight: 700;
+}
+
+h2 {
+  color: var(--accent-color);
+}
+
+p {
+  font-size: 1.1rem;
+}
 .main-header h1 {
   font-size: 1.8rem;
   color: white;
@@ -79,9 +127,9 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px;
   text-align: center;
-  background-color: white;
+  background: linear-gradient(to right, #f0f4f8, #fff); /* Soft gradient */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
 }
@@ -196,17 +244,17 @@ body {
 .cta-btn {
   background-color: var(--accent-color);
   color: white;
-  padding: 14px 28px;
+  padding: 10px 16px;
   border-radius: 8px;
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .cta-btn:hover {
-  background-color: var(--primary-color);
-  transform: translateY(-3px);
+  background: #48cae4; /* Slightly different shade */
+  transform: translateY(-5px);
 }
 
 /* Benefits Section */
@@ -353,7 +401,10 @@ body {
   display: flex;
   justify-content: space-between;
 }
-
+.features .feature-item:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease, background-color 0.3s;
+}
 .feature-item {
   background-color: white;
   border-radius: 12px;
@@ -421,7 +472,19 @@ body {
   text-align: center;
   font-size: 0.95rem;
 }
-
+/* Accessibility */
+@media (prefers-contrast: high) {
+  body {
+    background: black;
+    color: white;
+  }
+}
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .hero-section, .features, .cta-section {
+    padding: 20px;
+  }
+}
 /* Responsive Modal */
 @media (max-width: 768px) {
   .modal-content {
@@ -464,11 +527,6 @@ body {
 
   h2 {
     font-size: 1.6rem;
-  }
-
-  .cta-btn {
-    padding: 10px 16px;
-    font-size: 1rem;
   }
 
   .logo {
@@ -562,6 +620,14 @@ body {
   }
   to {
     transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
     opacity: 1;
   }
 }

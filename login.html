@@ -6,7 +6,7 @@
     <title>Septic Tank Monitoring System</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="login.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -27,6 +27,18 @@
         </div>
         <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
     </header>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero-section">
+        <video autoplay muted loop id="hero-video">
+            <source src="assets/intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay">
+            <h2>Smart Solutions for Septic Tank Management</h2>
+            <p>Monitor your septic tanks efficiently with our state-of-the-art sensor and monitoring modules.</p>
+        </div>
+    </section>
 
     <!-- Main Container -->
     <section class="commercialization">
@@ -150,7 +162,15 @@
             <p id="error-message" class="error-message"></p>
         </div>
     </div>
-
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <p>&copy; 2024 Septic Tank Monitoring System. All Rights Reserved.</p>
+        <div class="social-media">
+            <a href="#"><img src="assets/icons/facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="assets/icons/twitter.png" alt="Twitter"></a>
+            <a href="#"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+        </div>
+    </footer>
     <!-- Modal Functionality -->
     <script>
         const loginToggleBtn = document.getElementById('login-toggle-btn');
