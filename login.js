@@ -62,27 +62,37 @@ const firebaseConfig = {
    });
    
 // JavaScript for Smooth Scrolling 
-      const sections = document.querySelectorAll('.full-screen');
-      let isScrolling = false;
+    // Select all sections with the "full-screen" class
+    const sections = document.querySelectorAll('.full-screen');
 
-      function smoothScroll() {
-          if (!isScrolling) {
-              window.scrollTo({
-                  top: window.innerHeight * [...sections].indexOf(this),
-                  behavior: 'smooth'
-              });
-          }
-      }
+    // Use IntersectionObserver to detect when each section is in view
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Add 'active' class when section is in view for smooth transitions
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        },
+        {
+            threshold: 0.5, // Trigger when 50% of the section is visible
+        }
+    );
 
-      window.addEventListener('scroll', () => {
-          if (!isScrolling) {
-              isScrolling = true;
-              setTimeout(() => {
-                  isScrolling = false;
-              }, 1000);
-          }
-      });
+    // Observe each section
+    sections.forEach((section) => {
+        observer.observe(section);
+    });
 
-      sections.forEach((section) => {
-          section.addEventListener('click', smoothScroll);
-      });
+    // Smooth scroll when clicking internal links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth',
+            });
+        });
+    });
