@@ -9,7 +9,7 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   
   document.addEventListener('DOMContentLoaded', () => {
-      const loginForm = document.getElementById('login-form');
+      const loginForm = document.getElementById('login-modal');
       const errorMessage = document.getElementById('error-message');
   
       loginForm.addEventListener('submit', (e) => {
