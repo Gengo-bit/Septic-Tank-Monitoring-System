@@ -77,23 +77,22 @@
   
   /* Button Styling */
   .login-btn {
-    background-color: #f4c542;
+    background-color: #f4c542; /* Same color as the logo */
     color: white;
-    border: none;
     padding: 0.75rem;
     border-radius: 8px;
     font-size: 1.1rem;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    margin-bottom: 10px;
-  }
+}
   
   /* Hover effect on button */
   .login-btn:hover {
-    background-color: #ff9a3b;
+    background-color: #ff9a3b; /* Orange hover effect */
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
+}
   
   /* Button click effect */
   .login-btn:active {
@@ -138,7 +137,7 @@ body {
 
 /* Branding and Header */
 .branding {
-    background: linear-gradient(135deg, #2E7D32, #388E3C); /* Dark green school colors */
+    background-color: #ff9a3b; /* Keep the warm orange tone */
     padding: 20px 40px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -148,17 +147,19 @@ body {
 
 .branding .logo {
     width: 50px;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); /* Adds shadow for better visibility */
 }
 
 .branding h1 {
+    color: #fff; /* White text to contrast with the header background */
     font-size: 1.8rem;
     font-weight: 600;
-    margin-left: 10px;
 }
 
 .login-toggle-btn {
     padding: 10px 20px;
-    background-color: var(--accent-color);
+    background-color: #f4c542; /* Highlight button with the logo's color */
     color: white;
     border: none;
     border-radius: 5px;
@@ -167,7 +168,7 @@ body {
 }
 
 .login-toggle-btn:hover {
-    background-color: #e3b12c;
+    background-color: #ff9a3b; /* Hover color that matches the accent */
 }
 
 /* Introduction Section */
@@ -193,12 +194,10 @@ body {
 
 /* Product Offerings Section */
 .product-offerings {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin: 20px;
-    width: 90%; /* Adjust width */
-    max-width: 1200px; /* Ensure the section fits on larger screens */
+    background-color: #ff9a3b; /* Lighter orange background */
+    padding: 20px;
+    border-radius: 12px;
+    color: #fff; /* White text for better contrast */
 }
 
 .product {
@@ -256,14 +255,12 @@ body {
 
 /* Call to Action */
 .cta-section {
-    background: linear-gradient(135deg, #ff9800, #f44336); /* Brighter colors to grab attention */
-    color: white;
-    padding: 40px 20px;
+    background-color: #f4c542; /* Match logo color */
+    color: #333; /* Darker text for readability */
+    padding: 30px;
     text-align: center;
     border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
-
 .cta-section h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
@@ -347,13 +344,13 @@ body {
 
 /* Modal Styles */
 .modal {
-    display: none; /* Initially hidden */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Darker background */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -361,7 +358,7 @@ body {
 }
 
 .modal .login-container {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: #fff;
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);

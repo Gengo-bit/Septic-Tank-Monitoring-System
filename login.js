@@ -45,7 +45,7 @@ const loginModal = document.getElementById('login-modal');
 const closeModal = document.getElementById('close-modal');
 
 loginToggleBtn.addEventListener('click', () => {
-    loginModal.style.display = 'flex'; // Change from 'none' to 'flex'
+    loginModal.style.display = 'flex'; // Ensures modal becomes visible
 });
 
 closeModal.addEventListener('click', () => {
