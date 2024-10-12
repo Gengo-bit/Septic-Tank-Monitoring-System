@@ -8,14 +8,12 @@ const firebaseConfig = {
   
   firebase.initializeApp(firebaseConfig);
   
-  firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         // If the user is authenticated, redirect to home.html
         window.location.href = 'home.html';
-    } else {
-        // If not authenticated, send to login.html
-        window.location.href = 'login.html';
     }
+    // do nothing
 });
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -45,15 +43,15 @@ const loginModal = document.getElementById('login-modal');
 const closeModal = document.getElementById('close-modal');
 
 loginToggleBtn.addEventListener('click', () => {
-    loginModal.style.display = 'flex'; // Ensures modal becomes visible
+    loginModal.style.display = 'flex'; // Ensure the modal is visible
 });
 
 closeModal.addEventListener('click', () => {
-    loginModal.style.display = 'none';
+    loginModal.style.display = 'none'; // Hide the modal
 });
 
 window.addEventListener('click', (event) => {
     if (event.target === loginModal) {
-        loginModal.style.display = 'none';
+        loginModal.style.display = 'none'; // Hide modal when clicking outside
     }
 });
