@@ -12,22 +12,35 @@ body {
 }
 
 :root {
-  --base-color: linear-gradient(135deg, #a4a4a4, #e4e4e4); /* Soft gradient */
+  --base-color: linear-gradient(135deg, #cfd9df, #e2ebf0); /* Soft gradient background */
   --text-color: #2d3a4b;
-  --primary-color: #1f1f1f; /* Dark, professional primary color */
-  --accent-color: #f4c542; /* Softer pastel yellow accent */
-  --header-bg: linear-gradient(135deg, #e4e4e4, #ffffff); /* Light gradient */
-  --footer-bg: #2d3a4b; /* Dark footer background */
+  --primary-color: #013a63; /* Dark, professional primary color */
+  --accent-color: #006d77; /* Soft teal accent */
+  --header-bg: linear-gradient(135deg, #005f73, #0a9396); /* Enhanced gradient for header */
+  --footer-bg: #343a40; /* Darker and sleek footer background */
   --transition-duration: 0.4s;
 }
 /* Footer */
 .main-footer {
   background: var(--footer-bg);
   color: white;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
 }
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-links a {
+  color: #adb5bd;
+  margin: 0 10px;
+  font-size: 0.9rem;
+}
 
+.footer-links a:hover {
+  color: #ffffff;
+}
 .main-footer .social-media a {
   margin: 0 5px;
   display: inline-block;
@@ -40,6 +53,16 @@ body {
 .main-footer .social-media a:hover {
   transform: scale(1.2);
 }
+.social-media a img {
+  width: 20px;
+  margin: 0 5px;
+  opacity: 0.8;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.social-media a:hover img {
+  transform: scale(1.2);
+  opacity: 1;
+}
 
 /* Header Section */
 .main-header {
@@ -48,7 +71,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--text-color);
+  color: white;
   border-bottom: 1px solid #ccc;
 }
 .logo-container {
@@ -113,19 +136,19 @@ p {
 }
 
 .login-toggle-btn {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: white;
-  padding: 12px 24px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
+  border-radius: 20px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .login-toggle-btn:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-3px);
+  background-color: #2a9d8f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Container for all content */
@@ -169,30 +192,38 @@ p {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   animation: imageZoomIn 0.5s ease;
 }
-
-/* Product Offerings Section */
+.section-title {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+/* Product Offerings */
 .product-offerings {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 40px 0;
-  padding: 20px;
   background: var(--base-color);
-  border-radius: 10px;
+  padding: 40px;
+  border-radius: 12px;
+  margin: 40px 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .product {
-  width: 45%;
   background: white;
   padding: 20px;
-  margin: 10px;
+  width: 48%;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
 
 .product:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
 }
 
 .product h3 {
@@ -364,8 +395,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 102;
+  background-color: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
   opacity: 0;
@@ -374,25 +404,32 @@ p {
 
 .modal.show {
   display: flex;
-  opacity: 1; /* Fade in */
+  opacity: 1;
 }
+
 .modal.show .modal-content {
   transform: scale(1);  /* Scale up */
   opacity: 1;  /* Fade in */
 }
 .modal-content {
-  position: relative;
-  background-color: var(--base-variant);
-  padding: 20px;
+  background: white;
+  padding: 30px;
   border-radius: 12px;
   width: 80%;
   max-width: 400px;
   text-align: center;
-  transform: scale(0.8); /* Start smaller */
-  opacity: 0; /* Start hidden */
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: scaleUp 0.3s ease;
 }
-
+@keyframes scaleUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 .close {
   position: absolute;
   top: 15px;

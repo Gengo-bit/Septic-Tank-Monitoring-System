@@ -44,33 +44,36 @@
     <section class="commercialization">
         <!-- Introduction Section -->
         <div class="introduction">
-            <h2>Smart Solutions for Septic Tank Management</h2>
-            <p>Monitor your septic tanks efficiently with our state-of-the-art sensor and monitoring modules.</p>
-            <div class="section-image realtime-div"></div>
+            <h2>Efficient & Reliable Monitoring</h2>
+            <p>Get real-time insights to keep your septic system running smoothly.</p>
+            <!-- Suggestion: Add a background image of a sensor close-up or a data dashboard screenshot -->
+            <div class="section-image realtime-div" style="background-image: url('assets/dashboard_preview.png');"></div>
         </div>
 
         <!-- Product Offerings Section -->
         <div class="product-offerings">
-            <h2>Our Products</h2>
-            <div class="product">
-                <h3>Sensor Module - Only 1499 PHP</h3>
-                <p>Monitor septic tank levels with precision and reliability.</p>
-                <ul>
-                    <li>High accuracy and durability</li>
-                    <li>Water-resistant design</li>
-                    <li>Easy installation and maintenance</li>
-                </ul>
-                <div class="product-image" style="background-image: url('assets/sensor_module.png');"></div>
-            </div>
-            <div class="product">
-                <h3>Monitoring Module - Only 4999 PHP</h3>
-                <p>Get real-time alerts and insights.</p>
-                <ul>
-                    <li>Remote monitoring from any location</li>
-                    <li>Custom alerts for critical levels</li>
-                    <li>Detailed analytics and historical data</li>
-                </ul>
-                <div class="product-image" style="background-image: url('assets/monitoring_module.jpg');"></div>
+            <h2 class="section-title">Our Products</h2>
+            <div class="product-container">
+                <div class="product">
+                    <h3>Sensor Module - Only 1499 PHP</h3>
+                    <p>Monitor septic tank levels with precision and reliability.</p>
+                    <ul>
+                        <li>High accuracy and durability</li>
+                        <li>Water-resistant design</li>
+                        <li>Easy installation and maintenance</li>
+                    </ul>
+                    <div class="product-image" style="background-image: url('assets/sensor_module.png');"></div>
+                </div>
+                <div class="product">
+                    <h3>Monitoring Module - Only 4999 PHP</h3>
+                    <p>Get real-time alerts and insights.</p>
+                    <ul>
+                        <li>Remote monitoring from any location</li>
+                        <li>Custom alerts for critical levels</li>
+                        <li>Detailed analytics and historical data</li>
+                    </ul>
+                    <div class="product-image" style="background-image: url('assets/monitoring_module.jpg');"></div>
+                </div>
             </div>
         </div>
 
@@ -118,27 +121,34 @@
 
     </section>
 
-    <!-- Login Modal -->
+    <!-- Modal -->
     <div class="modal" id="login-modal">
         <div class="modal-content">
             <span class="close" id="close-modal">&times;</span>
             <h3>Login to Your Account</h3>
-            <form class="login-form" id="login-modal">
+            <form class="login-form" id="login-form">
                 <input class="input-email" type="email" id="email" placeholder="Email" required>
                 <input class="input-pass" type="password" id="password" placeholder="Password" required>
                 <button class="login-btn" type="submit">Login</button>
                 <p>Don't have an account? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Apply here</a></p>
-            </form>            
+            </form>
             <p id="error-message" class="error-message"></p>
         </div>
     </div>
     <!-- Footer Section -->
     <footer class="main-footer">
-        <p>&copy; 2024 Septic Tank Monitoring System. All Rights Reserved.</p>
-        <div class="social-media">
-            <a href="#"><img src="assets/icons/facebook.png" alt="Facebook"></a>
-            <a href="#"><img src="assets/icons/twitter.png" alt="Twitter"></a>
-            <a href="#"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+        <div class="footer-content">
+            <p>&copy; 2024 Septic Tank Monitoring System. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="social-media">
+                <a href="#"><img src="assets/icons/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="assets/icons/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+            </div>
         </div>
     </footer>
     <!-- Modal Functionality -->
