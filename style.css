@@ -556,6 +556,7 @@ footer p, footer a {
   40%, 80% { transform: translateX(5px); }
 }
 
+/* Responsive Commercialization Section */
 .commercialization {
   padding: 2rem;
   background-color: var(--base-variant);
@@ -570,18 +571,23 @@ footer p, footer a {
   margin-bottom: 1rem;
 }
 
+/* Flex container for product offerings */
 .product-offerings {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap; /* Ensure items wrap on small screens */
   margin-top: 2rem;
 }
 
 .product {
-  width: 45%;
+  flex: 1;
+  min-width: 280px; /* Minimum width to make items responsive */
+  margin: 0.5rem;
   background-color: var(--base-color);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product h3 {
@@ -595,6 +601,12 @@ footer p, footer a {
   margin-bottom: 1rem;
 }
 
+.product:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Benefits section */
 .benefits {
   margin-top: 2rem;
   text-align: left;
@@ -604,4 +616,31 @@ footer p, footer a {
 
 .benefits li {
   margin-bottom: 0.5rem;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .product-offerings {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .product {
+      width: 100%;
+      max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+      width: 90%;
+  }
+
+  .commercialization h2 {
+      font-size: 1.5rem;
+  }
+
+  .product h3 {
+      font-size: 1.2rem;
+  }
 }
