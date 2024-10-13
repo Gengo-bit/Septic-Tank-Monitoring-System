@@ -28,15 +28,9 @@ let previousTimestamp = null;
 
 // Authentication check and app initialization
 auth.onAuthStateChanged((user) => {
-  if (user) {
-      // User is authenticated, proceed to initialize the app
-      initializeApp();
-  } else {
-      // Optionally redirect to login.html (if you want to protect this page too)
-      // window.location.href = 'login.html';
-  }
+  if (user) initializeApp();
+  else window.location.href = 'login.html';
 });
-
 
 function initializeApp() {
   // Fetch tank dimensions
