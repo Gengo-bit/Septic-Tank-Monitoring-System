@@ -74,5 +74,22 @@
         sidebar.classList.remove('sidebar-open');
     });
 </script>
+<script>
+    // Firebase Authentication
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // Sign the user out when the page refreshes
+        firebase.auth().signOut().then(() => {
+            // Redirect to login page after sign-out
+            window.location.href = 'login.html';
+        }).catch((error) => {
+            console.error('Error signing out: ', error);
+        });
+    } else {
+        // If no user is logged in, redirect to login page
+        window.location.href = 'login.html';
+    }
+});
+</script>
 </body>
 </html>
