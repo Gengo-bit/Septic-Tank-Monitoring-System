@@ -117,6 +117,35 @@
 <script src="src/index.js"></script>
 <script src="dist/bundle.js"></script>
 
+<!-- Authentication Check -->
+<script>
+    firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+            // Redirect to login if no user is authenticated
+            window.location.href = 'login.html';
+        }
+    });
+
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+<script>
+// Firebase Authentication
+firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+        // If no user is logged in, redirect to login page
+        window.location.href = 'login.html';
+    }
+});
+
+// Sign the user out if the page is refreshed or closed
+window.addEventListener('beforeunload', () => {
+    firebase.auth().signOut().catch((error) => {
+        console.error('Error signing out: ', error);
+    });
+});
+</script>
 <script>
     // Add event listener to the Logout button
     document.getElementById('Logout-btn').addEventListener('click', function() {
