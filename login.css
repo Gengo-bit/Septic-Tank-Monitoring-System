@@ -5,16 +5,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; /* Ensures content is stacked vertically */
-  padding: 0; /* Ensure no extra padding affects the layout */
-  opacity: 0;
-  transform: translateY(50px); /* For the animation effect */
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  flex-direction: column; /* Stack content vertically */
+  padding: 0; /* Ensure no extra padding affects layout */
+  opacity: 0; /* Start hidden */
+  transform: translateY(20px); /* Start slightly below */
+  transition: opacity 0.6s ease, transform 0.6s ease; /* Transition effect */
 }
 /* When section is in view, make it visible */
 .full-screen.active {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move to normal position */
 }
 /* Smooth Scroll Behavior */
 html, body {
@@ -36,13 +36,7 @@ section {
   background-color: var(--base-variant);
   text-align: center;
 }
-.section {
-  opacity: 0; /* Start hidden */
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.section.animate-in {
-  animation: fadeInUp 0.8s ease forwards; /* Play the fade-in animation */
-}
+
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -92,15 +86,6 @@ section {
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-.full-screen {
-  transition: opacity 0.8s ease, transform 0.8s ease; /* Keep the smooth animation */
-  transform: translateY(0); /* Remove any lifted appearance */
-  opacity: 1; /* Ensure sections are fully visible */
-}
-.full-screen.active {
-  opacity: 1;
-  transform: translateY(0);
-}
 /* General Reset */
 * {
   margin: 0;
@@ -865,11 +850,11 @@ p {
 /* Smooth Scroll Animation Keyframes */
 @keyframes fadeInUp {
   from {
-    opacity: 0;
+    opacity: 0; /* Start hidden */
     transform: translateY(20px); /* Start slightly below */
   }
   to {
-    opacity: 1;
+    opacity: 1; /* Fully visible */
     transform: translateY(0); /* Move to normal position */
   }
 }
