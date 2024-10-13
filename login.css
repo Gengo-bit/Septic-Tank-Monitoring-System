@@ -425,10 +425,11 @@ p {
 }
 
 .product-container {
-  display: flex; /* Use flexbox layout */
-  justify-content: center; /* Center cards horizontally */
-  gap: 20px; /* Space between cards */
-  padding: 20px; /* Padding around the container */
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* Increase the space between the cards */
+  padding: 20px;
+  flex-wrap: wrap; /* Ensure responsiveness on smaller screens */
 }
 .product-container {
   align-items: stretch; /* Stretch cards to the same height */
@@ -436,23 +437,22 @@ p {
 
 /* Product Card */
 .product-card {
-  background-color: #ffffff; /* White background for cards */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 20px; /* Padding inside the card */
-  transform: scale(1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effects */
-  text-align: center; /* Center-align text */
-  flex: 1; /* Allow cards to grow equally */
-  max-width: 400px; /* Maximum width for the card */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  flex: 1 1 40%; /* Allow cards to take up 40% of the container width */
+  max-width: 500px; /* Set a maximum width for large screens */
   margin: 0; /* Remove default margin */
 }
 
 
 /* Hover Effect */
 .product-card:hover {
-  transform: scale(1.05); /* Scale up slightly on hover */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+  transform: scale(1.06); /* Slight zoom on hover */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .product {
@@ -1017,6 +1017,19 @@ p {
 
   .main-footer .social-media a img {
     width: 16px; /* Even smaller icons */
+  }
+}
+@media (max-width: 768px) {
+  .product-card {
+      flex: 1 1 100%; /* Make cards full-width on tablets */
+      max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+      flex: 1 1 100%; /* Make cards full-width on mobile */
+      max-width: 100%;
   }
 }
 
