@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <script type="text/javascript" src="toggle-mode.js" defer></script>
-    <script src="auth.js"></script>
 </head>
 <body>
 
@@ -16,7 +15,6 @@
 <div class="branding">
     <img src="assets/logo.png" alt="Logo" class="logo">
     <h1>Septic Tank Monitoring System</h1>
-    <!-- Sidebar Toggle Button with Hamburger Icon -->
     <button id="sidebar-toggle" class="sidebar-toggle">
         <span class="hamburger-icon"></span>
         <span class="hamburger-icon"></span>
@@ -52,7 +50,6 @@
     <a href="javascript:void(0)" id="settings-btn">Settings</a>
     <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
     <a href="javascript:void(0)" id="Logout-btn">Logout</a>
-    <!-- Dark/Light Mode Button at the Bottom -->
     <button id="theme-switch-sidebar">
         <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor">
             <circle cx="12" cy="12" r="5"></circle>
@@ -73,19 +70,19 @@
 <!-- Modal for Settings -->
 <div id="settingsModal" class="modal">
     <div class="modal-content">
-      <span class="close-settings">&times;</span>
-      <h2>Tank Settings</h2>
-      <form id="settingsForm">
-        <label for="input-tankHeight">Tank Height (cm):</label>
-        <input type="number" id="input-tankHeight" value="35">
-        <label for="input-tankLength">Tank Length (cm):</label>
-        <input type="number" id="input-tankLength" value="45">
-        <label for="input-tankWidth">Tank Width (cm):</label>
-        <input type="number" id="input-tankWidth" value="45">
-        <button type="button" id="save-settings">Save</button>
-      </form>
+        <span class="close-settings">&times;</span>
+        <h2>Tank Settings</h2>
+        <form id="settingsForm">
+            <label for="input-tankHeight">Tank Height (cm):</label>
+            <input type="number" id="input-tankHeight" value="35">
+            <label for="input-tankLength">Tank Length (cm):</label>
+            <input type="number" id="input-tankLength" value="45">
+            <label for="input-tankWidth">Tank Width (cm):</label>
+            <input type="number" id="input-tankWidth" value="45">
+            <button type="button" id="save-settings">Save</button>
+        </form>
     </div>
-  </div>  
+</div>
 
 <!-- Modal for Thresholds -->
 <div id="thresholdModal" class="modal">
@@ -117,35 +114,17 @@
 <script src="src/index.js"></script>
 <script src="dist/bundle.js"></script>
 
-<!-- Authentication Check -->
+<!-- Authentication Check (only keep this if necessary) -->
 <script>
+    // This will redirect to login.html if no user is authenticated.
     firebase.auth().onAuthStateChanged((user) => {
         if (!user) {
-            // Redirect to login if no user is authenticated
+            console.log('No user found, redirecting to login...');
             window.location.href = 'login.html';
         }
     });
-
-    function scrollToSection(sectionId) {
-        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-    }
 </script>
-<script>
-// Firebase Authentication
-firebase.auth().onAuthStateChanged((user) => {
-    if (!user) {
-        // If no user is logged in, redirect to login page
-        window.location.href = 'login.html';
-    }
-});
 
-// Sign the user out if the page is refreshed or closed
-window.addEventListener('beforeunload', () => {
-    firebase.auth().signOut().catch((error) => {
-        console.error('Error signing out: ', error);
-    });
-});
-</script>
 <script>
     // Add event listener to the Logout button
     document.getElementById('Logout-btn').addEventListener('click', function() {
@@ -156,6 +135,7 @@ window.addEventListener('beforeunload', () => {
             console.error('Logout Error: ', error);
         });
     });
-    </script>
+</script>
+
 </body>
 </html>
