@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home - Septic Tank Monitoring</title>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/png" href="assets/logo.png">
-        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-        <script src="dist/bundle.js"></script>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Septic Tank Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <!-- Firebase Scripts (Load before your custom scripts) -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script> -->
+</head>
+<body>
 
 <!-- Header Section -->
 <div class="branding">
@@ -54,7 +53,6 @@
         <p><a href="index.html">Septic Tank 1</a></p>
         <p><a href="index.html">Septic Tank 2</a></p>
         <p><a href="index.html">Septic Tank 3</a></p>
-        <!-- Add more tanks dynamically if needed -->
     </div>
 </section>
 
@@ -66,7 +64,24 @@
 </footer>
 
 <script>
-    // Sidebar toggle
+    // Add event listener to the Logout button after the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoutBtn = document.getElementById('Logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                firebase.auth().signOut().then(() => {
+                    // Redirect to login.html after successful logout
+                    window.location.href = 'login.html';
+                }).catch((error) => {
+                    console.error('Logout Error: ', error);
+                });
+            });
+        } else {
+            console.error('Logout button not found');
+        }
+    });
+
+    // Sidebar toggle logic
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar');
     const closeBtn = document.getElementById('close-btn');
@@ -79,32 +94,6 @@
         sidebar.classList.remove('sidebar-open');
     });
 </script>
-
-<script>
-// Firebase Authentication
-firebase.auth().onAuthStateChanged((user) => {
-    if (!user) {
-        // If no user is logged in, redirect to login page
-        window.location.href = 'login.html';
-    }
-});
-
-    // Add event listener to the Logout button after the DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        const logoutBtn = document.getElementById('Logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function() {
-                firebase.auth().signOut().then(() => {
-                    window.location.href = 'login.html';
-                }).catch((error) => {
-                    console.error('Logout Error: ', error);
-                });
-            });
-        } else {
-            console.error('Logout button not found');
-        }
-    });
-</script>
-
+<script src="dist/bundle.js"></script>
 </body>
 </html>
