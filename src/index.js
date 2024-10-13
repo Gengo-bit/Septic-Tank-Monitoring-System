@@ -26,20 +26,15 @@ let capacityChart, historicalChart;
 let previousVolume = null;
 let previousTimestamp = null;
 
-// Add a new authentication check without last page logic
+// Authentication check and app initialization
 auth.onAuthStateChanged((user) => {
-  if (!user) {
-      // User is not authenticated, redirect to login.html
-      window.location.href = 'login.html';
-  } else {
+  if (user) {
       // User is authenticated, proceed to initialize the app
       initializeApp();
+  } else {
+      // Optionally redirect to login.html (if you want to protect this page too)
+      // window.location.href = 'login.html';
   }
-});
-
-// Listen for page unload to save the last visited page
-window.addEventListener('beforeunload', () => {
-  localStorage.setItem('lastPage', window.location.pathname);
 });
 
 

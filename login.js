@@ -4,10 +4,19 @@ const firebaseConfig = {
     authDomain: "septic-tank-capacity.firebaseapp.com",
     projectId: "septic-tank-capacity",
     appId: "1:445055846573:web:166f5bcc5e6b8d40e6de24"
-  };
+};
   
   firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
   
+    // Check if the user is already authenticated
+    auth.onAuthStateChanged((user) => {
+    if (user) {
+        // User is authenticated, redirect to home.html
+        window.location.href = 'home.html';
+    }
+    });
+
   document.addEventListener('DOMContentLoaded', () => {
       const loginForm = document.getElementById('login-modal');
       const errorMessage = document.getElementById('error-message');
