@@ -27,10 +27,17 @@ let previousVolume = null;
 let previousTimestamp = null;
 
 // Authentication check and app initialization
+// Authentication check
 auth.onAuthStateChanged((user) => {
-  if (user) initializeApp();
-  else window.location.href = 'login.html';
+  if (!user) {
+      // User is not authenticated, redirect to login.html
+      window.location.href = 'login.html';
+  } else {
+      // User is authenticated, proceed to initialize the app
+      initializeApp();
+  }
 });
+
 
 function initializeApp() {
   // Fetch tank dimensions
