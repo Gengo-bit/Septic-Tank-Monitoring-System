@@ -7,7 +7,7 @@
   align-items: center;
   flex-direction: column; /* Ensures content is stacked vertically */
   padding: 0; /* Ensure no extra padding affects the layout */
-  /*opacity: 0; /* Start hidden */
+  opacity: 0;
   transform: translateY(50px); /* For the animation effect */
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
@@ -35,6 +35,13 @@ section {
   padding: 80px 0;
   background-color: var(--base-variant);
   text-align: center;
+}
+.section {
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section.animate-in {
+  animation: fadeInUp 0.8s ease forwards; /* Play the fade-in animation */
 }
 .section-title {
   font-size: 2.5rem;
@@ -278,18 +285,20 @@ p {
 }
 
 .login-toggle-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: var(--accent-color);
-  border: none;
-  border-radius: 5px;
-  color: #fff;
+  background-color: transparent; /* Remove background */
+  color: var(--header-text-color); /* Match the header text color */
+  font-size: 1.1rem; /* Increase font size for better readability */
+  font-weight: 500; /* Add a slight boldness */
+  border: none; /* Remove border */
+  padding: 0;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: color 0.3s ease;
+  font-family: 'Poppins', sans-serif; /* Ensure consistent font style */
 }
+
 .login-toggle-btn:hover {
-  background-color: #d8a327; /* Slightly darker shade */
-  transform: scale(1.05);
+  color: var(--accent-color); /* Slight color change on hover */
+  transform: none; /* Remove any scaling effect */
 }
 
 /* Container for all content */
@@ -454,7 +463,13 @@ p {
   padding: 60px 0;
   border-radius: 12px;
 }
-
+.benefits-section h2 {
+  margin-bottom: 30px; /* Increase spacing below the heading */
+  padding-top: 20px; /* Ensure it has some padding from the section's top */
+  font-size: 2.2rem; /* Slightly larger font for better emphasis */
+  font-weight: 600;
+  color: var(--primary-color);
+}
 .benefits {
   display: flex;
   justify-content: space-between;
@@ -711,6 +726,17 @@ p {
     padding: 10px 20px;
   }
 }
+
+@media (max-width: 768px) {
+  .benefits-section h2 {
+    margin-bottom: 20px; /* Adjust spacing for smaller screens */
+    padding-top: 10px;
+  }
+
+  .login-toggle-btn {
+    font-size: 1rem; /* Slightly reduce size for better fit on smaller screens */
+  }
+}
 /* Responsive Media Queries */
 @media (max-width: 768px) {
   /* Full-Screen Sections - Mobile adjustments */
@@ -840,11 +866,11 @@ p {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px); /* Start slightly below */
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); /* Move to normal position */
   }
 }
 

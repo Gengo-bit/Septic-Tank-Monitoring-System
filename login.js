@@ -72,13 +72,16 @@ const firebaseConfig = {
                 if (entry.isIntersecting) {
                     // Add 'active' class when section is in view for smooth transitions
                     entry.target.classList.add('active');
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                      
                 } else {
                     entry.target.classList.remove('active');
                 }
             });
         },
         {
-            threshold: 0.5, // Trigger when 50% of the section is visible
+            threshold: 0.4, // Trigger when 50% of the section is visible
         }
     );
 
