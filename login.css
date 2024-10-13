@@ -1,32 +1,22 @@
-/* ------------------------------ */
-/*          :root Variables       */
-/* ------------------------------ */
-:root {
-  --base-color: linear-gradient(135deg, #f0f0f0, #dcdcdc); /* Subtle grayscale gradient */
-  --base-variant: #f9f9f9; /* Variant for sections like benefits */
-  --text-color: #333;
-  --primary-color: #000; /* Dark grayscale for text */
-  --accent-color: #555; /* Mid-tone grayscale for accents */
-  --header-bg: linear-gradient(135deg, #333, #555); /* Darker gradient */
-  --footer-bg: #222; /* Sleek, dark footer background */
-  --bg-light: #f4f4f4; /* Light background for CTA and video sections */
-  --transition-duration: 0.4s;
-  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --box-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.2);
+/* General Full-Screen Sections */
+.full-screen {
+  height: 100vh; /* Full height */
+  min-height: 100vh; /* Minimum height to cover the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Ensures content is stacked vertically */
+  padding: 0; /* Ensure no extra padding affects the layout */
+  /*opacity: 0; /* Start hidden */
+  transform: translateY(50px); /* For the animation effect */
+  transition: transform 0.8s ease, opacity 0.8s ease;
 }
-
-/* ------------------------------ */
-/*          General Reset          */
-/* ------------------------------ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* When section is in view, make it visible */
+.full-screen.active {
+  opacity: 1;
+  transform: translateY(0);
 }
-
-/* ------------------------------ */
-/*      Smooth Scroll Behavior     */
-/* ------------------------------ */
+/* Smooth Scroll Behavior */
 html, body {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -35,28 +25,20 @@ html, body {
   scroll-snap-type: y proximity;
 }
 
-/* ------------------------------ */
-/*             Body               */
-/* ------------------------------ */
+/* Container for Full-Screen Scroll */
 body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--base-color);
-  color: var(--text-color);
   display: flex;
   flex-direction: column;
 }
+/* Enhancing Transition */
+.hero-section,
+.commercialization,
+.benefits-section,
+.cta-section {
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
 
-/* ------------------------------ */
-/*       General Full-Screen       */
-/* ------------------------------ */
 .full-screen {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 0;
-  box-sizing: border-box;
   opacity: 0;
   transform: translateY(50px);
   transition: transform 0.8s ease-out, opacity 0.8s ease-out;
@@ -66,50 +48,92 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* ------------------------------ */
-/*       Transition Enhancements   */
-/* ------------------------------ */
-.hero-section,
-.commercialization,
-.product-offerings,
-.benefits-section,
-.cta-section {
-  transition: transform 0.8s ease, opacity 0.8s ease;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* ------------------------------ */
-/*          Typography             */
-/* ------------------------------ */
-h1, h2 {
-  font-family: 'Merriweather', serif; /* Serif font for headers */
-  font-weight: 700;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--base-color);
+  color: var(--text-color);
 }
 
-h2 {
-  color: var(--accent-color);
+:root {
+  --base-color: linear-gradient(135deg, #f0f0f0, #dcdcdc); /* Subtle grayscale gradient */
+  --text-color: #333;
+  --primary-color: #000; /* Dark grayscale for text */
+  --accent-color: #555; /* Mid-tone grayscale for accents */
+  --header-bg: linear-gradient(135deg, #333, #555); /* Darker gradient */
+  --footer-bg: #222; /* Sleek, dark footer background */
+  --transition-duration: 0.4s;
+}
+/* Footer */
+.main-footer {
+  background: #222;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+  font-size: 0.8rem; 
+  animation: fadeInUp 0.8s ease;
 }
 
-.introd {
-  font-size: 2.2rem;
+.footer-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.8rem; /* Reduced text size */
+}
+.footer-logo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer-logo img {
+  width: 40px; /* Smaller logo */
+}
+
+.footer-links a {
+  font-size: 0.8rem; /* Smaller links */
+  margin: 0 5px;
+}
+
+.footer-links a:hover {
   color: white;
 }
 
-p {
-  font-size: 1.1rem;
-  text-align: center;
+.main-footer .social-media a {
+  margin: 0 5px;
+  display: inline-block;
+  transition: transform 0.3s;
+}
+.main-footer .social-media a img {
+  width: 20px; /* Smaller icons */
 }
 
-.section-title {
-  font-size: 2.5rem;
-  width: 100%;
-  color: #333;
-  margin-bottom: 40px;
+.main-footer .social-media a:hover {
+  transform: scale(1.2);
+}
+.social-media a img {
+  width: 15px;
+  margin: 0 5px;
+  opacity: 0.8;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.social-media a:hover img {
+  transform: scale(1.2);
+  opacity: 1;
 }
 
-/* ------------------------------ */
-/*          Header Section         */
-/* ------------------------------ */
+/* Header Section */
 .main-header {
   background: var(--header-bg);
   padding: 20px 40px;
@@ -119,7 +143,6 @@ p {
   color: white;
   border-bottom: 1px solid #444;
 }
-
 .logo-container {
   display: flex;
   align-items: center;
@@ -129,11 +152,61 @@ p {
   width: 50px;
   height: auto;
   margin-right: 15px;
-  transition: transform 0.3s ease;
 }
-
 .logo:hover {
   transform: rotate(5deg) scale(1.1);
+}
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 100vh; /* 100% of the viewport height */
+  min-height: 100vh; /* Ensures it always takes up full screen */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Centers the content */
+  padding: 20px; /* Add padding for small screens */
+}
+
+#hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video fills the entire section */
+  z-index: -1; /* Push the video behind the overlay */
+}
+
+.overlay {
+  position: relative; /* Keep it relative so it doesn't move with the video */
+  z-index: 1; /* Ensure it sits above the video */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5); /* Add a transparent black overlay */
+  color: white;
+  box-sizing: border-box;
+}
+
+/* Typography */
+h1, h2 {
+  font-family: 'Merriweather', serif; /* Use a serif font for headers */
+  font-weight: 700;
+}
+
+h2 {
+  color: var(--accent-color);
+}
+.introd {
+  font-size: 2.2rem;
+  color:white;
+}
+p {
+  font-size: 1.1rem;
+}
+.main-header h1 {
+  font-size: 1.8rem;
+  color: white;
 }
 
 .login-toggle-btn {
@@ -152,138 +225,83 @@ p {
   transform: scale(1.05);
 }
 
-/* ------------------------------ */
-/*          Footer Section         */
-/* ------------------------------ */
-.main-footer {
-  background: var(--footer-bg);
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
-  font-size: 0.8rem; 
-  animation: fadeInUp 0.8s ease;
-}
-
-.footer-content {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  font-size: 0.8rem;
-}
-
-.footer-logo img,
-.main-footer .social-media a img,
-.benefit-icon img,
-.features-icon img {
-  width: 40px; /* Consistent icon size */
-}
-
-.footer-links a {
-  font-size: 0.8rem;
-  margin: 0 5px;
-  transition: color 0.3s;
-}
-
-.footer-links a:hover {
-  color: white;
-}
-
-.main-footer .social-media a {
-  margin: 0 5px;
-  display: inline-block;
-  transition: transform 0.3s;
-}
-
-.main-footer .social-media a:hover {
-  transform: scale(1.2);
-}
-
-.social-media a img {
-  width: 15px;
-  margin: 0 5px;
-  opacity: 0.8;
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-.social-media a:hover img {
-  transform: scale(1.2);
-  opacity: 1;
-}
-
-/* ------------------------------ */
-/*        Hero Section            */
-/* ------------------------------ */
-.hero-section {
-  position: relative;
-  height: 100vh;
-  min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-#hero-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
-
-.overlay {
-  position: relative;
-  z-index: 1;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  box-sizing: border-box;
-}
-
-/* ------------------------------ */
-/*     Product Offerings Section   */
-/* ------------------------------ */
-.product-offerings {
+/* Container for all content */
+.commercialization {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto;
   padding: 40px;
   text-align: center;
   background: linear-gradient(to right, #f0f4f8, #fff); /* Soft gradient */
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Introduction Section */
+.introduction {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.introduction h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  animation: textZoomIn 0.5s ease;
+}
+
+.introduction p {
+  font-size: 1.4rem;
+  color: var(--text-color);
+  margin: 1.5rem 0;
+  animation: textFadeIn 0.5s ease;
+}
+
+.section-image {
+  width: 100%;
+  height: 300px; /* Fixed height for consistent appearance */
+  border-radius: 12px;
+  background-size: cover; /* Ensures image covers the entire div */
+  background-position: center; /* Center the background image */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: imageZoomIn 0.5s ease;
+}
+.section-title {
+  font-size: 2.5rem;
+  width: 100%; /* Make sure it spans the full section width */
+  text-align: center;
+  color: #333;
+  margin-bottom: 40px;
+}
+/* Product Offerings */
+.product-offerings {
+  background: var(--base-color);
+  padding: 40px;
+  border-radius: 12px;
+  margin: 40px 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease;
 }
 
 .product-container {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .product {
-  background: var(--base-variant);
+  background: #f9f9f9;
   padding: 20px;
   width: 48%;
   border-radius: 12px;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   animation: slideIn 0.8s ease;
 }
 
 .product:hover {
   transform: translateY(-5px);
-  box-shadow: var(--box-shadow-hover);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .product h3 {
@@ -312,7 +330,7 @@ p {
 
 .product-image {
   width: 100%;
-  height: 200px;
+  height: 200px; /* Fixed height for product images */
   background-size: cover;
   background-position: center;
   border-radius: 12px;
@@ -323,67 +341,16 @@ p {
   transform: scale(1.1);
 }
 
-/* ------------------------------ */
-/*      Benefits Section           */
-/* ------------------------------ */
-.benefits-section {
-  background-color: var(--base-variant);
-  padding: 60px 0;
-  border-radius: 12px;
-  transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.benefits {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.benefit-item {
-  background-color: white;
-  width: 22%;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.benefit-item:hover {
-  transform: translateY(-10px);
-}
-
-.benefit-item h4 {
-  font-size: 1.6rem;
-  color: var(--primary-color);
-  margin-bottom: 0.75rem;
-}
-
-.benefit-item p {
-  font-size: 1.1rem;
-  color: #555;
-}
-
-.benefit-icon {
-  font-size: 2rem;
-  color: var(--accent-color);
-  margin-bottom: 1rem;
-}
-
-/* ------------------------------ */
-/*      Call to Action Section     */
-/* ------------------------------ */
+/* Call to Action */
 .cta-section {
-  height: 100vh;
-  min-height: 100vh;
+  height: 100vh; /* Make it take the full screen height */
+  min-height: 100vh; /* Ensures it fills the viewport */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px;
-  background-color: var(--bg-light);
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  padding: 40px; /* Increase padding to make it larger */
+  background-color: var(--bg-light); /* Optional: Add a background color */
   animation: fadeInUp 0.5s ease;
 }
 
@@ -414,9 +381,52 @@ p {
   transform: translateY(-5px);
 }
 
-/* ------------------------------ */
-/*          FAQ Section            */
-/* ------------------------------ */
+/* Benefits Section */
+.benefits-section {
+  background-color: var(--base-variant);
+  padding: 60px 0;
+  border-radius: 12px;
+}
+
+.benefits {
+  display: flex;
+  justify-content: space-between;
+}
+
+.benefit-item {
+  background-color: white;
+  width: 22%; /* Set fixed width for uniformity */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+  transform: translateY(-10px);
+}
+
+.benefit-item h4 {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
+
+.benefit-item p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.benefit-icon {
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+.benefit-icon img {
+  width: 50px; /* Set a consistent size for benefit icons */
+}
+/* FAQ Section */
 .faq {
   margin: 4rem 0;
 }
@@ -425,7 +435,7 @@ p {
   background-color: white;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   transition: transform 0.3s ease;
 }
@@ -445,9 +455,7 @@ p {
   color: #555;
 }
 
-/* ------------------------------ */
-/*        Video Section            */
-/* ------------------------------ */
+/* Video Section */
 .video-demo {
   margin: 4rem 0;
   text-align: center;
@@ -462,9 +470,7 @@ p {
   animation: fadeInUp 0.5s ease;
 }
 
-/* ------------------------------ */
-/*          Modal Styles           */
-/* ------------------------------ */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -484,6 +490,10 @@ p {
   opacity: 1;
 }
 
+.modal.show .modal-content {
+  transform: scale(1);  /* Scale up */
+  opacity: 1;  /* Fade in */
+}
 .modal-content {
   background: #e8e8e8;
   padding: 30px;
@@ -494,11 +504,16 @@ p {
   animation: scaleUp 0.4s ease;
 }
 
-.modal.show .modal-content {
-  transform: scale(1);
-  opacity: 1;
+@keyframes scaleUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
-
 .close {
   position: absolute;
   top: 15px;
@@ -508,9 +523,7 @@ p {
   color: #ff4c4c;
 }
 
-/* ------------------------------ */
-/*        Features Section         */
-/* ------------------------------ */
+/* Features Section */
 .features-section {
   margin: 40px 0;
 }
@@ -518,18 +531,19 @@ p {
 .features {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
 }
-
+.features .feature-item:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease, background-color 0.3s;
+}
 .feature-item {
   background-color: white;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 30%;
-  transition: transform 0.3s ease, background-color 0.3s;
+  width: 30%; /* Adjust width for responsiveness */
+  transition: transform 0.3s ease;
 }
 
 .feature-item:hover {
@@ -537,12 +551,9 @@ p {
 }
 
 .features-icon img {
-  width: 50px;
+  width: 50px; /* Set a consistent size for icons */
 }
-
-/* ------------------------------ */
-/*         Input Fields            */
-/* ------------------------------ */
+/* Input Fields */
 .input-email,
 .input-pass {
   width: 100%;
@@ -561,9 +572,7 @@ p {
   outline: none;
 }
 
-/* ------------------------------ */
-/*         Submit Button           */
-/* ------------------------------ */
+/* Submit Button */
 .login-btn {
   background-color: #f4c542;
   color: white;
@@ -572,7 +581,7 @@ p {
   border-radius: 8px;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s ease, box-shadow 0.2s;
+  transition: background-color 0.2s, transform 0.2s ease;
   margin-top: 1.5rem;
 }
 
@@ -587,28 +596,20 @@ p {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* ------------------------------ */
-/*       Error Message            */
-/* ------------------------------ */
+/* Error Message */
 .error-message {
   color: #ff4c4c;
   margin-top: 1rem;
   text-align: center;
   font-size: 0.95rem;
 }
-
-/* ------------------------------ */
-/*        Responsive Images        */
-/* ------------------------------ */
 .responsive-image {
   width: 100%; /* Make it responsive */
   height: auto; /* Maintain aspect ratio */
   border-radius: 12px; /* Optional for rounded corners */
 }
 
-/* ------------------------------ */
-/*         Accessibility           */
-/* ------------------------------ */
+/* Accessibility */
 @media (prefers-contrast: high) {
   body {
     background: black;
@@ -616,11 +617,18 @@ p {
   }
 }
 
-/* ------------------------------ */
-/*     Responsive Media Queries    */
-/* ------------------------------ */
+/* General Full-Screen Sections */
+.full-screen {
+  height: 100vh; /* Full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0; /* Remove extra padding */
+  box-sizing: border-box;
+}
 
-/* Tablet and below */
+/* Responsive Media Queries */
 @media (max-width: 768px) {
   /* Full-Screen Sections - Mobile adjustments */
   .full-screen {
@@ -632,7 +640,7 @@ p {
 
   /* Section Title for Mobile */
   .section-title {
-    font-size: 2rem;
+    font-size: 2rem; /* Smaller font size for mobile */
   }
 
   /* Hero Section for Mobile */
@@ -649,11 +657,11 @@ p {
   }
 
   .overlay h2 {
-    font-size: 1.8rem;
+    font-size: 1.8rem; /* Adjust text size for mobile */
   }
 
   .overlay p {
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Adjust paragraph size */
   }
 
   /* CTA Section for Mobile */
@@ -664,7 +672,7 @@ p {
   }
 
   .cta-section h2 {
-    font-size: 2rem;
+    font-size: 2rem; /* Adjust heading size */
   }
 
   .cta-section p {
@@ -673,27 +681,24 @@ p {
 
   .cta-btn {
     font-size: 1rem;
-    padding: 12px 25px;
+    padding: 12px 25px; /* Adjust button size */
   }
 
   /* Product Offerings */
   .product {
-    width: 90%;
+    width: 90%; /* Full width on smaller screens */
     margin: 10px auto;
   }
 
   /* Features and Benefits Sections */
-  .features, 
-  .product-offerings, 
-  .benefits {
-    flex-direction: column;
-    align-items: center;
+  .features, .product-offerings, .benefits {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align */
   }
 
-  .feature-item, 
-  .benefit-item {
-    width: 90%;
-    margin: 10px 0;
+  .feature-item, .benefit-item {
+    width: 90%; /* Full width for smaller screens */
+    margin: 10px 0; /* Spacing between items */
   }
 
   /* Footer for Mobile */
@@ -707,16 +712,16 @@ p {
   }
 
   .footer-logo img {
-    width: 30px;
+    width: 30px; /* Smaller logo for mobile */
   }
 
   .footer-links a {
-    font-size: 0.7rem;
+    font-size: 0.7rem; /* Smaller text */
     margin: 5px;
   }
 
   .social-media a img {
-    width: 14px;
+    width: 14px; /* Smaller icons */
   }
 
   /* Modal for Mobile */
@@ -731,7 +736,7 @@ p {
   }
 }
 
-/* Smaller Devices (Phones) */
+/* Smaller Devices */
 @media (max-width: 576px) {
   h1 {
     font-size: 1.8rem;
@@ -754,9 +759,7 @@ p {
   }
 }
 
-/* ------------------------------ */
-/*       Animation Keyframes      */
-/* ------------------------------ */
+/* Smooth Scroll Animation Keyframes */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -851,17 +854,6 @@ p {
   to {
     opacity: 1;
     transform: translateX(0);
-  }
-}
-
-@keyframes scaleUp {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
   }
 }
 
