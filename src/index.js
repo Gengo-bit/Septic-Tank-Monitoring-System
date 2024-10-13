@@ -216,3 +216,18 @@ const styles = `
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
+//This will ensure that after the user refreshes the page, they will be redirected to their last visited page, not index.html.
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+      const lastPage = localStorage.getItem('lastPage') || 'home.html';
+      if (window.location.pathname !== lastPage) {
+          window.location.href = lastPage;
+      }
+  } else {
+      window.location.href = 'login.html';
+  }
+});
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('lastPage', window.location.pathname);
+});

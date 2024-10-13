@@ -7,4 +7,5 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),  // Output directory
   },
   mode: 'development',  // Change to 'production' for final deployment
+  watch: true // always npm run build
 };
