@@ -72,9 +72,6 @@ const firebaseConfig = {
                 if (entry.isIntersecting) {
                     // Add 'active' class when section is in view for smooth transitions
                     entry.target.classList.add('active');
-                        entry.target.classList.add('animate-in');
-                        observer.unobserve(entry.target); // Stop observing once animated
-                      
                 } else {
                     entry.target.classList.remove('active');
                 }
