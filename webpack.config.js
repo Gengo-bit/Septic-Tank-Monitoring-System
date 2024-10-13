@@ -1,14 +1,11 @@
 const path = require('path');
 
 module.exports = {
-  entry: {
-    main: './src/index.js',  // Your main app logic
-    auth: './auth.js',   // Your authentication logic
-  },
+  entry: './src/index.js',  // Your main JavaScript file
   output: {
-    filename: '[name].bundle.js',  // Generates main.bundle.js and auth.bundle.js
+    filename: 'bundle.js',  // Output file name
     path: path.resolve(__dirname, 'dist'),  // Output directory
   },
   mode: 'development',  // Change to 'production' for final deployment
-  watch: true // Always npm run build
+  watch: true // always npm run build
 };

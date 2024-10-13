@@ -26,19 +26,11 @@ let capacityChart, historicalChart;
 let previousVolume = null;
 let previousTimestamp = null;
 
-// Ensure this runs as soon as the page loads
-window.addEventListener('load', () => {
-  firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-          // Redirect to login.html if the user is not authenticated
-          window.location.href = 'login.html';
-      } else {
-          // Allow access to the home/index.html
-          // You may add additional logic if needed
-      }
-  });
+// Authentication check and app initialization
+auth.onAuthStateChanged((user) => {
+  if (user) initializeApp();
+  else window.location.href = 'login.html';
 });
-
 
 function initializeApp() {
   // Fetch tank dimensions

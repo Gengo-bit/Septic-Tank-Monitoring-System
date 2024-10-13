@@ -3,7 +3,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import auth functions
-import 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,12 +21,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(); // Initialize Firebase Auth
 
-firebase.auth().onAuthStateChanged((user) => {
-    if (!user) {
-        // If no user is logged in, redirect to login.html
-        window.location.href = 'login.html';
-    }
-});
 // Handle Login
 document.getElementById('login-modal').addEventListener('submit', function(event) { // Corrected ID here
     event.preventDefault();
