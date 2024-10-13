@@ -63,24 +63,20 @@ const firebaseConfig = {
    
 // JavaScript for Smooth Scrolling 
 // Select all sections with the "full-screen" class
-const sections = document.querySelectorAll('.full-screen');
+const sections = document.querySelectorAll('.full-screen, .benefit-item, .product-card');
 
-// Use IntersectionObserver to detect when each section is in view
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // Add 'active' class when section is in view for smooth transitions
-                entry.target.classList.add('active');
-            } else {
-                entry.target.classList.remove('active');
-            }
-        });
-    },
-    {
-        threshold: 0.4, // Trigger when 40% of the section is visible
-    }
-);
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        } else {
+            entry.target.classList.remove('active');
+        }
+    });
+}, { threshold: 0.4 }); // Trigger when 50% of the section is visible
+
+sections.forEach(section => observer.observe(section));
+
 
 // Observe each section
 sections.forEach((section) => {
@@ -96,3 +92,13 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         });
     });
 });
+document.querySelectorAll('a.nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetElement = document.querySelector(this.getAttribute('href'));
+        targetElement.scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
