@@ -35,12 +35,3 @@ document.getElementById('login-modal').addEventListener('submit', function(event
             alert('Login failed: ' + error.message);
         });
 });
-    // Add event listener to the Logout button
-    document.getElementById('Logout-btn').addEventListener('click', function() {
-        firebase.auth().signOut().then(() => {
-            // Redirect to login.html after successful logout
-            window.location.href = 'login.html';
-        }).catch((error) => {
-            console.error('Logout Error: ', error);
-        });
-    });
