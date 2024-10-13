@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <script type="text/javascript" src="toggle-mode.js" defer></script>
-    <script src="auth.js"></script>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -75,6 +78,7 @@
         sidebar.classList.remove('sidebar-open');
     });
 </script>
+
 <script>
 // Firebase Authentication
 firebase.auth().onAuthStateChanged((user) => {
@@ -90,20 +94,19 @@ window.addEventListener('beforeunload', () => {
         console.error('Error signing out: ', error);
     });
 });
-</script>
-<script>
+
 // Add event listener to the Logout button
-document.getElementById('Logout-btn').addEventListener('click', function() {
-    firebase.auth().signOut().then(() => {
-        // Redirect to login.html after successful logout
-        window.location.href = 'login.html';
-    }).catch((error) => {
-        console.error('Logout Error: ', error);
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('Logout-btn').addEventListener('click', function() {
+        firebase.auth().signOut().then(() => {
+            // Redirect to login.html after successful logout
+            window.location.href = 'login.html';
+        }).catch((error) => {
+            console.error('Logout Error: ', error);
+        });
     });
 });
 </script>
-<!-- Firebase Authentication -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
 </body>
 </html>
