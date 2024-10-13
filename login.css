@@ -149,16 +149,19 @@ body {
 .footer-logo img {
   width: 40px; /* Smaller logo */
 }
-
+.footer-links {
+  display: flex;
+  align-items: center;
+}
 .footer-links a {
-  font-size: 0.8rem; /* Smaller links */
-  margin: 0 5px;
+  margin-right: 30px; /* Spacing between links */
+  color: var(--footer-text-color);
+  text-decoration: none;
+  transition: color 0.3s;
 }
-
 .footer-links a:hover {
-  color: white;
+  color: var(--accent-color); /* Change color on hover */
 }
-
 .main-footer .social-media a {
   margin: 0 5px;
   display: inline-block;
@@ -238,24 +241,46 @@ body {
 }
 
 .overlay {
-  position: relative; /* Keep it relative so it doesn't move with the video */
-  z-index: 1; /* Ensure it sits above the video */
-  padding: 40px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  box-sizing: border-box;
+  position: absolute; /* Position relative to the hero section */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  display: flex; /* Flexbox for centering content */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  color: white; /* White text color for better contrast */
+  text-align: center; /* Center-align text */
+  padding: 20px; /* Padding around the content */
+  box-sizing: border-box; /* Include padding in height/width calculations */
+  backdrop-filter: blur(5px); /* Optional: Adds a slight blur effect to the background */
 }
-
+.overlay::before {
+  content: '';
+  position: absolute; /* Position relative to the overlay */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.2)); /* Subtle gradient effect */
+  z-index: 0; /* Behind the text */
+}
 /* Typography */
 h1, h2, h3 {
   font-family: 'Merriweather', serif;
   font-weight: 700;
   color: var(--primary-color);
 }
-.smart{
-  color: #f4c542;
+
+.smart {
+  font-size: 2.5rem; /* Adjust font size for prominence */
+  font-weight: 600; /* Semi-bold font weight */
+  margin-bottom: 15px; /* Space below the heading */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Subtle text shadow for depth */
+  transition: transform 0.3s ease; /* Transition for scaling */
 }
+
 .introd {
   font-size: 2.2rem;
   color:white;
@@ -334,6 +359,62 @@ p {
   color: #333;
   margin-bottom: 40px;
 }
+.ourproduct {
+  margin-bottom: -10px;
+}
+/* Product Title */
+.product-title {
+  font-size: 1.8rem; /* Font size for product title */
+  color: var(--primary-color); /* Title color */
+  margin-bottom: 10px; /* Space below title */
+  font-weight: 600; /* Bold text */
+}
+.product-title2 {
+  font-size: 1.8rem; /* Font size for product title */
+  color: var(--primary-color); /* Title color */
+  margin-top: -10px;
+  margin-bottom: 10px; /* Space below title */
+  font-weight: 600; /* Bold text */
+}
+/* Product Description */
+.product-description {
+  font-size: 1.2rem; /* Font size for description */
+  margin-bottom: 15px; /* Space below description */
+  color: #555; /* Slightly muted text color */
+}
+
+/* Product Features List */
+.product-features {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+  margin: 15px 0; /* Space around the list */
+}
+
+/* Individual Feature List Items */
+.product-features li {
+  text-align: left;
+  margin-bottom: 10px; /* Space between list items */
+  font-size: 1.1rem; /* Font size for list items */
+  color: var(--text-color); /* Use existing text color */
+  position: relative; /* For pseudo-element */
+  padding-left: 25px; /* Space for the bullet point */
+}
+
+/* Add a bullet point using a pseudo-element */
+.product-features li::before {
+  content: '✔'; /* Use a checkmark or a custom icon */
+  position: absolute; /* Position it absolutely */
+  left: 0; /* Align left */
+  color: var(--accent-color); /* Bullet color */
+  font-size: 1.2rem; /* Size of the bullet */
+}
+
+/* Optional: Add a hover effect to list items */
+.product-features li:hover {
+  color: var(--accent-color); /* Change color on hover */
+  transition: color 0.3s ease; /* Smooth transition */
+}
+
 /* Product Offerings */
 .product-offerings {
   background: var(--base-color);
@@ -345,9 +426,33 @@ p {
 }
 
 .product-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center cards horizontally */
+  gap: 20px; /* Space between cards */
+  padding: 20px; /* Padding around the container */
+}
+.product-container {
+  align-items: stretch; /* Stretch cards to the same height */
+}
+
+/* Product Card */
+.product-card {
+  background-color: #ffffff; /* White background for cards */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 20px; /* Padding inside the card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effects */
+  text-align: center; /* Center-align text */
+  flex: 1; /* Allow cards to grow equally */
+  max-width: 400px; /* Maximum width for the card */
+  margin: 0; /* Remove default margin */
+}
+
+
+/* Hover Effect */
+.product-card:hover {
+  transform: scale(1.05); /* Scale up slightly on hover */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
 }
 
 .product {
@@ -755,9 +860,17 @@ p {
   }
 
   .overlay p {
-    font-size: 1.1rem; /* Adjust paragraph size */
-  }
-
+    font-size: 1.2rem; /* Font size for paragraph */
+    max-width: 800px; /* Limit the width for better readability */
+    margin: 0; /* Remove default margin */
+    padding: 0 20px; /* Horizontal padding for smaller screens */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Subtle text shadow for depth */
+    line-height: 1.5; /* Improved line height for better readability */
+}
+/* Hover Effect for the Overlay */
+.overlay:hover .smart {
+  transform: scale(1.05); /* Scale up on hover for emphasis */
+}
   /* CTA Section for Mobile */
   .cta-section {
     padding: 30px 20px;
@@ -843,7 +956,7 @@ p {
   }
 
   .main-footer .social-media a img {
-    width: 18px; /* Even smaller icons */
+    width: 16px; /* Even smaller icons */
   }
 }
 
