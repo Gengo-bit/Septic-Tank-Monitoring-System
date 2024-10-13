@@ -130,16 +130,30 @@
     <div class="modal" id="login-modal">
         <div class="modal-content">
             <span class="close" id="close-modal">&times;</span>
-            <h3>Login to Your Account</h3>
+    
+            <!-- Centered Logo at the top -->
+            <div class="modal-logo">
+                <img src="assets/logo.png" alt="Logo">
+            </div>
+    
+            <!-- Login text -->
+            <h3 class="login-text">Login to Your Account</h3>
+    
+            <!-- Login form -->
             <form class="login-form" id="login-form">
                 <input class="input-email" type="email" id="email" placeholder="Email" required>
                 <input class="input-pass" type="password" id="password" placeholder="Password" required>
                 <button class="login-btn" type="submit">Login</button>
-                <p>Not an owner? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Buy now</a></p>
             </form>
+    
+            <!-- Adjusted 'Not an owner?' text -->
+            <p class="buy-now-text">Not an owner? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Buy now</a></p>
+    
+            <!-- Error message -->
             <p id="error-message" class="error-message"></p>
         </div>
     </div>
+    
 
     <!-- Footer Section -->
     <footer class="main-footer">

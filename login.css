@@ -649,7 +649,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
   justify-content: center;
   align-items: center;
   opacity: 0;
@@ -666,13 +666,66 @@ p {
   opacity: 1;  /* Fade in */
 }
 .modal-content {
-  background: #e8e8e8;
-  padding: 30px;
+  background: #ffffff;
+  padding: 40px;
   border-radius: 12px;
-  width: 80%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 400px; /* Limit the width of the modal */
   text-align: center;
-  animation: scaleUp 0.4s ease;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Subtle shadow for a modern look */
+}
+.modal-logo img {
+  width: 80px; /* Adjust size of the logo */
+  margin-bottom: 20px; /* Space between the logo and the login text */
+}
+.login-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 25px;
+}
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.login-form input:focus {
+  border-color: #f4c542;
+  box-shadow: 0 0 8px rgba(244, 197, 66, 0.5);
+}
+.modal.show .modal-content {
+  animation: modalFadeIn 0.5s ease;
+}
+
+@keyframes modalFadeIn {
+  0% {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  100% {
+      opacity: 1;.modal.show .modal-content {
+        animation: modalFadeIn 0.5s ease;
+    }
+    
+    @keyframes modalFadeIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+      transform: scale(1);
+  }
 }
 
 @keyframes scaleUp {
@@ -743,36 +796,74 @@ p {
   outline: none;
 }
 
-/* Submit Button */
+/* Login Button sa modal */
 .login-btn {
-  background-color: #f4c542;
+  background-color: #f4c542; /* Bright, eye-catching color */
   color: white;
   border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  font-size: 1.2rem;
+  padding: 12px 25px; /* Increase padding for better visibility */
+  border-radius: 10px; /* Softer corners for a modern look */
+  font-size: 1.2rem; /* Slightly larger font size */
+  font-weight: 600; /* Bold text for emphasis */
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s ease;
-  margin-top: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for a 3D effect */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
 }
 
+/* Hover Effect - Slight movement and color change */
 .login-btn:hover {
-  background-color: #ff9a3b;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #d8a327; /* Slightly darker shade */
+  transform: translateY(-3px); /* Slight upward movement */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
 }
 
+/* Active State - Button presses down slightly */
 .login-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background-color: #bf8b1b; /* Even darker shade when clicked */
+  transform: translateY(1px); /* Press down effect */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Slightly reduce shadow */
+}
+
+
+/* 'Not an owner? Buy now' text */
+.buy-now-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 30px; /* Slightly lower than the login button */
+}
+
+.buy-now-text a {
+  color: #f4c542;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.buy-now-text a:hover {
+  color: #d8a327;
 }
 
 /* Error Message */
 .error-message {
   color: #ff4c4c;
-  margin-top: 1rem;
-  text-align: center;
-  font-size: 0.95rem;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .modal-content {
+      padding: 30px;
+  }
+
+  .login-text {
+      font-size: 1.2rem;
+  }
+
+  .login-btn {
+      font-size: 1rem;
+      padding: 10px;
+  }
 }
 .responsive-image {
   width: 100%; /* Make it responsive */
