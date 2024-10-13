@@ -30,6 +30,53 @@ body {
   display: flex;
   flex-direction: column;
 }
+/* Remove box-shadow and border-radius for seamless transitions */
+section {
+  padding: 80px 0;
+  background-color: var(--base-variant);
+  text-align: center;
+}
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+/* Card Design for Products & Benefits */
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.button {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.button:hover {
+  background-color: #d8a327;
+  transform: translateY(-2px);
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+/* Adjust individual sections for a flat, integrated look */
+.hero-section, .commercialization, .benefits-section, .cta-section, .product-offerings {
+  background-color: var(--base-variant); /* Ensure consistent background */
+  padding: 60px min(50px, 7%); /* Uniform padding */
+  border-radius: 0; /* Remove any rounding */
+  box-shadow: none; /* Remove drop shadows */
+  margin: 0; /* Ensure no margins between sections */
+}
 /* Enhancing Transition */
 .hero-section,
 .commercialization,
@@ -39,11 +86,10 @@ body {
 }
 
 .full-screen {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  transition: opacity 0.8s ease, transform 0.8s ease; /* Keep the smooth animation */
+  transform: translateY(0); /* Remove any lifted appearance */
+  opacity: 1; /* Ensure sections are fully visible */
 }
-
 .full-screen.active {
   opacity: 1;
   transform: translateY(0);
@@ -57,31 +103,42 @@ body {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--base-color);
+  background-color: var(--base-color);
   color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
 :root {
-  --base-color: linear-gradient(135deg, #f0f0f0, #dcdcdc); /* Subtle grayscale gradient */
-  --text-color: #333;
-  --primary-color: #000; /* Dark grayscale for text */
-  --accent-color: #555; /* Mid-tone grayscale for accents */
-  --header-bg: linear-gradient(135deg, #333, #555); /* Darker gradient */
-  --footer-bg: #222; /* Sleek, dark footer background */
+  --base-color: #f5f7fa; /* Light background for sections */
+  --base-variant: #ffffff; /* Lighter variant for backgrounds */
+  --text-color: #2d3a4b; /* Dark text for readability */
+  --secondary-text: #5c6f81; /* Subtle, muted text */
+  --primary-color: #1a1a1a; /* Dark color for headers */
+  --accent-color: #f4c542; /* Yellow for buttons and highlights */
+  --header-bg: #f5f7fa; /* Light, clean background for header */
+  --footer-bg: #f5f7fa; /* Light, clean background for footer */
+  --header-text-color: #2d3a4b; /* Dark text color for header */
+  --footer-text-color: #2d3a4b; /* Dark text color for footer */
   --transition-duration: 0.4s;
 }
 /* Footer */
 .main-footer {
-  background: #222;
-  color: #fff;
-  padding: 20px;
+  background: var(--footer-bg);
+  padding: 20px 40px;
+  color: var(--footer-text-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
-  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
-  font-size: 0.8rem; 
-  animation: fadeInUp 0.8s ease;
+  border-top: 1px solid #ddd;
+}
+.main-footer a {
+  color: var(--footer-text-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.main-footer a:hover {
+  color: var(--accent-color);
 }
 
 .footer-content {
@@ -115,6 +172,10 @@ body {
   display: inline-block;
   transition: transform 0.3s;
 }
+.main-footer .footer-content p,
+.main-footer .footer-content a {
+  color: var(--footer-text-color);
+}
 .main-footer .social-media a img {
   width: 20px; /* Smaller icons */
 }
@@ -136,12 +197,13 @@ body {
 /* Header Section */
 .main-header {
   background: var(--header-bg);
+  color: var(--header-text-color);
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #ccc;
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 .logo-container {
   display: flex;
@@ -158,6 +220,9 @@ body {
 }
 /* Hero Section */
 .hero-section {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('assets/intro-bg.jpg');
+  background-size: cover;
+  background-position: center;
   position: relative;
   height: 100vh; /* 100% of the viewport height */
   min-height: 100vh; /* Ensures it always takes up full screen */
@@ -166,7 +231,8 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center; /* Centers the content */
-  padding: 20px; /* Add padding for small screens */
+   color: #ffffff;
+  padding: 100px 20px;
 }
 
 #hero-video {
@@ -182,20 +248,21 @@ body {
 .overlay {
   position: relative; /* Keep it relative so it doesn't move with the video */
   z-index: 1; /* Ensure it sits above the video */
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.5); /* Add a transparent black overlay */
+  padding: 40px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.6);
   color: white;
   box-sizing: border-box;
 }
 
 /* Typography */
-h1, h2 {
-  font-family: 'Merriweather', serif; /* Use a serif font for headers */
+h1, h2, h3 {
+  font-family: 'Merriweather', serif;
   font-weight: 700;
+  color: var(--primary-color);
 }
-
-h2 {
-  color: var(--accent-color);
+.smart{
+  color: #f4c542;
 }
 .introd {
   font-size: 2.2rem;
@@ -206,22 +273,22 @@ p {
 }
 .main-header h1 {
   font-size: 1.8rem;
-  color: white;
+  font-weight: 600;
+  color: var(--header-text-color);
 }
 
 .login-toggle-btn {
-  background-color: #444;
-  color: white;
-  padding: 12px 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: var(--accent-color);
   border: none;
-  border-radius: 20px;
-  font-size: 1.1rem;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .login-toggle-btn:hover {
-  background-color: #666;
+  background-color: #d8a327; /* Slightly darker shade */
   transform: scale(1.05);
 }
 
@@ -628,6 +695,22 @@ p {
   box-sizing: border-box;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
 /* Responsive Media Queries */
 @media (max-width: 768px) {
   /* Full-Screen Sections - Mobile adjustments */
@@ -699,12 +782,6 @@ p {
   .feature-item, .benefit-item {
     width: 90%; /* Full width for smaller screens */
     margin: 10px 0; /* Spacing between items */
-  }
-
-  /* Footer for Mobile */
-  .main-footer {
-    flex-direction: column;
-    text-align: center;
   }
 
   .footer-content {
@@ -865,3 +942,4 @@ p {
     opacity: 1;
   }
 }
+
