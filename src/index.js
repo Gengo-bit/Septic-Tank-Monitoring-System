@@ -29,7 +29,7 @@ let previousTimestamp = null;
 // Authentication check and app initialization
 auth.onAuthStateChanged((user) => {
   if (user) initializeApp();
-  else window.location.href = 'login.html';
+  else window.location.href = '../html/index.html';
 });
 
 function initializeApp() {
@@ -175,33 +175,13 @@ function saveTankDimensions() {
 
 function logout() {
   auth.signOut()
-    .then(() => window.location.href = 'login.html')
+    .then(() => window.location.href = '../html/index.html')
     .catch((error) => console.error("Logout Error:", error));
 }
 
-function registerUser(email, password) {
-  auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Registration successfulzW
-      const user = userCredential.user;
-      console.log("User registered successfully:", user);
-      // You can redirect to the main page or show a success message
-      window.location.href = 'index.html';
-    })
-    .catch((error) => {
-      // Handle errors here
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("Registration error:", errorCode, errorMessage);
-      // Display error message to the user
-      document.getElementById('error-message').textContent = errorMessage;
-    });
-}
-
-
 // Make logout function available globally
 window.logout = logout;
-window.registerUser = registerUser;
+
 // Add styles
 const styles = `
   .capacity-text, .status-text, .time-until-full, .rate-too-low {
@@ -216,18 +196,3 @@ const styles = `
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
-//This will ensure that after the user refreshes the page, they will be redirected to their last visited page, not index.html.
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-      const lastPage = localStorage.getItem('lastPage') || 'home.html';
-      if (window.location.pathname !== lastPage) {
-          window.location.href = lastPage;
-      }
-  } else {
-      window.location.href = 'login.html';
-  }
-});
-
-window.addEventListener('beforeunload', () => {
-  localStorage.setItem('lastPage', window.location.pathname);
-});

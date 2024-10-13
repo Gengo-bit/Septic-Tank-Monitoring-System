@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="login.css"> 
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/index.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 window.location.href = 'home.html';
             } else {
-                window.location.href = 'login.html';
+                window.location.href = 'monitor.html';
             }
         });
     </script>   
@@ -22,7 +22,7 @@
     <!-- Header Section -->
     <header class="main-header">
         <div class="logo-container">
-            <img src="assets/logo.png" alt="Logo" class="logo">
+            <img src="../assets/logo.png" alt="Logo" class="logo">
             <h1>Septic Tank Monitoring System</h1>
         </div>
         <nav class="header-nav">
@@ -37,7 +37,7 @@
     <!-- Hero Section with Video Background -->
     <section class="hero-section full-screen">
         <video autoplay muted loop id="hero-video">
-            <source src="assets/intro.mp4" type="video/mp4">
+            <source src="../assets/intro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="overlay">
@@ -51,7 +51,7 @@
         <div class="introduction">
             <h2 class="introd">Efficient & Reliable Monitoring</h2>
             <p>Get real-time insights to keep your septic system running smoothly.</p>
-            <div class="section-image realtime-div" style="background-image: url('assets/sensor.png');"></div>
+            <div class="section-image realtime-div" style="background-image: url('../assets/sensor.png');"></div>
         </div>
     </section>
 
@@ -67,7 +67,7 @@
                     <li>Easy installation and maintenance</li>
                     <li>Compatible with various sizes of septic tanks</li> <!-- New feature added -->
                 </ul>
-                <div class="product-image" style="background-image: url('assets/sensor_module.png');"></div>
+                <div class="product-image" style="background-image: url('../assets/sensor_module.png');"></div>
             </div>
             <div class="product-card">
                 <h3 class="product-title">Monitoring Module</h3>
@@ -78,7 +78,7 @@
                     <li>Text notifications when the septic tank reaches a predetermined threshold</li>
                     <li>Detailed analytics and historical data</li>
                 </ul>
-                <div class="product-image" style="background-image: url('assets/monitoring_module.png');"></div>
+                <div class="product-image" style="background-image: url('../assets/monitoring_module.png');"></div>
             </div>
         </div>
     </section>
@@ -89,28 +89,28 @@
         <div class="benefits">
             <div class="benefit-item">
                 <div class="benefit-icon">
-                    <img src="assets/icons/prevent-overflows.png" alt="Prevent Overflows Icon" />
+                    <img src="../assets/icons/prevent-overflows.png" alt="Prevent Overflows Icon" />
                 </div>
                 <h4>Prevent Costly Overflows</h4>
                 <p>Never worry about unexpected tank overflows with real-time data and early warning alerts.</p>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">
-                    <img src="assets/icons/access-anywhere.png" alt="Access Anywhere Icon" />
+                    <img src="../assets/icons/access-anywhere.png" alt="Access Anywhere Icon" />
                 </div>
                 <h4>Access Anywhere, Anytime</h4>
                 <p>Monitor and manage your tanks from any location using our web-based platform.</p>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">
-                    <img src="assets/icons/reduce-risk.png" alt="Reduce Environmental Risks Icon" />
+                    <img src="../assets/icons/reduce-risk.png" alt="Reduce Environmental Risks Icon" />
                 </div>
                 <h4>Reduce Environmental Risks</h4>
                 <p>Ensure your septic system is operating efficiently, minimizing the impact on the environment.</p>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">
-                    <img src="assets/icons/data-driven-insights.png" alt="Data-Driven Insights Icon" />
+                    <img src="../assets/icons/data-driven-insights.png" alt="Data-Driven Insights Icon" />
                 </div>
                 <h4>Data-Driven Insights</h4>
                 <p>Leverage detailed reports and historical data to optimize septic tank management.</p>
@@ -132,7 +132,7 @@
     
             <!-- Centered Logo at the top -->
             <div class="modal-logo">
-                <img src="assets/logo.png" alt="Logo">
+                <img src="../assets/logo.png" alt="Logo">
             </div>
     
             <!-- Login text -->
@@ -164,16 +164,16 @@
             <a href="https://contactus/lyxzmm" target="_blank">Contact Us</a>
         </div>
             <div class="social-media">
-                <a href="https://www.facebook.com/lyxzmm" target="_blank"><img src="assets/icons/facebook.png" alt="Facebook"></a>
-                <a href="https://x.com/lyxzmm" target="_blank"><img src="assets/icons/twitter.png" alt="Twitter"></a>
-                <a href="https://www.instagram.com/lyxzmm" target="_blank"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+                <a href="https://www.facebook.com/lyxzmm" target="_blank"><img src="../assets/icons/facebook.png" alt="Facebook"></a>
+                <a href="https://x.com/lyxzmm" target="_blank"><img src="../assets/icons/twitter.png" alt="Twitter"></a>
+                <a href="https://www.instagram.com/lyxzmm" target="_blank"><img src="../assets/icons/instagram.png" alt="Instagram"></a>
             </div>
         </div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>    
-    <script src="login.js"></script>
-    <script src="auth.js"></script>
+    <script src="../src/login.js"></script>
+    <script src="../src/auth.js"></script>
 </body>
 </html>

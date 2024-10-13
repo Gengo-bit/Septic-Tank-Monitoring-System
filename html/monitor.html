@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Septic Tank Monitoring System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <script type="text/javascript" src="toggle-mode.js" defer></script>
-    <script type="text/javascript" src="auth.js" defer></script>
-    <script type="text/javascript" src="src/index.js" defer></script>
+    <link rel="stylesheet" href="../css/monitor.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <script type="text/javascript" src="../src/toggle-mode.js" defer></script>
+    <script type="text/javascript" src="../src/auth.js" defer></script>
+    <script type="text/javascript" src="../src/index.js" defer></script>
     <script>
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -20,8 +20,8 @@
                     window.location.href = 'home.html';
                 }
             } else {
-                // Redirect to login.html if not authenticated
-                window.location.href = 'login.html';
+                // Redirect to index.html if not authenticated
+                window.location.href = 'index.html';
             }
         });
         function scrollToSection(sectionId) {
@@ -30,10 +30,9 @@
     </script>    
 </head>
 <body>
-
 <!-- Branding Section -->
 <div class="branding">
-    <img src="assets/logo.png" alt="Logo" class="logo">
+    <img src="../assets/logo.png" alt="Logo" class="logo">
     <h1>Septic Tank Monitoring System</h1>
     <!-- Sidebar Toggle Button with Hamburger Icon -->
     <button id="sidebar-toggle" class="sidebar-toggle">
@@ -69,7 +68,7 @@
     <a href="javascript:void(0)" onclick="scrollToSection('historical-section')">Historical Data</a>
     <a href="javascript:void(0)" id="threshold-btn">Thresholds</a>
     <a href="javascript:void(0)" id="settings-btn">Settings</a>
-    <a href="https://ourprofile.netlify.app" target="_blank">About Us</a>
+    <a href="https://ourprofile.netlify.app">About Us</a>
     <a href="javascript:void(0)" id="Logout-btn">Logout</a>
     <!-- Dark/Light Mode Button at the Bottom -->
     <button id="theme-switch-sidebar">
@@ -120,7 +119,7 @@
 
 <footer>
     <div class="footer-right">
-        <img src="assets/logo.png" alt="Logo" class="footer-logo">
+        <img src="../assets/logo.png" alt="Logo" class="footer-logo">
         <p>Septic Tank Monitoring System | © 2024</p>
     </div>
 </footer>
@@ -140,7 +139,7 @@
     firebase.auth().onAuthStateChanged((user) => {
         if (!user) {
             // Redirect to login if no user is authenticated
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     });
 
@@ -149,14 +148,6 @@
     }
 </script>
 <script>
-// Firebase Authentication
-firebase.auth().onAuthStateChanged((user) => {
-    if (!user) {
-        // If no user is logged in, redirect to login page
-        window.location.href = 'login.html';
-    }
-});
-
 // Sign the user out if the page is refreshed or closed
 window.addEventListener('beforeunload', () => {
     firebase.auth().signOut().catch((error) => {
@@ -168,8 +159,8 @@ window.addEventListener('beforeunload', () => {
     // Add event listener to the Logout button
     document.getElementById('Logout-btn').addEventListener('click', function() {
         firebase.auth().signOut().then(() => {
-            // Redirect to login.html after successful logout
-            window.location.href = 'login.html';
+            // Redirect to index.html after successful logout
+            window.location.href = 'index.html';
         }).catch((error) => {
             console.error('Logout Error: ', error);
         });

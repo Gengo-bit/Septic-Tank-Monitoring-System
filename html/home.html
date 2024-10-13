@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home - Septic Tank Monitoring</title>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/png" href="assets/logo.png">
+        <link rel="stylesheet" href="../css/monitor.css">
+        <link rel="icon" type="image/png" href="../assets/logo.png">
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     </head>
@@ -17,8 +17,8 @@
 <!-- Header Section -->
 <div class="branding">
     <div class="header-left">
-        <img src="assets/profile.png" alt="Profile" class="profile-pic">
-        <h2>Welcome back, @User!</h2> <!-- Dynamic User Welcome -->
+        <img src="../assets/profile.png" alt="Profile" class="profile-pic">
+        <h2>Welcome back, @User!</h2>
     </div>
     <button id="sidebar-toggle" class="sidebar-toggle">
         <span class="hamburger-icon"></span>
@@ -49,20 +49,19 @@
 <section class="tank-list">
     <h2>Your Septic Tanks</h2>
     <div class="tank-box">
-        <p><a href="index.html">Septic Tank 1</a></p>
-        <p><a href="index.html">Septic Tank 2</a></p>
-        <p><a href="index.html">Septic Tank 3</a></p>
+        <p><a href="monitor.html">Septic Tank 1</a></p>
+        <p><a href="monitor.html">Septic Tank 2</a></p>
+        <p><a href="monitor.html">Septic Tank 3</a></p>
         <!-- Add more tanks dynamically if needed -->
     </div>
 </section>
 
 <footer>
     <div class="footer-right">
-        <img src="assets/logo.png" alt="Logo" class="footer-logo">
+        <img src="../assets/logo.png" alt="Logo" class="footer-logo">
         <p>Septic Tank Monitoring System | © 2024</p>
     </div>
 </footer>
-
 <script>
     // Sidebar toggle
     const sidebarToggle = document.getElementById('sidebar-toggle');
@@ -77,13 +76,12 @@
         sidebar.classList.remove('sidebar-open');
     });
 </script>
-
 <script>
 // Firebase Authentication
 firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
         // If no user is logged in, redirect to login page
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 });
 
@@ -93,7 +91,7 @@ firebase.auth().onAuthStateChanged((user) => {
         if (logoutBtn) {
             logoutBtn.addEventListener('click', function() {
                 firebase.auth().signOut().then(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = 'index.html';
                 }).catch((error) => {
                     console.error('Logout Error: ', error);
                 });
@@ -103,6 +101,5 @@ firebase.auth().onAuthStateChanged((user) => {
         }
     });
 </script>
-
 </body>
 </html>
