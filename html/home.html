@@ -11,6 +11,9 @@
         <link rel="icon" type="image/png" href="../assets/logo.png">
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+        <script type="text/javascript" src="../src/monitor.js" defer></script>
+        <script type="text/javascript" src="../src/auth.js" defer></script>
     </head>
     <body>
 
@@ -84,22 +87,25 @@ firebase.auth().onAuthStateChanged((user) => {
         window.location.href = 'index.html';
     }
 });
-
-    // Add event listener to the Logout button after the DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        const logoutBtn = document.getElementById('Logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function() {
-                firebase.auth().signOut().then(() => {
-                    window.location.href = 'index.html';
-                }).catch((error) => {
-                    console.error('Logout Error: ', error);
-                });
-            });
-        } else {
-            console.error('Logout button not found');
-        }
-    });
 </script>
+<script>
+    // Add event listener to the Logout button
+    document.getElementById('Logout-btn').addEventListener('click', function() {
+        firebase.auth().signOut().then(() => {
+            // Redirect to index.html after successful logout
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error('Logout Error: ', error);
+        });
+    });
+ </script>
+ <script>
+    // Sign the user out if the page is refreshed or closed
+    window.addEventListener('beforeunload', () => {
+        firebase.auth().signOut().catch((error) => {
+            console.error('Error signing out: ', error);
+        });
+    });
+    </script>
 </body>
 </html>

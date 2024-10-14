@@ -173,15 +173,6 @@ function saveTankDimensions() {
     .catch((error) => console.error("Error saving dimensions: ", error));
 }
 
-function logout() {
-  auth.signOut()
-    .then(() => window.location.href = '../html/index.html')
-    .catch((error) => console.error("Logout Error:", error));
-}
-
-// Make logout function available globally
-window.logout = logout;
-
 // Add styles
 const styles = `
   .capacity-text, .status-text, .time-until-full, .rate-too-low {
