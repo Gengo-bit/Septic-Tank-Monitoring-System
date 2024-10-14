@@ -246,18 +246,34 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)); /* Smooth gradient */
-  z-index: 1; /* Ensure it sits above the video */
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #ffffff;
-  backdrop-filter: blur(5px); /* Adds a modern blur effect */
+  color: white; /* Set to black for better contrast on light backgrounds */
+  backdrop-filter: blur(3px); /* Adds a modern blur effect */
   padding: 20px;
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: scale(1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+  border-radius: 15px; /* Soft rounded corners */
+}
+.overlay:hover {
+  transform: scale(1.05); /* Slightly scale up on hover */
+  opacity: 0.95; /* Slight transparency on hover */
+}
+.overlay h2, .overlay p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow for readability */
+  transition: transform 0.5s ease, color 0.5s ease;
+}
+.overlay h2:hover, .overlay p:hover {
+  transform: translateY(-5px); /* Shift text slightly upwards on hover */
+  color: #f4c542; /* Match with the accent color for consistency */
 }
 .overlay.active {
   opacity: 1;
@@ -281,19 +297,20 @@ h1, h2, h3 {
 }
 
 .smart {
+  font-size: 2.8rem;
   font-family: 'Poppins', sans-serif;
-  font-size: 2.8rem; /* Slightly smaller and cleaner */
-  font-weight: 600;
-  color: #f4c542; /* Accent color */
-  letter-spacing: 1.5px; /* Better letter spacing for modern look */
+  letter-spacing: 1.5px;
   margin-bottom: 20px;
-  animation: fadeInUp 1s ease forwards; /* Subtle fade-in animation */
+  color: #f4c542;
+  animation: fadeInUp 1s ease forwards;
 }
+
 .smart:hover {
   color: #ffcc33; /* Slightly lighter accent color on hover */
   text-shadow: 0px 0px 10px rgba(244, 197, 66, 0.6);
   transform: scale(1.02); /* Gentle scale for interactivity */
 }
+
 .introd {
   font-size: 2.2rem;
   color:white;
@@ -907,6 +924,8 @@ p {
 
 .nav-link:hover {
   color: var(--accent-color); /* Accent color hover effect */
+  transform: translateY(-3px);
+  transition: background-color 0.3s ease, transform 0.3s ease;  
 }
  
 /* Buy Now Button */
@@ -932,11 +951,13 @@ p {
   padding: 10px 15px;
   cursor: pointer;
   transition: color 0.3s ease;
-  margin-left: 10px; /* Space between links and login button */
+  margin-bottom: 2px;
 }
 
 .login-toggle-btn:hover {
   color: var(--accent-color); /* Same hover effect as links */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: translateY(-2px);
 }
 
 /* Responsive Adjustments */
