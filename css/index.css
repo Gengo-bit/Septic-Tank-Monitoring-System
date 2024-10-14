@@ -215,9 +215,8 @@ body {
 }
 /* Hero Section */
 .hero-section {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('assets/intro-bg.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: white; /* Set the background to white */
+  background-image: none; /* Remove any potential background image or gradient */
   position: relative;
   height: 100vh; /* 100% of the viewport height */
   min-height: 100vh; /* Ensures it always takes up full screen */
@@ -225,8 +224,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center; /* Centers the content */
-   color: #ffffff;
+  text-align: center;
+  color: #000000; /* Adjust text color if needed */
   padding: 100px 20px;
 }
 
@@ -978,19 +977,6 @@ p {
     font-size: 2rem; /* Smaller font size for mobile */
   }
 
-  /* Hero Section for Mobile */
-  .hero-section {
-    height: 100vh;
-    min-height: 100vh;
-    background-image: url('assets/hero-fallback.jpg'); /* Fallback image for mobile */
-    background-size: cover;
-    background-position: center;
-  }
-
-  #hero-video {
-    display: none; /* Hide video on mobile for better performance */
-  }
-
   .overlay h2 {
     font-size: 1.8rem; /* Adjust text size for mobile */
   }
@@ -1243,15 +1229,14 @@ p {
       min-height: 100vh; /* Ensure sections take full viewport height */
   }
 
-  .hero-section {
-      background-image: url('../assets/intro-bg.jpg'); /* Fallback image for smaller screens */
-      background-size: cover;
-      background-position: center;
-  }
-
-  #hero-video {
-      display: none; /* Hide video on mobile */
-  }
+    .hero-section {
+        background-color: white; /* Change gray background to white */
+        background-image: none; /* Remove any background image if applied */
+    }
+    
+    #hero-video {
+        display: none; /* Ensure video is hidden on mobile */
+    }
 
   .overlay h2, .overlay p {
       font-size: 1.4rem; /* Adjust text size */
