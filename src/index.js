@@ -73,7 +73,7 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.classList.remove('active');
         }
     });
-}, { threshold: 0.6 }); // Trigger when 60% of the section is visible
+}, { threshold: 0.5 }); // Trigger when 50% of the section is visible
 
 sections.forEach(section => observer.observe(section));
 
