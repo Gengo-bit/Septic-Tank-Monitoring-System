@@ -12,8 +12,7 @@
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-        <script type="text/javascript" src="../src/monitor.js" defer></script>
-        <script type="text/javascript" src="../src/auth.js" defer></script>
+        <script type="text/javascript" src="../src/home.js" defer></script>
     </head>
     <body>
 
@@ -37,7 +36,7 @@
     <a href="javascript:void(0)" id="delete-tank">Delete Tank</a>
     <a href="javascript:void(0)" id="contact-us">Contact Us</a>
     <a href="javascript:void(0)" id="about-us">About Us</a>
-    <a href="javascript:void(0)" id="Logout-btn">Logout</a>
+    <a href="javascript:void(0)" id="logout-btn">Logout</a>
     <button id="theme-switch-sidebar">
         <svg id="sidebar-sun-icon" width="24" height="24" fill="currentColor">
             <circle cx="12" cy="12" r="5"></circle>
@@ -90,16 +89,15 @@ firebase.auth().onAuthStateChanged((user) => {
 </script>
 <script>
     // Add event listener to the Logout button
-    document.getElementById('Logout-btn').addEventListener('click', function() {
-        firebase.auth().signOut().then(() => {
-            // Redirect to index.html after successful logout
-            window.location.href = 'index.html';
-        }).catch((error) => {
-            console.error('Logout Error: ', error);
-        });
+    document.getElementById('logout-btn').addEventListener('click', function() {
+    firebase.auth().signOut().then(() => {
+        window.location.href = 'index.html';
+    }).catch((error) => {
+        console.error('Logout Error: ', error);
     });
+});
  </script>
- <script>
+    <script>
     // Sign the user out if the page is refreshed or closed
     window.addEventListener('beforeunload', () => {
         firebase.auth().signOut().catch((error) => {
