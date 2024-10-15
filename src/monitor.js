@@ -13,7 +13,9 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const database = firebase.database();
+// const database = firebase.database(); - realtime database
+const db = firebase.firestore();
+
 
 // Tank dimensions and capacity
 let tankDimensions = { height: 35, length: 45, width: 45 };
@@ -33,27 +35,51 @@ auth.onAuthStateChanged((user) => {
 });
 
 function initializeApp() {
+  
   // Fetch tank dimensions
-  database.ref('tankDimensions').once('value', (snapshot) => {
-    if (snapshot.exists()) {
-      tankDimensions = snapshot.val();
+  db.collection('tankDimensions').doc('dimensions').get().then((doc) => {
+    if (doc.exists) {
+      tankDimensions = doc.data();
       septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
     }
   });
+  
 
   // Initialize charts
   initializeCharts();
 
-  // Real-time update listener
-  database.ref('septicTankData').limitToLast(10).on('child_added', (snapshot) => {
-    const data = snapshot.val();
+// Real-time update listener
+db.collection('septicTankData').orderBy('timestamp').limit(10).onSnapshot((snapshot) => {
+  if (snapshot.empty) {
+    console.log("No matching documents found!");
+    return;
+  }
+
+  // Clear the existing chart data before updating
+  capacityChart.data.datasets[0].data = [];
+  historicalChart.data.labels = [];
+  historicalChart.data.datasets[0].data = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
     const capacity = data.capacity;
     const currentVolume = (capacity / 100) * septicTankCapacity;
 
+    console.log("Data from Firestore: ", data); // Log data for debugging
+
+    // Update chart and calculations
     updateCapacity(capacity);
     updateHistoricalChart(capacity, data.date, new Date(data.timestamp * 1000).toLocaleTimeString());
     calculatePrediction(currentVolume, data.timestamp);
   });
+
+  // Update the charts
+  capacityChart.update();
+  historicalChart.update();
+}, (error) => {
+  console.error("Error fetching septicTankData: ", error);
+});
+
 
   // Event listener for saving tank dimensions
   document.getElementById('save-settings').addEventListener('click', saveTankDimensions);
@@ -123,10 +149,10 @@ function updateCapacity(capacity) {
   const statusElement = document.getElementById("status");
   let status, color;
 
-  if (capacity < 75) [status, color] = ['Normal', 'green'];
-  else if (capacity <= 85) [status, color] = ['Above Normal', 'yellow'];
-  else if (capacity <= 95) [status, color] = ['Critical', 'orange'];
-  else [status, color] = ['Full', 'red'];
+  if (capacity < 75) [status, color] = ['Normal', 'var(--status-green)'];
+  else if (capacity <= 85) [status, color] = ['Above Normal', 'var(--status-yellow)'];
+  else if (capacity <= 95) [status, color] = ['Critical', 'var(--status-orange)'];
+  else [status, color] = ['Full', 'var(--status-red)'];  
 
   statusElement.innerHTML = `<span class="status-text">The Septic Tank is </span><span class="status" style="color: ${color};"><strong>${status}</strong></span>`;
 }
@@ -164,13 +190,13 @@ function saveTankDimensions() {
     width: parseFloat(document.getElementById('input-tankWidth').value)
   };
 
-  database.ref('tankDimensions').set(newDimensions)
-    .then(() => {
-      tankDimensions = newDimensions;
-      septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
-      document.getElementById('settingsModal').style.display = 'none';
-    })
-    .catch((error) => console.error("Error saving dimensions: ", error));
+  db.collection('tankDimensions').doc('dimensions').set(newDimensions)
+  .then(() => {
+    tankDimensions = newDimensions;
+    septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
+    document.getElementById('settingsModal').style.display = 'none';
+  })
+  .catch((error) => console.error("Error saving dimensions: ", error));
 }
 
 // Add styles
