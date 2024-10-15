@@ -12,3 +12,25 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('close-btn');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.remove('sidebar-open');
+    });
+
+    // Add event listener to the Logout button
+    document.getElementById('logout-btn').addEventListener('click', function() {
+    firebase.auth().signOut().then(() => {
+        window.location.href = 'index.html';
+    }).catch((error) => {
+        console.error('Logout Error: ', error);
+    });
+});

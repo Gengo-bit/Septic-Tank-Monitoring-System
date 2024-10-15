@@ -13,6 +13,7 @@
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
         <script type="text/javascript" src="../src/home.js" defer></script>
+        <script type="text/javascript" src="../src/home.js" defer></script>
     </head>
     <body>
 
@@ -64,46 +65,5 @@
         <p>Septic Tank Monitoring System | © 2024</p>
     </div>
 </footer>
-<script>
-    // Sidebar toggle
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const closeBtn = document.getElementById('close-btn');
-
-    sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-open');
-    });
-
-    closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('sidebar-open');
-    });
-</script>
-<script>
-// Firebase Authentication
-firebase.auth().onAuthStateChanged((user) => {
-    if (!user) {
-        // If no user is logged in, redirect to login page
-        window.location.href = 'index.html';
-    }
-});
-</script>
-<script>
-    // Add event listener to the Logout button
-    document.getElementById('logout-btn').addEventListener('click', function() {
-    firebase.auth().signOut().then(() => {
-        window.location.href = 'index.html';
-    }).catch((error) => {
-        console.error('Logout Error: ', error);
-    });
-});
- </script>
-    <script>
-    // Sign the user out if the page is refreshed or closed
-    window.addEventListener('beforeunload', () => {
-        firebase.auth().signOut().catch((error) => {
-            console.error('Error signing out: ', error);
-        });
-    });
-    </script>
 </body>
 </html>
