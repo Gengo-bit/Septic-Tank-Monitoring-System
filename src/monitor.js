@@ -27,16 +27,15 @@ let capacityChart, historicalChart;
 let previousVolume = null;
 let previousTimestamp = null;
 
-// Authentication check and app initialization
 auth.onAuthStateChanged((user) => {
   if (user) {
     // Check user's email to determine which Firestore collection to use
     const userEmail = user.email;
-    
+
     if (userEmail === 'paulcorsino28@gmail.com') {
-      initializeApp('septicTankData');
+      initializeApp('users', 'paulcorsino28@gmail.com', 'septicTankData');
     } else if (userEmail === 'dcamorganda@gmail.com') {
-      initializeApp('septicTankData2');
+      initializeApp('users', 'dcamorganda@gmail.com', 'septicTankData2');
     } else {
       console.log("Unknown user email. No data available.");
     }
@@ -45,8 +44,7 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-
-function initializeApp(collectionName) {
+function initializeApp(userCollection, userEmail, collectionName) {
   // Fetch tank dimensions
   db.collection('tankDimensions').doc('dimensions').get().then((doc) => {
     if (doc.exists) {
@@ -59,7 +57,7 @@ function initializeApp(collectionName) {
   initializeCharts();
 
   // Real-time update listener
-  db.collection(collectionName).orderBy('timestamp').limit(10).onSnapshot((snapshot) => {
+  db.collection(userCollection).doc(userEmail).collection(collectionName).orderBy('timestamp').limit(10).onSnapshot((snapshot) => {
     if (snapshot.empty) {
       console.log("No matching documents found!");
       return;
@@ -77,10 +75,17 @@ function initializeApp(collectionName) {
 
       console.log("Data from Firestore: ", data); // Log data for debugging
 
+      // Convert Unix timestamp (seconds) to a JavaScript Date object
+      const timestampDate = new Date(data.timestamp * 1000); // Multiplying by 1000 to convert from seconds to milliseconds
+
+      // Format the date and time to a readable format
+      const formattedTime = timestampDate.toLocaleTimeString();  // For time (hours, minutes, seconds)
+      const formattedDate = timestampDate.toLocaleDateString();  // For date (day, month, year)
+
       // Update chart and calculations
       updateCapacity(capacity);
-      updateHistoricalChart(capacity, data.date, new Date(data.timestamp * 1000).toLocaleTimeString());
-      calculatePrediction(currentVolume, data.timestamp);
+      updateHistoricalChart(capacity, formattedDate, formattedTime);
+      calculatePrediction(currentVolume, data.timestamp);  // Use the raw timestamp for calculations
     });
 
     // Update the charts
@@ -93,7 +98,6 @@ function initializeApp(collectionName) {
   // Event listener for saving tank dimensions
   document.getElementById('save-settings').addEventListener('click', saveTankDimensions);
 }
-
 
 function initializeCharts() {
   capacityChart = new Chart(document.getElementById('capacityChart').getContext('2d'), {
