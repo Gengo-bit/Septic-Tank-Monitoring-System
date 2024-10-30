@@ -15,33 +15,48 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Authentication check
 auth.onAuthStateChanged((user) => {
   if (user) {
-    // Check user's email and retrieve profile picture URL
     const userEmail = user.email;
 
-    db.collection('users').doc(userEmail).get()
-      .then((doc) => {
-        if (doc.exists) {
-          const userData = doc.data();
+    // Listen for real-time updates to the user's document
+    db.collection('users').doc(userEmail).onSnapshot((doc) => {
+      if (doc.exists) {
+        const userData = doc.data();
 
-          // Check if profilePicUrl exists and update image source
-          if (userData.profilePicUrl) {
-            document.querySelector('.profile-pic').src = userData.profilePicUrl;
-          }
+        // Check if profilePicUrl exists, and set the image source
+        if (userData.profilePicUrl) {
+          document.getElementById('profilePic').src = userData.profilePicUrl;
         } else {
-          console.log("No user data found!");
+          console.log("No profile picture URL found for this user.");
         }
-      })
-      .catch((error) => {
-        console.error("Error retrieving user data: ", error);
-      });
+      } else {
+        console.log("User document does not exist.");
+      }
+    });
   } else {
-    // If no user is logged in, redirect to login
-    window.location.href = 'index.html';
+    console.log("No user is signed in.");
   }
 });
+
+//load daan before muset
+window.onload = function () {
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      const userEmail = user.email;
+
+      db.collection('users').doc(userEmail).onSnapshot((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          if (userData.profilePicUrl) {
+            document.getElementById('profilePic').src = userData.profilePicUrl;
+          }
+        }
+      });
+    }
+  });
+};
+
 
 // Event listener for Logout button (already in your code)
 document.getElementById('logout-btn').addEventListener('click', function() {
