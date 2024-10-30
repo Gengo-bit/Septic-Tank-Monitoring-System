@@ -105,7 +105,7 @@
   .sidebar-toggle {
     position: absolute;
     right: 20px;
-    top: 50%;
+    top: 8%;
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
@@ -153,26 +153,47 @@
     color: var(--text-color);
     transition: background-color var(--transition-duration), color var(--transition-duration);
   }
-  
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
   .branding {
-    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 10;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 20px 30px;
+    justify-content: space-between;
+    padding: 20px 40px;
     background-color: var(--header-bg);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .branding h2 {
-    font-size: 1.8em;
-    font-weight: 700;
-    color: var(--header-text-color);
-    font-family: 'Poppins', sans-serif;
-  }
-  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header-left {
+  display: flex;
+  align-items: center;
+}
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.branding h2 {
+  font-size: 1.6em;
+  font-weight: 600;
+  color: var(--header-text-color);
+}
   /* Tank list section */
   .tank-list {
+    flex-grow: 1; /* Expands to fill available space */
     padding: 60px min(50px, 7%);
     background-color: var(--base-variant);
     margin: 30px auto;
@@ -180,7 +201,11 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
     color: var(--text-color);
-  }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
   
   .tank-list h2 {
     color: var(--primary-color);
@@ -209,6 +234,8 @@
     justify-content: space-between;
     align-items: center;
     font-family: 'Poppins', sans-serif;
+    bottom: 0;
+    width: 100%;
     box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
   }
   

@@ -15,21 +15,39 @@
 </head>
 <body>
 
-<!-- Header Section -->
-<header class="branding">
-    <div class="header-left">
-        <img src="../assets/profile.png" alt="Profile" class="profile-pic">
-        <h2>Welcome back, @User!</h2>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="branding">
+            <div class="header-left">
+                <img src="../assets/profile.png" alt="Profile" class="profile-pic">
+                <h2>Welcome back, @User!</h2>
+            </div>
+            <button id="sidebar-toggle" class="sidebar-toggle">
+                <span class="hamburger-icon"></span>
+                <span class="hamburger-icon"></span>
+                <span class="hamburger-icon"></span>
+            </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="tank-list">
+            <h1>Your Septic Tanks</h1>
+            <div class="tank-box">
+                <p><a href="monitor.html">Septic Tank 1</a></p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-right">
+                <img src="../assets/logo.png" alt="Logo" class="footer-logo">
+                <p>Septic Tank Monitoring System | © 2024</p>
+            </div>
+        </footer>
     </div>
-    <button id="sidebar-toggle" class="sidebar-toggle">
-        <span class="hamburger-icon"></span>
-        <span class="hamburger-icon"></span>
-        <span class="hamburger-icon"></span>
-    </button>
-</header>
 
 <!-- Sidebar -->
-<aside id="sidebar" class="sidebar">
+<div id="sidebar" class="sidebar">
     <button id="close-btn" class="close-btn">&times;</button>
     <nav>
         <a href="javascript:void(0)" id="add-tank">Add Tank</a>
@@ -46,22 +64,7 @@
             <path d="M21 12.79A9 9 0 1111.21 3A7.5 7.5 0 0021 12.79z"></path>
         </svg>
     </button>
-</aside>
+</div>
 
-<!-- Main Content -->
-<main class="tank-list">
-    <h1>Your Septic Tanks</h1>
-    <div class="tank-box">
-        <p><a href="monitor.html">Septic Tank 1</a></p>
-    </div>
-</main>
-
-<!-- Footer -->
-<footer>
-    <div class="footer-right">
-        <img src="../assets/logo.png" alt="Logo" class="footer-logo">
-        <p>Septic Tank Monitoring System | © 2024</p>
-    </div>
-</footer>
 </body>
 </html>
