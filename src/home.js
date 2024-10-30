@@ -40,34 +40,6 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// Update the UI with the fetched data
-function updateUI(userData) {
-  const capacity = userData.capacity;
-  const timestamp = userData.timestamp;
-  
-  // Update the capacity display (for example, you can put it in a specific div)
-  document.getElementById('capacity-display').innerText = `Capacity: ${capacity}%`;
-
-  // Convert timestamp to readable date
-  const date = new Date(timestamp * 1000);
-  document.getElementById('date-display').innerText = `Date: ${date.toLocaleDateString()}`;
-  
-  // Continue updating other parts of the UI as needed
-}
-
-    // Sidebar toggle
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const closeBtn = document.getElementById('close-btn');
-
-    sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-open');
-    });
-
-    closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('sidebar-open');
-    });
-
     // Add event listener to the Logout button
     document.getElementById('logout-btn').addEventListener('click', function() {
     firebase.auth().signOut().then(() => {
