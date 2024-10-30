@@ -153,11 +153,9 @@
 body {
   background-color: var(--base-color);
   color: var(--text-color);
-  overflow: hidden; /* Prevent vertical and horizontal scrolling */
   display: flex;
   flex-direction: column;
   height: 100vh;
-  transition: background-color var(--transition-duration), color var(--transition-duration);
   margin: 0;
   padding: 0;
 }
@@ -165,7 +163,8 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .branding {
@@ -253,9 +252,10 @@ body {
   
  /* Footer */
 footer {
+  bottom: 0;
   background-color: var(--footer-bg);
   color: var(--footer-text-color);
-  padding: 10px 20px; /* Reduced padding */
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
