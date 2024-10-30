@@ -18,9 +18,10 @@ const db = firebase.firestore();
 // Authentication check
 auth.onAuthStateChanged((user) => {
   if (user) {
-    // Check user's email and retrieve profile picture URL
+    // Get user's email
     const userEmail = user.email;
 
+    // Retrieve the user's data from Firestore
     db.collection('users').doc(userEmail).get()
       .then((doc) => {
         if (doc.exists) {
@@ -29,6 +30,11 @@ auth.onAuthStateChanged((user) => {
           // Check if profilePicUrl exists and update image source
           if (userData.profilePicUrl) {
             document.querySelector('.profile-pic').src = userData.profilePicUrl;
+          }
+
+          // Update the @User element to the stored username
+          if (userData.username) {
+            document.querySelector('.username-display').textContent = userData.username;
           }
         } else {
           console.log("No user data found!");
