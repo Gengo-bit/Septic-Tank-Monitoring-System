@@ -201,18 +201,19 @@ body {
 /* Tank list section */
 .tank-list {
   flex-grow: 1;
-  padding: 40px min(30px, 5%);
+  padding: 20px min(30px, 5%);
   background-color: var(--base-variant);
-  margin: 20px auto;
+  margin: 40px auto 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 900px;
+  max-width: 750px;
+  width: 90%;
   color: var(--text-color);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: flex-start;
+  align-items: flex-start; /* Aligns tank list content to the left */
+  text-align: left;
 }
 
 .tank-list h1 {
@@ -220,30 +221,25 @@ body {
   font-size: 1.8em;
   font-weight: 700;
   margin-bottom: 20px;
+  align-self: flex-start; /* Aligns title to the top-left */
+  position: relative;
+  padding-bottom: 10px;
 }
-  
-.tank-box {
-  padding: 15px 25px;
-  border-radius: 8px;
+.tank-list h1::after {
+  content: "";
+  display: block;
   width: 100%;
-  max-width: 600px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 1px;
+  background-color: var(--text-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
-
-.tank-box p {
-  margin: 0;
-}
-
 .tank-box a {
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: var(--text-color);
   text-decoration: none;
   font-weight: 600;
-}
-
-.tank-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .tank-box a:hover {
@@ -253,6 +249,8 @@ body {
  /* Footer */
 footer {
   bottom: 0;
+  width: 100%;
+  margin-top: 10px;
   background-color: var(--footer-bg);
   color: var(--footer-text-color);
   padding: 10px 20px;
@@ -263,7 +261,6 @@ footer {
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
   font-size: 0.9em;
 }
-
 .footer-right {
   display: flex;
   align-items: center;
@@ -281,3 +278,149 @@ footer {
   margin-left: 10px;
 }
 
+/* Floating shapes background */
+@keyframes float1 {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes float2 {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes float3 {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(15px) scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
+}
+
+.floating-shape {
+  position: absolute;
+  z-index: -1;
+  opacity: 1;
+  transition: transform 1s ease;
+}
+
+/* Circle Shapes */
+.circle1 {
+  width: 100px;
+  height: 100px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  top: 20%;
+  left: 86%;
+  animation: float1 6s ease-in-out infinite;
+}
+
+.circle2 {
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  top: 15%;
+  left: 3%;
+  animation: float2 8s ease-in-out infinite;
+}
+
+/* Triangle Shapes */
+.triangle1, .triangle2 {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 90px solid var(--primary-color);
+  animation: float3 7s ease-in-out infinite;
+}
+
+.triangle1 {
+  top: 50%;
+  left: 12%;
+  transform: rotate(45deg);
+}
+
+.triangle2 {
+  top: 35%;
+  left: 90%;
+  transform: rotate(-30deg);
+}
+
+/* Square Shapes */
+.square1, .square2 {
+  background-color: var(--primary-color);
+  animation: float2 9s ease-in-out infinite;
+}
+
+.square1 {
+  width: 70px;
+  height: 70px;
+  top: 80%;
+  left: 90%;
+}
+
+.square2 {
+  width: 50px;
+  height: 50px;
+  top: 35%;
+  left: 5%;
+}
+
+/* Random Colorful Shapes */
+.colorful1 {
+  width: 120px;
+  height: 20px;
+  background-color: var(--primary-color);
+  top: 60%;
+  left: 85%;
+  transform: rotate(10deg);
+  animation: float1 10s ease-in-out infinite;
+}
+
+.colorful2 {
+  width: 30px;
+  height: 80px;
+  background-color: var(--primary-color);
+  top: 20%;
+  left: 12%;
+  transform: rotate(90deg);
+  animation: float3 5s ease-in-out infinite;
+}
+
+.colorful3 {
+  width: 80px;
+  height: 80px;
+  background-color: var(--primary-color);
+  top: 70%;
+  left: 10%;
+  border-radius: 20px;
+  animation: float2 12s ease-in-out infinite;
+}
