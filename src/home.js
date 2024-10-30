@@ -1,4 +1,4 @@
-// Firebase configuration
+// Firebase configuration (already in your code)
 const firebaseConfig = {
   apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
   authDomain: "septic-tank-capacity.firebaseapp.com",
@@ -10,41 +10,44 @@ const firebaseConfig = {
   measurementId: "G-M9K3YTLTRP"
 };
 
-// Initialize Firebase
+// Initialize Firebase (already in your code)
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Authentication check and load user-specific data
+// Authentication check
 auth.onAuthStateChanged((user) => {
   if (user) {
-    // User is signed in, proceed with fetching data
-    const userUID = user.uid;
-    
-    // Fetch the document from Firestore corresponding to this user
-    const docRef = db.collection('septicTankData').doc(userUID);
-    
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        const userData = doc.data();
-        updateUI(userData);
-      } else {
-        console.log("No such document!");
-      }
-    }).catch((error) => {
-      console.error("Error fetching document: ", error);
-    });
+    // Check user's email and retrieve profile picture URL
+    const userEmail = user.email;
+
+    db.collection('users').doc(userEmail).get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+
+          // Check if profilePicUrl exists and update image source
+          if (userData.profilePicUrl) {
+            document.querySelector('.profile-pic').src = userData.profilePicUrl;
+          }
+        } else {
+          console.log("No user data found!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error retrieving user data: ", error);
+      });
   } else {
     // If no user is logged in, redirect to login
     window.location.href = 'index.html';
   }
 });
 
-    // Add event listener to the Logout button
-    document.getElementById('logout-btn').addEventListener('click', function() {
-    firebase.auth().signOut().then(() => {
-        window.location.href = 'index.html';
-    }).catch((error) => {
-        console.error('Logout Error: ', error);
-    });
+// Event listener for Logout button (already in your code)
+document.getElementById('logout-btn').addEventListener('click', function() {
+  firebase.auth().signOut().then(() => {
+    window.location.href = 'index.html';
+  }).catch((error) => {
+    console.error('Logout Error: ', error);
+  });
 });
