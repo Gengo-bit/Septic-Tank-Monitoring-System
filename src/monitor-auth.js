@@ -15,19 +15,6 @@ function scrollToSection(sectionId) {
     document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
 
-
-firebase.auth().onAuthStateChanged((user) => {
-        if (!user) {
-            // Redirect to login if no user is authenticated
-            window.location.href = 'index.html';
-        }
-    });
-
-    function scrollToSection(sectionId) {
-        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-    }
-
-
 window.addEventListener('beforeunload', () => {
     firebase.auth().signOut().catch((error) => {
         console.error('Error signing out: ', error);
