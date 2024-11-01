@@ -1,29 +1,35 @@
 :root {
-  --base-color: #a4a4a4; /* Lighter base color for secondary elements */
-  --base-variant: #e4e4e4; /* Light background for text areas */
-  --text-color: #2d3a4b; /* Text color for light mode */
-  --secondary-text: #5c6f81; /* Lighter secondary text color */
-  --primary-color: #1f1f1f; /* Primary color for headings */
-  --accent-color: #f4c542; /* Yellow accent */
-  --header-bg: #e4e4e4; /* Light background for header */
-  --footer-bg: #e4e4e4; /* Light background for footer */
-  --header-text-color: #2d3a4b; /* Dark text color for header */
-  --footer-text-color: #2d3a4b; /* Dark text color for footer */
-  --transition-duration: 0.4s;
+  --base-color: #a4a4a4;
+  --base-variant: #e4e4e4;
+  --text-color: #2d3a4b;
+  --secondary-text: #5c6f81;
+  --primary-color: #1f1f1f;
+  --accent-color: #f4c542;
+  --header-bg: #e4e4e4;
+  --footer-bg: #e4e4e4;
+  --header-text-color: #2d3a4b;
+  --footer-text-color: #2d3a4b;
+  --transition-duration: 0.3s; /* Increased transition duration for smooth effect */
+}
+
+/* animation*/
+body, .sidebar, .modal, .branding, footer, section, #theme-switch-sidebar {
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
 .darkmode {
-  --base-color: #121212; /* Dark mode background */
-  --base-variant: #1f1f1f; /* Dark mode variant */
-  --text-color: #e4e4e4; /* Light text color in dark mode */
-  --secondary-text: #a4a4a4; /* Secondary text color in dark mode */
-  --primary-color: #e4e4e4; /* Light color for headings in dark mode */
-  --accent-color: #f4c542; /* Yellow accent */
-  --header-bg: #1f1f1f; /* Dark background for header */
-  --footer-bg: #1f1f1f; /* Dark background for footer */
-  --header-text-color: #e4e4e4; /* Light text color for header in dark mode */
-  --footer-text-color: #e4e4e4; /* Light text color for footer in dark mode */
+  --base-color: #121212;
+  --base-variant: #1f1f1f;
+  --text-color: #e4e4e4;
+  --secondary-text: #a4a4a4;
+  --primary-color: #e4e4e4;
+  --accent-color: #f4c542;
+  --header-bg: #1f1f1f;
+  --footer-bg: #1f1f1f;
+  --header-text-color: #e4e4e4;
+  --footer-text-color: #e4e4e4;
 }
+
 /* Sidebar styles */
 #theme-switch-sidebar {
   position: absolute;
@@ -40,7 +46,7 @@
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.6s ease; /* Smooth rotation animation */
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.6s ease; /* Smooth rotation animation */
 }
 #theme-switch-sidebar:hover {
   background-color: var(--accent-color);
