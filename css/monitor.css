@@ -447,7 +447,7 @@ body {
 
 /* Dark Mode */
 body.darkmode {
-  background-color: #2b2a2a;
+  background-color: #202020;
   background-image: 
     linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
     linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
