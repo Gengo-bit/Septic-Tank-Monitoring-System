@@ -1255,9 +1255,6 @@ p {
         background-image: none; /* Remove any background image if applied */
     }
     
-    #hero-video {
-        display: none; /* Ensure video is hidden on mobile */
-    }
 
   .overlay h2, .overlay p {
       font-size: 1.4rem; /* Adjust text size */
