@@ -216,7 +216,6 @@ body {
 /* Hero Section */
 .hero-section {
   background-color: white; /* Set the background to white */
-  background-image: none; /* Remove any potential background image or gradient */
   position: relative;
   height: 100vh; /* 100% of the viewport height */
   min-height: 100vh; /* Ensures it always takes up full screen */
@@ -866,21 +865,6 @@ p {
   font-size: 0.9rem;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .modal-content {
-      padding: 30px;
-  }
-
-  .login-text {
-      font-size: 1.2rem;
-  }
-
-  .login-btn {
-      font-size: 1rem;
-      padding: 10px;
-  }
-}
 .responsive-image {
   width: 100%; /* Make it responsive */
   height: auto; /* Maintain aspect ratio */
@@ -960,8 +944,111 @@ p {
   transform: translateY(-2px);
 }
 
-/* Responsive Adjustments */
+/* Mobile */
 @media (max-width: 768px) {
+
+
+    /* Full-Screen Sections - Mobile adjustments */
+    .full-screen {
+      padding: 20px;
+      height: auto; /* Allow sections to grow if content is long */
+      min-height: 100vh; /* Ensure it still takes up the viewport height */
+      text-align: center; /* Center-align text on smaller screens */
+    }
+  
+    /* Section Title for Mobile */
+    .section-title {
+      font-size: 2rem; /* Smaller font size for mobile */
+    }
+    .overlay h2 {
+      font-size: 1.4rem;
+  }
+    .overlay h2.smart {
+      font-size: 3rem;
+      color: #f4c542; /* Accent color */
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Stronger shadow for contrast */
+      margin-bottom: 20px;
+  }
+  .overlay p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    max-width: 700px;
+    color: #f1f1f1;
+    line-height: 1.7; /* More spacious line height for readability */
+    padding: 0 20px;
+    margin-top: 15px;
+    animation: fadeInUp 1.2s ease forwards;
+  }
+  
+  /* Hover Effect for the Overlay */
+  .overlay:hover .smart {
+    transform: scale(1.05); /* Scale up on hover for emphasis */
+  }
+    /* CTA Section for Mobile */
+    .cta-section {
+      padding: 30px 20px;
+      height: auto; /* Allow height to adjust based on content */
+      min-height: 100vh;
+    }
+  
+    .cta-section h2 {
+      font-size: 2rem; /* Adjust heading size */
+    }
+  
+    .cta-section p {
+      font-size: 1.1rem;
+    }
+  
+    .cta-btn {
+      font-size: 1rem;
+      padding: 12px 25px; /* Adjust button size */
+    }
+  
+    /* Product Offerings */
+    .product {
+      width: 90%; /* Full width on smaller screens */
+      margin: 10px auto;
+    }
+  
+    /* Features and Benefits Sections */
+    .features, .product-offerings, .benefits {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center align */
+    }
+  
+    .feature-item, .benefit-item {
+      width: 90%; /* Full width for smaller screens */
+      margin: 10px 0; /* Spacing between items */
+    }
+  
+    .footer-content {
+      width: 100%;
+    }
+  
+    .footer-logo img {
+      width: 30px; /* Smaller logo for mobile */
+    }
+  
+    .footer-links a {
+      font-size: 0.7rem; /* Smaller text */
+      margin: 5px;
+    }
+  
+    .social-media a img {
+      width: 14px; /* Smaller icons */
+    }
+  
+    /* Modal for Mobile */
+    .modal-content {
+      padding: 2rem;
+      max-width: 90%;
+    }
+  
+    .login-btn {
+      font-size: 1rem;
+      padding: 10px;
+    }
   .main-header {
     flex-direction: column;
     text-align: center;
@@ -975,121 +1062,50 @@ p {
     font-size: 1rem;
     padding: 10px 20px;
   }
+  .modal-content {
+    padding: 30px;
 }
 
-@media (max-width: 768px) {
+.login-text {
+    font-size: 1.2rem;
+}
   .benefits-section h2 {
     margin-bottom: 20px; /* Adjust spacing for smaller screens */
     padding-top: 10px;
   }
-}
-/* Responsive Media Queries */
-@media (max-width: 768px) {
-  /* Full-Screen Sections - Mobile adjustments */
-  .full-screen {
-    padding: 20px;
-    height: auto; /* Allow sections to grow if content is long */
-    min-height: 100vh; /* Ensure it still takes up the viewport height */
-    text-align: center; /* Center-align text on smaller screens */
-  }
-
-  /* Section Title for Mobile */
-  .section-title {
-    font-size: 2rem; /* Smaller font size for mobile */
-  }
-
-  .overlay h2 {
-    font-size: 1.8rem; /* Adjust text size for mobile */
-  }
-  .overlay h2.smart {
-    font-size: 3rem;
-    color: #f4c542; /* Accent color */
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Stronger shadow for contrast */
-    margin-bottom: 20px;
-}
-.overlay p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 300;
-  max-width: 700px;
-  color: #f1f1f1;
-  line-height: 1.7; /* More spacious line height for readability */
-  padding: 0 20px;
-  margin-top: 15px;
-  animation: fadeInUp 1.2s ease forwards;
+  .footer-links, .social-media {
+    flex-direction: column; /* Stack footer links vertically */
+    align-items: center;
 }
 
-/* Hover Effect for the Overlay */
-.overlay:hover .smart {
-  transform: scale(1.05); /* Scale up on hover for emphasis */
-}
-  /* CTA Section for Mobile */
-  .cta-section {
-    padding: 30px 20px;
-    height: auto; /* Allow height to adjust based on content */
-    min-height: 100vh;
-  }
-
-  .cta-section h2 {
-    font-size: 2rem; /* Adjust heading size */
-  }
-
-  .cta-section p {
-    font-size: 1.1rem;
-  }
-
-  .cta-btn {
-    font-size: 1rem;
-    padding: 12px 25px; /* Adjust button size */
-  }
-
-  /* Product Offerings */
-  .product {
-    width: 90%; /* Full width on smaller screens */
-    margin: 10px auto;
-  }
-
-  /* Features and Benefits Sections */
-  .features, .product-offerings, .benefits {
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center align */
-  }
-
-  .feature-item, .benefit-item {
-    width: 90%; /* Full width for smaller screens */
-    margin: 10px 0; /* Spacing between items */
-  }
-
-  .footer-content {
-    width: 100%;
-  }
-
-  .footer-logo img {
-    width: 30px; /* Smaller logo for mobile */
-  }
-
-  .footer-links a {
-    font-size: 0.7rem; /* Smaller text */
+.footer-links a {
+    font-size: 0.8rem; /* Adjust link size */
     margin: 5px;
-  }
-
-  .social-media a img {
-    width: 14px; /* Smaller icons */
-  }
-
-  /* Modal for Mobile */
-  .modal-content {
-    padding: 2rem;
-    max-width: 90%;
-  }
-
-  .login-btn {
-    font-size: 1rem;
-    padding: 0.6rem 1.8rem;
-  }
+}
+.product-card {
+  flex: 1 1 100%; /* Full width on mobile */
+  max-width: 100%;
+  margin-bottom: 20px;
 }
 
-/* Smaller Devices */
+.product-image {
+  height: auto; /* Ensure image height adjusts */
+}
+
+.section-image {
+  height: auto; /* Ensure section images scale down */
+}
+.header-nav {
+  flex-direction: column; /* Stack links vertically */
+  gap: 10px; /* Adjust spacing */
+}
+
+.nav-link {
+  font-size: 1rem; /* Adjust link size */
+  padding: 8px 15px; /* Adjust padding */
+}
+}
+
 @media (max-width: 576px) {
   h1 {
     font-size: 1.8rem;
@@ -1109,12 +1125,6 @@ p {
 
   .main-footer .social-media a img {
     width: 16px; /* Even smaller icons */
-  }
-}
-@media (max-width: 768px) {
-  .product-card {
-      flex: 1 1 100%; /* Make cards full-width on tablets */
-      max-width: 100%;
   }
 }
 
@@ -1238,61 +1248,5 @@ p {
   100% {
       opacity: 1;
       transform: translateY(0);
-  }
-}
-
-
-/* For Smaller Screens */
-@media (max-width: 768px) {
-  .full-screen {
-      padding: 20px;
-      height: auto; /* Allow sections to grow */
-      min-height: 100vh; /* Ensure sections take full viewport height */
-  }
-
-    .hero-section {
-        background-color: white; /* Change gray background to white */
-        background-image: none; /* Remove any background image if applied */
-    }
-    
-
-  .overlay h2, .overlay p {
-      font-size: 1.4rem; /* Adjust text size */
-  }
-}
-@media (max-width: 768px) {
-  .header-nav {
-      flex-direction: column; /* Stack links vertically */
-      gap: 10px; /* Adjust spacing */
-  }
-
-  .nav-link {
-      font-size: 1rem; /* Adjust link size */
-      padding: 8px 15px; /* Adjust padding */
-  }
-}
-@media (max-width: 768px) {
-  .product-card {
-      flex: 1 1 100%; /* Full width on mobile */
-      margin-bottom: 20px;
-  }
-
-  .product-image {
-      height: auto; /* Ensure image height adjusts */
-  }
-
-  .section-image {
-      height: auto; /* Ensure section images scale down */
-  }
-}
-@media (max-width: 768px) {
-  .footer-links, .social-media {
-      flex-direction: column; /* Stack footer links vertically */
-      align-items: center;
-  }
-
-  .footer-links a {
-      font-size: 0.8rem; /* Adjust link size */
-      margin: 5px;
   }
 }
