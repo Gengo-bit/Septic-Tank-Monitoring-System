@@ -76,7 +76,7 @@ body, .sidebar, .modal, .branding, footer, section, #theme-switch-sidebar {
 }
 /* Sidebar open animation */
 .sidebar {
-  transition: right 0.4s ease-in-out;
+  transition: right 0.4s ease-in-out !important;
 }
 .sidebar-open {
   right: 0;

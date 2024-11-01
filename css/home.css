@@ -84,7 +84,7 @@
     box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
     padding-top: 60px;
     z-index: 100;
-    transition: right 0.4s ease-in-out;
+    transition: right 0.4s ease-in-out !important;
     overflow-y: auto; /* For scrollable sidebar content */
   }
   
@@ -115,8 +115,8 @@
   
   .sidebar a:hover {
     color: var(--accent-color);
-    transform: scale(1.05);
-  }
+    transform: translateY(-2px); /* Slight lift without resizing */
+  }  
   
   .sidebar-toggle {
     position: absolute;
