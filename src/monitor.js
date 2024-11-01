@@ -13,25 +13,21 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-// const database = firebase.database(); - realtime database
 const db = firebase.firestore();
 
-// Tank dimensions and capacity
+// Tank dimensions and capacity calculation
 let tankDimensions = { height: 35, length: 45, width: 45 };
-let septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
+let septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
 
-// Charts
+// Charts and prediction variables
 let capacityChart, historicalChart;
-
-// Prediction variables
 let previousVolume = null;
 let previousTimestamp = null;
 
+// Authentication state check
 auth.onAuthStateChanged((user) => {
   if (user) {
-    // Check user's email to determine which Firestore collection to use
     const userEmail = user.email;
-
     if (userEmail === 'paulcorsino28@gmail.com') {
       initializeApp('users', 'paulcorsino28@gmail.com', 'septicTankData');
     } else if (userEmail === 'dcamorganda@gmail.com') {
@@ -44,62 +40,29 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
+// Initialize charts once
+initializeCharts();
+
 function initializeApp(userCollection, userEmail, collectionName) {
   // Fetch tank dimensions
   db.collection('tankDimensions').doc('dimensions').get().then((doc) => {
     if (doc.exists) {
       tankDimensions = doc.data();
-      septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
+      septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
     }
   });
 
-  // Initialize charts
-  initializeCharts();
-
-  // Real-time update listener
-  db.collection(userCollection).doc(userEmail).collection(collectionName).orderBy('timestamp').limit(10).onSnapshot((snapshot) => {
-    if (snapshot.empty) {
-      console.log("No matching documents found!");
-      return;
-    }
-
-    // Clear the existing chart data before updating
-    capacityChart.data.datasets[0].data = [];
-    historicalChart.data.labels = [];
-    historicalChart.data.datasets[0].data = [];
-
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      const capacity = data.capacity;
-      const currentVolume = (capacity / 100) * septicTankCapacity;
-
-      console.log("Data from Firestore: ", data); // Log data for debugging
-
-      // Convert Unix timestamp (seconds) to a JavaScript Date object
-      const timestampDate = new Date(data.timestamp * 1000); // Multiplying by 1000 to convert from seconds to milliseconds
-
-      // Format the date and time to a readable format
-      const formattedTime = timestampDate.toLocaleTimeString();  // For time (hours, minutes, seconds)
-      const formattedDate = timestampDate.toLocaleDateString();  // For date (day, month, year)
-
-      // Update chart and calculations
-      updateCapacity(capacity);
-      updateHistoricalChart(capacity, formattedDate, formattedTime);
-      calculatePrediction(currentVolume, data.timestamp);  // Use the raw timestamp for calculations
-    });
-
-    // Update the charts
-    capacityChart.update();
-    historicalChart.update();
-  }, (error) => {
-    console.error("Error fetching data: ", error);
-  });
+  // Real-time data update listener
+  db.collection(userCollection).doc(userEmail).collection(collectionName)
+    .orderBy('timestamp').limit(10)
+    .onSnapshot(handleSnapshot, handleError);
 
   // Event listener for saving tank dimensions
   document.getElementById('save-settings').addEventListener('click', saveTankDimensions);
 }
 
 function initializeCharts() {
+  // Initialize capacity chart
   capacityChart = new Chart(document.getElementById('capacityChart').getContext('2d'), {
     type: 'doughnut',
     data: {
@@ -124,6 +87,7 @@ function initializeCharts() {
     }
   });
 
+  // Initialize historical chart with zoom features
   historicalChart = new Chart(document.getElementById('historicalChart').getContext('2d'), {
     type: 'line',
     data: {
@@ -158,12 +122,16 @@ function initializeCharts() {
           },
           zoom: {
             wheel: {
-              enabled: true
+              enabled: true,
+              speed: 0.1 // Control zoom sensitivity
             },
             pinch: {
               enabled: true
             },
-            mode: 'x'
+            mode: 'x',
+            limits: {
+              x: { min: 'original', max: 'original' } // Prevent zooming out beyond initial range
+            }
           }
         }
       }
@@ -171,10 +139,53 @@ function initializeCharts() {
   });
 }
 
+function calculateSepticTankCapacity(dimensions) {
+  return (dimensions.height * dimensions.length * dimensions.width) / 1000;
+}
+
+function handleSnapshot(snapshot) {
+  if (snapshot.empty) {
+    console.log("No matching documents found!");
+    return;
+  }
+
+  // Clear the existing chart data before updating
+  capacityChart.data.datasets[0].data = [];
+  historicalChart.data.labels = [];
+  historicalChart.data.datasets[0].data = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    const capacity = data.capacity;
+    const currentVolume = (capacity / 100) * septicTankCapacity;
+
+    console.log("Data from Firestore: ", data); // Log data for debugging
+
+    // Convert Unix timestamp (seconds) to a JavaScript Date object
+    const timestampDate = new Date(data.timestamp * 1000); // Multiplying by 1000 to convert from seconds to milliseconds
+
+    // Format the date and time to a readable format
+    const formattedTime = timestampDate.toLocaleTimeString();  // For time (hours, minutes, seconds)
+    const formattedDate = timestampDate.toLocaleDateString();  // For date (day, month, year)
+
+    // Update chart and calculations
+    updateCapacity(capacity);
+    updateHistoricalChart(capacity, formattedDate, formattedTime);
+    calculatePrediction(currentVolume, data.timestamp);  // Use the raw timestamp for calculations
+  });
+
+  // Update the charts
+  capacityChart.update();
+  historicalChart.update();
+}
+
+function handleError(error) {
+  console.error("Error fetching data: ", error);
+}
+
 function resetZoom() {
   historicalChart.resetZoom();
 }
-
 
 function updateCapacity(capacity) {
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
@@ -227,25 +238,12 @@ function saveTankDimensions() {
   };
 
   db.collection('tankDimensions').doc('dimensions').set(newDimensions)
-  .then(() => {
-    tankDimensions = newDimensions;
-    septicTankCapacity = (tankDimensions.height * tankDimensions.length * tankDimensions.width) / 1000;
-    document.getElementById('settingsModal').style.display = 'none';
-  })
-  .catch((error) => console.error("Error saving dimensions: ", error));
+    .then(() => {
+      tankDimensions = newDimensions;
+      septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
+      alert("Tank dimensions saved successfully!");
+    })
+    .catch((error) => {
+      console.error("Error saving dimensions: ", error);
+    });
 }
-
-// Add styles
-const styles = `
-  .capacity-text, .status-text, .time-until-full, .rate-too-low {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    color: var(--text-color);
-    font-weight: 300;
-  }
-  .status { font-size: 20px; }
-`;
-
-const styleSheet = document.createElement("style");
-styleSheet.textContent = styles;
-document.head.appendChild(styleSheet);
