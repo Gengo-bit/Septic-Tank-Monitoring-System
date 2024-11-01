@@ -29,3 +29,17 @@ window.addEventListener('beforeunload', () => {
             console.error('Logout Error: ', error);
         });
     });
+
+// home button
+document.getElementById('homeButton').addEventListener('click', (event) => {
+        event.preventDefault(); // Prevents default link behavior
+        const user = auth.currentUser;
+        if (user) {
+            // User is authenticated, redirect to home page
+            window.location.href = 'home.html';
+        } else {
+            // User not authenticated, redirect to login page
+            window.location.href = 'index.html';
+        }
+});
+    

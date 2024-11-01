@@ -57,3 +57,9 @@ document.getElementById('logout-btn').addEventListener('click', function() {
     console.error('Logout Error: ', error);
   });
 });
+
+auth.onAuthStateChanged((user) => {
+  if (!user) {
+      window.location.href = 'index.html'; // Redirect if not authenticated
+  }
+});
