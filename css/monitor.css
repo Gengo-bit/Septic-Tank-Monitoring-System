@@ -458,3 +458,22 @@ body.darkmode {
   from { background-position: 0 0; }
   to { background-position: 100px 100px; }
 }
+
+.zoom {
+  background-color: var(--base-variant);
+  color: var(--text-color);
+  border: none;
+  font-weight: 550;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+.zoom:hover {
+  color: var(--accent-color);
+}
+
+.zoom:active {
+  transform: scale(0.95); /* Scale down slightly on click */
+  transition: transform 0.1s ease; /* Faster transition for a snappy effect */
+}

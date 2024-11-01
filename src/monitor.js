@@ -149,10 +149,32 @@ function initializeCharts() {
           min: 0,
           max: 100
         }
+      },
+      plugins: {
+        zoom: {
+          pan: {
+            enabled: true,
+            mode: 'x'
+          },
+          zoom: {
+            wheel: {
+              enabled: true
+            },
+            pinch: {
+              enabled: true
+            },
+            mode: 'x'
+          }
+        }
       }
     }
   });
 }
+
+function resetZoom() {
+  historicalChart.resetZoom();
+}
+
 
 function updateCapacity(capacity) {
   capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
