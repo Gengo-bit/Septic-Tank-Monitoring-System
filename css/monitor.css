@@ -427,3 +427,34 @@ footer p, footer a {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
+
+/* General Style for Body */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  transition: background 0.3s ease;
+  background-size: 20px 20px;
+  animation: moveBackground 20s linear infinite;
+}
+
+/* Light Mode */
+body {
+  background-color: #d7d8de;
+  background-image: 
+    linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%);
+}
+
+/* Dark Mode */
+body.darkmode {
+  background-color: #2b2a2a;
+  background-image: 
+    linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
+}
+
+/* Keyframes for Background Animation */
+@keyframes moveBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100px 100px; }
+}
