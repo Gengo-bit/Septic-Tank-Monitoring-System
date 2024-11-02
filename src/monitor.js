@@ -247,3 +247,39 @@ function saveTankDimensions() {
       console.error("Error saving dimensions: ", error);
     });
 }
+
+
+//auth
+  // Authentication check
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is authenticated, check the referrer
+      const referrer = document.referrer;
+      if (!referrer.includes('home.html')) {
+        window.location.href = 'home.html';
+      }
+  
+      // Event listener for Home button (redirects to home page)
+      document.getElementById('homeButton').addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.href = 'home.html';
+      });
+    } else {
+      // Redirect to index.html if not authenticated
+      window.location.href = 'index.html';
+    }
+  });
+  
+  // Event listener for Logout button
+  document.getElementById('Logout-btn').addEventListener('click', function() {
+    auth.signOut().then(() => {
+      window.location.href = 'index.html';
+    }).catch((error) => {
+      console.error('Logout Error: ', error);
+    });
+  });
+  
+  // Scroll function for sidebar links
+  function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+  }  

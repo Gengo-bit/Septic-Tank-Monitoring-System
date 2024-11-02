@@ -49,7 +49,7 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// Event listener for Logout button (already in your code)
+// Event listener for Logout button
 document.getElementById('logout-btn').addEventListener('click', function() {
   firebase.auth().signOut().then(() => {
     window.location.href = 'index.html';
