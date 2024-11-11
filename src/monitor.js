@@ -230,8 +230,7 @@ function calculatePrediction(currentVolume, currentTime) {
   previousTimestamp = currentTime;
 }
 
-//auth
-  // Authentication check
+  // Authentication 
   auth.onAuthStateChanged((user) => {
     if (user) {
       // If user is authenticated, check the referrer
@@ -239,7 +238,6 @@ function calculatePrediction(currentVolume, currentTime) {
       if (!referrer.includes('home.html')) {
         window.location.href = 'home.html';
       }
-  
       // Event listener for Home button (redirects to home page)
       document.getElementById('homeButton').addEventListener('click', (event) => {
         event.preventDefault();
