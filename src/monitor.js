@@ -13,16 +13,12 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Tank dimensions and capacity calculation
-let tankDimensions = { height: 35, length: 45, width: 45 };
-let septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
-
-// Charts and prediction variables
+let tankDimensions = {};
+let septicTankCapacity;
 let capacityChart, historicalChart;
 let previousVolume = null;
 let previousTimestamp = null;
 
-// Initialize data according to email
 auth.onAuthStateChanged((user) => {
   if (user) {
     const userEmail = user.email;
@@ -38,25 +34,31 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// Initialize charts once
 initializeCharts();
 
 function initializeApp(userCollection, userEmail, collectionName) {
-  // Fetch tank dimensions
-  db.collection('tankDimensions').doc('dimensions').get().then((doc) => {
-    if (doc.exists) {
-      tankDimensions = doc.data();
-      septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
-    }
-  });
+  // Fetch tank dimensions from Firestore and update capacity
+  db.collection(userCollection).doc(userEmail).collection('tankDimensions').doc('dimensions')
+    .get().then((doc) => {
+      if (doc.exists) {
+        tankDimensions = doc.data();
+        septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
+
+        // Update HTML with tank dimensions
+        document.getElementById("tankHeight").innerText = tankDimensions.height;
+        document.getElementById("tankLength").innerText = tankDimensions.length;
+        document.getElementById("tankWidth").innerText = tankDimensions.width;
+      } else {
+        console.log("No tank dimensions found.");
+      }
+    }).catch((error) => {
+      console.error("Error fetching tank dimensions: ", error);
+    });
 
   // Real-time data update listener
   db.collection(userCollection).doc(userEmail).collection(collectionName)
     .orderBy('timestamp').limit(10)
     .onSnapshot(handleSnapshot, handleError);
-
-  // Event listener for saving tank dimensions
-  document.getElementById('save-settings').addEventListener('click', saveTankDimensions);
 }
 
 function initializeCharts() {
@@ -227,25 +229,6 @@ function calculatePrediction(currentVolume, currentTime) {
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
 }
-
-function saveTankDimensions() {
-  const newDimensions = {
-    height: parseFloat(document.getElementById('input-tankHeight').value),
-    length: parseFloat(document.getElementById('input-tankLength').value),
-    width: parseFloat(document.getElementById('input-tankWidth').value)
-  };
-
-  db.collection('tankDimensions').doc('dimensions').set(newDimensions)
-    .then(() => {
-      tankDimensions = newDimensions;
-      septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
-      alert("Tank dimensions saved successfully!");
-    })
-    .catch((error) => {
-      console.error("Error saving dimensions: ", error);
-    });
-}
-
 
 //auth
   // Authentication check
