@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <!-- Header Section -->
     <header class="main-header">
         <div class="logo-container">
@@ -24,19 +23,16 @@
             <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
         </nav>
     </header>    
-
     <!-- Hero Section with Video Background -->
     <section class="hero-section full-screen">
         <video autoplay muted loop id="hero-video">
             <source src="../assets/intro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
         <div class="overlay">
             <h2 class="smart">Smart Solutions for Septic Tank Management</h2>
             <p>Monitor your septic tanks efficiently with our sensor modules and monitoring module.</p>
         </div>
     </section>
-
     <!-- Main Container -->
     <section id="commercialization" class="section commercialization full-screen">
         <div class="introduction">
@@ -45,7 +41,6 @@
             <div class="section-image realtime-div" style="background-image: url('../assets/sensor.png');"></div>
         </div>
     </section>
-
     <section id="product-offerings" class="section product-offerings full-screen">
         <h2 class="section-title ourproduct">Our Products</h2>
         <div class="product-container">
@@ -56,7 +51,7 @@
                     <li>High accuracy and durability</li>
                     <li>Water-resistant design</li>
                     <li>Easy installation and maintenance</li>
-                    <li>Compatible with various sizes of septic tanks</li> <!-- New feature added -->
+                    <li>Compatible with various sizes of septic tanks</li>
                 </ul>
                 <div class="product-image" style="background-image: url('../assets/sensor_module.png');"></div>
             </div>
@@ -73,7 +68,6 @@
             </div>
         </div>
     </section>
-
     <!-- Benefits Section -->
     <section id="benefits-section" class="benefits-section full-screen">
         <h2>Why Use Our System?</h2>
@@ -108,43 +102,33 @@
             </div>
         </div>
     </section>
-
     <!-- Call to Action -->
     <section id="cta-section" class="cta-section full-screen">
         <h2>Ready to Optimize Your Septic Tank Management?</h2>
         <p>Use our products now to ensure your septic system runs smoothly!</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" class="cta-btn">Pre-order here</a>
     </section>
-
     <!-- Modal -->
     <div class="modal" id="login-modal">
         <div class="modal-content">
-            <span class="close" id="close-modal">&times;</span>
-    
+            <span class="close" id="close-modal">&times;</span>  
             <!-- Centered Logo at the top -->
             <div class="modal-logo">
                 <img src="../assets/logo.png" alt="Logo">
-            </div>
-    
+            </div>  
             <!-- Login text -->
-            <h3 class="login-text">Login to Your Account</h3>
-    
+            <h3 class="login-text">Login to Your Account</h3>  
             <!-- Login form -->
             <form class="login-form" id="login-form">
                 <input class="input-email" type="email" id="email" placeholder="Email" required>
                 <input class="input-pass" type="password" id="password" placeholder="Password" required>
                 <button class="login-btn" type="submit">Login</button>
-            </form>
-    
-            <!-- Adjusted 'Not an owner?' text -->
+            </form>  
             <p class="buy-now-text">Not an owner? <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0sP3C0H1BUdpB5j9psUIQ8XXfk_Ue8V2HUMVukVgOuAEr3A/viewform" target="_blank">Pre-order here</a></p>
-    
             <!-- Error message -->
             <p id="error-message" class="error-message"></p>
         </div>
     </div>
-    
-
     <!-- Footer Section -->
     <footer class="main-footer">
         <div class="footer-links">
@@ -159,14 +143,10 @@
             </div>
         </div>
     </footer>
-
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>    
-    <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <!-- Firebase Authentication -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
-    <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
     <script src="../src/index.js"></script>
     <script src="../src/auth.js"></script>

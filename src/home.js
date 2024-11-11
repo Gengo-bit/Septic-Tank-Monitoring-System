@@ -1,4 +1,3 @@
-// Firebase configuration (already in your code)
 const firebaseConfig = {
   apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
   authDomain: "septic-tank-capacity.firebaseapp.com",
@@ -10,29 +9,27 @@ const firebaseConfig = {
   measurementId: "G-M9K3YTLTRP"
 };
 
-// Initialize Firebase (already in your code)
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Authentication check
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged((user) => { // Authentication check
   if (user) {
-    // Get user's email
-    const userEmail = user.email;
+    
+    const userEmail = user.email;  // Get user's email
 
-    // Retrieve the user's data from Firestore
+    // Retrieve the user's data from Firestore 
     db.collection('users').doc(userEmail).get()
       .then((doc) => {
         if (doc.exists) {
           const userData = doc.data();
 
-          // Check if profilePicUrl exists and update image source
+          // Update the profilePicUrl element to the stored pic
           if (userData.profilePicUrl) {
             document.querySelector('.profile-pic').src = userData.profilePicUrl;
           }
 
-          // Update the @User element to the stored username
+          // Update the @User element to the st ored username
           if (userData.username) {
             document.querySelector('.username-display').textContent = userData.username;
           }
@@ -58,8 +55,9 @@ document.getElementById('logout-btn').addEventListener('click', function() {
   });
 });
 
+// Redirect to index.html if not logged in
 auth.onAuthStateChanged((user) => {
   if (!user) {
-      window.location.href = 'index.html'; // Redirect if not authenticated
+      window.location.href = 'index.html';
   }
 });

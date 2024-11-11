@@ -1,10 +1,7 @@
-// Import and configure Firebase
-
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import auth functions
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
     authDomain: "septic-tank-capacity.firebaseapp.com",
@@ -18,17 +15,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(); // Initialize Firebase Auth
+const auth = getAuth();
 
 // Handle Login
-document.getElementById('login-modal').addEventListener('submit', function(event) { // Corrected ID here
+document.getElementById('login-modal').addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    signInWithEmailAndPassword(auth, email, password) // Using auth instance
+    signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-            window.location.href = 'home.html'; // Redirect to home page after login
+            window.location.href = 'home.html';
         })
         .catch(error => {
             alert('Login failed: ' + error.message);

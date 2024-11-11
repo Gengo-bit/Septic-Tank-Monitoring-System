@@ -1,4 +1,3 @@
-// Initialize Firebase with your config
 const firebaseConfig = {
     apiKey: "AIzaSyCgrcyyM547ICJc6fzbunqWSV64pKlRfZA",
     authDomain: "septic-tank-capacity.firebaseapp.com",
@@ -8,6 +7,7 @@ const firebaseConfig = {
   
   firebase.initializeApp(firebaseConfig);
   
+  // Handle login
   document.addEventListener('DOMContentLoaded', () => {
       const loginForm = document.getElementById('login-modal');
       const errorMessage = document.getElementById('error-message');
@@ -28,6 +28,7 @@ const firebaseConfig = {
               });
       });
   });  
+
    // Modal Functionality
    const loginToggleBtn = document.getElementById('login-toggle-btn');
    const loginModal = document.getElementById('login-modal');
@@ -77,7 +78,6 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach(section => observer.observe(section));
 
-
 // Observe each section
 sections.forEach((section) => {
     observer.observe(section);
@@ -101,4 +101,3 @@ document.querySelectorAll('a.nav-link').forEach(anchor => {
         });
     });
 });
-

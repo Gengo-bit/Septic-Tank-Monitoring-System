@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Sidebar functionality elements
+    
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const closeBtn = document.getElementById('close-btn');
@@ -10,16 +10,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalClose = document.querySelector('.modal .close');
     const settingsModalClose = document.querySelector('.close-settings');
 
-    // Sidebar open/close functionality
+    // Sidebar open/close
     if (sidebarToggle && sidebar && closeBtn) {
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('sidebar-open');
-            sidebarToggle.style.opacity = '0';  // Hide the hamburger icon when sidebar is open
+            sidebarToggle.style.opacity = '0';  // Hide hamburger when sidebar is open
         });
 
         closeBtn.addEventListener('click', () => {
             sidebar.classList.remove('sidebar-open');
-            sidebarToggle.style.opacity = '1';  // Show the hamburger icon when sidebar is closed
+            sidebarToggle.style.opacity = '1';  // Show hamburger when sidebar is closed
         });
     }
 

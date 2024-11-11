@@ -272,7 +272,7 @@
     opacity: 1;  /* Fade in */
   }
   
-  .modal-content label {
+  .modal-content p {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
