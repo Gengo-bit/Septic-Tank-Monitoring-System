@@ -1,479 +1,480 @@
-:root {
-  --base-color: #a4a4a4;
-  --base-variant: #e4e4e4;
-  --text-color: #2d3a4b;
-  --secondary-text: #5c6f81;
-  --primary-color: #1f1f1f;
-  --accent-color: #f4c542;
-  --header-bg: #e4e4e4;
-  --footer-bg: #e4e4e4;
-  --header-text-color: #2d3a4b;
-  --footer-text-color: #2d3a4b;
-  --transition-duration: 0.3s; /* Increased transition duration for smooth effect */
-}
-
-/* animation*/
-body, .sidebar, .modal, .branding, footer, section, #theme-switch-sidebar {
-  transition: background-color var(--transition-duration), color var(--transition-duration);
-}
-
-.darkmode {
-  --base-color: #121212;
-  --base-variant: #1f1f1f;
-  --text-color: #e4e4e4;
-  --secondary-text: #a4a4a4;
-  --primary-color: #e4e4e4;
-  --accent-color: #f4c542;
-  --header-bg: #1f1f1f;
-  --footer-bg: #1f1f1f;
-  --header-text-color: #e4e4e4;
-  --footer-text-color: #e4e4e4;
-}
-
-/* Sidebar styles */
-#theme-switch-sidebar {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--primary-color);
-  color: var(--accent-color);
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.6s ease; /* Smooth rotation animation */
-}
-#theme-switch-sidebar:hover {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-#sidebar-sun-icon, #sidebar-moon-icon {
-  transition: opacity 0.3s ease, transform 0.6s ease; /* Added transform animation for rotating */
-}
-.darkmode #sidebar-sun-icon {
-  transform: rotate(360deg);
-  opacity: 0;
-}
-
-.darkmode #sidebar-moon-icon {
-  transform: rotate(360deg);
-  opacity: 1;
-}
-
-#sidebar-sun-icon {
-  transform: rotate(0deg);
-  opacity: 1;
-}
-#sidebar-moon-icon {
-  opacity: 0;
-  transform: rotate(-360deg); /* Rotate back when switching to light mode */
-}
-/* Sidebar open animation */
-.sidebar {
-  transition: right 0.4s ease-in-out !important;
-}
-.sidebar-open {
-  right: 0;
-}
-.sidebar {
-  position: fixed;
-  right: -250px;
-  top: 0;
-  width: 250px;
-  height: 100%;
-  background-color: var(--base-variant);
-  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
-  transition: 0.4s ease;
-  padding-top: 60px;
-  z-index: 100;
-}
-.sidebar a, .sidebar button {
-  padding: 15px;
-  text-decoration: none;
-  font-size: 18px;
-  color: var(--text-color);
-  display: block;
-  font-weight: 600;
-  text-align: left;
-  transition: color 0.3s ease, transform 0.3s ease; /* Smooth color change and size increase */
-}
-
-.sidebar a:hover, .sidebar button:hover {
-  color: var(--accent-color);
-  transform: scale(1.05); /* Slightly bigger when hovered */
-}
-
-.sidebar-toggle {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 101;
-  transition: opacity 0.4s ease;
-}
-
-.hamburger-icon {
-  display: block;
-  width: 30px;
-  height: 2px;
-  background-color: var(--text-color);
-  margin: 6px 0;
-  transition: 0.4s;
-}
-
-/* Hover effect for sidebar toggle */
-.sidebar-toggle:hover .hamburger-icon {
-  background-color: var(--accent-color);
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  left: 5px;
-  font-size: 30px;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-.close:hover, .close-settings:hover {
-  color: var(--accent-color); /* Change color on hover for visibility */
-}
-/* Hide the hamburger icon when sidebar is open */
-.sidebar-open ~ .sidebar-toggle {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.sidebar-open {
-  right: 0; /* Open from the right side */
-}
-/* Modal styles */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 102;
-  justify-content: center;
-  align-items: center;
-  opacity: 0; /* Start hidden */
-  transition: opacity 0.4s ease; /* Smooth fade-in transition */
-}
-
-.modal.show { /* Class to show the modal */
-  display: flex; /* Make modal visible */
-  opacity: 1;    /* Fade in */
-}
-
-.modal-content {
-  position: relative;
-  background-color: var(--base-variant);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-  width: 80%;
-  max-width: 400px;
-  text-align: center;
-  transform: scale(0.8); /* Start smaller */
-  opacity: 0; /* Start hidden */
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scale and fade */
-}
-
-.modal.show .modal-content {
-  transform: scale(1);  /* Scale up */
-  opacity: 1;  /* Fade in */
-}
-
-.modal-content label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.modal-content button {
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.modal-content button:hover {
-  background-color: var(--accent-color);
-}
-
-.modal p, .modal-title {
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Close button styling */
-.close, .close-settings {
-  position: absolute;
-  top: 10px;  
-  right: 10px;  
-  font-size: 24px;
-  cursor: pointer;
-  color: var(--text-color); 
-  background: none;
-  border: none;
-  padding: 5px;
-  transition: color 0.3s ease;
-}
-
-.close:hover, .close-settings:hover {
-  color: var(--accent-color); /* Change color on hover */
-}
-
-/* Explicitly hide modals */
-#thresholdModal,
-#settingsModal {
-  display: none;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-}
-
-body {
-  background-color: var(--base-color);
-  color: var(--text-color);
-  transition: background-color var(--transition-duration), color var(--transition-duration);
-}
-
 /* Branding Section */
 .branding {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Align items to the left */
-  padding: 20px 30px;
-  background-color: var(--header-bg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-.branding .sidebar-toggle {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.capacity {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 24px;
-  color: #333333; /* Or matching theme color */
-}
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+    padding: 20px 30px;
+    background-color: var(--header-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .branding .sidebar-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .capacity {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: #333333; /* Or matching theme color */
+  }
+  
+  .status {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    color: #FF4C4C; /* Critical Status Color */
+    font-weight: 700;
+  }
+  
+  .branding .logo {
+    width: 50px;
+    height: auto; /* Keep the logo's proportions */
+    margin-right: 15px;
+  }
+  
+  .branding h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--header-text-color);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Logo styling */
+  .logo {
+    width: 40px; /* Adjust the logo size */
+    height: auto;
+    margin-right: 5px; /* Space between the logo and the title */
+    display: inline-block;
+    vertical-align: middle; /* Align with the title text */
+  }
+  
+  .nav-button {
+    background: none;
+    border: none;
+    color: var(--header-text-color);
+    font-size: 1em;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: transform 0.4s ease, margin 0.4s ease, color 0.4s ease;
+    padding: 10px 15px;
+    text-transform: uppercase;
+  }
+  
+  .nav-button:hover {
+    color: var(--accent-color);
+    transform: scale(1.2); /* Scale the hovered button */
+  }
+  
+  /* When hovering, make other buttons shift */
+  .nav-button:hover ~ .nav-button {
+    margin-left: 20px; /* Shift non-hovered buttons to the right */
+  }
+  
+  .nav-button:hover {
+    font-size: 1.1em;
+  }
+  
+  section {
+    padding: 60px min(50px, 7%);
+    background-color: var(--base-variant);
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    color: var(--text-color);
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+  }
+  
+  section:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.5em; /* Increased font size for section titles */
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  p {
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+  }
 
-.status {
-  font-family: 'Poppins', sans-serif;
-  font-size: 22px;
-  color: #FF4C4C; /* Critical Status Color */
-  font-weight: 700;
-}
+  /* Sidebar styles */
+#theme-switch-sidebar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.6s ease; /* Smooth rotation animation */
+  }
+  #theme-switch-sidebar:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+  #sidebar-sun-icon, #sidebar-moon-icon {
+    transition: opacity 0.3s ease, transform 0.6s ease; /* Added transform animation for rotating */
+  }
+  .darkmode #sidebar-sun-icon {
+    transform: rotate(360deg);
+    opacity: 0;
+  }
+  
+  .darkmode #sidebar-moon-icon {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+  
+  #sidebar-sun-icon {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  #sidebar-moon-icon {
+    opacity: 0;
+    transform: rotate(-360deg); /* Rotate back when switching to light mode */
+  }
+  /* Sidebar open animation */
+  .sidebar {
+    transition: right 0.4s ease-in-out !important;
+  }
+  .sidebar-open {
+    right: 0;
+  }
+  .sidebar {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: var(--base-variant);
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    transition: 0.4s ease;
+    padding-top: 60px;
+    z-index: 100;
+  }
+  .sidebar a, .sidebar button {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--text-color);
+    display: block;
+    font-weight: 600;
+    text-align: left;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color change and size increase */
+  }
+  
+  .sidebar a:hover, .sidebar button:hover {
+    color: var(--accent-color);
+    transform: scale(1.05); /* Slightly bigger when hovered */
+  }
+  
+  .sidebar-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+    transition: opacity 0.4s ease;
+  }
 
-.branding .logo {
-  width: 50px;
-  height: auto; /* Keep the logo's proportions */
-  margin-right: 15px;
-}
+  .hamburger-icon {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+  
+  /* Hover effect for sidebar toggle */
+  .sidebar-toggle:hover .hamburger-icon {
+    background-color: var(--accent-color);
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  .close:hover, .close-settings:hover {
+    color: var(--accent-color); /* Change color on hover for visibility */
+  }
+  /* Hide the hamburger icon when sidebar is open */
+  .sidebar-open ~ .sidebar-toggle {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .sidebar-open {
+    right: 0; /* Open from the right side */
+  }
 
-.branding h1 {
-  font-size: 1.8em;
-  font-weight: 700;
-  color: var(--header-text-color);
-  font-family: 'Poppins', sans-serif;
-}
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 102;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.4s ease; /* Smooth fade-in transition */
+  }
+  
+  .modal.show { /* Class to show the modal */
+    display: flex; /* Make modal visible */
+    opacity: 1;    /* Fade in */
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: var(--base-variant);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    transform: scale(0.8); /* Start smaller */
+    opacity: 0; /* Start hidden */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scale and fade */
+  }
+  
+  .modal.show .modal-content {
+    transform: scale(1);  /* Scale up */
+    opacity: 1;  /* Fade in */
+  }
+  
+  .modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-content button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .modal-content button:hover {
+    background-color: var(--accent-color);
+  }
+  
+  .modal p, .modal-title {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Close button styling */
+  .close, .close-settings {
+    position: absolute;
+    top: 10px;  
+    right: 10px;  
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color); 
+    background: none;
+    border: none;
+    padding: 5px;
+    transition: color 0.3s ease;
+  }
+  
+  .close:hover, .close-settings:hover {
+    color: var(--accent-color); /* Change color on hover */
+  }
+  
+  /* Explicitly hide modals */
+  #thresholdModal,
+  #settingsModal {
+    display: none;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+  }
+  
+  body {
+    background-color: var(--base-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-duration), color var(--transition-duration);
+  }
+  
+  #historicalChart {
+    width: 100%;
+    height: 400px; /* Make sure there's enough space for the chart */
+  }
+  
+  canvas {
+    max-width: 100%;
+    max-height: 300px;
+    display: block;
+    margin: 20px auto;
+  }
 
-/* Logo styling */
-.logo {
-  width: 40px; /* Adjust the logo size */
-  height: auto;
-  margin-right: 5px; /* Space between the logo and the title */
-  display: inline-block;
-  vertical-align: middle; /* Align with the title text */
-}
-
-.nav-button {
-  background: none;
-  border: none;
-  color: var(--header-text-color);
-  font-size: 1em;
-  font-weight: 600;
-  font-family: 'Roboto', sans-serif;
-  cursor: pointer;
-  transition: transform 0.4s ease, margin 0.4s ease, color 0.4s ease;
-  padding: 10px 15px;
-  text-transform: uppercase;
-}
-
-.nav-button:hover {
-  color: var(--accent-color);
-  transform: scale(1.2); /* Scale the hovered button */
-}
-
-/* When hovering, make other buttons shift */
-.nav-button:hover ~ .nav-button {
-  margin-left: 20px; /* Shift non-hovered buttons to the right */
-}
-
-.nav-button:hover {
-  font-size: 1.1em;
-}
-
-section {
-  padding: 60px min(50px, 7%);
-  background-color: var(--base-variant);
-  margin: 30px auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-  color: var(--text-color);
-  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
-}
-
-section:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-h2 {
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  font-size: 1.5em; /* Increased font size for section titles */
-  font-family: 'Roboto', sans-serif;
-}
-
-p {
-  margin-bottom: 20px;
-  color: var(--text-color);
-  font-family: 'Roboto', sans-serif;
-}
-
-#historicalChart {
-  width: 100%;
-  height: 400px; /* Make sure there's enough space for the chart */
-}
-
-canvas {
-  max-width: 100%;
-  max-height: 300px;
-  display: block;
-  margin: 20px auto;
-}
-
-/* Footer Styles */
+  /* Footer Styles */
 footer {
-  background-color: var(--footer-bg);
-  color: var(--footer-text-color);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;  /* Vertically align items */
-  font-family: 'Poppins', sans-serif;
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
-}
-.footer-right {
-  display: flex;
-  align-items: center;  /* Ensures both sections are vertically centered */
-}
-.footer-right {
-  display: flex;
-  align-items: center;  /* Ensure vertical alignment of the logo and text */
-}
-.footer-right p {
-  margin: 0;  /* Reset margins to prevent misalignment */
-  margin-left: 5px;
-  font-size: 1em;
-  font-weight: 500;
-}
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  /* Vertically align items */
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
+  }
+  .footer-right {
+    display: flex;
+    align-items: center;  /* Ensures both sections are vertically centered */
+  }
+  .footer-right {
+    display: flex;
+    align-items: center;  /* Ensure vertical alignment of the logo and text */
+  }
+  .footer-right p {
+    margin: 0;  /* Reset margins to prevent misalignment */
+    margin-left: 5px;
+    font-size: 1em;
+    font-weight: 500;
+  }
+  
+  .footer-logo {
+    width: 30px;
+    height: auto;
+    margin-left: 10px;  /* Space between logo and text */
+    vertical-align: middle;
+  }
+  
+  /* Additional Styling Similar to Header */
+  footer p, footer a {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+  }
+  
+  /* General Style for Body */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background 0.3s ease;
+    background-size: 20px 20px;
+    animation: moveBackground 20s linear infinite;
+  }
+  
+  /* Light Mode */                             
+  body {
+    background-color: #d7d8de;
+    background-image: 
+      linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%);
+  }
+  
+  /* Dark Mode */
+  body.darkmode {
+    background-color: #202020;
+    background-image: 
+      linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
+  }
 
-.footer-logo {
-  width: 30px;
-  height: auto;
-  margin-left: 10px;  /* Space between logo and text */
-  vertical-align: middle;
-}
-
-/* Additional Styling Similar to Header */
-footer p, footer a {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-}
-
-/* General Style for Body */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  transition: background 0.3s ease;
-  background-size: 20px 20px;
-  animation: moveBackground 20s linear infinite;
-}
-
-/* Light Mode */
-body {
-  background-color: #d7d8de;
-  background-image: 
-    linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%);
-}
-
-/* Dark Mode */
-body.darkmode {
-  background-color: #202020;
-  background-image: 
-    linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
-}
-
-/* Keyframes for Background Animation */
-@keyframes moveBackground {
-  from { background-position: 0 0; }
-  to { background-position: 100px 100px; }
-}
-
-.zoom {
-  background-color: var(--base-variant);
-  color: var(--text-color);
-  border: none;
-  font-weight: 550;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color var(--transition-duration), color var(--transition-duration);
-}
-
-.zoom:hover {
-  color: var(--accent-color);
-}
-
-.zoom:active {
-  transform: scale(0.95); /* Scale down slightly on click */
-  transition: transform 0.1s ease; /* Faster transition for a snappy effect */
-}
+  :root {
+    --base-color: #a4a4a4;
+    --base-variant: #e4e4e4;
+    --text-color: #2d3a4b;
+    --secondary-text: #5c6f81;
+    --primary-color: #1f1f1f;
+    --accent-color: #f4c542;
+    --header-bg: #e4e4e4;
+    --footer-bg: #e4e4e4;
+    --header-text-color: #2d3a4b;
+    --footer-text-color: #2d3a4b;
+    --transition-duration: 0.3s; /* Increased transition duration for smooth effect */
+  }
+  
+  /* animation*/
+  body, .sidebar, .modal, .branding, footer, section, #theme-switch-sidebar {
+    transition: background-color var(--transition-duration), color var(--transition-duration);
+  }
+  
+  .darkmode {
+    --base-color: #121212;
+    --base-variant: #1f1f1f;
+    --text-color: #e4e4e4;
+    --secondary-text: #a4a4a4;
+    --primary-color: #e4e4e4;
+    --accent-color: #f4c542;
+    --header-bg: #1f1f1f;
+    --footer-bg: #1f1f1f;
+    --header-text-color: #e4e4e4;
+    --footer-text-color: #e4e4e4;
+  }
+  
+  /* Keyframes for Background Animation */
+  @keyframes moveBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100px 100px; }
+  }
+  
+  .zoom {
+    background-color: var(--base-variant);
+    color: var(--text-color);
+    border: none;
+    font-weight: 550;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color var(--transition-duration), color var(--transition-duration);
+  }
+  
+  .zoom:hover {
+    color: var(--accent-color);
+  }
+  
+  .zoom:active {
+    transform: scale(0.95); /* Scale down slightly on click */
+    transition: transform 0.1s ease; /* Faster transition for a snappy effect */
+  }
