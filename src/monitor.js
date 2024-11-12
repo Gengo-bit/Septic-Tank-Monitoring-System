@@ -14,7 +14,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 let tankDimensions = {};
-let septicTankCapacity;
+let septicTankCapacity; // C
 let capacityChart, historicalChart;
 let previousVolume = null;
 let previousTimestamp = null;
@@ -42,7 +42,7 @@ function initializeApp(userCollection, userEmail, collectionName) {
     .get().then((doc) => {
       if (doc.exists) {
         tankDimensions = doc.data();
-        septicTankCapacity = calculateSepticTankCapacity(tankDimensions);
+        septicTankCapacity = calculateSepticTankCapacity(tankDimensions); // C
 
         // Update HTML with tank dimensions
         document.getElementById("tankHeight").innerText = tankDimensions.height;
@@ -140,7 +140,7 @@ function initializeCharts() {
 }
 
 function calculateSepticTankCapacity(dimensions) {
-  return (dimensions.height * dimensions.length * dimensions.width) / 1000;
+  return (dimensions.length * dimensions.width * dimensions.height) / 1000; // C = LWH
 }
 
 function handleSnapshot(snapshot) {
@@ -157,7 +157,7 @@ function handleSnapshot(snapshot) {
   snapshot.forEach((doc) => {
     const data = doc.data();
     const capacity = data.capacity;
-    const currentVolume = (capacity / 100) * septicTankCapacity;
+    const currentVolume = (capacity / 100) * septicTankCapacity; // Vc = *C
 
     console.log("Data from Firestore: ", data); // Log data for debugging
 
