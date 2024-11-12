@@ -194,13 +194,24 @@ p {
   outline: none;
 }
 
-/* 'Not an owner? Buy now' text */
+.forgot-password {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 20px;
+}
+.forgot-password a{
+  color: #f4c542;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 .buy-now-text {
   font-size: 0.9rem;
   color: #555;
-  margin-top: 30px; /* Slightly lower than the login button */
+  margin-bottom: -20px;
 }
-
+.forgot-password a:hover {
+  color: #d8a327;
+}
 .buy-now-text a {
   color: #f4c542;
   text-decoration: none;
