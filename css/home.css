@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+body, .container {
+  overflow-x: hidden;
+}
+
 /* Holder */
 .container {
   display: flex;
@@ -13,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 30px;
+  padding: 10px 20px;
   background-color: var(--header-bg);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
