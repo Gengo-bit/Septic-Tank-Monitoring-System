@@ -9,9 +9,10 @@ const firebaseConfig = {
   measurementId: "G-M9K3YTLTRP"
 };
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const db = firebase.firestore();
+const database = firebase.database();
 
 let tankDimensions = {};
 let septicTankCapacity; // C
@@ -21,13 +22,13 @@ let previousTimestamp = null;
 
 auth.onAuthStateChanged((user) => {
   if (user) {
-    const userEmail = user.email;
-    if (userEmail === 'paulcorsino28@gmail.com') {
-      initializeApp('users', 'paulcorsino28@gmail.com', 'septicTankData');
-    } else if (userEmail === 'dcamorganda@gmail.com') {
-      initializeApp('users', 'dcamorganda@gmail.com', 'septicTankData2');
+    const userId = user.uid;
+    if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
+      initializeApp(userId, 'septicTankData');
+    } else if (userId === '2GVrMIaFSGeoC01g8zYuin2c5ej2') {
+      initializeApp(userId, 'septicTankData'); 
     } else {
-      console.log("Unknown user email. No data available.");
+      console.log("Unknown user. No data available.");
     }
   } else {
     window.location.href = '../html/index.html';
@@ -36,29 +37,27 @@ auth.onAuthStateChanged((user) => {
 
 initializeCharts();
 
-function initializeApp(userCollection, userEmail, collectionName) {
-  // Fetch tank dimensions from Firestore and update capacity
-  db.collection(userCollection).doc(userEmail).collection('tankDimensions').doc('dimensions')
-    .get().then((doc) => {
-      if (doc.exists) {
-        tankDimensions = doc.data();
-        septicTankCapacity = calculateSepticTankCapacity(tankDimensions); // C
+function initializeApp(userId, dataKey) {
+  // Fetch tank dimensions from Realtime Database and update capacity
+  database.ref(`users/${userId}/tankDimensions`).once('value').then((snapshot) => {
+    if (snapshot.exists()) {
+      tankDimensions = snapshot.val();
+      septicTankCapacity = calculateSepticTankCapacity(tankDimensions); // C
 
-        // Update HTML with tank dimensions
-        document.getElementById("tankHeight").innerText = tankDimensions.height;
-        document.getElementById("tankLength").innerText = tankDimensions.length;
-        document.getElementById("tankWidth").innerText = tankDimensions.width;
-      } else {
-        console.log("No tank dimensions found.");
-      }
-    }).catch((error) => {
-      console.error("Error fetching tank dimensions: ", error);
-    });
+      document.getElementById("tankHeight").innerText = tankDimensions.height;
+      document.getElementById("tankLength").innerText = tankDimensions.length;
+      document.getElementById("tankWidth").innerText = tankDimensions.width;
+    } else {
+      console.log("No tank dimensions found.");
+    }
+  }).catch((error) => {
+    console.error("Error fetching tank dimensions: ", error);
+  });
 
-  // Real-time data update listener
-  db.collection(userCollection).doc(userEmail).collection(collectionName)
-    .orderBy('timestamp').limit(10)
-    .onSnapshot(handleSnapshot, handleError);
+  // Real-time listener for data updates
+  database.ref(`users/${userId}/${dataKey}`).orderByKey().limitToLast(10).on('value', (snapshot) => {
+    handleSnapshot(snapshot);
+  }, handleError);
 }
 
 function initializeCharts() {
@@ -144,34 +143,32 @@ function calculateSepticTankCapacity(dimensions) {
 }
 
 function handleSnapshot(snapshot) {
-  if (snapshot.empty) {
+  if (!snapshot.exists()) {
     console.log("No matching documents found!");
     return;
   }
 
-  // Clear the existing chart data before updating
+  // Clear existing chart data
   capacityChart.data.datasets[0].data = [];
   historicalChart.data.labels = [];
   historicalChart.data.datasets[0].data = [];
 
-  snapshot.forEach((doc) => {
-    const data = doc.data();
+  snapshot.forEach((childSnapshot) => {
+    const data = childSnapshot.val();
     const capacity = data.capacity;
-    const currentVolume = (capacity / 100) * septicTankCapacity; // Vc = *C
+    const currentVolume = (capacity / 100) * septicTankCapacity; // Vc = capacity% * C
 
-    console.log("Data from Firestore: ", data); // Log data for debugging
+    // Convert Unix timestamp to Date object
+    const timestampDate = new Date(data.timestamp * 1000);
 
-    // Convert Unix timestamp (seconds) to a JavaScript Date object
-    const timestampDate = new Date(data.timestamp * 1000); // Multiplying by 1000 to convert from seconds to milliseconds
+    // Format the date and time
+    const formattedTime = timestampDate.toLocaleTimeString();
+    const formattedDate = timestampDate.toLocaleDateString();
 
-    // Format the date and time to a readable format
-    const formattedTime = timestampDate.toLocaleTimeString();  // For time (hours, minutes, seconds)
-    const formattedDate = timestampDate.toLocaleDateString();  // For date (day, month, year)
-
-    // Update chart and calculations
+    // Update the charts
     updateCapacity(capacity);
     updateHistoricalChart(capacity, formattedDate, formattedTime);
-    calculatePrediction(currentVolume, data.timestamp);  // Use the raw timestamp for calculations
+    calculatePrediction(currentVolume, data.timestamp);
   });
 
   // Update the charts
