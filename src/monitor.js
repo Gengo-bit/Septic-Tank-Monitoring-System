@@ -211,18 +211,26 @@ function calculatePrediction(currentVolume, currentTime) {
   if (previousVolume !== null && previousTimestamp !== null) {
     const flowRate = (currentVolume - previousVolume) / (currentTime - previousTimestamp);
     const remainingVolume = septicTankCapacity - currentVolume;
-    const estimatedTimeToFull = remainingVolume / flowRate;
+    const estimatedTimeToFull = remainingVolume / flowRate; // in seconds
 
     if (flowRate > 0) {
-      const hoursToFull = estimatedTimeToFull / 3600;
-      document.getElementById("prediction").innerHTML = hoursToFull >= 1 ?
-        `<span class="time-until-full">The Septic Tank will be full in <strong>${hoursToFull.toFixed(2)} hours</strong></span>` :
-        `<span class="time-until-full">The Septic Tank will be full in <strong>${(hoursToFull * 60).toFixed(0)} minutes</strong></span>`;
+      const totalHours = estimatedTimeToFull / 3600; // Convert seconds to hours
+      const hours = Math.floor(totalHours); // Get the integer part of hours
+      const minutes = Math.floor((totalHours - hours) * 60); // Convert the fractional part to minutes
+
+      if (hours > 0) {
+        document.getElementById("prediction").innerHTML = 
+          `<span class="time-until-full">The Septic Tank will be full in <strong>${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}</strong></span>`;
+      } else {
+        document.getElementById("prediction").innerHTML = 
+          `<span class="time-until-full">The Septic Tank will be full in <strong>${minutes} minute${minutes !== 1 ? 's' : ''}</strong></span>`;
+      }
     } else {
       document.getElementById("prediction").innerHTML = `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
 
+  // Update previous volume and timestamp for the next calculation
   previousVolume = currentVolume;
   previousTimestamp = currentTime;
 }
