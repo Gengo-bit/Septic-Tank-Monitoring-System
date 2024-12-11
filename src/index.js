@@ -23,9 +23,12 @@ const firebaseConfig = {
                   window.location.href = '../html/home.html';
               })
               .catch((error) => {
-                  // Handle errors
-                  errorMessage.textContent = error.message;
-              });
+                // Map Firebase error codes to custom messages
+                switch (error.code) {
+                    default:
+                        errorMessage.textContent = 'Error! Invalid credentials. Please try again.';
+                }
+            });            
       });
   });  
 
