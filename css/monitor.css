@@ -423,6 +423,10 @@ footer {
   }
 
   :root {
+    --status-green: #28a745;
+    --status-yellow: #ffc107;
+    --status-orange: #ff9800;
+    --status-red: #f44336;
     --base-color: #a4a4a4;
     --base-variant: #e4e4e4;
     --text-color: #2d3a4b;

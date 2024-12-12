@@ -14,11 +14,9 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
-let tankDimensions = {};
-let septicTankCapacity; // C
+let Ci = null;
+let Ti = null;
 let capacityChart, historicalChart;
-let previousVolume = null;
-let previousTimestamp = null;
 
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -26,7 +24,7 @@ auth.onAuthStateChanged((user) => {
     if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
       initializeApp(userId, 'septicTankData');
     } else if (userId === '2GVrMIaFSGeoC01g8zYuin2c5ej2') {
-      initializeApp(userId, 'septicTankData'); 
+      initializeApp(userId, 'septicTankData');
     } else {
       console.log("Unknown user. No data available.");
     }
@@ -38,30 +36,12 @@ auth.onAuthStateChanged((user) => {
 initializeCharts();
 
 function initializeApp(userId, dataKey) {
-  // Fetch tank dimensions from Realtime Database and update capacity
-  database.ref(`users/${userId}/tankDimensions`).once('value').then((snapshot) => {
-    if (snapshot.exists()) {
-      tankDimensions = snapshot.val();
-      septicTankCapacity = calculateSepticTankCapacity(tankDimensions); // C
-
-      document.getElementById("tankHeight").innerText = tankDimensions.height;
-      document.getElementById("tankLength").innerText = tankDimensions.length;
-      document.getElementById("tankWidth").innerText = tankDimensions.width;
-    } else {
-      console.log("No tank dimensions found.");
-    }
-  }).catch((error) => {
-    console.error("Error fetching tank dimensions: ", error);
-  });
-
-  // Real-time listener for data updates
   database.ref(`users/${userId}/${dataKey}`).orderByKey().limitToLast(10).on('value', (snapshot) => {
     handleSnapshot(snapshot);
   }, handleError);
 }
 
 function initializeCharts() {
-  // Initialize capacity chart
   capacityChart = new Chart(document.getElementById('capacityChart').getContext('2d'), {
     type: 'doughnut',
     data: {
@@ -86,7 +66,6 @@ function initializeCharts() {
     }
   });
 
-  // Initialize historical chart with zoom features
   historicalChart = new Chart(document.getElementById('historicalChart').getContext('2d'), {
     type: 'line',
     data: {
@@ -122,14 +101,14 @@ function initializeCharts() {
           zoom: {
             wheel: {
               enabled: true,
-              speed: 0.1 // Control zoom sensitivity
+              speed: 0.1
             },
             pinch: {
               enabled: true
             },
             mode: 'x',
             limits: {
-              x: { min: 'original', max: 'original' } // Prevent zooming out beyond initial range
+              x: { min: 'original', max: 'original' }
             }
           }
         }
@@ -138,40 +117,30 @@ function initializeCharts() {
   });
 }
 
-function calculateSepticTankCapacity(dimensions) {
-  return (dimensions.length * dimensions.width * dimensions.height) / 1000; // C = LWH
-}
-
 function handleSnapshot(snapshot) {
   if (!snapshot.exists()) {
     console.log("No matching documents found!");
     return;
   }
 
-  // Clear existing chart data
   capacityChart.data.datasets[0].data = [];
   historicalChart.data.labels = [];
   historicalChart.data.datasets[0].data = [];
 
   snapshot.forEach((childSnapshot) => {
     const data = childSnapshot.val();
-    const capacity = data.capacity;
-    const currentVolume = (capacity / 100) * septicTankCapacity; // Vc = capacity% * C
+    const Cc = data.capacity; 
+    const Tc = data.timestamp;
 
-    // Convert Unix timestamp to Date object
-    const timestampDate = new Date(data.timestamp * 1000);
-
-    // Format the date and time
+    const timestampDate = new Date(Tc * 1000);
     const formattedTime = timestampDate.toLocaleTimeString();
     const formattedDate = timestampDate.toLocaleDateString();
 
-    // Update the charts
-    updateCapacity(capacity);
-    updateHistoricalChart(capacity, formattedDate, formattedTime);
-    calculatePrediction(currentVolume, data.timestamp);
+    updateCapacity(Cc);
+    updateHistoricalChart(Cc, formattedDate, formattedTime);
+    calculatePrediction(Cc, Tc);
   });
 
-  // Update the charts
   capacityChart.update();
   historicalChart.update();
 }
@@ -184,86 +153,87 @@ function resetZoom() {
   historicalChart.resetZoom();
 }
 
-function updateCapacity(capacity) {
-  capacityChart.data.datasets[0].data = [capacity, 100 - capacity];
+function updateCapacity(Cc) {
+  capacityChart.data.datasets[0].data = [Cc, 100 - Cc];
   capacityChart.update();
 
-  document.getElementById("capacity").innerHTML = `<span class="capacity-text">Capacity: ${capacity}%</span>`;
+  document.getElementById("capacity").innerHTML = `<span class="capacity-text">Capacity: ${Cc}%</span>`;
 
   const statusElement = document.getElementById("status");
   let status, color;
 
-  if (capacity < 75) [status, color] = ['Normal', 'var(--status-green)'];
-  else if (capacity <= 85) [status, color] = ['Above Normal', 'var(--status-yellow)'];
-  else if (capacity <= 95) [status, color] = ['Critical', 'var(--status-orange)'];
-  else [status, color] = ['Full', 'var(--status-red)'];  
+  if (Cc < 75) [status, color] = ['Normal', 'var(--status-green)'];
+  else if (Cc <= 85) [status, color] = ['Above Normal', 'var(--status-yellow)'];
+  else if (Cc <= 95) [status, color] = ['Critical', 'var(--status-orange)'];
+  else [status, color] = ['Full', 'var(--status-red)'];
 
   statusElement.innerHTML = `<span class="status-text">The Septic Tank is </span><span class="status" style="color: ${color};"><strong>${status}</strong></span>`;
 }
 
-function updateHistoricalChart(capacity, date, timestamp) {
-  historicalChart.data.labels.push(`${date} ${timestamp}`);
-  historicalChart.data.datasets[0].data.push(capacity);
+function updateHistoricalChart(Cc, date, Tc) {
+  historicalChart.data.labels.push(`${date} ${Tc}`);
+  historicalChart.data.datasets[0].data.push(Cc);
   historicalChart.update();
 }
 
-function calculatePrediction(currentVolume, currentTime) {
-  if (previousVolume !== null && previousTimestamp !== null) {
-    const flowRate = (currentVolume - previousVolume) / (currentTime - previousTimestamp);
-    const remainingVolume = septicTankCapacity - currentVolume;
-    const estimatedTimeToFull = remainingVolume / flowRate; // in seconds
+function calculatePrediction(Cc, Tc) {
+  if (Ti !== null && Ti !== null) {
+    const C = Cc - Ci; // Change in capacity 
+    const T = Tc - Ti; // Time difference
 
-    if (flowRate > 0) {
-      const totalHours = estimatedTimeToFull / 3600; // Convert seconds to hours
-      const hours = Math.floor(totalHours); // Get the integer part of hours
-      const minutes = Math.floor((totalHours - hours) * 60); // Convert the fractional part to minutes
+    const Q = C / T; // Flow rate 
+    const Cr = 100 - Cc;  // Remaining capacity percentage 
+    const Tf = Cr / Q; // Estimated time until full 
 
-      if (hours > 0) {
-        document.getElementById("prediction").innerHTML = 
-          `<span class="time-until-full">The Septic Tank will be full in <strong>${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}</strong></span>`;
-      } else {
-        document.getElementById("prediction").innerHTML = 
-          `<span class="time-until-full">The Septic Tank will be full in <strong>${minutes} minute${minutes !== 1 ? 's' : ''}</strong></span>`;
-      }
+    if (Q > 0) {
+      const Th = Tf;
+      const days = Math.floor(Th / 86400);  // 86400 seconds in a day
+      const hours = Math.floor((Th % 86400) / 3600);  // Remaining hours after extracting days
+      const minutes = Math.floor((Th % 3600) / 60);   // Remaining minutes after extracting hours
+
+      let predictionText = `<span class="time-until-full">The Septic Tank will be full in `;
+
+      const timeParts = [];
+      if (days > 0) timeParts.push(`${days} day${days !== 1 ? 's' : ''}`);
+      if (hours > 0) timeParts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
+      if (minutes > 0) timeParts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+
+      predictionText += `<strong>${timeParts.join(' and ')}</strong></span>`;
+
+      document.getElementById("prediction").innerHTML = predictionText;
     } else {
       document.getElementById("prediction").innerHTML = `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
     }
   }
 
-  // Update previous volume and timestamp for the next calculation
-  previousVolume = currentVolume;
-  previousTimestamp = currentTime;
+  Ci = Cc;
+  Ti = Tc;
 }
 
-  // Authentication 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      // If user is authenticated, check the referrer
-      const referrer = document.referrer;
-      if (!referrer.includes('home.html')) {
-        window.location.href = 'home.html';
-      }
-      // Event listener for Home button (redirects to home page)
-      document.getElementById('homeButton').addEventListener('click', (event) => {
-        event.preventDefault();
-        window.location.href = 'home.html';
-      });
-    } else {
-      // Redirect to index.html if not authenticated
-      window.location.href = 'index.html';
+// Authentication 
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    const referrer = document.referrer;
+    if (!referrer.includes('home.html')) {
+      window.location.href = 'home.html';
     }
-  });
-  
-  // Event listener for Logout button
-  document.getElementById('Logout-btn').addEventListener('click', function() {
-    auth.signOut().then(() => {
-      window.location.href = 'index.html';
-    }).catch((error) => {
-      console.error('Logout Error: ', error);
+    document.getElementById('homeButton').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'home.html';
     });
+  } else {
+    window.location.href = 'index.html';
+  }
+});
+
+document.getElementById('Logout-btn').addEventListener('click', function() {
+  auth.signOut().then(() => {
+    window.location.href = 'index.html';
+  }).catch((error) => {
+    console.error('Logout Error: ', error);
   });
-  
-  // Scroll function for sidebar links
-  function scrollToSection(sectionId) {
-    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-  }  
+});
+
+function scrollToSection(sectionId) {
+  document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
