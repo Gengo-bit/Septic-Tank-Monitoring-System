@@ -479,6 +479,26 @@ footer {
   }
   
   .zoom:active {
-    transform: scale(0.95); /* Scale down slightly on click */
-    transition: transform 0.1s ease; /* Faster transition for a snappy effect */
+    transform: scale(0.95); 
+    transition: transform 0.1s ease; 
   }
+
+  .detailed-view-btn {
+    margin-left:2%;
+    background-color: var(--base-variant);
+    color: var(--text-color);
+    border: none;
+    font-weight: 550;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color var(--transition-duration), color var(--transition-duration);
+  }
+  
+  .detailed-view-btn:hover {
+    color: var(--accent-color);
+  }
+  .detailed-view-btn:active{
+    transform: scale(0.95); 
+    transition: transform 0.1s ease; 
+  }
+  

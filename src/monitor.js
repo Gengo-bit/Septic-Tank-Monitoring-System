@@ -237,3 +237,53 @@ document.getElementById('Logout-btn').addEventListener('click', function() {
 function scrollToSection(sectionId) {
   document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
+
+function fetchAndSendData() {
+  const databaseRef = firebase.database().ref('users'); // Reference to the "users" node
+  databaseRef.once('value', (snapshot) => {
+    const allData = []; // Array to store all data
+
+    snapshot.forEach((userSnapshot) => {
+      const userId = userSnapshot.key; // Get the user ID (e.g., "2GVrMIaFSGeoC01g8zYuin2c5ej2")
+      const septicTankData = userSnapshot.val().septicTankData; // Get the septicTankData node
+
+      // Loop through all entries in septicTankData
+      for (const key in septicTankData) {
+        if (septicTankData.hasOwnProperty(key)) {
+          const entry = septicTankData[key];
+          allData.push({
+            userId: userId,
+            capacity: entry.capacity,
+            date: entry.date,
+            timestamp: entry.timestamp,
+          });
+        }
+      }
+    });
+
+    console.log('Data to send:', allData); // Debugging log to check data before sending
+
+    // Send data to Google Apps Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyWLEvOy3veVLI42qmUuwbCgkrASUmZ-zhAWqNgaZ0RweEBRMr5doy60zd42TBvAlSh/exec';
+    fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(allData), // Send data as JSON
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('Google Sheets sync result:', result);
+        alert('Data synced to Google Sheets successfully!');
+      })
+      .catch((error) => {
+        console.error('Error syncing with Google Sheets:', error);
+        alert('Failed to sync data. Please try again.');
+      });
+  });
+}
+
+// Add an event listener to the button to trigger the function
+document.getElementById('detailedViewButton').addEventListener('click', fetchAndSendData);
+
