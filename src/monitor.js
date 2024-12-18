@@ -239,15 +239,12 @@ function scrollToSection(sectionId) {
 }
 
 function fetchAndSendData() {
-  const databaseRef = firebase.database().ref('users'); // Reference to the "users" node
+  const databaseRef = firebase.database().ref('users');
   databaseRef.once('value', (snapshot) => {
-    const allData = []; // Array to store all data
-
+    const allData = [];
     snapshot.forEach((userSnapshot) => {
-      const userId = userSnapshot.key; // Get the user ID (e.g., "2GVrMIaFSGeoC01g8zYuin2c5ej2")
-      const septicTankData = userSnapshot.val().septicTankData; // Get the septicTankData node
-
-      // Loop through all entries in septicTankData
+      const userId = userSnapshot.key;
+      const septicTankData = userSnapshot.val().septicTankData;
       for (const key in septicTankData) {
         if (septicTankData.hasOwnProperty(key)) {
           const entry = septicTankData[key];
@@ -261,18 +258,23 @@ function fetchAndSendData() {
       }
     });
 
-    console.log('Data to send:', allData); // Debugging log to check data before sending
+    console.log('Data to send:', allData); // Log the data before sending
 
     // Send data to Google Apps Script
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyWLEvOy3veVLI42qmUuwbCgkrASUmZ-zhAWqNgaZ0RweEBRMr5doy60zd42TBvAlSh/exec';
     fetch(scriptURL, {
       method: 'POST',
-      body: JSON.stringify(allData), // Send data as JSON
+      body: JSON.stringify(allData),
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((result) => {
         console.log('Google Sheets sync result:', result);
         alert('Data synced to Google Sheets successfully!');
@@ -284,6 +286,4 @@ function fetchAndSendData() {
   });
 }
 
-// Add an event listener to the button to trigger the function
-document.getElementById('detailedViewButton').addEventListener('click', fetchAndSendData);
 
