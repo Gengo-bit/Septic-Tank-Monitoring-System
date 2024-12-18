@@ -35,10 +35,26 @@ auth.onAuthStateChanged((user) => {
 
 initializeCharts();
 
+function fetchTankDimensions(userId) {
+  database.ref(`users/${userId}/tankDimensions`).once('value', (snapshot) => {
+    if (snapshot.exists()) {
+      const dimensions = snapshot.val();
+      document.getElementById('tankHeight').textContent = `${dimensions.height} cm`;
+      document.getElementById('tankLength').textContent = `${dimensions.length} cm`;
+      document.getElementById('tankWidth').textContent = `${dimensions.width} cm`;
+    } else {
+      console.error('Tank dimensions not found.');
+    }
+  }).catch((error) => {
+    console.error('Error fetching tank dimensions:', error);
+  });
+}
+
 function initializeApp(userId, dataKey) {
   database.ref(`users/${userId}/${dataKey}`).orderByKey().limitToLast(10).on('value', (snapshot) => {
     handleSnapshot(snapshot);
   }, handleError);
+  fetchTankDimensions(userId);
 }
 
 function initializeCharts() {
