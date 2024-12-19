@@ -39,9 +39,9 @@ function fetchTankDimensions(userId) {
   database.ref(`users/${userId}/tankDimensions`).once('value', (snapshot) => {
     if (snapshot.exists()) {
       const dimensions = snapshot.val();
-      document.getElementById('tankHeight').textContent = `${dimensions.height} cm`;
-      document.getElementById('tankLength').textContent = `${dimensions.length} cm`;
-      document.getElementById('tankWidth').textContent = `${dimensions.width} cm`;
+      document.getElementById('tankHeight').textContent = `${dimensions.tank_height} cm`;
+      document.getElementById('tankLength').textContent = `${dimensions.tank_length} cm`;
+      document.getElementById('tankWidth').textContent = `${dimensions.tank_width} cm`;
     } else {
       console.error('Tank dimensions not found.');
     }
