@@ -223,6 +223,9 @@ function calculatePrediction(Cc, Tc, Ci, Ti) {
       document.getElementById("prediction").innerHTML = `<span class="rate-too-low">No flow rate detected! The septic tank will not fill under current conditions.</span>`;
     }
   }
+
+  Ci = Cc;
+  Ti = Tc;
 }
 
 // Authentication 
