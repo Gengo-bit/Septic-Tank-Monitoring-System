@@ -218,7 +218,7 @@ function calculatePrediction(Cc, Tc) {
 
       document.getElementById("prediction").innerHTML = predictionText;
     } else {
-      document.getElementById("prediction").innerHTML = `<span class="rate-too-low">Flow rate is too low to estimate time.</span>`;
+      document.getElementById("prediction").innerHTML = `<span class="rate-too-low">No flow rate! The septic tank will not fill under current condition.</span>`;
     }
   }
 
