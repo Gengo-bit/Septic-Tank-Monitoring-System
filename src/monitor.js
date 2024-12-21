@@ -217,8 +217,6 @@ function calculatePrediction(Cc, Tc, Ci, Ti) {
       predictionText += `<strong>${timeParts.join(' and ')}</strong></span>`;
 
       document.getElementById("prediction").innerHTML = predictionText;
-    } else if (Q < 0) {
-      document.getElementById("prediction").innerHTML = `<span class="negative-flow">Negative flow rate detected! The septic tank capacity is decreasing.</span>`;
     } else {
       document.getElementById("prediction").innerHTML = `<span class="rate-too-low">No flow rate detected! The septic tank will not fill under current conditions.</span>`;
     }
