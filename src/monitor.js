@@ -192,20 +192,20 @@ function updateHistoricalChart(Cc, date, Tc) {
   historicalChart.update();
 }
 
-function calculatePrediction(Cc, Tc, Ci, Ti) {
-  if (Ci !== null && Ti !== null) {
-    const C = Cc - Ci; // Change in capacity
+function calculatePrediction(Cc, Tc) {
+  if (Ti !== null && Ti !== null) {
+    const C = Cc - Ci; // Change in capacity 
     const T = Tc - Ti; // Time difference
 
-    const Q = C / T; // Flow rate
-    const Cr = 100 - Cc; // Remaining capacity percentage
-    const Tf = Cr / Q; // Estimated time until full
+    const Q = C / T; // Flow rate 
+    const Cr = 100 - Cc;  // Remaining capacity percentage 
+    const Tf = Cr / Q; // Estimated time until full 
 
     if (Q > 0) {
       const Th = Tf;
-      const days = Math.floor(Th / 86400); // 86400 seconds in a day
-      const hours = Math.floor((Th % 86400) / 3600); // Remaining hours after extracting days
-      const minutes = Math.floor((Th % 3600) / 60); // Remaining minutes after extracting hours
+      const days = Math.floor(Th / 86400);  // 86400 seconds in a day
+      const hours = Math.floor((Th % 86400) / 3600);  // Remaining hours after extracting days
+      const minutes = Math.floor((Th % 3600) / 60);   // Remaining minutes after extracting hours
 
       let predictionText = `<span class="time-until-full">The Septic Tank will be full in `;
 
