@@ -192,20 +192,20 @@ function updateHistoricalChart(Cc, date, Tc) {
   historicalChart.update();
 }
 
-function calculatePrediction(Cc, Tc) {
-  if (Ti !== null && Ti !== null) {
-    const C = Cc - Ci; // Change in capacity 
+function calculatePrediction(Cc, Tc, Ci, Ti) {
+  if (Ci !== null && Ti !== null) {
+    const C = Cc - Ci; // Change in capacity
     const T = Tc - Ti; // Time difference
 
-    const Q = C / T; // Flow rate 
-    const Cr = 100 - Cc;  // Remaining capacity percentage 
-    const Tf = Cr / Q; // Estimated time until full 
+    const Q = C / T; // Flow rate
+    const Cr = 100 - Cc; // Remaining capacity percentage
+    const Tf = Cr / Q; // Estimated time until full
 
     if (Q > 0) {
       const Th = Tf;
-      const days = Math.floor(Th / 86400);  // 86400 seconds in a day
-      const hours = Math.floor((Th % 86400) / 3600);  // Remaining hours after extracting days
-      const minutes = Math.floor((Th % 3600) / 60);   // Remaining minutes after extracting hours
+      const days = Math.floor(Th / 86400); // 86400 seconds in a day
+      const hours = Math.floor((Th % 86400) / 3600); // Remaining hours after extracting days
+      const minutes = Math.floor((Th % 3600) / 60); // Remaining minutes after extracting hours
 
       let predictionText = `<span class="time-until-full">The Septic Tank will be full in `;
 
@@ -217,13 +217,12 @@ function calculatePrediction(Cc, Tc) {
       predictionText += `<strong>${timeParts.join(' and ')}</strong></span>`;
 
       document.getElementById("prediction").innerHTML = predictionText;
+    } else if (Q < 0) {
+      document.getElementById("prediction").innerHTML = `<span class="negative-flow">Negative flow rate detected! The septic tank capacity is decreasing.</span>`;
     } else {
-      document.getElementById("prediction").innerHTML = `<span class="rate-too-low">No flow rate! The septic tank will not fill under current condition.</span>`;
+      document.getElementById("prediction").innerHTML = `<span class="rate-too-low">No flow rate detected! The septic tank will not fill under current conditions.</span>`;
     }
   }
-
-  Ci = Cc;
-  Ti = Tc;
 }
 
 // Authentication 
