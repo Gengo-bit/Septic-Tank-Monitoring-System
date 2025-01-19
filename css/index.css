@@ -6,7 +6,7 @@
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
   border-bottom: 1px solid #ccc;
   transition: background-color var(--transition-duration),
   color var(--transition-duration);
@@ -72,19 +72,23 @@
   transform: translateY(-2px);
 }
 .hamburger {
-  display: none;
+  display: flex;
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
+  margin-left: auto; /* Pushes it to the far-right, if needed */
+  align-items: center; /* Ensures the bars are centered */
 }
 
 .hamburger .bar {
   width: 25px;
-  height: 3px;
+  height: 2px;
   background-color: #333;
   border-radius: 5px;
 }
-
+.header-nav {
+  display: none; /* Hide the nav links in mobile view, only show the hamburger */
+}
 /* Side Panel */
 .side-panel {
   position: fixed;
@@ -129,16 +133,6 @@
   color: #333;
   font-size: 1.2rem;
   font-weight: 500;
-}
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .header-nav {
-      display: none; /* Hide desktop navigation on mobile */
-  }
-
-  .hamburger {
-      display: flex; /* Show hamburger menu on mobile */
-  }
 }
 
 /* General Full-Screen Sections */
@@ -1044,8 +1038,32 @@ body {
   opacity: 1;
 }
 
+
+@media (min-width: 768px) {
+  .header-nav {
+    display: flex; /* Show nav links for larger screens */
+  }
+
+  .hamburger {
+    display: none; /* Hide hamburger on larger screens */
+  }
+}
+@media (min-width: 576px) {
+  .header-nav {
+    display: flex; /* Show nav links for larger screens */
+  }
+
+  .hamburger {
+    display: none; /* Hide hamburger on larger screens */
+  }
+}
 /* Mobile */
 @media (max-width: 768px) {
+  .logo {
+    width: 20px;
+    height: 50px;
+    margin-right: 15px;
+  }
   .main-header h1 {
     font-size: 1rem;
     font-weight: 600;
@@ -1157,7 +1175,7 @@ body {
   }
   .main-header {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
   }
 
   .card {
@@ -1201,15 +1219,6 @@ body {
 
   .section-image {
     height: auto; /* Ensure section images scale down */
-  }
-  .header-nav {
-    flex-direction: column; /* Stack links vertically */
-    gap: 10px; /* Adjust spacing */
-  }
-
-  .nav-link {
-    font-size: 1rem; /* Adjust link size */
-    padding: 8px 15px; /* Adjust padding */
   }
 }
 
