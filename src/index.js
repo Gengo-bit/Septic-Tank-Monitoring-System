@@ -108,6 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const hamburger = document.getElementById("hamburger");
     const sidePanel = document.getElementById("side-panel");
     const closeBtn = document.getElementById("close-btn");
+    const loginToggleBtn2 = document.getElementById('login-toggle-btn2');
+    const loginModal2 = document.getElementById('login-modal');
 
     hamburger.addEventListener("click", () => {
         sidePanel.classList.add("open");
@@ -117,6 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
         sidePanel.classList.remove("open");
     });
 
+    loginToggleBtn2.addEventListener('click', () => {
+        showModal(loginModal2);
+    });
     // Optional: Close panel when a link is clicked
     document.querySelectorAll(".side-panel-links a").forEach(link => {
         link.addEventListener("click", () => {

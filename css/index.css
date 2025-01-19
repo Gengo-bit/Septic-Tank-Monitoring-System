@@ -102,7 +102,7 @@
   flex-direction: column;
   padding: 1rem;
   transition: right 0.3s ease-in-out;
-  z-index: 9999; /* Very high z-index to appear above everything */
+  z-index: 1;
 }
 
 .side-panel.open {
@@ -129,12 +129,39 @@
 }
 
 .side-panel-links a {
+  font-family: "Poppins", sans-serif;
   text-decoration: none;
   color: #333;
   font-size: 1.2rem;
   font-weight: 500;
+  color: var(--header-text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-bottom: 2px;
 }
-
+.side-panel-links a:hover {
+  color: var(--accent-color); /* Same hover effect as links */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: translateY(-2px);
+}
+.login-toggle-btn2{
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--header-text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-bottom: 2px;
+  z-index: 999;
+}
+.login-toggle-btn2:hover {
+  color: var(--accent-color); /* Same hover effect as links */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
 /* General Full-Screen Sections */
 .full-screen {
   height: 100vh; /* Full height */
@@ -839,6 +866,7 @@ body {
   align-items: center;
   opacity: 0;
   transition: opacity 0.4s ease;
+  z-index: 2;
 }
 
 .modal.show {
@@ -945,7 +973,7 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for a 3D effect */
   transition: background-color 0.3s ease, transform 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow 0.3s ease;
   margin-top: 20px;
 }
 
