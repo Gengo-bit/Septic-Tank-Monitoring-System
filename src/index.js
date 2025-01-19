@@ -104,3 +104,23 @@ document.querySelectorAll('a.nav-link').forEach(anchor => {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const hamburger = document.getElementById("hamburger");
+    const sidePanel = document.getElementById("side-panel");
+    const closeBtn = document.getElementById("close-btn");
+
+    hamburger.addEventListener("click", () => {
+        sidePanel.classList.add("open");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        sidePanel.classList.remove("open");
+    });
+
+    // Optional: Close panel when a link is clicked
+    document.querySelectorAll(".side-panel-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            sidePanel.classList.remove("open");
+        });
+    });
+});

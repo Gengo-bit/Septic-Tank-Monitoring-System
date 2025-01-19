@@ -9,11 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header Section -->
     <header class="main-header">
         <div class="logo-container">
             <img src="../assets/logo.png" alt="Logo" class="logo">
             <h1>Septic Tank Monitoring System</h1>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
         <nav class="header-nav">
             <a href="#commercialization" class="nav-link">About</a>
@@ -22,7 +26,17 @@
             <a href="#cta-section" class="nav-link">Pre-order Now</a>
             <button class="login-toggle-btn" id="login-toggle-btn">Login</button>
         </nav>
-    </header>    
+        <div class="side-panel" id="side-panel">
+            <button class="close-btn" id="close-btn">&times;</button>
+            <ul class="side-panel-links">
+                <li><a href="#commercialization">About</a></li>
+                <li><a href="#product-offerings">Products</a></li>
+                <li><a href="#benefits-section">Benefits</a></li>
+                <li><a href="#cta-section">Pre-order Now</a></li>
+            </ul>
+        </div>
+    </header>
+     
     <!-- Hero Section with Video Background -->
     <section class="hero-section full-screen">
         <video autoplay muted loop playsInline id="hero-video">
