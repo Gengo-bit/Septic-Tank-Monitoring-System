@@ -249,7 +249,7 @@ p {
   width: 50px;
   height: auto;
   margin-right: 8px;
-  margin-left: 0px;
+  margin-left: -5%;
 }
 .logo:hover {
   transform: rotate(5deg) scale(1.1);
