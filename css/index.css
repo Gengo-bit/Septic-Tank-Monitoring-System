@@ -11,6 +11,11 @@
   transition: background-color var(--transition-duration),
     color var(--transition-duration);
 }
+.main-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--header-text-color);
+}
 .logo-container {
   display: flex;
   align-items: center;
@@ -24,7 +29,47 @@
 .logo:hover {
   transform: rotate(5deg) scale(1.1);
 }
+/* Header Navigation Links */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between links */
+}
 
+.nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--header-text-color);
+  text-decoration: none;
+  padding: 10px 15px;
+  transition: color 0.3s ease;
+  position: relative; /* For separators */
+}
+
+.nav-link:hover {
+  color: var(--accent-color); /* Accent color hover effect */
+  transform: translateY(-3px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+/* Login Button Styling Consistent with Links */
+.login-toggle-btn {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--header-text-color);
+  background-color: transparent;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-bottom: 2px;
+}
+
+.login-toggle-btn:hover {
+  color: var(--accent-color); /* Same hover effect as links */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: translateY(-2px);
+}
 /* General Full-Screen Sections */
 .full-screen {
   height: 100vh; /* Full height */
@@ -103,11 +148,7 @@ h3 {
 p {
   font-size: 1.1rem;
 }
-.main-header h1 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--header-text-color);
-}
+
 /* Introduction Section */
 .introduction {
   text-align: center;
@@ -347,29 +388,6 @@ p {
     rgba(0, 0, 0, 0.2)
   ); /* Subtle gradient effect */
   z-index: 0; /* Behind the text */
-}
-
-/* Header Navigation Links */
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Space between links */
-}
-
-.nav-link {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--header-text-color);
-  text-decoration: none;
-  padding: 10px 15px;
-  transition: color 0.3s ease;
-  position: relative; /* For separators */
-}
-
-.nav-link:hover {
-  color: var(--accent-color); /* Accent color hover effect */
-  transform: translateY(-3px);
-  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 /* Adjust individual sections for a flat, integrated look */
@@ -878,26 +896,6 @@ body {
   background-color: #bf8b1b; /* Even darker shade when clicked */
   transform: translateY(1px); /* Press down effect */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Slightly reduce shadow */
-}
-
-/* Login Button Styling Consistent with Links */
-.login-toggle-btn {
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--header-text-color);
-  background-color: transparent;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  margin-bottom: 2px;
-}
-
-.login-toggle-btn:hover {
-  color: var(--accent-color); /* Same hover effect as links */
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  transform: translateY(-2px);
 }
 
 /* Footerrrrrrrrrrrrrrrrrrrrr */
