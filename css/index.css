@@ -246,7 +246,8 @@ p {
 .logo {
   width: 50px;
   height: auto;
-  margin-right: 15px;
+  margin-right: 8px;
+  margin-left: 0px;
 }
 .logo:hover {
   transform: rotate(5deg) scale(1.1);
