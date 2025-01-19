@@ -1120,6 +1120,13 @@ body {
     height: 100%;
     width: 100%;
   }
+  .introduction h2{
+    margin-top: -10%;
+    font-size: 1.8rem;
+  }
+  .introduction p{
+    font-size: 1rem;
+  }
 
  /*third section*/
  .section-title {
