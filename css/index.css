@@ -1076,19 +1076,11 @@ body {
     display: none; /* Hide hamburger on larger screens */
   }
 }
-@media (min-width: 576px) {
-  .header-nav {
-    display: flex; /* Show nav links for larger screens */
-  }
-
-  .hamburger {
-    display: none; /* Hide hamburger on larger screens */
-  }
-}
 /* Mobile */
 @media (max-width: 768px) {
+  /*header*/
   .logo {
-    width: 20px;
+    width: 50px;
     height: 50px;
     margin-right: 15px;
   }
@@ -1097,106 +1089,124 @@ body {
     font-weight: 600;
     color: var(--header-text-color);
   }
-  /* Full-Screen Sections - Mobile adjustments */
   .full-screen {
-    padding: 20px;
     height: auto; /* Allow sections to grow if content is long */
     min-height: 100vh; /* Ensure it still takes up the viewport height */
     text-align: center; /* Center-align text on smaller screens */
   }
-
-  /* Section Title for Mobile */
-  .section-title {
-    font-size: 2rem; /* Smaller font size for mobile */
-  }
-  .overlay h2 {
-    font-size: 1.4rem;
-  }
+  /*first section*/
   .overlay h2.smart {
-    font-size: 3rem;
-    color: #f4c542; /* Accent color */
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Stronger shadow for contrast */
+    font-size: 2.5rem;
+    color: #f4c542; 
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
     margin-bottom: 20px;
   }
   .overlay p {
     font-family: "Poppins", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 300;
     max-width: 700px;
     color: #f1f1f1;
-    line-height: 1.7; /* More spacious line height for readability */
+    line-height: 1.7; 
     padding: 0 20px;
     margin-top: 15px;
     animation: fadeInUp 1.2s ease forwards;
   }
-
-  /* Hover Effect for the Overlay */
   .overlay:hover .smart {
-    transform: scale(1.05); /* Scale up on hover for emphasis */
+    transform: scale(1.05); 
   }
-  /* CTA Section for Mobile */
-  .cta-section {
-    padding: 30px 20px;
-    height: auto; /* Allow height to adjust based on content */
-    min-height: 100vh;
+  /*second section*/
+  .section-image {
+    height: 100%;
+    width: 100%;
   }
 
+ /*third section*/
+ .section-title {
+  font-size: 1.6rem; 
+  }
+  .product-container {
+    width: 100%;
+    margin: 10px auto;
+  }
+  .product-title{
+    font-size: 1.4rem;
+  }
+  .product-description{
+    font-size: 1rem;
+  }
+  .product-card li{
+  font-size: 0.8rem;
+  }
+  .product-offerings{
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align */
+  }
+  .product-image {
+    height: auto;
+    width: auto;
+  }
+
+   /*fourth section*/
+   .benefits-section img{
+    height: 10%;
+    width: 10%;
+   }
+   .benefits-section h2{
+    font-size: 1.4rem;
+    margin-bottom: 10px; 
+    padding-top: 10px;
+   }
+   .benefits-section h4{
+    font-size: 1rem;
+   }
+   .benefits-section p{
+    font-size: 0.8rem;
+   }
+   .benefits {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align */
+  }
+  .benefit-item {
+    width: 100%; /* Full width for smaller screens */
+    margin: 5px 0; /* Spacing between items */
+  }
+  /*fifth section*/
   .cta-section h2 {
     font-size: 2rem; /* Adjust heading size */
   }
-
   .cta-section p {
     font-size: 1.1rem;
   }
-
   .cta-btn {
     font-size: 1rem;
     padding: 12px 25px; /* Adjust button size */
   }
-
-  /* Product Offerings */
-  .product {
-    width: 90%; /* Full width on smaller screens */
-    margin: 10px auto;
-  }
-
-  /* Features and Benefits Sections */
-  .features,
-  .product-offerings,
-  .benefits {
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center align */
-  }
-
-  .feature-item,
-  .benefit-item {
-    width: 90%; /* Full width for smaller screens */
-    margin: 10px 0; /* Spacing between items */
-  }
-
+/* footer */
   .footer-content {
     width: 100%;
   }
-
   .footer-logo img {
-    width: 30px; /* Smaller logo for mobile */
+    width: 30px; 
   }
-
   .footer-links a {
-    font-size: 0.7rem; /* Smaller text */
+    font-size: 0.5rem; /* Smaller text */
     margin: 5px;
   }
-
   .social-media a img {
     width: 14px; /* Smaller icons */
   }
-
-  /* Modal for Mobile */
+  .footer-links,
+  .social-media {
+    flex-direction: column; /* Stack footer links vertically */
+    align-items: center;
+  }
+  
+  /* etc*/
   .modal-content {
     padding: 2rem;
     max-width: 90%;
   }
-
   .login-btn {
     font-size: 1rem;
     padding: 10px;
@@ -1205,11 +1215,6 @@ body {
     flex-direction: column;
     text-align: left;
   }
-
-  .card {
-    margin-bottom: 20px;
-  }
-
   .button {
     font-size: 1rem;
     padding: 10px 20px;
@@ -1217,40 +1222,16 @@ body {
   .modal-content {
     padding: 30px;
   }
-
   .login-text {
     font-size: 1.2rem;
   }
-  .benefits-section h2 {
-    margin-bottom: 20px; /* Adjust spacing for smaller screens */
-    padding-top: 10px;
-  }
-  .footer-links,
-  .social-media {
-    flex-direction: column; /* Stack footer links vertically */
-    align-items: center;
-  }
-
   .footer-links a {
     font-size: 0.8rem; /* Adjust link size */
     margin: 5px;
   }
-  .product-card {
-    flex: 1 1 100%; /* Full width on mobile */
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .product-image {
-    height: auto; /* Ensure image height adjusts */
-  }
-
-  .section-image {
-    height: auto; /* Ensure section images scale down */
-  }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
   h1 {
     font-size: 1.8rem;
   }
@@ -1260,7 +1241,8 @@ body {
   }
 
   .logo {
-    width: 80px;
+    width: 50px;
+    height: 50px;
   }
 
   .modal-content {
