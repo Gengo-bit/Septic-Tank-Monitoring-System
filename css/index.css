@@ -1238,6 +1238,36 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .main-footer .social-media a img {
+    width: 16px; /* Even smaller icons */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 1 1 100%; /* Make cards full-width on mobile */
+    max-width: 100%;
+  }
+}
+
 /* Smooth Scroll Animation Keyframes */
 @keyframes fadeInUp {
   0% {
