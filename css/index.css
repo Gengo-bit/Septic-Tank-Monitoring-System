@@ -231,10 +231,12 @@ p {
   transition: background-color var(--transition-duration),
   color var(--transition-duration);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 .main-header h1 {
   font-size: 1.8rem;
   font-weight: 600;
+  margin: 0;
   color: var(--header-text-color);
 }
 .logo-container {
@@ -286,17 +288,17 @@ p {
 }
 .hamburger {
   display: flex;
-  flex-direction: column;
+  align-items: center; /* Vertically center the icon */
+  justify-content: center; /* Horizontally center the icon */
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--header-text-color); 
   cursor: pointer;
-  gap: 5px;
-  margin-left: auto; /* Pushes it to the far-right*/
-  align-items: center; /* Ensures the bars are centered */
+  margin-left: auto; 
 }
-.hamburger .bar {
-  width: 25px;
-  height: 2px;
-  background-color: #333;
-  border-radius: 5px;
+.hamburger i {
+  font-size: 1.5rem;
 }
 .header-nav {
   display: none; /* Hide the nav links in mobile view, only show the hamburger */
