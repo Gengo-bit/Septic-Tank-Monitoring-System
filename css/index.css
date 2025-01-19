@@ -299,6 +299,7 @@ p {
   color: var(--header-text-color); 
   cursor: pointer;
   margin-left: auto; 
+  margin-right: -5%;
 }
 .hamburger i {
   font-size: 1.5rem;
