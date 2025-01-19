@@ -1,5 +1,110 @@
-/* Header Section */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --base-color: #f5f7fa; /* Light background for sections */
+  --base-variant: #ffffff; /* Lighter variant for backgrounds */
+  --text-color: #2d3a4b; /* Dark text for readability */
+  --secondary-text: #5c6f81; /* Subtle, muted text */
+  --primary-color: #1a1a1a; /* Dark color for headers */
+  --accent-color: #f4c542; /* Yellow for buttons and highlights */
+  --header-bg: #f5f7fa; /* Light, clean background for header */
+  --footer-bg: #f5f7fa; /* Light, clean background for footer */
+  --header-text-color: #2d3a4b; /* Dark text color for header */
+  --footer-text-color: #2d3a4b; /* Dark text color for footer */
+  --transition-duration: 0.4s;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--base-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color var(--transition-duration),
+  color var(--transition-duration);
+  display: flex;
+  flex-direction: column;
+}
+html,
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+}
+.full-screen {
+  height: 100vh; /* Full height */
+  min-height: 100vh; /* Minimum height to cover the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Stack content vertically */
+  padding: 0; /* Ensure no extra padding affects layout */
+  opacity: 0; /* Start hidden */
+  transform: translateY(30px); /* Start slightly below */
+  transition: opacity 0.8s ease, transform 0.8s ease; /* Transition effect */
+}
+/* When section is in view, make it visible */
+.full-screen.active {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move to normal position */
+}
+section {
+  padding: 80px 0;
+  background-color: var(--base-variant);
+  text-align: center;
+}
+/* Typography */
+h1,
+h2,
+h3 {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+p {
+  font-size: 1.1rem;
+}
 
+/* ====================MODAL==================== */
+.input-email,
+.input-pass {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.8rem 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  font-size: 1.1rem;
+}
+.input-email:focus,
+.input-pass:focus {
+  border-color: #f4c542;
+  box-shadow: 0 0 8px rgba(244, 197, 66, 0.6);
+  outline: none;
+}
+.forgot-password {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 20px;
+}
+.forgot-password a{
+  color: #f4c542;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.forgot-password a:hover {
+  color: #d8a327;
+}
+.error-message {
+  color: #ff4c4c;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+/* ====================HEADER==================== */
 .main-header {
   background: var(--header-bg);
   color: var(--header-text-color);
@@ -21,7 +126,6 @@
   display: flex;
   align-items: center;
 }
-
 .logo {
   width: 50px;
   height: auto;
@@ -30,13 +134,11 @@
 .logo:hover {
   transform: rotate(5deg) scale(1.1);
 }
-/* Header Navigation Links */
 .header-nav {
   display: flex;
   align-items: center;
   gap: 20px; /* Space between links */
 }
-
 .nav-link {
   font-size: 1rem;
   font-weight: 500;
@@ -44,15 +146,12 @@
   text-decoration: none;
   padding: 10px 15px;
   transition: color 0.3s ease;
-  position: relative; /* For separators */
 }
-
 .nav-link:hover {
-  color: var(--accent-color); /* Accent color hover effect */
+  color: var(--accent-color); 
   transform: translateY(-3px);
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-/* Login Button Styling Consistent with Links */
 .login-toggle-btn {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -65,9 +164,8 @@
   transition: color 0.3s ease;
   margin-bottom: 2px;
 }
-
 .login-toggle-btn:hover {
-  color: var(--accent-color); /* Same hover effect as links */
+  color: var(--accent-color);
   transition: background-color 0.3s ease, transform 0.3s ease;
   transform: translateY(-2px);
 }
@@ -76,10 +174,9 @@
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
-  margin-left: auto; /* Pushes it to the far-right, if needed */
+  margin-left: auto; /* Pushes it to the far-right*/
   align-items: center; /* Ensures the bars are centered */
 }
-
 .hamburger .bar {
   width: 25px;
   height: 2px;
@@ -89,7 +186,6 @@
 .header-nav {
   display: none; /* Hide the nav links in mobile view, only show the hamburger */
 }
-/* Side Panel */
 .side-panel {
   position: fixed;
   top: 0;
@@ -104,11 +200,9 @@
   transition: right 0.3s ease-in-out;
   z-index: 1;
 }
-
 .side-panel.open {
   right: 0;
 }
-
 .close-btn {
   font-size: 2rem;
   color: #333;
@@ -117,17 +211,14 @@
   align-self: flex-end;
   cursor: pointer;
 }
-
 .side-panel-links {
   list-style: none;
   padding: 0;
   margin-top: 2rem;
 }
-
 .side-panel-links li {
   margin: 1rem 0;
 }
-
 .side-panel-links a {
   font-family: "Poppins", sans-serif;
   text-decoration: none;
@@ -162,244 +253,9 @@
   color: var(--accent-color); /* Same hover effect as links */
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-/* General Full-Screen Sections */
-.full-screen {
-  height: 100vh; /* Full height */
-  min-height: 100vh; /* Minimum height to cover the viewport */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; /* Stack content vertically */
-  padding: 0; /* Ensure no extra padding affects layout */
-  opacity: 0; /* Start hidden */
-  transform: translateY(30px); /* Start slightly below */
-  transition: opacity 0.8s ease, transform 0.8s ease; /* Transition effect */
-}
-/* When section is in view, make it visible */
-.full-screen.active {
-  opacity: 1; /* Fade in */
-  transform: translateY(0); /* Move to normal position */
-}
-/* Smooth Scroll Behavior */
-html,
-body {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y proximity;
-}
 
-/* Container for Full-Screen Scroll */
-body {
-  display: flex;
-  flex-direction: column;
-}
-/* Remove box-shadow and border-radius for seamless transitions */
-section {
-  padding: 80px 0;
-  background-color: var(--base-variant);
-  text-align: center;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 40px;
-}
-
-/* Typography */
-h1,
-h2,
-h3 {
-  font-family: "Merriweather", serif;
-  font-weight: 700;
-  color: var(--primary-color);
-}
-
-.smart {
-  font-size: 2.8rem;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 1.5px;
-  margin-bottom: 20px;
-  color: #f4c542;
-  animation: fadeInUp 1s ease forwards;
-}
-
-.smart:hover {
-  color: #ffcc33; /* Slightly lighter accent color on hover */
-  text-shadow: 0px 0px 10px rgba(244, 197, 66, 0.6);
-  transform: scale(1.02); /* Gentle scale for interactivity */
-}
-
-.introd {
-  font-size: 2.2rem;
-  color: white;
-}
-p {
-  font-size: 1.1rem;
-}
-
-/* Introduction Section */
-.introduction {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.introduction h2 {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  animation: textZoomIn 0.5s ease;
-}
-
-.introduction p {
-  font-size: 1.4rem;
-  color: var(--text-color);
-  margin: 1.5rem 0;
-  animation: textFadeIn 0.5s ease;
-}
-
-.section-image {
-  width: 100%;
-  height: 300px; /* Fixed height for consistent appearance */
-  border-radius: 12px;
-  background-size: cover; /* Ensures image covers the entire div */
-  background-position: center; /* Center the background image */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  animation: imageZoomIn 0.5s ease;
-}
-.section-title {
-  font-size: 2.5rem;
-  width: 100%; /* Make sure it spans the full section width */
-  text-align: center;
-  color: #333;
-  margin-bottom: 40px;
-}
-
-/* Features Section */
-.features-section {
-  margin: 40px 0;
-}
-
-.features {
-  display: flex;
-  justify-content: space-between;
-}
-.features .feature-item:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease, background-color 0.3s;
-}
-.feature-item {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 30%; /* Adjust width for responsiveness */
-  transition: transform 0.3s ease;
-}
-
-.feature-item:hover {
-  transform: scale(1.05);
-}
-
-.features-icon img {
-  width: 50px; /* Set a consistent size for icons */
-}
-/* Input Fields */
-.input-email,
-.input-pass {
-  width: 100%;
-  padding: 1rem;
-  margin: 0.8rem 0;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  font-size: 1.1rem;
-}
-
-.input-email:focus,
-.input-pass:focus {
-  border-color: #f4c542;
-  box-shadow: 0 0 8px rgba(244, 197, 66, 0.6);
-  outline: none;
-}
-
-.forgot-password {
-  font-size: 0.9rem;
-  color: #555;
-  margin-top: 20px;
-}
-.forgot-password a{
-  color: #f4c542;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.buy-now-text {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: -20px;
-}
-.forgot-password a:hover {
-  color: #d8a327;
-}
-.buy-now-text a {
-  color: #f4c542;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.buy-now-text a:hover {
-  color: #d8a327;
-}
-
-/* Error Message */
-.error-message {
-  color: #ff4c4c;
-  margin-top: 15px;
-  font-size: 0.9rem;
-}
-
-.responsive-image {
-  width: 100%; /* Make it responsive */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 12px; /* Optional for rounded corners */
-}
-
-/* Accessibility */
-@media (prefers-contrast: high) {
-  body {
-    background: black;
-    color: white;
-  }
-}
-
-/* General Full-Screen Sections */
-.full-screen {
-  height: 100vh; /* Full screen height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 0; /* Remove extra padding */
-  box-sizing: border-box;
-}
-/* Buy Now Button */
-.buy-now {
-  color: var(--header-text-color);
-  padding: 10px 20px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.buy-now:hover {
-  transform: translateY(-2px);
-}
-/* Hero Section */
+/* ====================FIRST SECTION==================== */
 .hero-section {
-  background-color: white; /* Set the background to white */
   position: relative;
   height: 100vh; /* 100% of the viewport height */
   min-height: 100vh; /* Ensures it always takes up full screen */
@@ -408,10 +264,8 @@ p {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #000000; /* Adjust text color if needed */
   padding: 100px 20px;
 }
-
 #hero-video {
   position: absolute;
   top: 0;
@@ -421,7 +275,6 @@ p {
   object-fit: cover; /* Ensures the video covers the section */
   z-index: -2; /* Ensures the video stays behind the overlay */
 }
-
 .overlay {
   position: absolute;
   top: 0;
@@ -481,153 +334,125 @@ p {
   ); /* Subtle gradient effect */
   z-index: 0; /* Behind the text */
 }
-
-/* Adjust individual sections for a flat, integrated look */
-.hero-section,
-.commercialization,
-.benefits-section,
-.cta-section,
-.product-offerings {
-  background-color: var(--base-variant); /* Ensure consistent background */
-  padding: 60px min(50px, 7%); /* Uniform padding */
-  border-radius: 0; /* Remove any rounding */
-  box-shadow: none; /* Remove drop shadows */
-  margin: 0; /* Ensure no margins between sections */
-}
-/* Enhancing Transition */
-.hero-section,
-.commercialization,
-.benefits-section,
-.cta-section {
-  transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
+.smart {
+  font-size: 4rem;
   font-family: "Poppins", sans-serif;
-  background-color: var(--base-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  transition: background-color var(--transition-duration),
-    color var(--transition-duration);
+  letter-spacing: 1.3px;
+  margin-bottom: 20px;
+  color: #f4c542;
+  animation: fadeInUp 1s ease forwards;
+}
+.smart:hover {
+  color: #ffcc33; /* Slightly lighter accent color on hover */
+  text-shadow: 0px 0px 10px rgba(244, 197, 66, 0.6);
+  transform: scale(1.02); /* Gentle scale for interactivity */
 }
 
-:root {
-  --base-color: #f5f7fa; /* Light background for sections */
-  --base-variant: #ffffff; /* Lighter variant for backgrounds */
-  --text-color: #2d3a4b; /* Dark text for readability */
-  --secondary-text: #5c6f81; /* Subtle, muted text */
-  --primary-color: #1a1a1a; /* Dark color for headers */
-  --accent-color: #f4c542; /* Yellow for buttons and highlights */
-  --header-bg: #f5f7fa; /* Light, clean background for header */
-  --footer-bg: #f5f7fa; /* Light, clean background for footer */
-  --header-text-color: #2d3a4b; /* Dark text color for header */
-  --footer-text-color: #2d3a4b; /* Dark text color for footer */
-  --transition-duration: 0.4s;
-}
-
-.commercialization {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px;
+/* ====================SECOND SECTION====================*/
+.introduction {
   text-align: center;
-  background: linear-gradient(to right, #f0f4f8, #fff); /* Soft gradient */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+}
+.introduction h2 {
+  font-size: 2.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  animation: textZoomIn 0.5s ease;
+}
+.introduction p {
+  font-size: 1.4rem;
+  color: var(--text-color);
+  margin: 1.5rem 0;
+  animation: textFadeIn 0.5s ease;
+}
+.section-image {
+  width: 100%;
+  height: 300px; /* Fixed height for consistent appearance */
   border-radius: 12px;
+  background-size: cover; /* Ensures image covers the entire div */
+  background-position: center; /* Center the background image */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: imageZoomIn 0.5s ease;
 }
 
-/* Card Design for Products & Benefits */
-.card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
+/* ====================THIRD SECTION==================== */
+.section-title {
+  font-size: 2.5rem;
+  width: 100%; /* Make sure it spans the full section width */
+  text-align: center;
+  color: #333;
+  margin-bottom: 40px;
 }
-.button {
-  background-color: var(--accent-color);
-  color: #ffffff;
-  padding: 12px 25px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+
+/* FIFTH SECTION */
+.buy-now-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: -20px;
+}
+.buy-now-text a {
+  color: #f4c542;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.buy-now-text a:hover {
+  color: #d8a327;
+}
+.buy-now {
+  color: var(--header-text-color);
+  padding: 10px 20px;
+  border-radius: 8px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-.button:hover {
-  background-color: #d8a327;
+.buy-now:hover {
   transform: translateY(-2px);
 }
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
 .ourproduct {
   margin-bottom: -10px;
 }
-/* Product Title */
 .product-title {
-  font-size: 1.8rem; /* Font size for product title */
-  color: var(--primary-color); /* Title color */
-  margin-bottom: 10px; /* Space below title */
-  font-weight: 600; /* Bold text */
+  font-size: 1.8rem; 
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 .product-title2 {
-  font-size: 1.8rem; /* Font size for product title */
-  color: var(--primary-color); /* Title color */
+  font-size: 1.8rem; 
+  color: var(--primary-color);
   margin-top: -10px;
-  margin-bottom: 10px; /* Space below title */
-  font-weight: 600; /* Bold text */
+  margin-bottom: 10px;
+  font-weight: 600;
 }
-/* Product Description */
 .product-description {
-  font-size: 1.2rem; /* Font size for description */
-  margin-bottom: 15px; /* Space below description */
-  color: #555; /* Slightly muted text color */
+  font-size: 1.2rem;
+  margin-bottom: 15px; 
+  color: #555;
 }
-
-/* Product Features List */
 .product-features {
   list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove padding */
-  margin: 15px 0; /* Space around the list */
+  padding: 0; 
+  margin: 15px 0; 
 }
-
-/* Individual Feature List Items */
 .product-features li {
   text-align: left;
-  margin-bottom: 10px; /* Space between list items */
-  font-size: 1.1rem; /* Font size for list items */
-  color: var(--text-color); /* Use existing text color */
+  margin-bottom: 10px;
+  font-size: 1.1rem; 
+  color: var(--text-color);
   position: relative; /* For pseudo-element */
   padding-left: 25px; /* Space for the bullet point */
 }
-
 /* Add a bullet point using a pseudo-element */
 .product-features li::before {
-  content: "✔"; /* Use a checkmark or a custom icon */
-  position: absolute; /* Position it absolutely */
-  left: 0; /* Align left */
-  color: var(--accent-color); /* Bullet color */
-  font-size: 1.2rem; /* Size of the bullet */
+  content: "✔"; /* Use a checkmark */
+  position: absolute;
+  left: 0; 
+  color: var(--accent-color);
+  font-size: 1.2rem; 
 }
-
-/* Optional: Add a hover effect to list items */
 .product-features li:hover {
-  color: var(--accent-color); /* Change color on hover */
-  transition: color 0.3s ease; /* Smooth transition */
+  color: var(--accent-color); 
+  transition: color 0.3s ease; 
 }
-
-/* Product Offerings */
 .product-offerings {
   background: var(--base-color);
   padding: 40px;
@@ -636,19 +461,16 @@ body {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   animation: fadeInUp 0.6s ease;
 }
-
 .product-container {
   display: flex;
   justify-content: center;
-  gap: 40px; /* Increase the space between the cards */
+  gap: 40px; 
   padding: 20px;
-  flex-wrap: wrap; /* Ensure responsiveness on smaller screens */
+  flex-wrap: wrap; 
 }
 .product-container {
-  align-items: stretch; /* Stretch cards to the same height */
+  align-items: stretch; 
 }
-
-/* Product Card */
 .product-card {
   background-color: #ffffff;
   border-radius: 10px;
@@ -656,68 +478,26 @@ body {
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  flex: 1 1 40%; /* Allow cards to take up 40% of the container width */
-  max-width: 500px; /* Set a maximum width for large screens */
-  margin: 0; /* Remove default margin */
+  flex: 1 1 40%; 
+  max-width: 500px; 
+  margin: 0; 
 }
-
-/* Hover Effect */
 .product-card:hover {
-  transform: scale(1.06); /* Slight zoom on hover */
+  transform: scale(1.06);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
-
-.product {
-  background: #f9f9f9;
-  padding: 20px;
-  width: 48%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: slideIn 0.8s ease;
-}
-
-.product:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.product h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-}
-
-.product p {
-  font-size: 1.2rem;
-  color: var(--text-color);
-  margin-bottom: 1rem;
-}
-
-.product ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1rem;
-}
-
-.product li {
-  margin-bottom: 0.75rem;
-  font-size: 1.1rem;
-  color: #555;
-}
-
 .product-image {
-  width: 100%;
-  height: 200px; /* Fixed height for product images */
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px; 
   background-size: cover;
   background-position: center;
   border-radius: 12px;
   transition: transform 0.3s ease;
 }
 
-.product:hover .product-image {
-  transform: scale(1.1);
-}
+
 
 /* Benefits Section */
 .benefits-section {
