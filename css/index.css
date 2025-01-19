@@ -103,6 +103,121 @@ p {
   margin-top: 15px;
   font-size: 0.9rem;
 }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+.modal.show .modal-content {
+  transform: scale(1); /* Scale up */
+  opacity: 1; /* Fade in */
+}
+.modal-content {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px; /* Limit the width of the modal */
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Subtle shadow for a modern look */
+}
+.modal-logo img {
+  width: 80px; /* Adjust size of the logo */
+  margin-bottom: 20px; /* Space between the logo and the login text */
+}
+.login-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 25px;
+}
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.login-form input:focus {
+  border-color: #f4c542;
+  box-shadow: 0 0 8px rgba(244, 197, 66, 0.5);
+}
+.modal.show .modal-content {
+  animation: modalFadeIn 0.5s ease;
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ff4c4c;
+}
+.login-btn {
+  background-color: #f4c542; 
+  color: white;
+  border: none;
+  padding: 12px 25px; 
+  border-radius: 10px; 
+  font-size: 1.2rem; 
+  font-weight: 600; 
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease, transform 0.3s ease,
+  box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+.login-btn:hover {
+  background-color: #d8a327; 
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+}
+.login-btn:active {
+  background-color: #bf8b1b;
+  transform: translateY(1px); /* Press down effect */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+}
+@keyframes modalFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    .modal.show .modal-content {
+      animation: modalFadeIn 0.5s ease;
+    }
+
+    @keyframes modalFadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    transform: scale(1);
+  }
+}
 
 /* ====================HEADER==================== */
 .main-header {
@@ -383,30 +498,6 @@ p {
   color: #333;
   margin-bottom: 40px;
 }
-
-/* FIFTH SECTION */
-.buy-now-text {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: -20px;
-}
-.buy-now-text a {
-  color: #f4c542;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.buy-now-text a:hover {
-  color: #d8a327;
-}
-.buy-now {
-  color: var(--header-text-color);
-  padding: 10px 20px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.buy-now:hover {
-  transform: translateY(-2px);
-}
 .ourproduct {
   margin-bottom: -10px;
 }
@@ -497,18 +588,9 @@ p {
   transition: transform 0.3s ease;
 }
 
-
-
-/* Benefits Section */
-.benefits-section {
-  background-color: var(--base-variant);
-  padding: 60px 0;
-  border-radius: 12px;
-}
+/* ====================FOURTH SECTION==================== */
 .benefits-section h2 {
-  margin-bottom: 30px; /* Increase spacing below the heading */
-  padding-top: 20px; /* Ensure it has some padding from the section's top */
-  font-size: 2.2rem; /* Slightly larger font for better emphasis */
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--primary-color);
 }
@@ -516,10 +598,9 @@ p {
   display: flex;
   justify-content: space-between;
 }
-
 .benefit-item {
   background-color: white;
-  width: 22%; /* Set fixed width for uniformity */
+  width: 24%; /* Set fixed width for uniformity */
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -529,18 +610,15 @@ p {
 .benefit-item:hover {
   transform: translateY(-10px);
 }
-
 .benefit-item h4 {
   font-size: 1.6rem;
   color: var(--primary-color);
   margin-bottom: 0.75rem;
 }
-
 .benefit-item p {
   font-size: 1.1rem;
   color: #555;
 }
-
 .benefit-icon {
   font-size: 2rem;
   color: var(--accent-color);
@@ -549,73 +627,26 @@ p {
 .benefit-icon img {
   width: 50px; /* Set a consistent size for benefit icons */
 }
-/* FAQ Section */
-.faq {
-  margin: 4rem 0;
-}
 
-.faq-item {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  transition: transform 0.3s ease;
-}
-
-.faq-item:hover {
-  transform: translateY(-10px);
-}
-
-.faq-item h4 {
-  font-size: 1.6rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-}
-
-.faq-item p {
-  font-size: 1.1rem;
-  color: #555;
-}
-
-/* Video Section */
-.video-demo {
-  margin: 4rem 0;
-  text-align: center;
-  background-color: var(--bg-light);
-}
-
-.demo-video {
-  width: 100%;
-  max-width: 700px;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  animation: fadeInUp 0.5s ease;
-}
-
-/* Call to Action */
+/* ====================FIFTH SECTION==================== */
 .cta-section {
-  height: 100vh; /* Make it take the full screen height */
-  min-height: 100vh; /* Ensures it fills the viewport */
+  height: 100vh;
+  min-height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px; /* Increase padding to make it larger */
-  background-color: var(--bg-light); /* Optional: Add a background color */
+  padding: 40px; 
   animation: fadeInUp 0.5s ease;
 }
-
 .cta-section h2 {
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
-
 .cta-section p {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
-
 .cta-btn {
   background-color: var(--accent-color);
   color: white;
@@ -627,151 +658,34 @@ p {
   margin-top: 20px;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
-
 .cta-btn:hover {
   background: #48cae4; /* Slightly different shade */
   transform: translateY(-5px);
 }
-
-/* Modal for login */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 2;
+.buy-now-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: -20px;
 }
-
-.modal.show {
-  display: flex;
-  opacity: 1;
+.buy-now-text a {
+  color: #f4c542;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
-
-.modal.show .modal-content {
-  transform: scale(1); /* Scale up */
-  opacity: 1; /* Fade in */
+.buy-now-text a:hover {
+  color: #d8a327;
 }
-.modal-content {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 400px; /* Limit the width of the modal */
-  text-align: center;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Subtle shadow for a modern look */
-}
-.modal-logo img {
-  width: 80px; /* Adjust size of the logo */
-  margin-bottom: 20px; /* Space between the logo and the login text */
-}
-.login-text {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 25px;
-}
-.login-form input {
-  width: 100%;
-  padding: 12px 15px;
-  margin: 10px 0;
+.buy-now {
+  color: var(--header-text-color);
+  padding: 10px 20px;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.buy-now:hover {
+  transform: translateY(-2px);
 }
 
-.login-form input:focus {
-  border-color: #f4c542;
-  box-shadow: 0 0 8px rgba(244, 197, 66, 0.5);
-}
-.modal.show .modal-content {
-  animation: modalFadeIn 0.5s ease;
-}
-
-@keyframes modalFadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    .modal.show .modal-content {
-      animation: modalFadeIn 0.5s ease;
-    }
-
-    @keyframes modalFadeIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    transform: scale(1);
-  }
-}
-
-@keyframes scaleUp {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-.close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #ff4c4c;
-}
-
-/* Login Button for modal */
-.login-btn {
-  background-color: #f4c542; /* Bright, eye-catching color */
-  color: white;
-  border: none;
-  padding: 12px 25px; /* Increase padding for better visibility */
-  border-radius: 10px; /* Softer corners for a modern look */
-  font-size: 1.2rem; /* Slightly larger font size */
-  font-weight: 600; /* Bold text for emphasis */
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for a 3D effect */
-  transition: background-color 0.3s ease, transform 0.3s ease,
-  box-shadow 0.3s ease;
-  margin-top: 20px;
-}
-
-/* Hover Effect - Slight movement and color change */
-.login-btn:hover {
-  background-color: #d8a327; /* Slightly darker shade */
-  transform: translateY(-3px); /* Slight upward movement */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
-}
-
-/* Active State - Button presses down slightly */
-.login-btn:active {
-  background-color: #bf8b1b; /* Even darker shade when clicked */
-  transform: translateY(1px); /* Press down effect */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Slightly reduce shadow */
-}
-
-/* Footerrrrrrrrrrrrrrrrrrrrr */
+/* ====================FOOTER==================== */
 .main-footer {
   background: var(--footer-bg);
   padding: 20px 40px;
@@ -788,23 +702,6 @@ p {
 }
 .main-footer a:hover {
   color: var(--accent-color);
-}
-
-.footer-content {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  font-size: 0.8rem; /* Reduced text size */
-}
-.footer-logo {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.footer-logo img {
-  width: 40px; /* Smaller logo */
 }
 .footer-links {
   display: flex;
@@ -824,14 +721,9 @@ p {
   display: inline-block;
   transition: transform 0.3s;
 }
-.main-footer .footer-content p,
-.main-footer .footer-content a {
-  color: var(--footer-text-color);
-}
 .main-footer .social-media a img {
   width: 20px; /* Smaller icons */
 }
-
 .main-footer .social-media a:hover {
   transform: scale(1.2);
 }
@@ -846,7 +738,7 @@ p {
   opacity: 1;
 }
 
-
+/* Tablet Screens */
 @media (min-width: 768px) {
   .header-nav {
     display: flex; /* Show nav links for larger screens */
@@ -856,7 +748,6 @@ p {
     display: none; /* Hide hamburger on larger screens */
   }
 }
-/* Mobile */
 @media (max-width: 768px) {
   /*header*/
   .logo {
@@ -955,21 +846,21 @@ p {
     align-items: center; /* Center align */
   }
   .benefit-item {
-    width: 100%; /* Full width for smaller screens */
-    margin: 5px 0; /* Spacing between items */
+    width: 100%;
+    margin: 5px 0; 
   }
   /*fifth section*/
   .cta-section h2 {
-    font-size: 2rem; /* Adjust heading size */
+    font-size: 2rem;
   }
   .cta-section p {
     font-size: 1.1rem;
   }
   .cta-btn {
     font-size: 1rem;
-    padding: 12px 25px; /* Adjust button size */
+    padding: 12px 25px;
   }
-/* footer */
+  /* footer */
   .footer-content {
     width: 100%;
   }
@@ -977,11 +868,11 @@ p {
     width: 30px; 
   }
   .footer-links a {
-    font-size: 0.5rem; /* Smaller text */
+    font-size: 0.5rem; 
     margin: 5px;
   }
   .social-media a img {
-    width: 14px; /* Smaller icons */
+    width: 14px;
   }
   .footer-links,
   .social-media {
@@ -1013,41 +904,46 @@ p {
     font-size: 1.2rem;
   }
   .footer-links a {
-    font-size: 0.8rem; /* Adjust link size */
+    font-size: 0.8rem; 
     margin: 5px;
   }
 }
-
+/* Mobile Screens */
 @media (max-width: 480px) {
   h1 {
     font-size: 1.8rem;
   }
-
   h2 {
     font-size: 1.6rem;
   }
-
   .logo {
     width: 50px;
     height: 50px;
   }
-
   .modal-content {
     padding: 1.5rem;
   }
-
   .main-footer .social-media a img {
-    width: 16px; /* Even smaller icons */
+    width: 16px; 
   }
-}
-
-@media (max-width: 480px) {
   .product-card {
     flex: 1 1 100%; /* Make cards full-width on mobile */
     max-width: 100%;
   }
 }
 
+
+/* ====================ANIMIATIONS==================== */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 /* Smooth Scroll Animation Keyframes */
 @keyframes fadeInUp {
   0% {
@@ -1059,7 +955,6 @@ p {
     transform: translateY(0);
   }
 }
-
 @keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -1078,7 +973,6 @@ p {
     opacity: 1;
   }
 }
-
 @keyframes textZoomIn {
   from {
     transform: scale(0.8);
@@ -1089,7 +983,6 @@ p {
     opacity: 1;
   }
 }
-
 @keyframes imageZoomIn {
   from {
     transform: scale(0.9);
@@ -1100,7 +993,6 @@ p {
     opacity: 1;
   }
 }
-
 @keyframes productFadeIn {
   from {
     opacity: 0;
@@ -1111,7 +1003,6 @@ p {
     transform: scale(1);
   }
 }
-
 @keyframes videoFadeIn {
   from {
     opacity: 0;
@@ -1122,7 +1013,6 @@ p {
     transform: scale(1);
   }
 }
-
 @keyframes slideDown {
   from {
     transform: translateY(-20px);
@@ -1133,7 +1023,6 @@ p {
     opacity: 1;
   }
 }
-
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -1144,7 +1033,6 @@ p {
     transform: translateX(0);
   }
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
