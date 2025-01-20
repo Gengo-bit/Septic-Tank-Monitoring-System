@@ -42,14 +42,14 @@ auth.onAuthStateChanged((user) => { // Authentication check
       });
   } else {
     // If no user is logged in, redirect to login
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
   }
 });
 
 // Event listener for Logout button
 document.getElementById('logout-btn').addEventListener('click', function() {
   firebase.auth().signOut().then(() => {
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
   }).catch((error) => {
     console.error('Logout Error: ', error);
   });
@@ -58,6 +58,6 @@ document.getElementById('logout-btn').addEventListener('click', function() {
 // Redirect to index.html if not logged in
 auth.onAuthStateChanged((user) => {
   if (!user) {
-      window.location.href = 'index.html';
+      window.location.href = '../index.html';
   }
 });

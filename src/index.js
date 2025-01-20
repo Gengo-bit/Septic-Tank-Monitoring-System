@@ -20,7 +20,7 @@ const firebaseConfig = {
           firebase.auth().signInWithEmailAndPassword(email, password)
               .then((userCredential) => {
                   // Redirect to home page after successful login
-                  window.location.href = '../html/home.html';
+                  window.location.href = '/home/home.html';
               })
               .catch((error) => {
                 // Map Firebase error codes to custom messages

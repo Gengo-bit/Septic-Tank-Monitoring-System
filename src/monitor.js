@@ -29,7 +29,7 @@ auth.onAuthStateChanged((user) => {
       console.log("Unknown user. No data available.");
     }
   } else {
-    window.location.href = '../html/index.html';
+    window.location.href = '../index.html';
   }
 });
 
@@ -228,7 +228,7 @@ function calculatePrediction(Cc, Tc) {
   Ti = Tc;
 }
 
-// Authentication 
+// Go back to home.html if user did not click the Septic tank to monitor (typed the URL)
 auth.onAuthStateChanged((user) => {
   if (user) {
     const referrer = document.referrer;

@@ -16,18 +16,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
-
-// Handle Login
-document.getElementById('login-modal').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            window.location.href = 'home.html';
-        })
-        .catch(error => {
-            alert('Login failed: ' + error.message);
-        });
-});
