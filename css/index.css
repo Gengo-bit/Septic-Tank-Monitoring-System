@@ -834,6 +834,9 @@ p {
     height: 0px;
     width: 0px;
   }
+  .product-features li::before {
+    font-size: 0.8rem; 
+  }
 
    /*fourth section*/
    .benefits-section img{
