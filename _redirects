@@ -1,6 +1,8 @@
-# Redirect to root index.html
+# Redirect root index.html
 /index.html / 200
 
-# Clean URLs for home and monitor
+# Redirect /home to /home/index.html
 /home /home/index.html 200
+
+# Redirect /monitor to /monitor/index.html
 /monitor /monitor/index.html 200

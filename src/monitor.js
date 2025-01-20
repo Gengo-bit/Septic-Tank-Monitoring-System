@@ -231,22 +231,18 @@ function calculatePrediction(Cc, Tc) {
 // Go back to home.html if user did not click the Septic tank to monitor (typed the URL)
 auth.onAuthStateChanged((user) => {
   if (user) {
-    const referrer = document.referrer;
-    if (!referrer.includes('home.html')) {
-      window.location.href = 'home.html';
-    }
     document.getElementById('homeButton').addEventListener('click', (event) => {
       event.preventDefault();
-      window.location.href = 'home.html';
+      window.location.href = '../home/home.html';
     });
   } else {
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
   }
 });
 
 document.getElementById('Logout-btn').addEventListener('click', function() {
   auth.signOut().then(() => {
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
   }).catch((error) => {
     console.error('Logout Error: ', error);
   });
