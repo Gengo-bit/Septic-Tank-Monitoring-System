@@ -577,7 +577,7 @@ p {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
   flex: 1 1 40%; 
-  max-width: 500px; 
+  max-width: 100%; 
   margin: 0px; 
 }
 .product-card:hover {
@@ -808,28 +808,31 @@ p {
 
  /*third section*/
  .section-title {
-  font-size: 1.6rem; 
+  font-size: 1.5rem; 
   }
   .product-container {
     width: 100%;
     margin: 10px auto;
   }
   .product-title{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   .product-description{
-    font-size: 1rem;
+    font-size: 0.8rem;
+  }
+  .product-card{
+    max-width: 100%;
   }
   .product-card li{
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   }
   .product-offerings{
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center align */
   }
   .product-image {
-    height: auto;
-    width: auto;
+    height: 0px;
+    width: 0px;
   }
 
    /*fourth section*/
@@ -968,30 +971,33 @@ p {
   }
 
  /*third section*/
- .section-title {
-  font-size: 1.6rem; 
-  }
-  .product-container {
-    width: 100%;
-    margin: 10px auto;
-  }
-  .product-title{
-    font-size: 1.4rem;
-  }
-  .product-description{
-    font-size: 1rem;
-  }
-  .product-card li{
-  font-size: 0.8rem;
-  }
-  .product-offerings{
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center align */
-  }
-  .product-image {
-    height: auto;
-    width: auto;
-  }
+  .section-title {
+    font-size: 1.5rem; 
+    }
+    .product-container {
+      width: 100%;
+      margin: 10px auto;
+    }
+    .product-title{
+      font-size: 1.2rem;
+    }
+    .product-description{
+      font-size: 0.8rem;
+    }
+    .product-card{
+      max-width: 100%;
+    }
+    .product-card li{
+    font-size: 0.6rem;
+    }
+    .product-offerings{
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center align */
+    }
+    .product-image {
+      height: 0px;
+      width: 0px;
+    }
 
    /*fourth section*/
    .benefits-section img{
@@ -1076,168 +1082,6 @@ p {
     margin: 5px;
   }
 }
-/* ANDROID */
-@media screen and (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-    /*header*/
-    .logo {
-      width: 50px;
-      height: 50px;
-      margin-right: 15px;
-    }
-    .main-header h1 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--header-text-color);
-    }
-    .full-screen {
-      height: auto; /* Allow sections to grow if content is long */
-      min-height: 100vh; /* Ensure it still takes up the viewport height */
-      text-align: center; /* Center-align text on smaller screens */
-    }
-    /*first section*/
-    .overlay h2.smart {
-      font-size: 2.5rem;
-      color: #f4c542; 
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-      margin-bottom: 20px;
-    }
-    .overlay p {
-      font-family: "Poppins", sans-serif;
-      font-size: 1.1rem;
-      font-weight: 300;
-      max-width: 700px;
-      color: #f1f1f1;
-      line-height: 1.7; 
-      padding: 0 20px;
-      margin-top: 15px;
-      animation: fadeInUp 1.2s ease forwards;
-    }
-    .overlay:hover .smart {
-      transform: scale(1.05); 
-    }
-    /*second section*/
-    .section-image {
-      height: 100%;
-      width: 100%;
-    }
-    .introduction h2{
-      margin-top: -10%;
-      font-size: 1.8rem;
-    }
-    .introduction p{
-      font-size: 1rem;
-    }
-  
-   /*third section*/
-   .section-title {
-    font-size: 1.6rem; 
-    }
-    .product-container {
-      width: 100%;
-      margin: 10px auto;
-    }
-    .product-title{
-      font-size: 1.4rem;
-    }
-    .product-description{
-      font-size: 1rem;
-    }
-    .product-card li{
-    font-size: 0.8rem;
-    }
-    .product-offerings{
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center align */
-    }
-    .product-image {
-      height: auto;
-      width: auto;
-    }
-  
-     /*fourth section*/
-     .benefits-section img{
-      height: 10%;
-      width: 10%;
-     }
-     .benefits-section h2{
-      font-size: 1.4rem;
-      margin-bottom: 10px; 
-      padding-top: 10px;
-     }
-     .benefits-section h4{
-      font-size: 1rem;
-     }
-     .benefits-section p{
-      font-size: 0.8rem;
-     }
-     .benefits {
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center align */
-    }
-    .benefit-item {
-      width: 100%;
-      margin: 5px 0; 
-    }
-    /*fifth section*/
-    .cta-section h2 {
-      font-size: 2rem;
-    }
-    .cta-section p {
-      font-size: 1.1rem;
-    }
-    .cta-btn {
-      font-size: 1rem;
-      padding: 12px 25px;
-    }
-    /* footer */
-    .footer-content {
-      width: 100%;
-    }
-    .footer-logo img {
-      width: 30px; 
-    }
-    .footer-links a {
-      font-size: 0.5rem; 
-      margin: 5px;
-    }
-    .social-media a img {
-      width: 14px;
-    }
-    .footer-links,
-    .social-media {
-      flex-direction: column; /* Stack footer links vertically */
-      align-items: center;
-    }
-    
-    /* etc*/
-    .modal-content {
-      padding: 2rem;
-      max-width: 90%;
-    }
-    .login-btn {
-      font-size: 1rem;
-      padding: 10px;
-    }
-    .main-header {
-      flex-direction: column;
-      text-align: left;
-    }
-    .button {
-      font-size: 1rem;
-      padding: 10px 20px;
-    }
-    .modal-content {
-      padding: 30px;
-    }
-    .login-text {
-      font-size: 1.2rem;
-    }
-    .footer-links a {
-      font-size: 0.8rem; 
-      margin: 5px;
-    }
-}
-
 
 /* ====================ANIMIATIONS==================== */
 @keyframes scaleUp {
