@@ -505,6 +505,7 @@ p {
   margin-bottom: 40px;
 }
 .ourproduct {
+  margin-top: -10px;
   margin-bottom: -10px;
 }
 .product-title {
@@ -561,7 +562,7 @@ p {
 .product-container {
   display: flex;
   justify-content: center;
-  gap: 40px; 
+  gap: 35px; 
   padding: 20px;
   flex-wrap: wrap; 
 }
@@ -577,7 +578,7 @@ p {
   text-align: center;
   flex: 1 1 40%; 
   max-width: 500px; 
-  margin: 0; 
+  margin: 0px; 
 }
 .product-card:hover {
   transform: scale(1.06);
