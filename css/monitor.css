@@ -501,4 +501,20 @@ footer {
     transform: scale(0.95); 
     transition: transform 0.1s ease; 
   }
+  ::-webkit-scrollbar {
+    width: 4.5px;
+  }
   
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #f4c542, #ffcc00);
+    border-radius: 10px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ffcc00, #f4a742); 
+  }
+  /* background(track of scrollbar) */
+  ::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255); 
+  }
