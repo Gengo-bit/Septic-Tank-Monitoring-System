@@ -15,7 +15,23 @@ const db = firebase.firestore();
 
 auth.onAuthStateChanged((user) => { // Authentication check
   if (user) {
+    const userId = user.uid;
+    const tankList = document.querySelector('.tank-list');
     
+    // Show tank 1 for all users
+    const tank1Box = document.createElement('div');
+    tank1Box.className = 'tank-box';
+    tank1Box.innerHTML = '<p><a href="../monitor/monitor.html?tank=1">Septic Tank 1</a></p>';
+    tankList.appendChild(tank1Box);
+    
+    // Show tank 2 only for specific user
+    if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
+      const tank2Box = document.createElement('div');
+      tank2Box.className = 'tank-box';
+      tank2Box.innerHTML = '<p><a href="../monitor/monitor.html?tank=2">Septic Tank 2</a></p>';
+      tankList.appendChild(tank2Box);
+    }
+
     const userEmail = user.email;  // Get user's email
 
     // Retrieve the user's data from Firestore 

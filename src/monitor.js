@@ -21,12 +21,20 @@ let capacityChart, historicalChart;
 auth.onAuthStateChanged((user) => {
   if (user) {
     const userId = user.uid;
-    if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tankNumber = urlParams.get('tank') || '1';  // Default to tank 1 if not specified
+    
+    if (tankNumber === '1') {
+      // Tank 1 is accessible by all users
       initializeApp(userId, 'septicTankData');
-    } else if (userId === '2GVrMIaFSGeoC01g8zYuin2c5ej2') {
-      initializeApp(userId, 'septicTankData');
+      document.querySelector('.branding h1').textContent = 'Septic Tank 1';
+      } else if (tankNumber === '2' && userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
+      // Tank 2 is only accessible by specific user
+      initializeApp(userId, 'septicTankData2');
+      document.querySelector('.branding h1').textContent = 'Septic Tank 2';
     } else {
-      console.log("Unknown user. No data available.");
+      // Redirect unauthorized users to tank 1
+      window.location.href = 'monitor.html?tank=1';
     }
   } else {
     window.location.href = '../index.html';
@@ -51,10 +59,27 @@ function fetchTankDimensions(userId) {
 }
 
 function initializeApp(userId, dataKey) {
+  // Get data for capacity readings
   database.ref(`users/${userId}/${dataKey}`).orderByKey().limitToLast(10).on('value', (snapshot) => {
     handleSnapshot(snapshot);
   }, handleError);
-  fetchTankDimensions(userId);
+
+  // Determine which dimensions to fetch based on the dataKey
+  const dimensionsKey = dataKey === 'septicTankData' ? 'tankDimensions' : 'tankDimensions2';
+  
+  // Fetch the appropriate tank dimensions
+  database.ref(`users/${userId}/${dimensionsKey}`).once('value', (snapshot) => {
+    if (snapshot.exists()) {
+      const dimensions = snapshot.val();
+      document.getElementById('tankHeight').textContent = `${dimensions.tank_height} cm`;
+      document.getElementById('tankLength').textContent = `${dimensions.tank_length} cm`;
+      document.getElementById('tankWidth').textContent = `${dimensions.tank_width} cm`;
+    } else {
+      console.error(`${dimensionsKey} not found.`);
+    }
+  }).catch((error) => {
+    console.error('Error fetching tank dimensions:', error);
+  });
 }
 
 function initializeCharts() {
