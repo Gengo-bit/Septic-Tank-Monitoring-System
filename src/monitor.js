@@ -28,10 +28,15 @@ auth.onAuthStateChanged((user) => {
       // Tank 1 is accessible by all users
       initializeApp(userId, 'septicTankData');
       document.querySelector('.branding h1').textContent = 'Septic Tank 1';
-      } else if (tankNumber === '2' && userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
-      // Tank 2 is only accessible by specific user
-      initializeApp(userId, 'septicTankData2');
-      document.querySelector('.branding h1').textContent = 'Septic Tank 2';
+    } else if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
+      // Tanks 2 and 3 are only accessible by specific user
+      if (tankNumber === '2') {
+        initializeApp(userId, 'septicTankData2');
+        document.querySelector('.branding h1').textContent = 'Septic Tank 2';
+      } else if (tankNumber === '3') {
+        initializeApp(userId, 'septicTankData3');
+        document.querySelector('.branding h1').textContent = 'Septic Tank 3';
+      }
     } else {
       // Redirect unauthorized users to tank 1
       window.location.href = 'monitor.html?tank=1';

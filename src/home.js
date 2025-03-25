@@ -24,12 +24,17 @@ auth.onAuthStateChanged((user) => { // Authentication check
     tank1Box.innerHTML = '<p><a href="../monitor/monitor.html?tank=1">Septic Tank 1</a></p>';
     tankList.appendChild(tank1Box);
     
-    // Show tank 2 only for specific user
+    // Show tanks 2 and 3 only for specific user
     if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
       const tank2Box = document.createElement('div');
       tank2Box.className = 'tank-box';
       tank2Box.innerHTML = '<p><a href="../monitor/monitor.html?tank=2">Septic Tank 2</a></p>';
       tankList.appendChild(tank2Box);
+
+      const tank3Box = document.createElement('div');
+      tank3Box.className = 'tank-box';
+      tank3Box.innerHTML = '<p><a href="../monitor/monitor.html?tank=3">Septic Tank 3</a></p>';
+      tankList.appendChild(tank3Box);
     }
 
     const userEmail = user.email;  // Get user's email
