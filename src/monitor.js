@@ -70,7 +70,14 @@ function initializeApp(userId, dataKey) {
   }, handleError);
 
   // Determine which dimensions to fetch based on the dataKey
-  const dimensionsKey = dataKey === 'septicTankData' ? 'tankDimensions' : 'tankDimensions2';
+  let dimensionsKey;
+  if (dataKey === 'septicTankData') {
+    dimensionsKey = 'tankDimensions';
+  } else if (dataKey === 'septicTankData2') {
+    dimensionsKey = 'tankDimensions2';
+  } else if (dataKey === 'septicTankData3') {
+    dimensionsKey = 'tankDimensions3';
+  }
   
   // Fetch the appropriate tank dimensions
   database.ref(`users/${userId}/${dimensionsKey}`).once('value', (snapshot) => {
