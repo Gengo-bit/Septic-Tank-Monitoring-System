@@ -24,23 +24,26 @@ auth.onAuthStateChanged((user) => {
     const urlParams = new URLSearchParams(window.location.search);
     const tankNumber = urlParams.get('tank') || '1';  // Default to tank 1 if not specified
     
-    if (tankNumber === '1') {
-      // Tank 1 is accessible by all users
-      initializeApp(userId, 'septicTankData');
-      document.querySelector('.branding h1').textContent = 'Septic Tank 1';
-    } else if (userId === 'oAXEiv3HxfbNlRpH4i2o4mju0sJ2') {
-      // Tanks 2 and 3 are only accessible by specific user
-      if (tankNumber === '2') {
-        initializeApp(userId, 'septicTankData2');
-        document.querySelector('.branding h1').textContent = 'Septic Tank 2';
-      } else if (tankNumber === '3') {
-        initializeApp(userId, 'septicTankData3');
-        document.querySelector('.branding h1').textContent = 'Septic Tank 3';
-      }
-    } else {
-      // Redirect unauthorized users to tank 1
-      window.location.href = 'monitor.html?tank=1';
-    }
+    // Construct the data key based on tank number
+    const dataKey = tankNumber === '1' ? 'septicTankData' : `septicTankData${tankNumber}`;
+    
+    // Check if this tank exists for this user
+    database.ref(`users/${userId}/${dataKey}`).once('value')
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          // Tank exists, initialize the app
+          initializeApp(userId, dataKey);
+          document.querySelector('.branding h1').textContent = `Septic Tank ${tankNumber}`;
+        } else {
+          // Tank doesn't exist for this user, redirect to tank 1
+          console.log(`Tank ${tankNumber} not found for this user`);
+          window.location.href = 'monitor.html?tank=1';
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking tank access:', error);
+        window.location.href = 'monitor.html?tank=1';
+      });
   } else {
     window.location.href = '../index.html';
   }
