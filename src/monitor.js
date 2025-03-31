@@ -327,14 +327,35 @@ function resetZoom() {
 }
 
 function updateCapacity(Cc) {
-  // Update existing capacity displays
-  document.getElementById("capacity").innerHTML = `<span class="capacity-text">Capacity: ${Cc}%</span>`;
+  // Update doughnut chart data
+  capacityChart.data.datasets[0].data = [Cc, 100 - Cc];
+  
+  // Use direct color values for doughnut chart
+  let fillColor;
+  if (Cc < 75) {
+    fillColor = '#4CAF50';
+  } else if (Cc <= 85) {
+    fillColor = '#FFD700';
+  } else if (Cc <= 95) {
+    fillColor = '#FFA500';
+  } else {
+    fillColor = '#FF5A5F';
+  }
+  
+  // Update doughnut chart colors
+  capacityChart.data.datasets[0].backgroundColor = [fillColor, '#36A2EB'];
+  capacityChart.data.datasets[0].hoverBackgroundColor = [fillColor, '#36A2EB'];
+  capacityChart.update();
 
+  // Calculate adjusted water height for tank visualization
+  const inletBottom = 15 + 8; // inlet starts at 15% + height of inlet (20px ≈ 8%)
+  const maxHeight = 103 - inletBottom; // available height below inlet
+  const adjustedHeight = (Cc * maxHeight) / 100;
+  
   // Update water levels in chambers
   const chambers = document.querySelectorAll('.chamber .water');
   let waterColor;
 
-  // Calculate color based on capacity
   if (Cc < 75) {
     waterColor = '#82CFFF';
   } else if (Cc <= 85) {
@@ -345,23 +366,14 @@ function updateCapacity(Cc) {
     waterColor = '#FF5A5F';
   }
 
-  // Calculate water height relative to inlet pipe position
-  // If inlet pipe bottom is at 30px + 20px (height) = 50px from top
-  // and chamber height is 250px, we need to adjust the percentage
-  const inletBottom = 50; // px from top
-  const chamberHeight = 250; // total chamber height in px
-  const maxWaterHeight = chamberHeight - inletBottom; // available height for water
-  
-  // Convert capacity percentage to actual height percentage
-  const heightPercentage = (maxWaterHeight * (Cc / 100)) / chamberHeight * 100;
-
-  // Set the same water level for all chambers
   chambers.forEach(water => {
-    water.style.height = `${heightPercentage}%`;
+    water.style.height = `${adjustedHeight}%`;
     water.style.background = `linear-gradient(to bottom, ${waterColor} 0%, ${adjustColor(waterColor, -20)} 100%)`;
   });
 
-  // Update status text
+  // Keep your existing status update code
+  document.getElementById("capacity").innerHTML = `<span class="capacity-text">Capacity: ${Cc}%</span>`;
+  
   const statusElement = document.getElementById("status");
   let status, color;
   if (Cc < 75) [status, color] = ['Normal', 'var(--status-green)'];

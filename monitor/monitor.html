@@ -22,10 +22,41 @@
             <span class="hamburger-icon"></span>
         </button>
     </div>
+    
     <!-- Status Section -->
     <section id="status-section">
         <h2>Current Capacity</h2>
         <p class="capacity-text"><span id="capacity">No Data Found!<!--display capacity here--></span></p>
+        <div id="tank-visualization">
+            <div class="tank-container">
+                <!-- Digestive Chamber (First) -->
+                <div class="chamber digestive">
+                    <div class="inlet-pipe-left"></div>
+                    <div class="water"></div>
+                    <div class="internal-t-pipe">
+                        <div class="horizontal-pipe"></div>
+                        <div class="vertical-pipe"></div>
+                    </div>
+                    <span class="chamber-label">Digestive Chamber</span>
+                </div>
+                
+                <!-- First Leeching Chamber -->
+                <div class="chamber leeching-1">
+                    <div class="water"></div>
+                    <div class="internal-t-pipe">
+                        <div class="horizontal-pipe down"></div>
+                        <div class="vertical-pipe down"></div>
+                    </div>
+                    <span class="chamber-label">Leeching Chamber 1</span>
+                </div>
+                
+                <!-- Second Leeching Chamber -->
+                <div class="chamber leeching-2">
+                    <div class="water"></div>
+                    <span class="chamber-label">Leeching Chamber 2</span>
+                </div>
+            </div>
+        </div>
         <canvas id="capacityChart"></canvas>
         <p id="status" class="status-text">Status:<!--display status here--></p>
     </section>
@@ -39,41 +70,11 @@
         <button class="zoom" onclick="resetZoom()">Reset Zoom</button>
     </section>
     <section id="distance-section">
-        <h2>Distance History</h2>
+        <h2>Distance Data</h2>
         <canvas id="distanceChart"></canvas>
         <button class="zoom" onclick="resetDistanceZoom()">Reset Zoom</button>
     </section>
-    <section id="tank-visualization">
-        <h2>Septic Tank Visualization</h2>
-        <div class="tank-container">
-            <!-- Digestive Chamber (First) -->
-            <div class="chamber digestive">
-                <div class="inlet-pipe-left"></div>
-                <div class="water"></div>
-                <div class="internal-t-pipe">
-                    <div class="horizontal-pipe"></div>
-                    <div class="vertical-pipe"></div>
-                </div>
-                <span class="chamber-label">Digestive Chamber</span>
-            </div>
-            
-            <!-- First Leeching Chamber -->
-            <div class="chamber leeching-1">
-                <div class="water"></div>
-                <div class="internal-t-pipe">
-                    <div class="horizontal-pipe"></div>
-                    <div class="vertical-pipe"></div>
-                </div>
-                <span class="chamber-label">Leeching Chamber 1</span>
-            </div>
-            
-            <!-- Second Leeching Chamber -->
-            <div class="chamber leeching-2">
-                <div class="water"></div>
-                <span class="chamber-label">Leeching Chamber 2</span>
-            </div>
-        </div>
-    </section>
+
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <button id="close-btn" class="close-btn">&times;</button>

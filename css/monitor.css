@@ -564,11 +564,7 @@ footer {
     box-shadow: 0 0 0 2px rgba(130, 207, 255, 0.2);
   }
   #tank-visualization {
-    padding: 20px;
     margin: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tank-container {
@@ -645,7 +641,7 @@ footer {
 
 .chamber-label {
     position: absolute;
-    bottom: -25px;
+    bottom: -35px;
     left: 0;
     right: 0;
     text-align: center;
@@ -653,7 +649,9 @@ footer {
     color: #666;
     font-weight: bold;
 }
-
+.down {
+  margin-top: 10px;
+}
 @keyframes waves {
     0%, 100% { transform: translateY(-5px); }
     50% { transform: translateY(5px); }
