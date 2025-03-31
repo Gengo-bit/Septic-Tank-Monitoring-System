@@ -16,7 +16,7 @@ const database = firebase.database();
 
 let Ci = null;
 let Ti = null;
-let capacityChart, historicalChart;
+let capacityChart, historicalChart, distanceChart;
 
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -71,6 +71,24 @@ function initializeApp(userId, dataKey) {
   database.ref(`users/${userId}/${dataKey}`).orderByKey().limitToLast(10).on('value', (snapshot) => {
     handleSnapshot(snapshot);
   }, handleError);
+
+  // Add separate distance data listener
+  const tankNumber = dataKey === 'septicTankData' ? '1' : dataKey.replace('septicTankData', '');
+  const distanceKey = tankNumber === '1' ? 'distance' : `distance${tankNumber}`;
+  
+  database.ref(`users/${userId}/${distanceKey}`).limitToLast(10).on('value', (snapshot) => {
+    if (snapshot.exists()) {
+      distanceChart.data.labels = [];
+      distanceChart.data.datasets[0].data = [];
+      
+      Object.entries(snapshot.val()).forEach(([timestamp, distance]) => {
+        const date = new Date(parseInt(timestamp) * 1000);
+        distanceChart.data.labels.push(`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`);
+        distanceChart.data.datasets[0].data.push(distance);
+      });
+      distanceChart.update();
+    }
+  });
 
   // Make dimensions key dynamic
   const dimensionsKey = dataKey === 'septicTankData' ? 
@@ -201,6 +219,54 @@ function initializeCharts() {
       }
     }
   });
+
+  distanceChart = new Chart(document.getElementById('distanceChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Distance Over Time',
+        data: [],
+        borderColor: '#82CFFF',
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          title: { display: true, text: 'Time and Date' },
+          ticks: { color: (context) => context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A' }
+        },
+        y: {
+          title: { display: true, text: 'Distance (cm)' },
+          ticks: { color: (context) => context.chart.canvas.style.backgroundColor === 'black' ? '#D1D1D1' : '#4A4A4A' }
+        }
+      },
+      plugins: {
+        zoom: {
+          pan: {
+            enabled: true,
+            mode: 'x'
+          },
+          zoom: {
+            wheel: {
+              enabled: true,
+              speed: 0.1
+            },
+            pinch: {
+              enabled: true
+            },
+            mode: 'x',
+            limits: {
+              x: { min: 'original', max: 'original' }
+            }
+          }
+        }
+      }
+    }
+  });
 }
 
 function handleSnapshot(snapshot) {
@@ -209,10 +275,14 @@ function handleSnapshot(snapshot) {
     return;
   }
 
+  // Clear all chart data
   capacityChart.data.datasets[0].data = [];
   historicalChart.data.labels = [];
   historicalChart.data.datasets[0].data = [];
+  distanceChart.data.labels = [];
+  distanceChart.data.datasets[0].data = [];
 
+  // Handle your existing capacity data as before
   snapshot.forEach((childSnapshot) => {
     const data = childSnapshot.val();
     const Cc = data.capacity; 
@@ -225,6 +295,23 @@ function handleSnapshot(snapshot) {
     updateCapacity(Cc);
     updateHistoricalChart(Cc, formattedDate, formattedTime);
     calculatePrediction(Cc, Tc);
+  });
+
+  // Get the correct distance data based on tank number
+  const tankNumber = new URLSearchParams(window.location.search).get('tank') || '1';
+  const distanceKey = tankNumber === '1' ? 'distance' : `distance${tankNumber}`;
+
+  // Fetch distance data separately since it's at the same level as septicTankData
+  database.ref(`users/${userId}/${distanceKey}`).once('value', (distanceSnapshot) => {
+    if (distanceSnapshot.exists()) {
+      const distanceData = distanceSnapshot.val();
+      Object.entries(distanceData).forEach(([timestamp, distance]) => {
+        const date = new Date(parseInt(timestamp) * 1000);
+        distanceChart.data.labels.push(`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`);
+        distanceChart.data.datasets[0].data.push(distance);
+      });
+      distanceChart.update();
+    }
   });
 
   capacityChart.update();
@@ -324,4 +411,9 @@ document.getElementById('Logout-btn').addEventListener('click', function() {
 
 function scrollToSection(sectionId) {
   document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Add reset zoom function for distance chart
+function resetDistanceZoom() {
+  distanceChart.resetZoom();
 }

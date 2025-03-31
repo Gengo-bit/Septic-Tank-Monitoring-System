@@ -346,7 +346,7 @@
     transition: background-color var(--transition-duration), color var(--transition-duration);
   }
   
-  #historicalChart {
+  #historicalChart, #distanceChart {
     width: 100%;
     height: 400px; /* Make sure there's enough space for the chart */
   }
