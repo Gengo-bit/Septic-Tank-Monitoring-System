@@ -81,9 +81,46 @@ function initializeApp(userId, dataKey) {
   database.ref(`users/${userId}/${dimensionsKey}`).once('value', (snapshot) => {
     if (snapshot.exists()) {
       const dimensions = snapshot.val();
-      document.getElementById('tankHeight').textContent = `${dimensions.tank_height} cm`;
-      document.getElementById('tankLength').textContent = `${dimensions.tank_length} cm`;
-      document.getElementById('tankWidth').textContent = `${dimensions.tank_width} cm`;
+      
+      // Display current dimensions
+      document.getElementById('tankHeight').textContent = `${dimensions.height}`;
+      document.getElementById('tankLength').textContent = `${dimensions.length}`;
+      document.getElementById('tankWidth').textContent = `${dimensions.width}`;
+      document.getElementById('tankInlet').textContent = `${dimensions.full}`;
+
+      // Set input values
+      document.getElementById('heightInput').value = dimensions.height;
+      document.getElementById('lengthInput').value = dimensions.length;
+      document.getElementById('widthInput').value = dimensions.width;
+      document.getElementById('inletInput').value = dimensions.full;
+
+      // Add event listeners
+      document.getElementById('editDimensions').addEventListener('click', () => {
+        // Hide display paragraphs, show input fields
+        document.querySelectorAll('#settingsForm p[id]').forEach(p => p.style.display = 'none');
+        document.querySelectorAll('#settingsForm input').forEach(input => input.style.display = 'block');
+        document.getElementById('editDimensions').style.display = 'none';
+        document.getElementById('saveDimensions').style.display = 'block';
+      });
+
+      document.getElementById('saveDimensions').addEventListener('click', () => {
+        const newDimensions = {
+          height: parseFloat(document.getElementById('heightInput').value),
+          length: parseFloat(document.getElementById('lengthInput').value),
+          width: parseFloat(document.getElementById('widthInput').value),
+          full: parseFloat(document.getElementById('inletInput').value)
+        };
+
+        // Update database
+        database.ref(`users/${userId}/${dimensionsKey}`).update(newDimensions)
+          .then(() => {
+            console.log('Settings updated successfully');
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error('Error updating settings:', error);
+          });
+      });
     } else {
       console.error(`${dimensionsKey} not found.`);
     }

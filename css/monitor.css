@@ -518,3 +518,48 @@ footer {
   ::-webkit-scrollbar-track {
     background: rgb(255, 255, 255); 
   }
+  .edit-btn, .save-btn {
+    padding: 8px 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;  /* Rounded corners like your other buttons */
+    font-family: 'Poppins', sans-serif;  /* Match your font */
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;  /* Smooth hover effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+  }
+  
+  .edit-btn {
+    background-color: var(--primary-color);  /* Use your app's primary color */
+    color: white;
+  }
+  
+  .save-btn {
+    background-color: #82CFFF;  /* Match your app's blue accent color */
+    color: white;
+  }
+  
+  /* Hover effects */
+  .edit-btn:hover, .save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Input fields styling */
+  .settings-group input {
+    padding: 8px 12px;
+    border: 1px solid #E0E0E0;
+    border-radius: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    background-color: #F5F5F5;
+  }
+  
+  .settings-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(130, 207, 255, 0.2);
+  }

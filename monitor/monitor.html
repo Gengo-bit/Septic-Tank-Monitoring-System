@@ -68,16 +68,32 @@
     <!-- Modal for Settings -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
-        <span class="close-settings">&times;</span>
-        <h2>Tank Settings</h2>
-        <form id="settingsForm">
-            <p>Tank Height (cm):</p>
-            <p id="tankHeight">Loading...</p>
-            <p>Tank Length (cm):</p>
-            <p id="tankLength">Loading...</p>
-            <p>Tank Width (cm):</p>
-            <p id="tankWidth">Loading...</p>            
-        </form>
+            <span class="close-settings">&times;</span>
+            <h2>Tank Settings</h2>
+            <form id="settingsForm">
+                <div class="settings-group">
+                    <p>Tank Height (cm):</p>
+                    <p id="tankHeight">Loading...</p>
+                    <input type="number" id="heightInput" style="display: none;">
+                </div>
+                <div class="settings-group">
+                    <p>Tank Length (cm):</p>
+                    <p id="tankLength">Loading...</p>
+                    <input type="number" id="lengthInput" style="display: none;">
+                </div>
+                <div class="settings-group">
+                    <p>Tank Width (cm):</p>
+                    <p id="tankWidth">Loading...</p>
+                    <input type="number" id="widthInput" style="display: none;">
+                </div>
+                <div class="settings-group">
+                    <p>Inlet Height (cm):</p>
+                    <p id="tankInlet">Loading...</p>
+                    <input type="number" id="inletInput" style="display: none;">
+                </div>
+                <button type="button" id="editDimensions" class="edit-btn">Edit Dimensions</button>
+                <button type="button" id="saveDimensions" class="save-btn" style="display: none;">Save Changes</button>
+            </form>
         </div>
     </div>  
     <!-- Modal for Thresholds -->
