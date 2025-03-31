@@ -327,20 +327,54 @@ function resetZoom() {
 }
 
 function updateCapacity(Cc) {
-  capacityChart.data.datasets[0].data = [Cc, 100 - Cc];
-  capacityChart.update();
-
+  // Update existing capacity displays
   document.getElementById("capacity").innerHTML = `<span class="capacity-text">Capacity: ${Cc}%</span>`;
 
+  // Update water levels in chambers
+  const chambers = document.querySelectorAll('.chamber .water');
+  let waterColor;
+
+  // Calculate color based on capacity
+  if (Cc < 75) {
+    waterColor = '#82CFFF';
+  } else if (Cc <= 85) {
+    waterColor = '#FFD700';
+  } else if (Cc <= 95) {
+    waterColor = '#FFA500';
+  } else {
+    waterColor = '#FF5A5F';
+  }
+
+  // Calculate water height relative to inlet pipe position
+  // If inlet pipe bottom is at 30px + 20px (height) = 50px from top
+  // and chamber height is 250px, we need to adjust the percentage
+  const inletBottom = 50; // px from top
+  const chamberHeight = 250; // total chamber height in px
+  const maxWaterHeight = chamberHeight - inletBottom; // available height for water
+  
+  // Convert capacity percentage to actual height percentage
+  const heightPercentage = (maxWaterHeight * (Cc / 100)) / chamberHeight * 100;
+
+  // Set the same water level for all chambers
+  chambers.forEach(water => {
+    water.style.height = `${heightPercentage}%`;
+    water.style.background = `linear-gradient(to bottom, ${waterColor} 0%, ${adjustColor(waterColor, -20)} 100%)`;
+  });
+
+  // Update status text
   const statusElement = document.getElementById("status");
   let status, color;
-
   if (Cc < 75) [status, color] = ['Normal', 'var(--status-green)'];
   else if (Cc <= 85) [status, color] = ['Above Normal', 'var(--status-yellow)'];
   else if (Cc <= 95) [status, color] = ['Critical', 'var(--status-orange)'];
   else [status, color] = ['Full', 'var(--status-red)'];
 
   statusElement.innerHTML = `<span class="status-text">The Septic Tank is </span><span class="status" style="color: ${color};"><strong>${status}</strong></span>`;
+}
+
+// Helper function to adjust colors
+function adjustColor(color, amount) {
+  return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
 }
 
 function updateHistoricalChart(Cc, date, Tc) {

@@ -43,6 +43,37 @@
         <canvas id="distanceChart"></canvas>
         <button class="zoom" onclick="resetDistanceZoom()">Reset Zoom</button>
     </section>
+    <section id="tank-visualization">
+        <h2>Septic Tank Visualization</h2>
+        <div class="tank-container">
+            <!-- Digestive Chamber (First) -->
+            <div class="chamber digestive">
+                <div class="inlet-pipe-left"></div>
+                <div class="water"></div>
+                <div class="internal-t-pipe">
+                    <div class="horizontal-pipe"></div>
+                    <div class="vertical-pipe"></div>
+                </div>
+                <span class="chamber-label">Digestive Chamber</span>
+            </div>
+            
+            <!-- First Leeching Chamber -->
+            <div class="chamber leeching-1">
+                <div class="water"></div>
+                <div class="internal-t-pipe">
+                    <div class="horizontal-pipe"></div>
+                    <div class="vertical-pipe"></div>
+                </div>
+                <span class="chamber-label">Leeching Chamber 1</span>
+            </div>
+            
+            <!-- Second Leeching Chamber -->
+            <div class="chamber leeching-2">
+                <div class="water"></div>
+                <span class="chamber-label">Leeching Chamber 2</span>
+            </div>
+        </div>
+    </section>
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <button id="close-btn" class="close-btn">&times;</button>
