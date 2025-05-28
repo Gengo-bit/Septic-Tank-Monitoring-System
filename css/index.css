@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 :root {
-  --base-color: #f5f7fa; /* Light background for sections */
-  --base-variant: #ffffff; /* Lighter variant for backgrounds */
+  --base-color: #ebebeb; /* Light background for sections */
+  --base-variant: #ebebeb; /* Lighter variant for backgrounds */
   --text-color: #2d3a4b; /* Dark text for readability */
   --secondary-text: #5c6f81; /* Subtle, muted text */
   --primary-color: #1a1a1a; /* Dark color for headers */
@@ -22,7 +22,7 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   transition: background-color var(--transition-duration),
-  color var(--transition-duration);
+    color var(--transition-duration);
   display: flex;
   flex-direction: column;
 }
@@ -90,7 +90,7 @@ p {
   color: #555;
   margin-top: 20px;
 }
-.forgot-password a{
+.forgot-password a {
   color: #f4c542;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -170,28 +170,28 @@ p {
   color: #ff4c4c;
 }
 .login-btn {
-  background-color: #f4c542; 
+  background-color: #f4c542;
   color: white;
   border: none;
-  padding: 12px 25px; 
-  border-radius: 10px; 
-  font-size: 1.2rem; 
-  font-weight: 600; 
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.3s ease,
-  box-shadow 0.3s ease;
+    box-shadow 0.3s ease;
   margin-top: 20px;
 }
 .login-btn:hover {
-  background-color: #d8a327; 
+  background-color: #d8a327;
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 .login-btn:active {
   background-color: #bf8b1b;
   transform: translateY(1px); /* Press down effect */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 @keyframes modalFadeIn {
   0% {
@@ -229,7 +229,7 @@ p {
   align-items: left;
   border-bottom: 1px solid #ccc;
   transition: background-color var(--transition-duration),
-  color var(--transition-duration);
+    color var(--transition-duration);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -268,7 +268,7 @@ p {
   transition: color 0.3s ease;
 }
 .nav-link:hover {
-  color: var(--accent-color); 
+  color: var(--accent-color);
   transform: translateY(-3px);
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -296,9 +296,9 @@ p {
   font-size: 1.5rem;
   background: none;
   border: none;
-  color: var(--header-text-color); 
+  color: var(--header-text-color);
   cursor: pointer;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: -5%;
 }
 .hamburger i {
@@ -358,7 +358,7 @@ p {
   transition: background-color 0.3s ease, transform 0.3s ease;
   transform: translateY(-2px);
 }
-.login-toggle-btn2{
+.login-toggle-btn2 {
   font-family: "Poppins", sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
@@ -509,13 +509,13 @@ p {
   margin-bottom: -10px;
 }
 .product-title {
-  font-size: 1.8rem; 
+  font-size: 1.8rem;
   color: var(--primary-color);
   margin-bottom: 10px;
   font-weight: 600;
 }
 .product-title2 {
-  font-size: 1.8rem; 
+  font-size: 1.8rem;
   color: var(--primary-color);
   margin-top: -10px;
   margin-bottom: 10px;
@@ -523,18 +523,18 @@ p {
 }
 .product-description {
   font-size: 1.2rem;
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
   color: #555;
 }
 .product-features {
   list-style-type: none; /* Remove default list styling */
-  padding: 0; 
-  margin: 15px 0; 
+  padding: 0;
+  margin: 15px 0;
 }
 .product-features li {
   text-align: left;
   margin-bottom: 10px;
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
   color: var(--text-color);
   position: relative; /* For pseudo-element */
   padding-left: 25px; /* Space for the bullet point */
@@ -543,13 +543,13 @@ p {
 .product-features li::before {
   content: "✔"; /* Use a checkmark */
   position: absolute;
-  left: 0; 
+  left: 0;
   color: var(--accent-color);
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
 }
 .product-features li:hover {
-  color: var(--accent-color); 
-  transition: color 0.3s ease; 
+  color: var(--accent-color);
+  transition: color 0.3s ease;
 }
 .product-offerings {
   background: var(--base-color);
@@ -562,12 +562,12 @@ p {
 .product-container {
   display: flex;
   justify-content: center;
-  gap: 35px; 
+  gap: 35px;
   padding: 20px;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 .product-container {
-  align-items: stretch; 
+  align-items: stretch;
 }
 .product-card {
   background-color: #ffffff;
@@ -576,9 +576,9 @@ p {
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  flex: 1 1 40%; 
-  max-width: 100%; 
-  margin: 0px; 
+  flex: 1 1 40%;
+  max-width: 100%;
+  margin: 0px;
 }
 .product-card:hover {
   transform: scale(1.06);
@@ -588,7 +588,7 @@ p {
   margin-left: auto;
   margin-right: auto;
   width: 100px;
-  height: 100px; 
+  height: 100px;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
@@ -638,12 +638,12 @@ p {
 /* ====================FIFTH SECTION==================== */
 .cta-section {
   height: 100vh;
-  min-height: 100vh; 
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px; 
+  padding: 40px;
   animation: fadeInUp 0.5s ease;
 }
 .cta-section h2 {
@@ -775,7 +775,7 @@ p {
   /*first section*/
   .overlay h2.smart {
     font-size: 2.5rem;
-    color: #f4c542; 
+    color: #f4c542;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
     margin-bottom: 20px;
   }
@@ -785,48 +785,48 @@ p {
     font-weight: 300;
     max-width: 700px;
     color: #f1f1f1;
-    line-height: 1.7; 
+    line-height: 1.7;
     padding: 0 20px;
     margin-top: 15px;
     animation: fadeInUp 1.2s ease forwards;
   }
   .overlay:hover .smart {
-    transform: scale(1.05); 
+    transform: scale(1.05);
   }
   /*second section*/
   .section-image {
     height: 100%;
     width: 100%;
   }
-  .introduction h2{
+  .introduction h2 {
     margin-top: -10%;
     font-size: 1.8rem;
   }
-  .introduction p{
+  .introduction p {
     font-size: 1rem;
   }
 
- /*third section*/
- .section-title {
-  font-size: 1.5rem; 
+  /*third section*/
+  .section-title {
+    font-size: 1.5rem;
   }
   .product-container {
     width: 100%;
     margin: 10px auto;
   }
-  .product-title{
+  .product-title {
     font-size: 1.2rem;
   }
-  .product-description{
+  .product-description {
     font-size: 0.8rem;
   }
-  .product-card{
+  .product-card {
     max-width: 100%;
   }
-  .product-card li{
-  font-size: 0.6rem;
+  .product-card li {
+    font-size: 0.6rem;
   }
-  .product-offerings{
+  .product-offerings {
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center align */
   }
@@ -835,32 +835,32 @@ p {
     width: 0px;
   }
   .product-features li::before {
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
   }
 
-   /*fourth section*/
-   .benefits-section img{
+  /*fourth section*/
+  .benefits-section img {
     height: 10%;
     width: 10%;
-   }
-   .benefits-section h2{
+  }
+  .benefits-section h2 {
     font-size: 1.4rem;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     padding-top: 10px;
-   }
-   .benefits-section h4{
+  }
+  .benefits-section h4 {
     font-size: 1rem;
-   }
-   .benefits-section p{
+  }
+  .benefits-section p {
     font-size: 0.8rem;
-   }
-   .benefits {
+  }
+  .benefits {
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center align */
   }
   .benefit-item {
     width: 100%;
-    margin: 5px 0; 
+    margin: 5px 0;
   }
   /*fifth section*/
   .cta-section h2 {
@@ -878,10 +878,10 @@ p {
     width: 100%;
   }
   .footer-logo img {
-    width: 30px; 
+    width: 30px;
   }
   .footer-links a {
-    font-size: 0.5rem; 
+    font-size: 0.5rem;
     margin: 5px;
   }
   .social-media a img {
@@ -892,7 +892,7 @@ p {
     flex-direction: column; /* Stack footer links vertically */
     align-items: center;
   }
-  
+
   /* etc*/
   .modal-content {
     padding: 2rem;
@@ -917,7 +917,7 @@ p {
     font-size: 1.2rem;
   }
   .footer-links a {
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
     margin: 5px;
   }
 }
@@ -942,7 +942,7 @@ p {
   /*first section*/
   .overlay h2.smart {
     font-size: 2.5rem;
-    color: #f4c542; 
+    color: #f4c542;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
     margin-bottom: 20px;
   }
@@ -952,82 +952,82 @@ p {
     font-weight: 300;
     max-width: 700px;
     color: #f1f1f1;
-    line-height: 1.7; 
+    line-height: 1.7;
     padding: 0 20px;
     margin-top: 15px;
     animation: fadeInUp 1.2s ease forwards;
   }
   .overlay:hover .smart {
-    transform: scale(1.05); 
+    transform: scale(1.05);
   }
   /*second section*/
   .section-image {
     height: 100%;
     width: 100%;
   }
-  .introduction h2{
+  .introduction h2 {
     margin-top: -10%;
     font-size: 1.8rem;
   }
-  .introduction p{
+  .introduction p {
     font-size: 1rem;
   }
 
- /*third section*/
+  /*third section*/
   .section-title {
-    font-size: 1.5rem; 
-    }
-    .product-container {
-      width: 100%;
-      margin: 10px auto;
-    }
-    .product-title{
-      font-size: 1.2rem;
-    }
-    .product-description{
-      font-size: 0.8rem;
-    }
-    .product-card{
-      max-width: 100%;
-    }
-    .product-card li{
+    font-size: 1.5rem;
+  }
+  .product-container {
+    width: 100%;
+    margin: 10px auto;
+  }
+  .product-title {
+    font-size: 1.2rem;
+  }
+  .product-description {
+    font-size: 0.8rem;
+  }
+  .product-card {
+    max-width: 100%;
+  }
+  .product-card li {
     font-size: 0.6rem;
-    }
-    .product-offerings{
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center align */
-    }
-    .product-image {
-      height: 0px;
-      width: 0px;
-    }
-    .product-features li::before {
-      font-size: 0.8rem; 
-    }
-    
-   /*fourth section*/
-   .benefits-section img{
+  }
+  .product-offerings {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align */
+  }
+  .product-image {
+    height: 0px;
+    width: 0px;
+  }
+  .product-features li::before {
+    font-size: 0.8rem;
+  }
+
+  /*fourth section*/
+  .benefits-section img {
     height: 10%;
     width: 10%;
-   }
-   .benefits-section h2{
+  }
+  .benefits-section h2 {
     font-size: 1.4rem;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     padding-top: 10px;
-   }
-   .benefits-section h4{
+  }
+  .benefits-section h4 {
     font-size: 1rem;
-   }
-   .benefits-section p{
+  }
+  .benefits-section p {
     font-size: 0.8rem;
-   }
-   .benefits {
+  }
+  .benefits {
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center align */
   }
   .benefit-item {
     width: 100%;
-    margin: 5px 0; 
+    margin: 5px 0;
   }
   /*fifth section*/
   .cta-section h2 {
@@ -1045,10 +1045,10 @@ p {
     width: 100%;
   }
   .footer-logo img {
-    width: 30px; 
+    width: 30px;
   }
   .footer-links a {
-    font-size: 0.5rem; 
+    font-size: 0.5rem;
     margin: 5px;
   }
   .social-media a img {
@@ -1059,7 +1059,7 @@ p {
     flex-direction: column; /* Stack footer links vertically */
     align-items: center;
   }
-  
+
   /* etc*/
   .modal-content {
     padding: 2rem;
@@ -1084,7 +1084,7 @@ p {
     font-size: 1.2rem;
   }
   .footer-links a {
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
     margin: 5px;
   }
 }
@@ -1220,9 +1220,9 @@ p {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ffcc00, #f4a742); 
+  background: linear-gradient(180deg, #ffcc00, #f4a742);
 }
 /* background(track of scrollbar) */
 ::-webkit-scrollbar-track {
-  background: rgb(255, 255, 255); 
+  background: rgb(255, 255, 255);
 }
