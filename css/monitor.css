@@ -370,7 +370,8 @@ canvas {
   margin: 20px auto;
 }
 #capacityChart {
-  display: hidden;
+  opacity: 0;
+  position: absolute;
 }
 
 /* Footer Styles */
